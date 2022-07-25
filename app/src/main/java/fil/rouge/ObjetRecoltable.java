@@ -1,11 +1,11 @@
 package fil.rouge;
 
-public abstract class ObjetRecoltable {
+public class ObjetRecoltable {
     protected int id_recoltable; // id en BDD
     protected String nom; // nom de l'objet à récolter
     protected int id_outil; // id de l'outil à utiliser pour récolter
     protected int nb_ressources; // nombre de ressources que cela va donner
-    protected int id_ressource; // type de la ressource que cela va donner
+    protected Ressource type; // type de la ressource que cela va donner
 
 
     //#region Constructeurs
@@ -16,10 +16,10 @@ public abstract class ObjetRecoltable {
         this.nom = nom;
     }
 
-    public ObjetRecoltable(String nom, int nb_ressources, int id_ressource){
+    public ObjetRecoltable(String nom, int nb_ressources, Ressource type){
         this.nom = nom;
         this.nb_ressources = nb_ressources;
-        this.id_ressource = id_ressource;
+        this.type = type;
     }
     //#endregion
 
@@ -57,22 +57,23 @@ public abstract class ObjetRecoltable {
         this.nb_ressources = nb_ressources;
     }
 
-    public int getId_ressource() {
-        return id_ressource;
+    public Ressource getType() {
+        return type;
     }
 
-    public void setId_ressource(int id_ressource) {
-        this.id_ressource = id_ressource;
+    public void setType(Ressource type) {
+        this.type = type;
     }
     //#endregion
 
     //#region Méthodes
-
-    public void recolte(int id_outil){
-
-    }
-
     public boolean ramasser(){
         return false;
     }
+
+    public void recolter(Outils outil){
+// si outil dispo dans inventaire alors on utilise pour extraire ressource selon la capacité (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire)
+// puis ramasser
+    }
+
 }
