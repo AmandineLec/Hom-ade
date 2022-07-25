@@ -97,7 +97,7 @@ public class Maison {
 
     }
 
-    public void agrandir(){
+    public void agrandir(int nb_ressources){
 
     }
     
