@@ -4,10 +4,10 @@ public class Maison {
     protected int id_maison;
     protected int niveau; // début à 1
     protected int nb_pieces; // début à 1
-    protected Pieces piece;
     protected String id_ressource; // pour récupérer les ressources nécessaires à l'agrandissement
     protected int nb_ressources; // pour définir le nombre de ressources nécéssaires pour agrandir
     protected String etabli; // pour accéder à l'établi lors de la création d'objets
+    protected Pieces piece; // pour accéder à la pièce
 
     //#region Constructeurs
     public Maison(){
@@ -59,7 +59,8 @@ public class Maison {
     }
 
     public void setEtabli(String etabli) {
-        this.etabli = etabli;
+        this.etabli = 
+        etabli;
     }
 
     public int getId_maison() {

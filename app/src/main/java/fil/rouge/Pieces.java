@@ -1,6 +1,5 @@
 package fil.rouge;
 
-
 public class Pieces {
     protected int id_piece;
     protected String nom;
