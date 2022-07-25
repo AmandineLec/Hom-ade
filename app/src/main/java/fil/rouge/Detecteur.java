@@ -22,8 +22,21 @@ public class Detecteur extends Outils{
     public void setCapacite(int capacite) {
         this.capacite = capacite;
     }
-
+    
     //#endregion
+
+    
+    //#region METHOD
+    @Override
+    public void equiper(Joueur target) {
+        
+    }
+    @Override
+    public void desequipper(Joueur target) {
+        
+    }
+    //#endregion
+
 
     
 }

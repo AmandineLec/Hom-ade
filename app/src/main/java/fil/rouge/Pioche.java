@@ -24,4 +24,15 @@ public class Pioche extends Outils{
     }
     //#endregion
 
+    //#region METHOD
+    @Override
+    public void equiper(Joueur target) {
+        
+    }
+    @Override
+    public void desequipper(Joueur target) {
+        
+    }
+    //#endregion
+
 }
