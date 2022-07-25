@@ -2,6 +2,7 @@ package fil.rouge;
 import java.util.HashMap;
 
 public abstract class Personnage {
+  protected int id_personnage;
   protected String name;
   protected boolean sexe = true; // true pour masculin false pour féminin ou inversement si vous préférer
   protected HashMap<String, Integer> inventory = new HashMap<String, Integer >();
