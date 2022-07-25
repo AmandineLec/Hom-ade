@@ -5,7 +5,8 @@ public abstract class Personnage {
   protected int id_personnage;
   protected String name;
   protected boolean sexe = true; // true pour masculin false pour féminin ou inversement si vous préférer
-  protected HashMap<String, Integer> inventory = new HashMap<String, Integer >();
+  protected HashMap<Ressource, Integer> inventaire = new HashMap<Ressource, Integer >();
+  protected HashMap<Objet, Integer> inventaireObjet = new HashMap<Objet, Integer>();
 
 //#region getter and setter and one construtor
 
@@ -25,12 +26,20 @@ public abstract class Personnage {
     this.sexe = newSexe;
   }
 
-  public HashMap<String, Integer> getInventory() {
-    return inventory;
+  public HashMap<Ressource, Integer> getInventaire() {
+    return inventaire;
   }
 
-  public void setInventory(HashMap<String, Integer> newInventory) {
-    this.inventory = newInventory;
+  public void setInventaire(HashMap<Ressource, Integer> newInventaire) {
+    this.inventaire = newInventaire;
+  }
+
+  public HashMap<Objet, Integer> getInventaireObjet() {
+    return inventaireObjet;
+  }
+
+  public void setInventaireObjet(HashMap<Objet, Integer> newInventaireObjet) {
+    this.inventaireObjet = newInventaireObjet;
   }
 
   public Personnage(String name, boolean sexe){
