@@ -1,6 +1,6 @@
 package fil.rouge;
 
-public class Ressource {
+public abstract class Ressource implements IRamassable{
     private int id;
     private String nom;
 
