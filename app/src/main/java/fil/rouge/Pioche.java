@@ -1,10 +1,9 @@
 package fil.rouge;
 
-public class Pioche extends Objet implements Equipable {
+public class Pioche extends Outils{
     
     //#region Variables
     protected int capacite;
-    protected int resistance;
     //#endregion
 
     //#region Constructeur
@@ -20,23 +19,8 @@ public class Pioche extends Objet implements Equipable {
     public int getCapacite() {
         return capacite;
     }
-    public int getResistance() {
-        return resistance;
-    }
     public void setCapacite(int capacite) {
         this.capacite = capacite;
-    }
-    public void setResistance(int resistance) {
-        this.resistance = resistance;
-    }
-    //#endregion
-
-    //#region METHOD
-    public void equiper(){
-        
-    }
-    public void desequipper(){
-        
     }
     //#endregion
 

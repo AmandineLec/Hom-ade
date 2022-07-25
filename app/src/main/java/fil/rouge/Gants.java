@@ -1,10 +1,9 @@
 package fil.rouge;
 
-public class Gants extends Objet implements Equipable{
+public class Gants extends Outils{
     
     //#region Variables
     protected int capacite;
-    protected int resistance;
     //#endregion
 
     //#region Constructeur
@@ -26,21 +25,5 @@ public class Gants extends Objet implements Equipable{
         this.capacite = capacite;
     }
 
-    public int getResistance() {
-        return resistance;
-    }
-
-    public void setResistance(int resistance) {
-        this.resistance = resistance;
-    }
-    //#endregion
-
-    //#region METHOD
-    public void equiper(){
-
-    }
-    public void desequipper(){
-        
-    }
     //#endregion
 }
