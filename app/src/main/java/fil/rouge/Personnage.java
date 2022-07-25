@@ -5,8 +5,9 @@ public abstract class Personnage {
   protected int id_personnage;
   protected String name;
   protected boolean sexe = true; // true pour masculin false pour féminin ou inversement si vous préférer
-  protected HashMap<Ressource, Integer> inventaire = new HashMap<Ressource, Integer >();
-  protected HashMap<Objet, Integer> inventaireObjet = new HashMap<Objet, Integer>();
+  protected HashMap<Objet, Integer> inventory = new HashMap<Objet, Integer >();
+  protected Outils outils;
+
 
 //#region getter and setter and one construtor
 
@@ -26,25 +27,33 @@ public abstract class Personnage {
     this.sexe = newSexe;
   }
 
-  public HashMap<Ressource, Integer> getInventaire() {
-    return inventaire;
+  public HashMap<Objet, Integer> getInventory() {
+    return inventory;
   }
 
-  public void setInventaire(HashMap<Ressource, Integer> newInventaire) {
-    this.inventaire = newInventaire;
+  public void setInventory(HashMap<Objet, Integer> newInventory) {
+    this.inventory = newInventory;
   }
 
-  public HashMap<Objet, Integer> getInventaireObjet() {
-    return inventaireObjet;
+  public Outils getOutils() {
+    return outils;
   }
 
-  public void setInventaireObjet(HashMap<Objet, Integer> newInventaireObjet) {
-    this.inventaireObjet = newInventaireObjet;
+  public void setOutils(Outils outils) {
+    this.outils = outils;
   }
 
   public Personnage(String name, boolean sexe){
     this.name = name;
     this.sexe = sexe;
   }
+//#endregion
+
+//#region METHOD
+
+public void Creer_item(Recettes recette){
+
+}
+
 //#endregion
 }

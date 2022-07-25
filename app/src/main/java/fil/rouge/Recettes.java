@@ -50,10 +50,4 @@ public class Recettes {
     }    
     //#endregion
     
-    //#region METHOD
-
-    public void Creer_item(){
-
-    }
-    //#endregion
 }

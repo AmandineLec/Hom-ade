@@ -1,10 +1,6 @@
 package fil.rouge;
 
-public class CanneAPeche extends Objet implements Equipable {
-
-    //#region Variables
-    protected int resistance;
-    //#endregion 
+public class CanneAPeche extends Outils{
 
     //#region Constructeur
 
@@ -16,31 +12,21 @@ public class CanneAPeche extends Objet implements Equipable {
         super(id);
     }
 
+    @Override
+    public void equiper() {
+      // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void desequipper() {
+      // TODO Auto-generated method stub
+
+    }
+
     //#endregion
 
-    //#region GETTER & SETTER
 
-    
-    public int getResistance() {
-        return resistance;
-    }
-
-    public void setResistance(int resistance) {
-        this.resistance = resistance;
-    }
-
-    //#endregion
-
-    //#region METHOD
-
-    public void equiper(){
-
-    }
-    public void desequipper(){
-        
-    }
-    //#endregion
-    
 
 
 }

@@ -1,10 +1,9 @@
 package fil.rouge;
 
-public class Detecteur extends Objet implements Equipable{
+public class Detecteur extends Outils{
 
     //#region Variables
     protected int capacite;
-    protected int resistance;
     //#endregion
 
     //#region Constructeur
@@ -23,23 +22,18 @@ public class Detecteur extends Objet implements Equipable{
     public void setCapacite(int capacite) {
         this.capacite = capacite;
     }
-    public int getResistance() {
-        return resistance;
+    @Override
+    public void equiper() {
+      // TODO Auto-generated method stub
+
     }
-    public void setResistance(int resistance) {
-        this.resistance = resistance;
+    @Override
+    public void desequipper() {
+      // TODO Auto-generated method stub
+
     }
 
     //#endregion
 
-    //#region METHOD
 
-    public void equiper(){
-
-    }
-    public void desequipper(){
-        
-    }
-    //#endregion
-    
 }
