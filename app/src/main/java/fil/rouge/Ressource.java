@@ -40,5 +40,8 @@ public abstract class Ressource extends Objet implements IRamassable{
         return false;
     }
 
+    public void ramasser(Joueur j, int quantite) {
+        j.ajouterObjet(this, quantite);
+    }
     
 }

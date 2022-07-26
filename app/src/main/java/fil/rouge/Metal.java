@@ -8,8 +8,8 @@ public class Metal extends Ressource{
     }
 
     @Override
-    public void ramasser(Personnage p) {
-        // TODO Auto-generated method stub
+    public void ramasser(Joueur j, int quantite) {
+        super.ramasser(j, quantite);
         
     }
     
