@@ -15,10 +15,10 @@ public class Joueur extends Personnage {
 
 public int ajouterObjet(Objet objet, int quantite){
   if(inventory.containsKey(objet)){ // si l'inventaire contient déja l'objet en question
-    quantite += inventory.get((objet)); // ancienne quantité de l'objet  + nouvelle quantité de l'objet
+    quantite += inventory.get((objet)); // nouvelle quantité de l'objet + ancienne quantité de l'objet
   }
   inventory.put(objet, quantite); // on ajoute la ressource et sa nouvelle quantité
-  return quantite;
+  return quantite; // ou inventory.get(objet); qui devrait donner la quantité de l'objet
 }
 
 public int retirerObjet(Objet objet, int quantite) {
@@ -30,7 +30,7 @@ public int retirerObjet(Objet objet, int quantite) {
     }
     else if(inventory.get(objet) == quantite){
       inventory.remove(objet);
-      return 0;
+      return 0; // ou inventory.get(objet); qui devrait donnner 0
     }
   } catch (Exception e) {
       System.out.println("Vous ne pouvez pas supprimer plus d'objets que vous n'en disposez!");
