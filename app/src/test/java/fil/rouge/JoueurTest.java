@@ -11,7 +11,7 @@ public class JoueurTest {
 
     Bois bois = new Bois(1, "bois");
     Joueur luffy = new Joueur("luffy", true);
-    luffy.ajouterObjet(bois, 1);
+    luffy.ajouterObjet(bois, 1); // grâce au constructeur intégrant l'inventaire
     assertTrue(luffy.getInventory().get(bois) == 1);
   }
 

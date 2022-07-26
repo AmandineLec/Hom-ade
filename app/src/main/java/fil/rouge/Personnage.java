@@ -46,7 +46,7 @@ public abstract class Personnage {
   public Personnage(String name, boolean sexe){
     this.name = name;
     this.sexe = sexe;
-    inventory = new HashMap<Objet,Integer>(); // pas besoin de faire de set
+    inventory = new HashMap<Objet,Integer>(); // Pas besoin de faire de set pour ajouter dans l'inventaire. On applique directement la methode ajouter ou retirer sur le joueur crée.
   }
 //#endregion
 
