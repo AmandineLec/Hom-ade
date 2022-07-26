@@ -8,7 +8,7 @@ public class ObjetTest {
     public void testequiper(){
         Joueur joueur = new Joueur("joueur", true);
         Hache hache = new Hache("hache");
-        joueur.add(hache); //On ajoute l'hache dans l'inventaire avant de pouvoir l'équiper
+        joueur.ajouterObjet(hache, 1); //On ajoute l'hache dans l'inventaire avant de pouvoir l'équiper
 
         hache.equiper(joueur); //On équipe l'hache, qui doit s'enlever de l'inventaire. 
 

@@ -1,35 +1,20 @@
 package fil.rouge;
 
-<<<<<<< HEAD
-public abstract class Ressource extends Objet implements IRamassable{    
-
-    public Ressource(int id, String nom) {
-        super(nom, id);
-=======
-public abstract class Ressource implements IRamassable{
-    private int id = 0;
-    private String nom;
-
+public abstract class Ressource extends Objet implements IRamassable{
     
 
-    public Ressource(String nom) {
-        this.nom = nom;
+    public Ressource(String nom, int id){
+        super(nom, id);
     }
 
-    //#region getset
-    public int getId() {
-        return id;
+    public Ressource(String nom){
+        super(nom);
     }
-    public void setId(int id) {
-        this.id = id;
+
+    public Ressource(int id){
+        super(id);
     }
-    public String getNom() {
-        return nom;
-    }
-    public void setNom(String nom) {
-        this.nom = nom;
->>>>>>> Yannick
-    }
-    //#endregion
+
+
 
 }

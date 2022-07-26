@@ -24,22 +24,6 @@ public class Gants extends Outils{
     public void setCapacite(int capacite) {
         this.capacite = capacite;
     }
-<<<<<<< HEAD
-=======
-
-    @Override
-    public void equiper() {
-      // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void desequipper() {
-      // TODO Auto-generated method stub
-
-    }
-
->>>>>>> Selom
     //#endregion
 
     //#region METHOD

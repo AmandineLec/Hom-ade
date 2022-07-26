@@ -26,7 +26,6 @@ public class Hache extends Outils{
     }
     //#endregion
 
-<<<<<<< HEAD
     //#region METHOD
     @Override
     public void equiper(Joueur target) {
@@ -39,18 +38,4 @@ public class Hache extends Outils{
     }
     //#endregion
     
-=======
-    @Override
-    public void equiper() {
-      // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void desequipper() {
-      // TODO Auto-generated method stub
-
-    }
-
->>>>>>> Selom
 }
