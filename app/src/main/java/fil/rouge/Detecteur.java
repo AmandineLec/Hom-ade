@@ -23,13 +23,13 @@ public class Detecteur extends Outils{
         this.capacite = capacite;
     }
     @Override
-    public void equiper() {
-      // TODO Auto-generated method stub
+    public void equiper(Joueur target){
+        // TODO Auto-generated method stub
 
     }
     @Override
-    public void desequipper() {
-      // TODO Auto-generated method stub
+    public void desequipper(Joueur target){
+        // TODO Auto-generated method stub
 
     }
 

@@ -15,13 +15,13 @@ public class CanneAPeche extends Outils{
     //#endregion
 
     @Override
-    public void equiper() {
+    public void equiper(Joueur target){
       // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void desequipper() {
+    public void desequipper(Joueur target){
       // TODO Auto-generated method stub
 
     }
