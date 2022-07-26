@@ -2,9 +2,6 @@ package fil.rouge;
 
 public class Gants extends Outils{
 
-    //#region Variables
-    protected int capacite;
-    //#endregion
 
     //#region Constructeur
     public Gants(String nom){
@@ -13,16 +10,6 @@ public class Gants extends Outils{
 
     public Gants(int id){
         super(id);
-    }
-    //#endregion
-
-    //#region GETTER & SETTER
-    public int getCapacite() {
-        return capacite;
-    }
-
-    public void setCapacite(int capacite) {
-        this.capacite = capacite;
     }
     //#endregion
 
