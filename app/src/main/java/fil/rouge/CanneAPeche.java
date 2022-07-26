@@ -14,6 +14,7 @@ public class CanneAPeche extends Outils{
     
     //#endregion
 
+<<<<<<< HEAD
     //#region METHOD
     @Override
     public void equiper(Joueur target) {
@@ -24,6 +25,20 @@ public class CanneAPeche extends Outils{
     public void desequipper(Joueur target) {
         
     }
+=======
+    @Override
+    public void equiper() {
+      // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void desequipper() {
+      // TODO Auto-generated method stub
+
+    }
+
+>>>>>>> Selom
     //#endregion
 
 

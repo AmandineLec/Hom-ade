@@ -1,7 +1,7 @@
 package fil.rouge;
 
 public class Pioche extends Outils{
-    
+
     //#region Variables
     protected int capacite;
     //#endregion
@@ -23,6 +23,16 @@ public class Pioche extends Outils{
         this.capacite = capacite;
     }
     //#endregion
+    @Override
+    public void equiper() {
+      // TODO Auto-generated method stub
+
+    }
+    @Override
+    public void desequipper() {
+      // TODO Auto-generated method stub
+
+    }
 
     //#region METHOD
     @Override

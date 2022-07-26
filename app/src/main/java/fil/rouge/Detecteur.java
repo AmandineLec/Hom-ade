@@ -22,6 +22,7 @@ public class Detecteur extends Outils{
     public void setCapacite(int capacite) {
         this.capacite = capacite;
     }
+<<<<<<< HEAD
     
     //#endregion
 
@@ -39,4 +40,20 @@ public class Detecteur extends Outils{
 
 
     
+=======
+    @Override
+    public void equiper() {
+      // TODO Auto-generated method stub
+
+    }
+    @Override
+    public void desequipper() {
+      // TODO Auto-generated method stub
+
+    }
+
+    //#endregion
+
+
+>>>>>>> Selom
 }
