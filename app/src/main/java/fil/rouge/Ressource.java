@@ -1,26 +1,15 @@
 package fil.rouge;
 
-<<<<<<< HEAD
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import fil.rouge.utils.DBManager;
 
 public abstract class Ressource extends Objet implements IRamassable{
-    private int id = 0;
-    private String nom;
-
-    
-
-    public Ressource(String nom) {
-        super(nom);
-=======
-public abstract class Ressource extends Objet implements IRamassable{
     
 
     public Ressource(String nom, int id){
         super(nom, id);
->>>>>>> origin/Amandine
     }
 
     public Ressource(String nom){
