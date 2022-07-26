@@ -2,13 +2,13 @@ package fil.rouge;
 
 public class Metal extends Ressource{
 
-    public Metal(int id, String nom) {
-        super(id, nom);
+    public Metal(String nom) {
+        super(nom);
         //TODO Auto-generated constructor stub
     }
 
     @Override
-    public void ramasser() {
+    public void ramasser(Personnage p) {
         // TODO Auto-generated method stub
         
     }

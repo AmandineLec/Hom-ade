@@ -2,12 +2,12 @@ package fil.rouge;
 
 public class Eau extends Ressource{
 
-    public Eau(int id, String nom) {
-        super(id, nom);
+    public Eau(String nom) {
+        super(nom);
     }
 
     @Override
-    public void ramasser() {
+    public void ramasser(Personnage p) {
         // TODO Auto-generated method stub
         
     }

@@ -2,12 +2,12 @@ package fil.rouge;
 
 public class Mineral extends Ressource{
 
-    public Mineral(int id, String nom) {
-        super(id, nom);
+    public Mineral(String nom) {
+        super(nom);
     }
 
     @Override
-    public void ramasser() {
+    public void ramasser(Personnage p) {
         // TODO Auto-generated method stub
         
     }
