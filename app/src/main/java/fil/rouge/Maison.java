@@ -59,7 +59,7 @@ public class Maison {
     }
 
     public void setEtabli(String etabli) {
-        this.etabli = 
+        this.etabli =
         etabli;
     }
 
@@ -88,7 +88,7 @@ public class Maison {
         if (this.getNiveau()>=1 && this.getNiveau()<=3){
             this.ajoutPiece(piece);
         }
-        else if(this.getNiveau()>3 && this.getNiveau()%2==0){
+        else if(this.getNiveau()>3 && this.getNiveau()%2==0){ // si le niveau est pair on ajoute une pièce
             this.ajoutPiece(piece);
         }
         else{
