@@ -4,6 +4,7 @@ public abstract class Outils extends Objet implements Equipable {
 
         //#region Variables
         protected int resistance;
+        protected int capacite;
          //#endregion
         
         //#region Constructeur
@@ -24,6 +25,13 @@ public abstract class Outils extends Objet implements Equipable {
         public void setResistance(int resistance) {
             this.resistance = resistance;
         }
+        public int getCapacite() {
+            return capacite;
+        }
+        public void setCapacite(int capacite) {
+            this.capacite = capacite;
+        }
+        
         //#endregion
         
 

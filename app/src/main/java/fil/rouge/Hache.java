@@ -2,10 +2,6 @@ package fil.rouge;
 
 public class Hache extends Outils{
 
-    //#region Variables
-    protected int capacite;
-    //#endregion
-
     //#region Constructeur
     public Hache(String nom){
         super(nom);
@@ -16,26 +12,17 @@ public class Hache extends Outils{
     }
     //#endregion
 
-    //#region GETTER & SETTER
-    public int getCapacite() {
-        return capacite;
+
+    //#region METHOD
+    @Override
+    public void equiper(Joueur target) {
+        
     }
 
-    public void setCapacite(int capacite) {
-        this.capacite = capacite;
+    @Override
+    public void desequipper(Joueur target) {
+        
     }
     //#endregion
-
-    @Override
-    public void equiper() {
-      // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void desequipper() {
-      // TODO Auto-generated method stub
-
-    }
-
+    
 }
