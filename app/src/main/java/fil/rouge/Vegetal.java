@@ -2,8 +2,8 @@ package fil.rouge;
 
 public class Vegetal extends Ressource{
 
-    public Vegetal(int id, String nom) {
-        super(id, nom);
+    public Vegetal(String nom) {
+        super(nom);
     }
 
     @Override

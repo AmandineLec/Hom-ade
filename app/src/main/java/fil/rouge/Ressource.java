@@ -1,15 +1,16 @@
 package fil.rouge;
 
 public abstract class Ressource implements IRamassable{
-    private int id;
+    private int id = 0;
     private String nom;
 
     
 
-    public Ressource(int id, String nom) {
-        this.id = id;
+    public Ressource(String nom) {
         this.nom = nom;
     }
+
+    //#region getset
     public int getId() {
         return id;
     }
@@ -22,5 +23,6 @@ public abstract class Ressource implements IRamassable{
     public void setNom(String nom) {
         this.nom = nom;
     }
+    //#endregion
 
 }

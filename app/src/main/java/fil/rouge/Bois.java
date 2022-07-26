@@ -2,8 +2,8 @@ package fil.rouge;
 
 public class Bois extends Ressource{
 
-    public Bois(int id, String nom) {
-        super(id, nom);
+    public Bois(String nom) {
+        super(nom);
         //TODO Auto-generated constructor stub
     }
 

@@ -2,8 +2,8 @@ package fil.rouge;
 
 public class Mineral extends Ressource{
 
-    public Mineral(int id, String nom) {
-        super(id, nom);
+    public Mineral(String nom) {
+        super(nom);
     }
 
     @Override
