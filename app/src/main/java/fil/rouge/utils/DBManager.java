@@ -10,10 +10,10 @@ import java.sql.Statement;
 
 public class DBManager {
     public static Connection conn = null;
-    private static String user = "M2I";
-    private static String password = "H3ll0M2I";
+    private static String user = "demidieux";
+    private static String password = "m#5Da$52gn";
     private static String server = "51.68.227.19";
-    private static String database = "projetDD";
+    private static String database = "demidieux_filrouge";
 
 
     //initialise la connexion à la base de données

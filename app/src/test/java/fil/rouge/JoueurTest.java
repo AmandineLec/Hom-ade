@@ -9,7 +9,7 @@ public class JoueurTest {
 
   @Test void testAjouterRessource(){
 
-    Bois bois = new Bois(1, "bois");
+    Bois bois = new Bois("bois");
     Joueur luffy = new Joueur("luffy", true);
     luffy.ajouterObjet(bois, 1);
     assertTrue(luffy.getInventory().get(bois) == 1);
@@ -18,7 +18,7 @@ public class JoueurTest {
   @Test
   void testRetirerRessource() {
 
-    Bois bois = new Bois(1, "bois");
+    Bois bois = new Bois("bois");
     Joueur luffy = new Joueur("luffy", true);
     luffy.ajouterObjet(bois, 1);
     luffy.retirerObjet(bois, 1);

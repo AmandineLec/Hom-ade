@@ -2,9 +2,6 @@ package fil.rouge;
 
 public class Detecteur extends Outils{
 
-    //#region Variables
-    protected int capacite;
-    //#endregion
 
     //#region Constructeur
     public Detecteur(String nom){
@@ -15,25 +12,18 @@ public class Detecteur extends Outils{
     }
     //#endregion
 
-    //#region GETTER & SETTER
-    public int getCapacite() {
-        return capacite;
-    }
-    public void setCapacite(int capacite) {
-        this.capacite = capacite;
+    
+    //#region METHOD
+    @Override
+    public void equiper(Joueur target) {
+        
     }
     @Override
-    public void equiper(Joueur target){
-        // TODO Auto-generated method stub
-
+    public void desequipper(Joueur target) {
+        
     }
-    @Override
-    public void desequipper(Joueur target){
-        // TODO Auto-generated method stub
-
-    }
-
     //#endregion
 
 
+    
 }
