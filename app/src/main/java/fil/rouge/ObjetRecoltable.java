@@ -1,13 +1,13 @@
 package fil.rouge;
+import java.util.Random;
 
 public class ObjetRecoltable extends Objet {
-    protected int id_recoltable; // id en BDD
-    protected String nom; // nom de l'objet à récolter
     protected int id_outil; // id de l'outil à utiliser pour récolter
     protected int nb_ressources; // nombre de ressources que cela va donner
     protected Ressource type; // type de la ressource que cela va donner
-
-
+    protected int quantite;
+    protected String sorte;
+    protected int difficulte;
     //#region Constructeurs
 
     public ObjetRecoltable(String nom){
@@ -27,22 +27,6 @@ public class ObjetRecoltable extends Objet {
 
 
     //#region GETSET
-    public int getId_recoltable() {
-        return id_recoltable;
-    }
-
-    public void setId_recoltable(int id_recoltable) {
-        this.id_recoltable = id_recoltable;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public int getId_outil() {
         return id_outil;
     }
@@ -66,12 +50,67 @@ public class ObjetRecoltable extends Objet {
     public void setType(Ressource type) {
         this.type = type;
     }
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
+    public String getSorte() {
+        return sorte;
+    }
+
+    public void setSorte(String sorte) {
+        this.sorte = sorte;
+    }
+
+    public int getDifficulte() {
+        return difficulte;
+    }
+
+    public void setDifficulte(int difficulte) {
+        this.difficulte = difficulte;
+    }
+
     //#endregion
 
     //#region Méthodes
     public boolean ramasser(Joueur joueur){
         joueur.ajouterObjet(this, 1);
         return true;
+    }
+
+    public int rand(int min, int max){
+        int rand = min + (int)(Math.random()*((max - min)+1));
+        return rand;
+    }
+
+    public int difficulte(String sorte){
+        if(sorte.equals("roseau") || sorte.equals("sardine") || sorte.equals("fer") || sorte.equals("brique") || sorte.equals("champignon") || sorte.equals("mare")){
+            this.difficulte = 1;
+        }
+
+        if(sorte.equals("bambou") || sorte.equals("carpe")|| sorte.equals("cuivre") || sorte.equals("granit") || sorte.equals("coton") || sorte.equals("rivière")){
+            this.difficulte = 2;
+        }
+        if(sorte.equals("chêne") || sorte.equals("truite") || sorte.equals("aimant") || sorte.equals("marbre") || sorte.equals("lin") || sorte.equals("source")){
+            this.difficulte = 3;
+        }
+        if(sorte.equals("ébène ") || sorte.equals("brochet") || sorte.equals("or") || sorte.equals("schiste") || sorte.equals("orties") || sorte.equals("pluie")){
+            this.difficulte = 4;
+        }
+        if(sorte.equals("séquoïa") || sorte.equals("requin") || sorte.equals("titane") || sorte.equals("diamant") || sorte.equals("rosier") || sorte.equals("seve")){
+            this.difficulte = 5;
+        }
+        return this.difficulte;
+    }
+
+    public int quantiteProduite(){
+        // si difficulte == 1 alors this.quantite = rand(1, 3)
+        return this.quantite;
     }
 
     public boolean recolter(Joueur joueur, Outils outil){
@@ -85,5 +124,6 @@ public class ObjetRecoltable extends Objet {
 // si outil dispo dans inventaire alors on utilise pour extraire ressource selon la capacité (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire)
 // puis ramasser
     }
+
 
 }

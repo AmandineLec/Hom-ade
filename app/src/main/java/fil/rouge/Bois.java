@@ -4,7 +4,6 @@ public class Bois extends Ressource{
 
     public Bois(String nom) {
         super(nom);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -12,5 +11,6 @@ public class Bois extends Ressource{
         // TODO Auto-generated method stub
         
     }
+
     
 }
