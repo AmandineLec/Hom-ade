@@ -17,6 +17,11 @@ public abstract class Objet {
     public Objet(int id){
         this.id = id;
     }
+
+    public Objet(String nom, int id){
+        this.nom = nom; 
+        this.id = id; 
+    }
     //#endregion
 
     //#region GETTER & SETTER

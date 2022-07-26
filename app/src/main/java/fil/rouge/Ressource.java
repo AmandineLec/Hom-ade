@@ -1,5 +1,6 @@
 package fil.rouge;
 
+<<<<<<< HEAD
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -13,22 +14,24 @@ public abstract class Ressource extends Objet implements IRamassable{
 
     public Ressource(String nom) {
         super(nom);
+=======
+public abstract class Ressource extends Objet implements IRamassable{
+    
+
+    public Ressource(String nom, int id){
+        super(nom, id);
+>>>>>>> origin/Amandine
     }
 
-    //#region getset
-    public int getId() {
-        return id;
+    public Ressource(String nom){
+        super(nom);
     }
-    public void setId(int id) {
-        this.id = id;
+
+    public Ressource(int id){
+        super(id);
     }
-    public String getNom() {
-        return nom;
-    }
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-    //#endregion
+
+
 
     public boolean get(int id) {
         try {
