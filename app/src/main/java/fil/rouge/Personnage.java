@@ -5,7 +5,7 @@ public abstract class Personnage {
   protected int id_personnage;
   protected String name;
   protected boolean sexe = true; // true pour masculin false pour féminin ou inversement si vous préférer
-  protected HashMap<Objet, Integer> inventory;
+  protected HashMap<Objet, Integer> inventory; 
   protected Outils outils; 
 
 //#region getter and setter and one construtor
@@ -49,11 +49,4 @@ public abstract class Personnage {
   }
 //#endregion
 
-//#region METHOD
-
-public void Creer_item(Recettes recette){
-    
-}
-
-//#endregion
 }

@@ -6,6 +6,7 @@ public abstract class Objet {
 
     protected int id;
     protected String nom;
+    protected String types;
     
     //#endregion
 
@@ -38,6 +39,13 @@ public abstract class Objet {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    public String getTypes() {
+        return types;
+    }
+    public void setTypes(String types) {
+        this.types = types;
+    }
+    
     //#endregion 
 
     

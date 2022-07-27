@@ -36,6 +36,7 @@ public class ObjetRecoltable extends Objet {
     public Ressource getType() {
         return type;
     }
+    
 
     public void setType(Ressource type) {
         this.type = type;
@@ -129,6 +130,10 @@ public class ObjetRecoltable extends Objet {
 // si outil dispo dans inventaire alors on utilise pour extraire ressource selon la capacité (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire)
 // puis ramasser
     }
+
+
+
+
 
 
 }
