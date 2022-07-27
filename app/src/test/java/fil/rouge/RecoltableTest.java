@@ -6,10 +6,12 @@ public class RecoltableTest {
     @Test
     public void ramasserTest(){
         Joueur perso = new Joueur("Paul", true);
-        Bois branche = new Bois("branche");
-        ObjetRecoltable bois = new ObjetRecoltable("bois", 1, branche);
-        bois.ramasser(perso);
-        assertTrue(perso.getInventory().containsKey(bois));
+        Bois bois = new Bois("bois");
+        bois.setId(1);
+        ObjetRecoltable arbre = new ObjetRecoltable(bois, "bois de chêne", "chêne");
+        arbre.setType(bois);
+        arbre.ramasser(perso, 1);
+        assertTrue(perso.getInventoryressource().containsKey(bois.getId()));
     }
 
     @Test
@@ -29,14 +31,28 @@ public class RecoltableTest {
         assertEquals(objet.difficulte, 5);
     }
 
-    // @Test
-    // public void recolterTest(){
-    //     Hache hache = new Hache("hache");
-    //     Joueur perso = new Joueur("Paul", true);
-    //     Bois bois = new Bois("bois");
-    //     ObjetRecoltable arbre = new ObjetRecoltable("arbre", 1, bois);
-    //     perso.ajouterObjet(hache, 1);
-    //     arbre.recolter(perso, hache);
-    //     assertTrue(perso.getInventory().containsKey(bois));
-    // }
+    @Test
+    public void quantiteProduiteTest(){
+        ObjetRecoltable objet = new ObjetRecoltable("objet");
+        objet.setSorte("bambou");
+        objet.difficulte(objet.getSorte());
+        objet.quantiteProduite();
+        assertTrue(objet.getQuantite()>=1 && objet.getQuantite()<=5);
+    }
+
+    @Test
+    public void recolterTest(){
+        Outils hache = new Outils("hache");
+        hache.setCapacite(2);
+        Joueur perso = new Joueur("Paul", true);
+        Bois bois = new Bois("bois");
+        bois.setId(2);
+        ObjetRecoltable arbre = new ObjetRecoltable(bois, "arbre", "chêne");
+        perso.setOutils(hache);
+        arbre.difficulte(arbre.getSorte());
+        arbre.setOutil(hache);
+        arbre.recolter(perso, hache);
+        int nb = arbre.getQuantite()*hache.getCapacite();
+        assertTrue(perso.getInventoryressource().get(bois.getId())==nb);
+    }
 }
