@@ -7,6 +7,7 @@ public class Recettes {
     //#region Variables
     protected String nom;
     protected HashMap<Ressource, Integer> quantite; 
+    protected int quantite_necessaire; 
     protected int id_element; 
 
     //#endregion
@@ -17,8 +18,14 @@ public class Recettes {
         try {
             ResultSet resultat = DBManager.query("SELECT id_ressource, quantite, id_objet FROM objet WHERE id_objet = "+ id_element);
             if(resultat.next()){
-                this.quantite = new HashMap<>();
+                this.quantite = new HashMap<Ressource, Integer>();
                 this.id_element = resultat.getInt("id_objet");
+                while(resultat.next()){
+                    Ressource ressourceobjet = new Ressource(resultat.getInt("id_ressource"));
+                    ressourceobjet.get(resultat.getInt("id_ressource"));
+                    this.quantite_necessaire = resultat.getInt("quantite");
+                    quantite.put(ressourceobjet, quantite_necessaire);                    
+                    }
                 }
             }
             catch (SQLException ex) {
@@ -49,6 +56,13 @@ public class Recettes {
     }
     public void setId_element(int id_element) {
         this.id_element = id_element;
+    }
+    public int getQuantite_necessaire() {
+        return quantite_necessaire;
+    }
+
+    public void setQuantite_necessaire(int quantite_necessaire) {
+        this.quantite_necessaire = quantite_necessaire;
     }
     //#endregion
     
@@ -95,6 +109,7 @@ public class Recettes {
             return false; 
 
     }
+
 
     //#endregion
 }

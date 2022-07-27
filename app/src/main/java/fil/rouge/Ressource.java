@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import fil.rouge.utils.DBManager;
 
-public abstract class Ressource extends Objet implements IRamassable{
+public class Ressource extends Objet implements IRamassable{
     
 
     public Ressource(String nom, int id){
