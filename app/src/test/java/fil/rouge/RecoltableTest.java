@@ -9,7 +9,7 @@ public class RecoltableTest {
         Bois branche = new Bois("branche");
         ObjetRecoltable bois = new ObjetRecoltable("bois", 1, branche);
         bois.ramasser(perso);
-        assertTrue(perso.getInventory().containsKey(bois));
+        assertTrue(perso.getInventory().containsKey(bois.getId()));
     }
 
     @Test

@@ -12,7 +12,7 @@ public class JoueurTest {
     Bois bois = new Bois("bois");
     Joueur luffy = new Joueur("luffy", true);
     luffy.ajouterObjet(bois, 1);
-    assertTrue(luffy.getInventory().get(bois) == 1);
+    assertTrue(luffy.getInventory().get(bois.getId()) == 1);
   }
 
   @Test
@@ -22,7 +22,7 @@ public class JoueurTest {
     Joueur luffy = new Joueur("luffy", true);
     luffy.ajouterObjet(bois, 1);
     luffy.retirerObjet(bois, 1);
-    assertFalse(luffy.getInventory().containsKey(bois));
+    assertFalse(luffy.getInventory().containsKey(bois.getId()));
   }
 
 
