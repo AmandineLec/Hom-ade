@@ -42,10 +42,9 @@ public class RessourceTest {
     public void testRamasser() {
         Ressource test = new Ressource("test");
         Joueur j = new Joueur("test", true);
-        
         test.ramasser(j, 1);
+        assertEquals(1, j.getInventoryressource().get(test.getId()));
 
-        assertEquals(1, j.getInventory().get(test));
     }
 
     @Test
@@ -55,7 +54,7 @@ public class RessourceTest {
 
         test.ramasser(j, 5);
 
-        assertEquals(5, j.getInventory().get(test));
+        assertEquals(5, j.getInventoryressource().get(test.getId()));
     }
 
 }

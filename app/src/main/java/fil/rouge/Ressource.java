@@ -77,7 +77,7 @@ public class Ressource extends Objet implements IRamassable{
         
 
     public void ramasser(Joueur j, int quantite) {
-        j.ajouterObjet(this, quantite);
+        j.ajouterRessource(this, quantite);
     }
 
     
