@@ -10,5 +10,6 @@ public class Bois extends Ressource{
     public void ramasser(Personnage p) {
         
     }
+
     
 }

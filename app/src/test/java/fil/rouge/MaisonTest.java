@@ -30,9 +30,3 @@ public class MaisonTest {
         assertTrue(maison.getNb_pieces()==2 && maison.getPiece().getNom()=="cuisine");
     }
 }
-
-/*  levelUp : 
- si niveau >= 1 && <=3 = maison.ajoutpiece(piece);
- sinon si niveau >3 && niveau%2 == 0 = maison.ajouterpiece(piece)
- sinon piece.agrandir(5)
-*/

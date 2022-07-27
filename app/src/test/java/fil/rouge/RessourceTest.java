@@ -45,7 +45,11 @@ public class RessourceTest {
         
         test.ramasser(j);
 
+<<<<<<< HEAD
         assertEquals(1, j.getInventory().get(test));
+=======
+        // assertEquals(1, j.getInventaire().get(test));
+>>>>>>> Marie
     }
 
 }
