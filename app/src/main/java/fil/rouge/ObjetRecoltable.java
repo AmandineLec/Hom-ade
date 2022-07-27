@@ -114,7 +114,7 @@ public class ObjetRecoltable extends Objet {
     }
 
     public boolean recolter(Joueur joueur, Outils outil){
-        if (joueur.getInventory().containsKey(outil.getId())){
+        if (joueur.getInventoryressource().containsKey(outil.getId())){
             int nombre = outil.getCapacite();
             joueur.ajouterObjet(this.type, nombre);
             return true;

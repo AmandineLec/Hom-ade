@@ -2,6 +2,9 @@ package fil.rouge;
 import java.util.HashMap;
 import java.sql.*;
 import fil.rouge.utils.DBManager;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Recettes {
     //#region Variables
@@ -30,12 +33,16 @@ public class Recettes {
                     }
                 }
             }
-            catch (SQLException ex) {
-                // handle any errors
-                System.out.println("SQLException: " + ex.getMessage());
-                System.out.println("SQLState: " + ex.getSQLState());
-                System.out.println("VendorError: " + ex.getErrorCode());
-            }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+    }
+
+    public Recettes(int id_element){
+        this.id_element = id_element;
     }
     //#endregion
 
@@ -75,58 +82,85 @@ public class Recettes {
     //#endregion
     
     //#region METHOD
-    public boolean fusionnerRessource(Joueur joueur){
 
-        
-
-        //Itérer sur la hashmap de recette puis vérifier si cette clef est dans inventaire ressource si oui comparer les valeurs
-        //Si la valeur dans inventaire est supérieur ou égale : renvoie true. 
-        //Si à la fin de l'itération tout est à true : on peut créer, si un false, on peut pas créer. 
-
-
-
-
-
+    //Méthode de création d'objet en fonction de son type  et de l'id élément de la recette
+    public Objet creerObjet(int id_element){
+        Objet objet; 
         try {
-            ResultSet resultat = DBManager.query("SELECT re.id_objet, re.id_ressource, re.quantite, re.niveau_requis, o.type, i.  id_ressource, i.quantite, m.niveau"+
-                                                "FROM recette as re"+
-                                                "INNER JOIN objet as o ON o.id_objet = re.id_objet"+
-                                                "INNER JOIN ressource as r ON r.id_ressource = re.id_ressource"+
-                                                "INNER JOIN inventaire as i ON i.id_ressource = r.id_ressource"+
-                                                "INNER JOIN personnage as p ON p.id_personnage = i.id_presonnage"+
-                                                "INNER JOIN maison as m ON m.id_maison = p.id_maison"
-                                                +"WHERE re.id_element = o.id_element");
+            ResultSet resultat = DBManager.query("SELECT type FROM objet INNER JOIN recette ON id_objet = "+id_element);
             if(resultat.next()){
-                    if(resultat.getInt("re.id_ressource")==(resultat.getInt("i.id_ressource"))&& resultat.getInt("i.quantite")>=resultat.getInt("re.quantite")&& resultat.getInt("re.niveau_requis")==resultat.getInt("m.niveau")){
-                        if(resultat.getString("e.type").equalsIgnoreCase("outils")){
-                            Outils outil = new Outils(resultat.getInt("o.id_element")); 
-                            joueur.ajouterObjet(outil, 1);
-                            return true;
-                        }
-    
-                        else if(resultat.getString("e.type").equalsIgnoreCase("meuble")){
-                            Meubles meuble = new Meubles(resultat.getInt("o.id_element"));
-                            joueur.ajouterObjet(meuble, 1); 
-                            return true; 
-                        }
-                        else if(resultat.getString("e.type").equalsIgnoreCase("décoration")){
-                            Decoration deco = new Decoration(resultat.getInt("o.id_element"));
-                            joueur.ajouterObjet(deco, 1); 
-                            return true; 
-                        }
-                    }
+                if(resultat.getString("type").equalsIgnoreCase("outils")){
+                    objet = new Outils(id_element);
+                    return objet;
                 }
+                else if(resultat.getString("type").equalsIgnoreCase("meuble")){
+                    objet = new Meubles(id_element);
+                    return objet;
+                }
+                else if(resultat.getString("type").equalsIgnoreCase("decoration")){
+                    objet = new Decoration(id_element);
+                    return objet;
+                } 
             }
-            catch (SQLException ex) {
-                // handle any errors
-                System.out.println("SQLException: " + ex.getMessage());
-                System.out.println("SQLState: " + ex.getSQLState());
-                System.out.println("VendorError: " + ex.getErrorCode());
-            }
-            return false; 
-
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return objet; 
     }
 
+    //Méthode de création d'objet à partir de recette
+    public boolean fusionnerRessource(Joueur joueur, Objet objet){
 
+        boolean craftable = true; 
+
+        //On regarde déjà si la maison du joueur a le bon niveau pour pouvoir créer cette recette
+        if(this.getNiveau_requis()==joueur.getMaison().getNiveau()) {
+
+            //On crée un itérateur qui va nous permette de parcourir la hashmap
+
+            Iterator<Entry<Integer, Integer> > iterator_recette = this.getQuantite().entrySet().iterator(); //Itérateur de la hashmap des recettes
+
+            //On commence une boucle, qui va nous permettre de vérifier si les ressources nécessaires à la création de l'objet sont présentes dans l'inventaire, en bonne quantité. 
+            //Tant qu'il y a des ressources dans la recette
+            while(iterator_recette.hasNext()){
+
+                //On recrée une carte des éléments que l'on récupère avec l'itérateur et on va chercher sa clef
+                Map.Entry<Integer, Integer> entry_recette = (Map.Entry<Integer, Integer>)iterator_recette.next();
+                int id_ressource = entry_recette.getKey();
+
+                //On compare les valeurs associés à la clef id_ressource dans les deux hashmap (recette et inventaire)
+                //Si le nombre de ressource demandé dans la recette est supérieur au nombre de ressource présentes dans l'inventaire
+                //Ou si la clef id_ressource n'est pas présente dans l'inventaire (et donc renvoi null)
+                //La variable craftable passe à false. 
+                if(joueur.getInventoryressource().get(id_ressource)==null || 
+                this.getQuantite().get(id_ressource)>joueur.getInventoryressource().get(id_ressource)){
+                    craftable = false; 
+                }
+            } 
+            //Si on possède bien les ressources nécessaires, on enlève ces ressources de notre inventaire
+            if(craftable){
+                Iterator<Entry<Integer, Integer> > i_recette = this.getQuantite().entrySet().iterator(); //Itérateur de la hashmap des recettes
+                
+                while(i_recette.hasNext()){
+                    //On recrée une carte des éléments que l'on récupère avec l'itérateur et on va chercher sa clef
+                    Map.Entry<Integer, Integer> entry_recettes = (Map.Entry<Integer, Integer>)i_recette.next();
+                    int id_ressources = entry_recettes.getKey();
+                    //On stocke la nouvelle valeur dans une variable quantité
+                    //Et on effectue le calcul : On soustraie la quantité nécessaire à la réalisation de la recette 
+                    //à la quantité de ressource présente dans l'inventaire
+                    int quantite = joueur.getInventoryressource().get(id_ressources) - this.getQuantite().get(id_ressources);   
+                    //Et on remplace l'ancienne quantité par la nouvelle quantité dans l'inventaire.                      
+                    joueur.getInventoryressource().replace(id_ressources, quantite );
+                    objet = this.creerObjet(this.id_element);
+                    joueur.ajouterObjet(objet, 1);
+                }
+            }
+        }
+        return craftable; 
+    }
     //#endregion
 }

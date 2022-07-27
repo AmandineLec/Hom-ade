@@ -36,11 +36,12 @@ public class RecetteTest {
 
     @Test
     public void TestCreerItem(){
-        // Joueur joueur = new Joueur("joueur", true);
-        // Recettes recette = new Recettes("Recette");
+        Joueur joueur = new Joueur("joueur", true);
 
-        // recette.fusionnerRessource(joueur);
+        Recettes recette = new Recettes("Recette");
+
+        recette.fusionnerRessource(joueur);
         
-        // assertTrue(joueur.getInventory().containsKey()==true);
+        assertTrue(joueur.getInventoryobjet().containsKey()==true);
     }
 }
