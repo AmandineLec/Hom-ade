@@ -70,7 +70,7 @@ public class ObjetRecoltable extends Objet {
 
     //#region Méthodes
     public boolean ramasser(Joueur joueur,int nombre){
-        if (joueur.ajouterObjet(this, nombre)){
+        if (joueur.ajouterObjet(this.getType(), nombre)){
             return true;
         }
         return false;
@@ -102,19 +102,19 @@ public class ObjetRecoltable extends Objet {
 
     public int quantiteProduite(){
         if(this.difficulte == 1)
-            this.quantite = rand(1, 3);
+            this.quantite = this.rand(1, 3);
 
         else if(this.difficulte == 2)
-            this.quantite = rand(1, 5);
+            this.quantite = this.rand(1, 5);
 
         else if(this.difficulte == 3)
-            this.quantite = rand(2, 6);
+            this.quantite = this.rand(2, 6);
 
         else if(this.difficulte == 4)
-            this.quantite = rand(2, 7);
+            this.quantite = this.rand(2, 7);
 
         else if(this.difficulte == 5)
-            this.quantite = rand(3, 8);
+            this.quantite = this.rand(3, 8);
 
         return this.quantite;
     }
