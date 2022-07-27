@@ -5,11 +5,12 @@ import java.sql.SQLException;
 
 import fil.rouge.utils.DBManager;
 
-public abstract class Ressource extends Objet implements IRamassable{
-    
+public class Ressource extends Objet implements IRamassable{
+    private String type = "";
 
-    public Ressource(String nom, int id){
+    public Ressource(String nom, int id, String type){
         super(nom, id);
+        this.type = type;
     }
 
     public Ressource(String nom){
@@ -27,6 +28,7 @@ public abstract class Ressource extends Objet implements IRamassable{
             ResultSet resultat = DBManager.query("SELECT * FROM ressource WHERE id_ressource = "+id);
             if(resultat.next()){
                 this.nom = resultat.getString("nom");
+                this.type = resultat.getString("type");
                 this.id = id;
                 return true;
             }    

@@ -15,7 +15,7 @@ import fil.rouge.utils.DBManager;
 
 public class RessourceTest {
     static Savepoint save;
-
+    
     @BeforeAll
     static void setup() {
         DBManager.init();
@@ -34,13 +34,13 @@ public class RessourceTest {
 
     @AfterAll
     static void teardown() {
-        DBManager.close();
     }
+    
 
     
     @Test
     public void testRamasser() {
-        Bois test = new Bois("test");
+        Ressource test = new Ressource("test");
         Joueur j = new Joueur("test", true);
         
         test.ramasser(j, 1);
