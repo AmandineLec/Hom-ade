@@ -8,7 +8,6 @@ public class Animal extends Ressource{
 
     @Override
     public void ramasser(Personnage p) {
-        // TODO Auto-generated method stub
         
     }
     

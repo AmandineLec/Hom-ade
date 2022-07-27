@@ -8,8 +8,6 @@ public class Vegetal extends Ressource{
 
     @Override
     public void ramasser(Personnage p) {
-        // TODO Auto-generated method stub
-        
     }
     
 }

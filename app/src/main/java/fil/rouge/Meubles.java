@@ -1,4 +1,6 @@
 package fil.rouge;
+import java.sql.*;
+import fil.rouge.utils.DBManager;
 
 public class Meubles extends Objet implements Deplacable{
 
@@ -12,7 +14,21 @@ public class Meubles extends Objet implements Deplacable{
     }
 
     public Meubles(int id){
-        super(id);
+        super("");
+            try {
+                ResultSet resultat = DBManager.query("SELECT * FROM objet WHERE id_objet = "+id);
+                if(resultat.next()){
+                    this.nom = resultat.getString("nom");
+                    this.type = resultat.getString("type");
+                    this.id = id;
+                    }
+                }
+                catch (SQLException ex) {
+                    // handle any errors
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                }
     }
     //#endregion
 
