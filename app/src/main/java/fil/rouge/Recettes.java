@@ -6,9 +6,11 @@ import fil.rouge.utils.DBManager;
 public class Recettes {
     //#region Variables
     protected String nom;
-    protected HashMap<Ressource, Integer> quantite; 
+    protected HashMap<Integer, Integer> quantite; 
     protected int quantite_necessaire; 
     protected int id_element; 
+    protected int niveau_requis; 
+    protected int  id_ressource;
 
     //#endregion
 
@@ -16,15 +18,15 @@ public class Recettes {
     public Recettes(String nom, int id_element){
         this.nom = nom;
         try {
-            ResultSet resultat = DBManager.query("SELECT id_ressource, quantite, id_objet FROM objet WHERE id_objet = "+ id_element);
+            ResultSet resultat = DBManager.query("SELECT id_ressource, quantite, id_objet, niveau_requis FROM objet WHERE id_objet = "+ id_element);
             if(resultat.next()){
-                this.quantite = new HashMap<Ressource, Integer>();
+                this.quantite = new HashMap<Integer, Integer>();
                 this.id_element = resultat.getInt("id_objet");
+                this.niveau_requis = resultat.getInt("niveau_requis");
                 while(resultat.next()){
-                    Ressource ressourceobjet = new Ressource(resultat.getInt("id_ressource"));
-                    ressourceobjet.get(resultat.getInt("id_ressource"));
+                    this.id_ressource = resultat.getInt("id_ressource");
                     this.quantite_necessaire = resultat.getInt("quantite");
-                    quantite.put(ressourceobjet, quantite_necessaire);                    
+                    quantite.put(id_ressource, quantite_necessaire);                    
                     }
                 }
             }
@@ -45,10 +47,10 @@ public class Recettes {
     public void setNom(String nom) {
         this.nom = nom;
     }    
-    public HashMap<Ressource, Integer> getQuantite() {
+    public HashMap<Integer, Integer> getQuantite() {
         return quantite;
     }
-    public void setQuantite(HashMap<Ressource, Integer> quantite) {
+    public void setQuantite(HashMap<Integer, Integer> quantite) {
         this.quantite = quantite;
     }
     public int getId_element() {
@@ -60,14 +62,29 @@ public class Recettes {
     public int getQuantite_necessaire() {
         return quantite_necessaire;
     }
-
     public void setQuantite_necessaire(int quantite_necessaire) {
         this.quantite_necessaire = quantite_necessaire;
     }
+    public int getNiveau_requis() {
+        return niveau_requis;
+    }
+    public void setNiveau_requis(int niveau_requis) {
+        this.niveau_requis = niveau_requis;
+    }
+    
     //#endregion
     
     //#region METHOD
     public boolean fusionnerRessource(Joueur joueur){
+
+        
+
+        //Itérer sur la hashmap de recette puis vérifier si cette clef est dans inventaire ressource si oui comparer les valeurs
+        //Si la valeur dans inventaire est supérieur ou égale : renvoie true. 
+        //Si à la fin de l'itération tout est à true : on peut créer, si un false, on peut pas créer. 
+
+
+
 
 
         try {

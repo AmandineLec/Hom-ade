@@ -5,8 +5,10 @@ public abstract class Personnage {
   protected int id_personnage;
   protected String name;
   protected boolean sexe = true; // true pour masculin false pour féminin ou inversement si vous préférer
-  protected HashMap<Objet, Integer> inventory; 
+  protected HashMap<Integer, Integer> inventoryressource; //Permet de remonter uniquement les ressources pour la méthode recette
+  protected HashMap<Integer, Integer> inventoryobjet;  
   protected Outils outils; 
+  protected Maison maison; 
 
 //#region getter and setter and one construtor
 
@@ -26,13 +28,21 @@ public abstract class Personnage {
     this.sexe = newSexe;
   }
 
-  public HashMap<Objet, Integer> getInventory() {
-    return inventory;
+  public HashMap<Integer, Integer> getInventoryressource() {
+    return inventoryressource;
   }
 
-  public void setInventory(HashMap<Objet, Integer> newInventory) {
-    this.inventory = newInventory;
-  }  
+  public void setInventoryressource(HashMap<Integer, Integer> inventoryessource) {
+    this.inventoryressource = inventoryessource;
+  }
+
+  public HashMap<Integer, Integer> getInventoryobjet() {
+    return inventoryobjet;
+  }
+
+  public void setInventoryobjet(HashMap<Integer, Integer> inventoryobjet) {
+    this.inventoryobjet = inventoryobjet;
+  }
 
   public Outils getOutils() {
     return outils;
@@ -41,12 +51,23 @@ public abstract class Personnage {
   public void setOutils(Outils outils) {
     this.outils = outils;
   }
+  
+
+  public Maison getMaison() {
+    return maison;
+  }
+
+  public void setMaison(Maison maison) {
+    this.maison = maison;
+  }
 
   public Personnage(String name, boolean sexe){
     this.name = name;
     this.sexe = sexe;
-    inventory = new HashMap<Objet, Integer >();
-  }
+    inventoryressource = new HashMap<Integer, Integer>();
+    inventoryobjet = new HashMap<Integer, Integer>();
+    maison = new Maison(1);
+    }
 //#endregion
 
 }
