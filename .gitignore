@@ -1,10 +1,24 @@
-# Ignore Gradle project-specific cache directory
 .gradle
+**/build/
+!src/**/build/
 
-# Ignore Gradle build output directory
-build
+# Ignore Gradle GUI config
+gradle-app.setting
 
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
 
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+
+# Cache of project
+.gradletasknamecache
+
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
 
 # Compiled class file
 *.class
@@ -30,5 +44,4 @@ build
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-app/bin/main/fil/rouge/Maison.class
-app/bin/main/fil/rouge/Recettes.class
+app/bin/main/fil/rouge/Animal.class

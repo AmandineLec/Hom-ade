@@ -20,6 +20,7 @@ public class Maison {
     }
 
     //#endregion
+
     //#region GETSET
 
     public int getNiveau() {
@@ -80,7 +81,6 @@ public class Maison {
     }
 
     //#endregion
-
 
     //#region Méthodes
     public void levelUp(Pieces piece){
