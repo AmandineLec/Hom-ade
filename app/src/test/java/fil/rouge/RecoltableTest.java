@@ -6,11 +6,12 @@ public class RecoltableTest {
     @Test
     public void ramasserTest(){
         Joueur perso = new Joueur("Paul", true);
-        Bois branche = new Bois("branche");
-        ObjetRecoltable bois = new ObjetRecoltable(branche, "bois", "chêne");
-        bois.setType(branche);
-        bois.ramasser(perso, 1);
-        assertTrue(perso.getInventory().containsKey(branche));
+        Bois bois = new Bois("bois");
+        bois.setId(1);
+        ObjetRecoltable arbre = new ObjetRecoltable(bois, "bois de chêne", "chêne");
+        arbre.setType(bois);
+        arbre.ramasser(perso, 1);
+        assertTrue(perso.getInventoryressource().containsKey(bois.getId()));
     }
 
     @Test
@@ -45,12 +46,13 @@ public class RecoltableTest {
         hache.setCapacite(2);
         Joueur perso = new Joueur("Paul", true);
         Bois bois = new Bois("bois");
+        bois.setId(2);
         ObjetRecoltable arbre = new ObjetRecoltable(bois, "arbre", "chêne");
         perso.setOutils(hache);
         arbre.difficulte(arbre.getSorte());
         arbre.setOutil(hache);
         arbre.recolter(perso, hache);
         int nb = arbre.getQuantite()*hache.getCapacite();
-        assertTrue(perso.getInventory().get(bois)==nb);
+        assertTrue(perso.getInventoryressource().get(bois.getId())==nb);
     }
 }

@@ -70,7 +70,7 @@ public class ObjetRecoltable extends Objet {
 
     //#region Méthodes
     public boolean ramasser(Joueur joueur,int nombre){
-        if (joueur.ajouterObjet(this.getType(), nombre)){
+        if (joueur.ajouterRessource(this.getType(), nombre)){
             return true;
         }
         return false;
