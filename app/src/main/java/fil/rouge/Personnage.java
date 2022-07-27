@@ -5,7 +5,7 @@ public abstract class Personnage {
   protected int id_personnage;
   protected String name;
   protected boolean sexe = true; // true pour masculin false pour féminin ou inversement si vous préférer
-  protected HashMap<Objet, Integer> inventory = new HashMap<Objet, Integer >();
+  protected HashMap<Objet, Integer> inventory;
   protected Outils outils;
 
 //#region getter and setter and one construtor
@@ -45,6 +45,7 @@ public abstract class Personnage {
   public Personnage(String name, boolean sexe){
     this.name = name;
     this.sexe = sexe;
+    inventory = new HashMap<Objet, Integer>();
 //#region METHOD
 
 }
