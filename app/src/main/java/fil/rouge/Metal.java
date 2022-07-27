@@ -8,7 +8,12 @@ public class Metal extends Ressource{
     }
 
     @Override
+<<<<<<< HEAD
     public void ramasser(Personnage p) {
+=======
+    public void ramasser(Joueur j, int quantite) {
+        super.ramasser(j, quantite);
+>>>>>>> Yannick
         
     }
     

@@ -43,13 +43,17 @@ public class RessourceTest {
         Bois test = new Bois("test");
         Joueur j = new Joueur("test", true);
         
-        test.ramasser(j);
+        test.ramasser(j, 1);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         assertEquals(1, j.getInventory().get(test));
 =======
         // assertEquals(1, j.getInventaire().get(test));
 >>>>>>> Marie
+=======
+        assertEquals(1, j.getInventory().get(test));
+>>>>>>> Yannick
     }
 
 }
