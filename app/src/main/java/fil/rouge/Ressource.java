@@ -1,7 +1,9 @@
 package fil.rouge;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import fil.rouge.utils.DBManager;
 
@@ -42,8 +44,41 @@ public class Ressource extends Objet implements IRamassable{
         return false;
     }
 
+    public boolean save() {
+        String sql = "";
+        if (this.id != 0)
+            sql = "UPDATE ressource " +
+                    "SET nom = ?, type = ? " +
+                    "WHERE id_ressource = ?";        
+        else
+            sql = "INSERT INTO ressource(nom, type) " +
+                    "VALUES(?, ?)";
+        try {
+            PreparedStatement stmt = DBManager.conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, this.nom);
+            stmt.setString(2, this.type);
+            if (this.id != 0)
+                stmt.setInt(3, this.id);
+            
+            stmt.execute();
+            ResultSet resultat = stmt.getGeneratedKeys();
+            if (resultat.next())
+                this.id = resultat.getInt(1);
+            return true;
+        
+        }catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+        
+
     public void ramasser(Joueur j, int quantite) {
         j.ajouterObjet(this, quantite);
     }
+
+    
     
 }
