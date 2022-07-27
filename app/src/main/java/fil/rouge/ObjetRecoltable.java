@@ -1,10 +1,9 @@
 package fil.rouge;
-import java.util.Random;
 
 public class ObjetRecoltable extends Objet {
     protected int id_outil; // id de l'outil à utiliser pour récolter
     protected int nb_ressources; // nombre de ressources que cela va donner
-    protected Ressource type; // type de la ressource que cela va donner
+    protected Ressource type;  // type de la ressource que cela va donner
     protected int quantite;
     protected String sorte;
     protected int difficulte;
@@ -46,6 +45,7 @@ public class ObjetRecoltable extends Objet {
     public Ressource getType() {
         return type;
     }
+    
 
     public void setType(Ressource type) {
         this.type = type;
@@ -124,6 +124,10 @@ public class ObjetRecoltable extends Objet {
 // si outil dispo dans inventaire alors on utilise pour extraire ressource selon la capacité (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire)
 // puis ramasser
     }
+
+
+
+
 
 
 }

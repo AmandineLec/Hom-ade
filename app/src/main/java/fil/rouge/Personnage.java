@@ -5,11 +5,7 @@ public abstract class Personnage {
   protected int id_personnage;
   protected String name;
   protected boolean sexe = true; // true pour masculin false pour féminin ou inversement si vous préférer
-<<<<<<< HEAD
   protected HashMap<Objet, Integer> inventory; 
-=======
-  protected HashMap<Objet, Integer> inventory;
->>>>>>> Marie
   protected Outils outils; 
 
 //#region getter and setter and one construtor
