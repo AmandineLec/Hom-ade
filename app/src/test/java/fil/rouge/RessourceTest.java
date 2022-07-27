@@ -48,4 +48,14 @@ public class RessourceTest {
         assertEquals(1, j.getInventory().get(test));
     }
 
+    @Test
+    public void testRamasserPlusieurs() {
+        Ressource test = new Ressource("test");
+        Joueur j = new Joueur("test", true);
+
+        test.ramasser(j, 5);
+
+        assertEquals(5, j.getInventory().get(test));
+    }
+
 }

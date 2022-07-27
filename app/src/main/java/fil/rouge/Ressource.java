@@ -73,6 +73,7 @@ public class Ressource extends Objet implements IRamassable{
             System.out.println("VendorError: " + ex.getErrorCode());
             return false;
         }
+    }
         
 
     public void ramasser(Joueur j, int quantite) {
