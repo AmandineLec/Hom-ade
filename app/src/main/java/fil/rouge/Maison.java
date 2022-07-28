@@ -23,6 +23,7 @@ public class Maison {
     public Maison(int nb_pieces){
         this. nb_pieces = nb_pieces;
         this.niveau = 1;
+        this.piece = new Pieces("salon");
     }
 
     //#endregion
@@ -92,10 +93,10 @@ public class Maison {
     public void levelUp(Pieces piece){
         this.setNiveau(this.getNiveau()+1);
         if (this.getNiveau()>=1 && this.getNiveau()<=3){
-            this.ajoutPiece(piece);
+            this.pieceAccessible(piece);
         }
         else if(this.getNiveau()>3 && this.getNiveau()%2==0){ // si le niveau est pair on ajoute une pièce
-            this.ajoutPiece(piece);
+            this.pieceAccessible(piece);
         }
         else{
             piece.agrandir(1);
@@ -103,7 +104,7 @@ public class Maison {
 
     }
 
-    public void ajoutPiece(Pieces piece){
+    public void pieceAccessible(Pieces piece){
         this.setNb_pieces(this.getNb_pieces()+1);
         this.piece = piece;
     }

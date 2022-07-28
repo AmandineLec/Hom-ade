@@ -1,10 +1,9 @@
 package fil.rouge;
 
 public class ObjetRecoltable extends Objet {
-    protected int id_outil; // id de l'outil à utiliser pour récolter
-    protected int nb_ressources; // nombre de ressources que cela va donner
-    protected Ressource type;  // type de la ressource que cela va donner
-    protected int quantite;
+    protected Outils outil; // id de l'outil à utiliser pour récolter
+    protected Ressource type; // type de la ressource que cela va donner
+    protected int quantite; // nombr ede ressources que ca donne
     protected String sorte;
     protected int difficulte;
     //#region Constructeurs
@@ -17,29 +16,21 @@ public class ObjetRecoltable extends Objet {
         super(nom, id);
     }
 
-    public ObjetRecoltable(String nom, int nb_ressources, Ressource type){
+    public ObjetRecoltable(Ressource type, String nom, String sorte){
         super(nom);
-        this.nb_ressources = nb_ressources;
         this.type = type;
+        this.sorte = sorte;
     }
     //#endregion
 
 
     //#region GETSET
-    public int getId_outil() {
-        return id_outil;
+    public Outils getOutil() {
+        return outil;
     }
 
-    public void setId_outil(int id_outil) {
-        this.id_outil = id_outil;
-    }
-
-    public int getNb_ressources() {
-        return nb_ressources;
-    }
-
-    public void setNb_ressources(int nb_ressources) {
-        this.nb_ressources = nb_ressources;
+    public void setOutil(Outils outil) {
+        this.outil = outil;
     }
 
     public Ressource getType() {
@@ -78,9 +69,11 @@ public class ObjetRecoltable extends Objet {
     //#endregion
 
     //#region Méthodes
-    public boolean ramasser(Joueur joueur){
-        joueur.ajouterObjet(this, 1);
-        return true;
+    public boolean ramasser(Joueur joueur,int nombre){
+        if (joueur.ajouterRessource(this.getType(), nombre)){
+            return true;
+        }
+        return false;
     }
 
     public int rand(int min, int max){
@@ -92,7 +85,6 @@ public class ObjetRecoltable extends Objet {
         if(sorte.equals("roseau") || sorte.equals("sardine") || sorte.equals("fer") || sorte.equals("brique") || sorte.equals("champignon") || sorte.equals("mare")){
             this.difficulte = 1;
         }
-
         if(sorte.equals("bambou") || sorte.equals("carpe")|| sorte.equals("cuivre") || sorte.equals("granit") || sorte.equals("coton") || sorte.equals("rivière")){
             this.difficulte = 2;
         }
@@ -109,18 +101,32 @@ public class ObjetRecoltable extends Objet {
     }
 
     public int quantiteProduite(){
-        // si difficulte == 1 alors this.quantite = rand(1, 3)
+        if(this.difficulte == 1)
+            this.quantite = this.rand(1, 3);
+
+        else if(this.difficulte == 2)
+            this.quantite = this.rand(1, 5);
+
+        else if(this.difficulte == 3)
+            this.quantite = this.rand(2, 6);
+
+        else if(this.difficulte == 4)
+            this.quantite = this.rand(2, 7);
+
+        else if(this.difficulte == 5)
+            this.quantite = this.rand(3, 8);
+
         return this.quantite;
     }
 
     public boolean recolter(Joueur joueur, Outils outil){
-        if (joueur.getInventory().containsKey(outil)){
-            int nombre = outil.getCapacite();
-            joueur.ajouterObjet(this.type, nombre);
+        if (joueur.getOutils()==this.getOutil()){
+            int nombre = outil.getCapacite() * this.quantiteProduite();
+            this.ramasser(joueur, nombre);
             return true;
         }
         return false;
-
+    
 // si outil dispo dans inventaire alors on utilise pour extraire ressource selon la capacité (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire)
 // puis ramasser
     }

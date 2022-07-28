@@ -2,13 +2,13 @@ package fil.rouge;
 import java.sql.*;
 import fil.rouge.utils.DBManager;
 
-public class Outils extends Objet implements Equipable {
+public class Outils extends Objet implements IEquipable {
 
         //#region Variables
         protected int resistance;
         protected int capacite;
          //#endregion
-        
+
         //#region Constructeur
         public Outils(String nom) {
             super(nom);
@@ -49,22 +49,22 @@ public class Outils extends Objet implements Equipable {
         public void setCapacite(int capacite) {
             this.capacite = capacite;
         }
-        
+
         //#endregion
-        
+
 
         //#region METHOD
 
         public boolean equiper(Joueur target){
             if(target.getOutils()!=null){
                 target.ajouterObjet(target.getOutils(), 1);
-                return true; 
+                return true;
             }
             if(target.retirerObjet(this, 1)){
                 target.setOutils(this);
                 return true;
             }
-            return false; 
+            return false;
         }
         public boolean desequipper(Joueur target){
             if(target.getOutils()==this){
@@ -72,8 +72,8 @@ public class Outils extends Objet implements Equipable {
                 target.setOutils(null);
                 return true;
             }
-            return false; 
+            return false;
         }
-        //#endregion       
-    
+        //#endregion
+
 }

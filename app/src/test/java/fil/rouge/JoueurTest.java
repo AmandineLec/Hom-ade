@@ -42,24 +42,24 @@ public class JoueurTest {
   void testAjouterRessource(){
 
     Bois bois = new Bois("bois");
-    Joueur luffy = new Joueur("luffy", true);
-    luffy.ajouterObjet(bois, 1); // grâce au constructeur intégrant l'inventaire
-    assertTrue(luffy.getInventory().get(bois) == 1);
+    Joueur luffy = new Joueur("luffy", 1);
+    luffy.ajouterObjet(bois, 1);
+    assertTrue(luffy.getInventoryressource().get(bois.getId()) == 1);
   }
 
   @Test
   void testRetirerRessource() {
 
     Bois bois = new Bois("bois");
-    Joueur luffy = new Joueur("luffy", true);
+    Joueur luffy = new Joueur("luffy", 1);
     luffy.ajouterObjet(bois, 1);
     luffy.retirerObjet(bois, 1);
-    assertFalse(luffy.getInventory().containsKey(bois));
+    assertFalse(luffy.getInventoryressource().containsKey(bois.getId()));
   }
 
   @Test
   void testSauvegarderJoueur(){
-    Joueur mikasa = new Joueur("mikasa", false);
+    Joueur mikasa = new Joueur("mikasa", 2);
     assertFalse(Joueur.sauvegarderJoueur(mikasa) == -1);
   }
 
