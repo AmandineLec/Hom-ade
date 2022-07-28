@@ -21,6 +21,7 @@ public class Pieces {
         this.nom = nom;
         this.taille = taille;
     }
+    //#endregion
 
     //#region GETSET
     public int getTaille() {
@@ -69,6 +70,7 @@ public class Pieces {
         this.setTaille(this.getTaille() + 1);
     }
     
+
 
     //#endregion
 }

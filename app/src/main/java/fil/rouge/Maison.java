@@ -22,7 +22,6 @@ public class Maison {
     //#endregion
 
     //#region GETSET
-
     public int getNiveau() {
         return niveau;
     }
@@ -94,7 +93,6 @@ public class Maison {
         else{
             piece.agrandir(1);
         }
-
     }
 
     public void ajoutPiece(Pieces piece){
