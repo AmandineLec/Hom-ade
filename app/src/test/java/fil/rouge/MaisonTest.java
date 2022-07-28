@@ -1,8 +1,33 @@
 package fil.rouge;
 import org.junit.jupiter.api.Test;
+
+import fil.rouge.utils.DBManager;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
 public class MaisonTest {
+
+  @BeforeAll // s'execute avant tous les tests
+  public static void initialisation() {
+    DBManager.init(); // Pour se connecter à la bdd
+  }
+
+  @BeforeEach // s'execute avant chaque test
+  public void setUp() {
+    try {
+      DBManager.conn.setAutoCommit(false); // ne pas faire la modif qu'on lui demande : c'est juste pour tester
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+
     @Test
     public void levelUpTestAvecAjoutPiece(){
         Pieces piece = new Pieces("salon", 10);
@@ -29,10 +54,21 @@ public class MaisonTest {
         maison.ajoutPiece(cuisine);
         assertTrue(maison.getNb_pieces()==2 && maison.getPiece().getNom()=="cuisine");
     }
-}
 
-/*  levelUp : 
- si niveau >= 1 && <=3 = maison.ajoutpiece(piece);
- sinon si niveau >3 && niveau%2 == 0 = maison.ajouterpiece(piece)
- sinon piece.agrandir(5)
-*/
+    @Test
+    void testSauvegarderMaison() {
+      assertTrue(Maison.sauvegarderMaison() != -1);
+    }
+
+    @AfterEach // s'execute après chaque test
+    public void tearDown() {
+      try {
+        DBManager.conn.rollback(); // pour revenir à l'état initial car la simulation est faite dans la mémoire
+                                   // cache
+        DBManager.conn.setAutoCommit(true); // static pas besoin d'instance mais s'applique à toutes les autres classes
+        // donc si je l'avais laissé en false je n'aurais pas pu faire de commit
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+}

@@ -21,6 +21,8 @@ public class DBManager {
         try {
             DBManager.conn = DriverManager.getConnection("jdbc:mysql://" + DBManager.server + "/" + database + "?",
                     user, password);
+        // url uniform ressource locator sous protocol jdbc via protocol mysql =
+        // "jdbc:mysql://"
 
 
         } catch (SQLException ex) {
@@ -70,19 +72,6 @@ public class DBManager {
       return null;
     }
 
-    public static int executeUpdate(String sql) {
-      int test = -1;
-      try {
-        Statement stmt = DBManager.conn.createStatement();
-        test = stmt.executeUpdate(sql); // succès = nombre de lignes modifiés ou supprimés
-      } catch (SQLException ex) {
-        // handle any errors
-        System.out.println("SQLException: " + ex.getMessage());
-        System.out.println("SQLState: " + ex.getSQLState());
-        System.out.println("VendorError: " + ex.getErrorCode());
-      }
-      return test; // echec = -1
-    }
 
     //ferme la connexion à la base de données
     public static void close() {

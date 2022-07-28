@@ -1,6 +1,8 @@
 package fil.rouge;
+import java.sql.*;
+import fil.rouge.utils.DBManager;
 
-public abstract class Outils extends Objet implements Equipable {
+public class Outils extends Objet implements Equipable {
 
         //#region Variables
         protected int resistance;
@@ -13,7 +15,23 @@ public abstract class Outils extends Objet implements Equipable {
         }
 
         public Outils(int id){
-            super(id);
+            super("");
+            try {
+                ResultSet resultat = DBManager.query("SELECT * FROM objet WHERE id_objet = "+id);
+                if(resultat.next()){
+                    this.nom = resultat.getString("nom");
+                    this.types = resultat.getString("type");
+                    this.resistance = resultat.getInt("resistance");
+                    this.capacite = resultat.getInt("capacite");
+                    this.id = id;
+                    }
+                }
+                catch (SQLException ex) {
+                    // handle any errors
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                }
         }
         //#endregion
 
@@ -37,11 +55,24 @@ public abstract class Outils extends Objet implements Equipable {
 
         //#region METHOD
 
-        public void equiper(Joueur target){
-
+        public boolean equiper(Joueur target){
+            if(target.getOutils()!=null){
+                target.ajouterObjet(target.getOutils(), 1);
+                return true; 
+            }
+            if(target.retirerObjet(this, 1)){
+                target.setOutils(this);
+                return true;
+            }
+            return false; 
         }
-        public void desequipper(Joueur target){
-            
+        public boolean desequipper(Joueur target){
+            if(target.getOutils()==this){
+                target.ajouterObjet(this, 1);
+                target.setOutils(null);
+                return true;
+            }
+            return false; 
         }
         //#endregion       
     

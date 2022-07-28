@@ -1,5 +1,11 @@
 package fil.rouge;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import fil.rouge.utils.DBManager;
+
 public class Maison {
     protected int id_maison;
     protected int niveau; // début à 1
@@ -20,6 +26,7 @@ public class Maison {
     }
 
     //#endregion
+
     //#region GETSET
 
     public int getNiveau() {
@@ -81,7 +88,6 @@ public class Maison {
 
     //#endregion
 
-
     //#region Méthodes
     public void levelUp(Pieces piece){
         this.setNiveau(this.getNiveau()+1);
@@ -101,6 +107,29 @@ public class Maison {
         this.setNb_pieces(this.getNb_pieces()+1);
         this.piece = piece;
     }
+
+      public static int sauvegarderMaison(){
+      try{
+        Maison maisonJoueur = new Maison(1);
+        int niveauMaison = maisonJoueur.getNiveau();
+        int nbPiecesMaison = maisonJoueur.getNb_pieces();
+        String query = "INSERT INTO maison (niveau,np_pieces) VALUES (?,?)";
+        PreparedStatement myStmt = DBManager.preparedStatement(query);
+        myStmt.setInt(1, niveauMaison);
+        myStmt.setInt(2, nbPiecesMaison);
+        myStmt.executeUpdate();
+        ResultSet res = myStmt.getGeneratedKeys();
+        res.next();
+        int clePrimaireMaison = res.getInt(1);
+        return clePrimaireMaison;
+        } catch (SQLException ex) {
+        // handle any errors
+        System.out.println("SQLException: " + ex.getMessage());
+        System.out.println("SQLState: " + ex.getSQLState());
+        System.out.println("VendorError: " + ex.getErrorCode());
+      }
+      return -1;
+  }
 
     //#endregion
 }

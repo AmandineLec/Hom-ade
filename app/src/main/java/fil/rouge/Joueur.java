@@ -43,18 +43,22 @@ public boolean retirerObjet(Objet objet, int quantite) throws JoueurException{
     return false;
   }
 
+
+
   public static int sauvegarderJoueur(Joueur joueur){
     try{
-      String query = "INSERT INTO personnage (nom,sexe) VALUES (?,?)";
-      PreparedStatement myStmt = DBManager.preparedStatement(query);
-      myStmt.setString(1, joueur.getName());
+      int idMaison = Maison.sauvegarderMaison();
+      String query = "INSERT INTO personnage (nom,sexe,id_maison) VALUES (?,?,?)";
+      PreparedStatement Stmt = DBManager.preparedStatement(query);
+      Stmt.setString(1, joueur.getName());
       //https: // stackoverflow.com/questions/45458881/setboolean-method-of-java-sql-preparedstatement
-      myStmt.setString(2, joueur.sexe ? "true": "false");
-      myStmt.executeUpdate();
-      ResultSet res = myStmt.getGeneratedKeys();
-      res.next();
-      int clePrimaire = res.getInt(1);
-      return clePrimaire;
+      Stmt.setString(2, joueur.sexe ? "true": "false");
+      Stmt.setInt(3, idMaison);
+      Stmt.executeUpdate(); // execute la mise à jour dans la bdd
+      ResultSet res = Stmt.getGeneratedKeys();
+      res.next(); // de type boolean et renvoit true si il y'a un prochain element à traiter
+      int clePrimaireJoueur = res.getInt(1);
+      return clePrimaireJoueur;
     }catch(SQLException ex){
       // handle any errors
       System.out.println("SQLException: " + ex.getMessage());
