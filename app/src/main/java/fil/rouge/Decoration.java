@@ -1,13 +1,14 @@
 package fil.rouge;
-import java.sql.*;
-import fil.rouge.utils.DBManager;
 
+import java.sql.*;
+
+import fil.rouge.utils.DBManager;
 
 public class Decoration extends Objet implements Deplacable {
      //#region Variables
-    int taille;
+     int taille;
      //#endregion
-
+ 
      //#region Constructeur
     public Decoration(String nom){
         super(nom);
@@ -31,19 +32,19 @@ public class Decoration extends Objet implements Deplacable {
                 }
     }
      //#endregion
-
+ 
      //#region GETTER & SETTER
-    public int getTaille() {
-        return taille;
-    }
-
-    public void setTaille(int taille) {
-        this.taille = taille;
-    }
+     public int getTaille() {
+         return taille;
+     }
+ 
+     public void setTaille(int taille) {
+         this.taille = taille;
+     }
      //#endregion
-
+ 
      //#region METHOD
-    public void deplacer(){
+     public void deplacer(){
 
     }
 
