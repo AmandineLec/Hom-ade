@@ -5,26 +5,37 @@ import fil.rouge.utils.DBManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.SQLException;
+import java.sql.Savepoint;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
+
 public class MaisonTest {
 
-  @BeforeAll // s'execute avant tous les tests
-  public static void initialisation() {
-    DBManager.init(); // Pour se connecter à la bdd
+  static Savepoint save;
+
+  @BeforeAll
+  static void setup() {
+    DBManager.init();
+    DBManager.setAutoCommit(false);
   }
 
-  @BeforeEach // s'execute avant chaque test
-  public void setUp() {
-    try {
-      DBManager.conn.setAutoCommit(false); // ne pas faire la modif qu'on lui demande : c'est juste pour tester
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+  @BeforeEach
+  void init() {
+    save = DBManager.setSavePoint();
+  }
+
+  @AfterEach
+  void done() {
+    DBManager.rollback(save);
+  }
+
+  @AfterAll
+  static void teardown() {
+    DBManager.close();
   }
 
 
@@ -60,15 +71,5 @@ public class MaisonTest {
       assertTrue(Maison.sauvegarderMaison() != -1);
     }
 
-    @AfterEach // s'execute après chaque test
-    public void tearDown() {
-      try {
-        DBManager.conn.rollback(); // pour revenir à l'état initial car la simulation est faite dans la mémoire
-                                   // cache
-        DBManager.conn.setAutoCommit(true); // static pas besoin d'instance mais s'applique à toutes les autres classes
-        // donc si je l'avais laissé en false je n'aurais pas pu faire de commit
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
+
 }

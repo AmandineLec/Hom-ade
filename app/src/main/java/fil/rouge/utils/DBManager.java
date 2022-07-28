@@ -61,7 +61,7 @@ public class DBManager {
 
     public static PreparedStatement preparedStatement(String sql) {
       try {
-        return conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); // on permet la connection avec la bdd pour
+        return DBManager.conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); // on permet la connection avec la bdd pour
                                                                             // faire des requêtes de type prepared statement et obtenir la clé primaire générée
       } catch (SQLException ex) {
         // handle any errors

@@ -59,6 +59,7 @@ public boolean retirerObjet(Objet objet, int quantite) throws JoueurException{
       res.next(); // de type boolean et renvoit true si il y'a un prochain element à traiter
       int clePrimaireJoueur = res.getInt(1);
       return clePrimaireJoueur;
+      
     }catch(SQLException ex){
       // handle any errors
       System.out.println("SQLException: " + ex.getMessage());
