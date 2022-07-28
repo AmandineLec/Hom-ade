@@ -1,6 +1,13 @@
 package fil.rouge;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import fil.rouge.utils.DBManager;
+
 public class Pieces {
+    protected Maison maison;
     protected int id_piece;
     protected String nom;
     protected int taille; //en mètres carrés
@@ -31,7 +38,7 @@ public class Pieces {
     public void setTaille(int taille) {
         this.taille = taille;
     }
-    
+
     public int getId_decoration() {
         return id_decoration;
     }
@@ -69,7 +76,10 @@ public class Pieces {
     public void agrandir(int agrandissement){
         this.setTaille(this.getTaille() + 1);
     }
-    
+
+
+
+
 
 
     //#endregion

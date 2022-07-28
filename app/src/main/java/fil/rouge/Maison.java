@@ -1,5 +1,11 @@
 package fil.rouge;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import fil.rouge.utils.DBManager;
+
 public class Maison {
     protected int id_maison;
     protected int niveau; // début à 1
@@ -17,6 +23,7 @@ public class Maison {
     public Maison(int nb_pieces){
         this. nb_pieces = nb_pieces;
         this.niveau = 1;
+        this.piece = new Pieces("salon");
     }
 
     //#endregion
@@ -59,7 +66,7 @@ public class Maison {
     }
 
     public void setEtabli(String etabli) {
-        this.etabli = 
+        this.etabli =
         etabli;
     }
 
@@ -85,20 +92,44 @@ public class Maison {
     public void levelUp(Pieces piece){
         this.setNiveau(this.getNiveau()+1);
         if (this.getNiveau()>=1 && this.getNiveau()<=3){
-            this.ajoutPiece(piece);
+            this.pieceAccessible(piece);
         }
-        else if(this.getNiveau()>3 && this.getNiveau()%2==0){
-            this.ajoutPiece(piece);
+        else if(this.getNiveau()>3 && this.getNiveau()%2==0){ // si le niveau est pair on ajoute une pièce
+            this.pieceAccessible(piece);
         }
         else{
             piece.agrandir(1);
         }
     }
 
-    public void ajoutPiece(Pieces piece){
+    public void pieceAccessible(Pieces piece){
         this.setNb_pieces(this.getNb_pieces()+1);
         this.piece = piece;
     }
+
+      public static int sauvegarderMaison(){
+        try{
+          Maison maisonJoueur = new Maison(1);
+          int niveauMaison = maisonJoueur.getNiveau();
+          int nbPiecesMaison = maisonJoueur.getNb_pieces();
+          String query = "INSERT INTO maison (niveau,nb_pieces) VALUES (?,?)";
+          PreparedStatement myStmt = DBManager.preparedStatement(query);
+          myStmt.setInt(1, niveauMaison);
+          myStmt.setInt(2, nbPiecesMaison);
+          myStmt.executeUpdate();
+          ResultSet res = myStmt.getGeneratedKeys();
+          res.next();
+          int clePrimaireMaison = res.getInt(1);
+          return clePrimaireMaison;
+
+          } catch (SQLException ex) {
+          // handle any errors
+          System.out.println("SQLException: " + ex.getMessage());
+          System.out.println("SQLState: " + ex.getSQLState());
+          System.out.println("VendorError: " + ex.getErrorCode());
+        }
+      return -1;
+  }
 
     //#endregion
 }

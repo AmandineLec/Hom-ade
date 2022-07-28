@@ -21,7 +21,9 @@ public class DBManager {
         try {
             DBManager.conn = DriverManager.getConnection("jdbc:mysql://" + DBManager.server + "/" + database + "?",
                     user, password);
-            
+        // url uniform ressource locator sous protocol jdbc via protocol mysql =
+        // "jdbc:mysql://"
+
 
         } catch (SQLException ex) {
             System.out.println("SQLException : " + ex.getMessage());
@@ -33,7 +35,7 @@ public class DBManager {
     //retourne un PreparedStatement à partir d'un update sql
     public static PreparedStatement update(String sql) {
         try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);            
+            PreparedStatement pstmt = conn.prepareStatement(sql);
             return pstmt;
         } catch (SQLException ex) {
             System.out.println("SQLException : " + ex.getMessage());
@@ -57,6 +59,20 @@ public class DBManager {
         }
     }
 
+    public static PreparedStatement preparedStatement(String sql) {
+      try {
+        return DBManager.conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); // on permet la connection avec la bdd pour
+                                                                            // faire des requêtes de type prepared statement et obtenir la clé primaire générée
+      } catch (SQLException ex) {
+        // handle any errors
+        System.out.println("SQLException: " + ex.getMessage());
+        System.out.println("SQLState: " + ex.getSQLState());
+        System.out.println("VendorError: " + ex.getErrorCode());
+      }
+      return null;
+    }
+
+
     //ferme la connexion à la base de données
     public static void close() {
         try {
@@ -74,7 +90,7 @@ public class DBManager {
         try {
             save = conn.setSavepoint();
         } catch (SQLException e) {
-            
+
             e.printStackTrace();
         }
         return save;

@@ -4,11 +4,11 @@ import java.util.HashMap;
 public abstract class Personnage {
   protected int id_personnage;
   protected String name;
-  protected boolean sexe = true; // true pour masculin false pour féminin ou inversement si vous préférer
+  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
   protected HashMap<Integer, Integer> inventoryressource; //Permet de remonter uniquement les ressources pour la méthode recette
-  protected HashMap<Integer, Integer> inventoryobjet;  
-  protected Outils outils; 
-  protected Maison maison; 
+  protected HashMap<Integer, Integer> inventoryobjet;
+  protected Outils outils;
+  protected Maison maison;
 
 //#region getter and setter and one construtor
 
@@ -20,11 +20,11 @@ public abstract class Personnage {
     this.name = newName;
   }
 
-  public boolean getSexe() {
+  public int getSexe() {
     return sexe;
   }
 
-  public void setSexe(boolean newSexe) {
+  public void setSexe(int newSexe) {
     this.sexe = newSexe;
   }
 
@@ -51,7 +51,7 @@ public abstract class Personnage {
   public void setOutils(Outils outils) {
     this.outils = outils;
   }
-  
+
 
   public Maison getMaison() {
     return maison;
@@ -61,7 +61,7 @@ public abstract class Personnage {
     this.maison = maison;
   }
 
-  public Personnage(String name, boolean sexe){
+  public Personnage(String name, int sexe){
     this.name = name;
     this.sexe = sexe;
     inventoryressource = new HashMap<Integer, Integer>();

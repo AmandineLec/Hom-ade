@@ -1,8 +1,44 @@
 package fil.rouge;
 import org.junit.jupiter.api.Test;
+
+import fil.rouge.utils.DBManager;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.Savepoint;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
+
 public class MaisonTest {
+
+  static Savepoint save;
+
+  @BeforeAll
+  static void setup() {
+    DBManager.init();
+    DBManager.setAutoCommit(false);
+  }
+
+  @BeforeEach
+  void init() {
+    save = DBManager.setSavePoint();
+  }
+
+  @AfterEach
+  void done() {
+    DBManager.rollback(save);
+  }
+
+  @AfterAll
+  static void teardown() {
+    DBManager.close();
+  }
+
+
     @Test
     public void levelUpTestAvecAjoutPiece(){
         Pieces piece = new Pieces("salon", 10);
@@ -29,4 +65,11 @@ public class MaisonTest {
         maison.ajoutPiece(cuisine);
         assertTrue(maison.getNb_pieces()==2 && maison.getPiece().getNom()=="cuisine");
     }
+
+    @Test
+    void testSauvegarderMaison() {
+      assertTrue(Maison.sauvegarderMaison() != -1);
+    }
+
+
 }
