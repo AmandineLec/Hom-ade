@@ -1,6 +1,6 @@
 package fil.rouge;
 
 public interface Equipable {
-    public void equiper();
-    public void desequipper();
+    public boolean equiper(Joueur target);
+    public boolean desequipper(Joueur target);
 }

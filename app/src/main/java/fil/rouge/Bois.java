@@ -2,15 +2,15 @@ package fil.rouge;
 
 public class Bois extends Ressource{
 
-    public Bois(int id, String nom) {
-        super(id, nom);
-        //TODO Auto-generated constructor stub
+    public Bois(String nom) {
+        super(nom);
     }
 
     @Override
-    public void ramasser() {
-        // TODO Auto-generated method stub
+    public void ramasser(Joueur j, int quantite) {
+        super.ramasser(j, quantite);
         
     }
+
     
 }

@@ -2,13 +2,13 @@ package fil.rouge;
 
 public class Animal extends Ressource{
 
-    public Animal(int id, String nom) {
-        super(id, nom);
+    public Animal(String nom) {
+        super(nom);
     }
 
     @Override
-    public void ramasser() {
-        // TODO Auto-generated method stub
+    public void ramasser(Joueur j, int quantite) {
+        super.ramasser(j, quantite);
         
     }
     
