@@ -19,7 +19,7 @@ public class Decoration extends Objet implements Deplacable {
                 ResultSet resultat = DBManager.query("SELECT * FROM objet WHERE id_objet = "+id);
                 if(resultat.next()){
                     this.nom = resultat.getString("nom");
-                    this.types = resultat.getString("type");
+                    this.types = resultat.getInt("type");
                     this.id = id;
                     }
                 }

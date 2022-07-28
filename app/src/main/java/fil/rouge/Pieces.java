@@ -67,8 +67,7 @@ public class Pieces {
     //#region Méthodes
     public void agrandir(int agrandissement){
         this.setTaille(this.getTaille() + 1);
-    }
-    
+    }   
 
     //#endregion
 }

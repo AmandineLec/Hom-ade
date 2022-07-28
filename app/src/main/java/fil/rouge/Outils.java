@@ -20,7 +20,7 @@ public class Outils extends Objet implements Equipable {
                 ResultSet resultat = DBManager.query("SELECT * FROM objet WHERE id_objet = "+id);
                 if(resultat.next()){
                     this.nom = resultat.getString("nom");
-                    this.types = resultat.getString("type");
+                    this.types = resultat.getInt("type");
                     this.resistance = resultat.getInt("resistance");
                     this.capacite = resultat.getInt("capacite");
                     this.id = id;

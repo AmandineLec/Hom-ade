@@ -85,22 +85,20 @@ public class Recettes {
 
     //Méthode de création d'objet en fonction de son type  et de l'id élément de la recette
     public Objet creerObjet(int id_element){
-        Objet objet; 
+        Objet objet = null; 
         try {
             ResultSet resultat = DBManager.query("SELECT type FROM objet INNER JOIN recette ON id_objet = "+id_element);
             if(resultat.next()){
-                if(resultat.getString("type").equalsIgnoreCase("outils")){
+                if(resultat.getInt("type") == EnumTypeObjet.Outils.getValue()){
                     objet = new Outils(id_element);
-                    return objet;
                 }
-                else if(resultat.getString("type").equalsIgnoreCase("meuble")){
+                else if(resultat.getInt("type") == EnumTypeObjet.Meubles.getValue()){
                     objet = new Meubles(id_element);
-                    return objet;
                 }
-                else if(resultat.getString("type").equalsIgnoreCase("decoration")){
+                else if(resultat.getInt("type") == EnumTypeObjet.Decoration.getValue()){
                     objet = new Decoration(id_element);
-                    return objet;
-                } 
+                }
+
             }
         }
         catch (SQLException ex) {
@@ -109,7 +107,7 @@ public class Recettes {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
-        return objet; 
+        return objet;
     }
 
     //Méthode de création d'objet à partir de recette
@@ -132,9 +130,8 @@ public class Recettes {
                 Map.Entry<Integer, Integer> entry_recette = (Map.Entry<Integer, Integer>)iterator_recette.next();
                 int id_ressource = entry_recette.getKey();
 
-                //On compare les valeurs associés à la clef id_ressource dans les deux hashmap (recette et inventaire)
-                //Si le nombre de ressource demandé dans la recette est supérieur au nombre de ressource présentes dans l'inventaire
-                //Ou si la clef id_ressource n'est pas présente dans l'inventaire (et donc renvoi null)
+                //On compare les valeurs associés à la clef id_ressource dans les deux hashmap (recette et inventaire) si le nombre de ressource demandé dans la recette est 
+                //supérieur au nombre de ressource présentes dans l'inventaire ou si la clef id_ressource n'est pas présente dans l'inventaire (et donc renvoi null)
                 //La variable craftable passe à false. 
                 if(joueur.getInventoryressource().get(id_ressource)==null || 
                 this.getQuantite().get(id_ressource)>joueur.getInventoryressource().get(id_ressource)){
@@ -143,19 +140,26 @@ public class Recettes {
             } 
             //Si on possède bien les ressources nécessaires, on enlève ces ressources de notre inventaire
             if(craftable){
+
                 Iterator<Entry<Integer, Integer> > i_recette = this.getQuantite().entrySet().iterator(); //Itérateur de la hashmap des recettes
                 
                 while(i_recette.hasNext()){
+
                     //On recrée une carte des éléments que l'on récupère avec l'itérateur et on va chercher sa clef
                     Map.Entry<Integer, Integer> entry_recettes = (Map.Entry<Integer, Integer>)i_recette.next();
                     int id_ressources = entry_recettes.getKey();
-                    //On stocke la nouvelle valeur dans une variable quantité
-                    //Et on effectue le calcul : On soustraie la quantité nécessaire à la réalisation de la recette 
+
+                    //On stocke la nouvelle valeur dans une variable quantité et on effectue le calcul : On soustraie la quantité nécessaire à la réalisation de la recette 
                     //à la quantité de ressource présente dans l'inventaire
                     int quantite = joueur.getInventoryressource().get(id_ressources) - this.getQuantite().get(id_ressources);   
+
                     //Et on remplace l'ancienne quantité par la nouvelle quantité dans l'inventaire.                      
-                    joueur.getInventoryressource().replace(id_ressources, quantite );
+                    joueur.getInventoryressource().replace(id_ressources, quantite);
+
+                    //On crée alors un nouvel objet grâce à son id, et en fonction de son type
                     objet = this.creerObjet(this.id_element);
+
+                    //Finalement, on ajoute l'objet à l'inventaire du joueur. 
                     joueur.ajouterObjet(objet, 1);
                 }
             }
