@@ -21,18 +21,19 @@ public class Recettes {
     public Recettes(String nom, int id_element){
         this.nom = nom;
         try {
-            ResultSet resultat = DBManager.query("SELECT id_ressource, quantite, id_objet, niveau_requis FROM objet WHERE id_objet = "+ id_element);
+            ResultSet resultat = DBManager.query("SELECT id_objet, niveau_requis FROM recette WHERE id_objet = "+ id_element);
             if(resultat.next()){
                 this.quantite = new HashMap<Integer, Integer>();
                 this.id_element = resultat.getInt("id_objet");
                 this.niveau_requis = resultat.getInt("niveau_requis");
-                while(resultat.next()){
-                    this.id_ressource = resultat.getInt("id_ressource");
-                    this.quantite_necessaire = resultat.getInt("quantite");
-                    quantite.put(id_ressource, quantite_necessaire);                    
-                    }
                 }
-            }
+            ResultSet resultat2 = DBManager.query("SELECT id_ressource, quantite FROM recette WHERE id_objet = " +id_element);
+            while(resultat2.next()){
+                this.id_ressource = resultat2.getInt("id_ressource");
+                this.quantite_necessaire = resultat2.getInt("quantite");
+                quantite.put(id_ressource, quantite_necessaire);                    
+                }
+            }        
         catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -43,6 +44,7 @@ public class Recettes {
 
     public Recettes(int id_element){
         this.id_element = id_element;
+        this.quantite = new HashMap<Integer, Integer>();
     }
     //#endregion
 
@@ -87,15 +89,15 @@ public class Recettes {
     public Objet creerObjet(int id_element){
         Objet objet = null; 
         try {
-            ResultSet resultat = DBManager.query("SELECT type FROM objet INNER JOIN recette ON id_objet = "+id_element);
+            ResultSet resultat = DBManager.query("SELECT o.type FROM objet as o INNER JOIN recette as re ON re.id_objet = "+id_element);
             if(resultat.next()){
-                if(resultat.getInt("type") == EnumTypeObjet.Outils.getValue()){
+                if(resultat.getInt("o.type") == EnumTypeObjet.Outils.getValue()){
                     objet = new Outils(id_element);
                 }
-                else if(resultat.getInt("type") == EnumTypeObjet.Meubles.getValue()){
+                else if(resultat.getInt("o.type") == EnumTypeObjet.Meubles.getValue()){
                     objet = new Meubles(id_element);
                 }
-                else if(resultat.getInt("type") == EnumTypeObjet.Decoration.getValue()){
+                else if(resultat.getInt("o.type") == EnumTypeObjet.Decoration.getValue()){
                     objet = new Decoration(id_element);
                 }
 
@@ -157,7 +159,7 @@ public class Recettes {
                     joueur.getInventoryressource().replace(id_ressources, quantite);
 
                     //On crée alors un nouvel objet grâce à son id, et en fonction de son type
-                    objet = this.creerObjet(this.id_element);
+                    objet = this.creerObjet(this.getId_element());
 
                     //Finalement, on ajoute l'objet à l'inventaire du joueur. 
                     joueur.ajouterObjet(objet, 1);

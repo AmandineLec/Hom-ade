@@ -21,8 +21,8 @@ public class Outils extends Objet implements Equipable {
                 if(resultat.next()){
                     this.nom = resultat.getString("nom");
                     this.types = resultat.getInt("type");
-                    this.resistance = resultat.getInt("resistance");
-                    this.capacite = resultat.getInt("capacite");
+                    // this.resistance = resultat.getInt("resistance");
+                    // this.capacite = resultat.getInt("capacite");
                     this.id = id;
                     }
                 }

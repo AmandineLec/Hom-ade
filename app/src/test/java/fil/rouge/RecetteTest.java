@@ -24,24 +24,37 @@ public class RecetteTest {
         save = DBManager.setSavePoint();
     }
 
+    @Test 
+    public void Testrecette(){
+        Recettes recette = new Recettes("Hache rudimentaire", 4);
+        assertTrue(recette.getQuantite().containsKey(7));
+        assertTrue(recette.getQuantite().containsKey(3));
+    }
+
     
     @Test
     public void TestCreerItem(){
 
-        Objet canneapeche = null;
+        Outils canneapeche = new Outils(1);
 
         Maison maison = new Maison();
         maison.setNiveau(1);
 
+        Ressource bois = new Ressource(2);
+        Ressource lin = new Ressource(5);
+        Ressource roseau = new Ressource(4);
+
         Joueur joueur = new Joueur("joueur", true);
-        joueur.getInventoryressource().put(1, 7);
-        joueur.getInventoryressource().put(3,8);
-        joueur.getInventoryressource().put(7, 2);
+        joueur.getInventoryressource().put(bois.getId(), 7);
+        joueur.getInventoryressource().put(lin.getId(),8);
+        joueur.getInventoryressource().put(roseau.getId(), 2);
+        joueur.getInventoryressource();
         joueur.setMaison(maison);
 
         Recettes recette = new Recettes(1);
-        recette.getQuantite().put(1, 5);
-        recette.getQuantite().put(3, 6);
+        recette.getQuantite().put(bois.getId(), 5);
+        recette.getQuantite().put(lin.getId(), 6);
+        recette.getQuantite();
         recette.setNiveau_requis(1);
 
         recette.fusionnerRessource(joueur, canneapeche);

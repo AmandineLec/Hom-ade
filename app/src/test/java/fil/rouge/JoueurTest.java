@@ -9,19 +9,19 @@ public class JoueurTest {
 
   @Test void testAjouterRessource(){
 
-    Bois bois = new Bois("bois");
+    Ressource bois = new Ressource("bois");
     Joueur luffy = new Joueur("luffy", true);
-    luffy.ajouterObjet(bois, 1);
+    luffy.ajouterRessource(bois, 1);
     assertTrue(luffy.getInventoryressource().get(bois.getId()) == 1);
   }
 
   @Test
   void testRetirerRessource() {
 
-    Bois bois = new Bois("bois");
+    Ressource bois = new Ressource("bois");
     Joueur luffy = new Joueur("luffy", true);
-    luffy.ajouterObjet(bois, 1);
-    luffy.retirerObjet(bois, 1);
+    luffy.ajouterRessource(bois, 1);
+    luffy.retirerRessource(bois, 1);
     assertFalse(luffy.getInventoryressource().containsKey(bois.getId()));
   }
 
