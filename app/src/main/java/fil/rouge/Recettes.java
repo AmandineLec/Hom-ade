@@ -2,40 +2,54 @@ package fil.rouge;
 import java.util.HashMap;
 import java.sql.*;
 import fil.rouge.utils.DBManager;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Recettes {
     //#region Variables
     protected String nom;
-    protected HashMap<Integer, Integer> quantite; 
-    protected int quantite_necessaire; 
-    protected int id_element; 
-    protected int niveau_requis; 
+    protected HashMap<Integer, Integer> quantite;
+    protected int quantite_necessaire;
+    protected int id_element;
+    protected int niveau_requis;
     protected int  id_ressource;
 
     //#endregion
 
     //#region Constructeur
-    public Recettes(String nom, int id_element){
-        this.nom = nom;
-        try {
-            ResultSet resultat = DBManager.query("SELECT id_ressource, quantite, id_objet, niveau_requis FROM objet WHERE id_objet = "+ id_element);
-            if(resultat.next()){
-                this.quantite = new HashMap<Integer, Integer>();
-                this.id_element = resultat.getInt("id_objet");
-                this.niveau_requis = resultat.getInt("niveau_requis");
-                while(resultat.next()){
-                    this.id_ressource = resultat.getInt("id_ressource");
-                    this.quantite_necessaire = resultat.getInt("quantite");
-                    quantite.put(id_ressource, quantite_necessaire);                    
-                    }
-                }
-            }
-            catch (SQLException ex) {
-                // handle any errors
-                System.out.println("SQLException: " + ex.getMessage());
-                System.out.println("SQLState: " + ex.getSQLState());
-                System.out.println("VendorError: " + ex.getErrorCode());
-            }
+    public Recettes(String nom, int id_element) {
+      this.nom = nom;
+      try {
+        ResultSet resultat = DBManager
+            .query("SELECT id_objet, niveau_requis FROM recette WHERE id_objet = " + id_element);
+        if (resultat.next()) { // si on a trouvé un resultat qui correspond à la requête
+          this.quantite = new HashMap<Integer, Integer>(); // liste des ingrédients avec leurs quantité qui servira à
+                                                           // définir si le joueur a la quantité de matière première
+                                                           // nécessaire en comparant cette "quantite" à l'inventaire du
+                                                           // joueur
+          this.id_element = resultat.getInt("id_objet");
+          this.niveau_requis = resultat.getInt("niveau_requis"); // il s'agira plus tard de faire une comparaison avec
+                                                                 // le niveau de la maison du joueur
+        }
+        ResultSet resultat2 = DBManager
+            .query("SELECT id_ressource, quantite FROM recette WHERE id_objet = " + id_element);
+        while (resultat2.next()) {
+          this.id_ressource = resultat2.getInt("id_ressource");
+          this.quantite_necessaire = resultat2.getInt("quantite");
+          quantite.put(id_ressource, quantite_necessaire); // c'est la recette avec ingredients et quantité necessaire
+        }
+      } catch (SQLException ex) {
+        // handle any errors
+        System.out.println("SQLException: " + ex.getMessage());
+        System.out.println("SQLState: " + ex.getSQLState());
+        System.out.println("VendorError: " + ex.getErrorCode());
+      }
+    }
+
+    public Recettes(int id_element){
+        this.id_element = id_element;
+        this.quantite = new HashMap<Integer, Integer>();
     }
     //#endregion
 
@@ -46,7 +60,7 @@ public class Recettes {
     }
     public void setNom(String nom) {
         this.nom = nom;
-    }    
+    }
     public HashMap<Integer, Integer> getQuantite() {
         return quantite;
     }
@@ -71,62 +85,93 @@ public class Recettes {
     public void setNiveau_requis(int niveau_requis) {
         this.niveau_requis = niveau_requis;
     }
-    
+
     //#endregion
-    
+
     //#region METHOD
-    public boolean fusionnerRessource(Joueur joueur){
 
-        
-
-        //Itérer sur la hashmap de recette puis vérifier si cette clef est dans inventaire ressource si oui comparer les valeurs
-        //Si la valeur dans inventaire est supérieur ou égale : renvoie true. 
-        //Si à la fin de l'itération tout est à true : on peut créer, si un false, on peut pas créer. 
-
-
-
-
-
+    //Méthode de création d'objet en fonction de son type  et de l'id élément de la recette
+    public Objet creerObjet(int id_element){
+        Objet objet = null;
         try {
-            ResultSet resultat = DBManager.query("SELECT re.id_objet, re.id_ressource, re.quantite, re.niveau_requis, o.type, i.  id_ressource, i.quantite, m.niveau"+
-                                                "FROM recette as re"+
-                                                "INNER JOIN objet as o ON o.id_objet = re.id_objet"+
-                                                "INNER JOIN ressource as r ON r.id_ressource = re.id_ressource"+
-                                                "INNER JOIN inventaire as i ON i.id_ressource = r.id_ressource"+
-                                                "INNER JOIN personnage as p ON p.id_personnage = i.id_presonnage"+
-                                                "INNER JOIN maison as m ON m.id_maison = p.id_maison"
-                                                +"WHERE re.id_element = o.id_element");
+            ResultSet resultat = DBManager.query("SELECT o.type FROM objet as o INNER JOIN recette as re ON re.id_objet = "+id_element);
             if(resultat.next()){
-                    if(resultat.getInt("re.id_ressource")==(resultat.getInt("i.id_ressource"))&& resultat.getInt("i.quantite")>=resultat.getInt("re.quantite")&& resultat.getInt("re.niveau_requis")==resultat.getInt("m.niveau")){
-                        if(resultat.getString("e.type").equalsIgnoreCase("outils")){
-                            Outils outil = new Outils(resultat.getInt("o.id_element")); 
-                            joueur.ajouterObjet(outil, 1);
-                            return true;
-                        }
-    
-                        else if(resultat.getString("e.type").equalsIgnoreCase("meuble")){
-                            Meubles meuble = new Meubles(resultat.getInt("o.id_element"));
-                            joueur.ajouterObjet(meuble, 1); 
-                            return true; 
-                        }
-                        else if(resultat.getString("e.type").equalsIgnoreCase("décoration")){
-                            Decoration deco = new Decoration(resultat.getInt("o.id_element"));
-                            joueur.ajouterObjet(deco, 1); 
-                            return true; 
-                        }
-                    }
+                if(resultat.getInt("o.type") == EnumTypeObjet.Outils.getValue()){
+                    objet = new Outils(id_element);
                 }
-            }
-            catch (SQLException ex) {
-                // handle any errors
-                System.out.println("SQLException: " + ex.getMessage());
-                System.out.println("SQLState: " + ex.getSQLState());
-                System.out.println("VendorError: " + ex.getErrorCode());
-            }
-            return false; 
+                else if(resultat.getInt("o.type") == EnumTypeObjet.Meubles.getValue()){
+                    objet = new Meubles(id_element);
+                }
+                else if(resultat.getInt("o.type") == EnumTypeObjet.Decoration.getValue()){
+                    objet = new Decoration(id_element);
+                }
 
+            }
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return objet;
     }
 
+    //Méthode de création d'objet à partir de recette
+    public boolean fusionnerRessource(Joueur joueur, Objet objet){
 
+        boolean craftable = true;
+
+        //On regarde déjà si la maison du joueur a le bon niveau pour pouvoir créer cette recette
+        if(this.getNiveau_requis()==joueur.getMaison().getNiveau()) {
+
+            //On crée un itérateur qui va nous permette de parcourir la hashmap
+
+            Iterator<Entry<Integer, Integer> > iterator_recette = this.getQuantite().entrySet().iterator(); //Itérateur de la hashmap des recettes
+
+            //On commence une boucle, qui va nous permettre de vérifier si les ressources nécessaires à la création de l'objet sont présentes dans l'inventaire, en bonne quantité.
+            //Tant qu'il y a des ressources dans la recette
+            while(iterator_recette.hasNext()){
+
+                //On recrée une carte des éléments que l'on récupère avec l'itérateur et on va chercher sa clef
+                Map.Entry<Integer, Integer> entry_recette = (Map.Entry<Integer, Integer>)iterator_recette.next();
+                int id_ressource = entry_recette.getKey();
+
+                //On compare les valeurs associés à la clef id_ressource dans les deux hashmap (recette et inventaire) si le nombre de ressource demandé dans la recette est
+                //supérieur au nombre de ressource présentes dans l'inventaire ou si la clef id_ressource n'est pas présente dans l'inventaire (et donc renvoi null)
+                //La variable craftable passe à false.
+                if(joueur.getInventoryressource().get(id_ressource)==null ||
+                this.getQuantite().get(id_ressource)>joueur.getInventoryressource().get(id_ressource)){
+                    craftable = false;
+                }
+            }
+            //Si on possède bien les ressources nécessaires, on enlève ces ressources de notre inventaire
+            if(craftable){
+
+                Iterator<Entry<Integer, Integer> > i_recette = this.getQuantite().entrySet().iterator(); //Itérateur de la hashmap des recettes
+
+                while(i_recette.hasNext()){
+
+                    //On recrée une carte des éléments que l'on récupère avec l'itérateur et on va chercher sa clef
+                    Map.Entry<Integer, Integer> entry_recettes = (Map.Entry<Integer, Integer>)i_recette.next();
+                    int id_ressources = entry_recettes.getKey();
+
+                    //On stocke la nouvelle valeur dans une variable quantité et on effectue le calcul : On soustraie la quantité nécessaire à la réalisation de la recette
+                    //à la quantité de ressource présente dans l'inventaire
+                    int quantite = joueur.getInventoryressource().get(id_ressources) - this.getQuantite().get(id_ressources);
+
+                    //Et on remplace l'ancienne quantité par la nouvelle quantité dans l'inventaire.
+                    joueur.getInventoryressource().replace(id_ressources, quantite);
+
+                    //On crée alors un nouvel objet grâce à son id, et en fonction de son type
+                    objet = this.creerObjet(this.getId_element());
+
+                    //Finalement, on ajoute l'objet à l'inventaire du joueur.
+                    joueur.ajouterObjet(objet, 1);
+                }
+            }
+        }
+        return craftable;
+    }
     //#endregion
 }

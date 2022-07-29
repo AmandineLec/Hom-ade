@@ -6,7 +6,8 @@ public abstract class Objet {
 
     protected int id;
     protected String nom;
-    protected String types;
+    protected EnumTypeObjet type_objet;
+    protected int types;
     
     //#endregion
 
@@ -39,12 +40,19 @@ public abstract class Objet {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    public String getTypes() {
+    public int getTypes() {
         return types;
     }
-    public void setTypes(String types) {
+    public void setTypes(int types) {
         this.types = types;
     }
+    public EnumTypeObjet getType_objet() {
+        return type_objet;
+    }
+    public void setType_objet(EnumTypeObjet type_objet) {
+        this.type_objet = type_objet;
+    }
+    
     
     //#endregion 
 

@@ -59,7 +59,7 @@ public class MaisonTest {
 
 
     @Test
-    public void ajoutPieceTest(){
+    public void pieceAccessibleTest(){
         Maison maison = new Maison(1);
         Pieces cuisine = new Pieces("cuisine");
         maison.pieceAccessible(cuisine);

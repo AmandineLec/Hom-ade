@@ -77,10 +77,5 @@ public class Pieces {
         this.setTaille(this.getTaille() + 1);
     }
 
-
-
-
-
-
     //#endregion
 }
