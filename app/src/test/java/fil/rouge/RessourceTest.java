@@ -41,7 +41,7 @@ public class RessourceTest {
     @Test
     public void testRamasser() {
         Bois test = new Bois("test");
-        Joueur j = new Joueur("test", true);
+        Joueur j = new Joueur("test", 1);
         test.ramasser(j, 1);
         assertEquals(1, j.getInventoryressource().get(test.getId()));
 

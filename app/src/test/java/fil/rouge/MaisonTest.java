@@ -62,7 +62,7 @@ public class MaisonTest {
     public void ajoutPieceTest(){
         Maison maison = new Maison(1);
         Pieces cuisine = new Pieces("cuisine");
-        maison.ajoutPiece(cuisine);
+        maison.pieceAccessible(cuisine);
         assertTrue(maison.getNb_pieces()==2 && maison.getPiece().getNom()=="cuisine");
     }
 

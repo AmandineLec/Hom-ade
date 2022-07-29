@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RecoltableTest {
     @Test
     public void ramasserTest(){
-        Joueur perso = new Joueur("Paul", true);
+        Joueur perso = new Joueur("Paul", 1);
         Bois bois = new Bois("bois");
         bois.setId(1);
         ObjetRecoltable arbre = new ObjetRecoltable(bois, "bois de chêne", "chêne");
@@ -44,7 +44,7 @@ public class RecoltableTest {
     public void recolterTest(){
         Outils hache = new Outils("hache");
         hache.setCapacite(2);
-        Joueur perso = new Joueur("Paul", true);
+        Joueur perso = new Joueur("Paul", 1);
         Bois bois = new Bois("bois");
         bois.setId(2);
         ObjetRecoltable arbre = new ObjetRecoltable(bois, "arbre", "chêne");
