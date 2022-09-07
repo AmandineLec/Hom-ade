@@ -1,16 +1,25 @@
 package fil.rouge;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import jakarta.persistence.*;
 
-import fil.rouge.utils.DBManager;
-
+@Entity
+@Table(name = "piece")
 public class Pieces {
-    protected Maison maison;
+    @Id
+    @Column(name = "id_piece")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id_piece;
+
+    @Column(name = "nom")
     protected String nom;
+
+    @Column(name = "taille")
     protected int taille; //en mètres carrés
+
+    @ManyToOne
+    @JoinColumn(name = "id_maison")
+    protected Maison maison;
+    
     protected int id_decoration; // pour récupérer la déco placée dans la maison
     protected int id_meuble; // pour récupérer le meuble placé dans la maison
 

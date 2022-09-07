@@ -26,6 +26,9 @@ public class Maison {
     @OneToMany(mappedBy = "maison")
     protected Set<Personnage> personnages = new HashSet<Personnage>();
 
+    @OneToMany(mappedBy = "maison")
+    protected Set<Pieces> pieces = new HashSet<Pieces>();
+
     protected String id_ressource; // pour récupérer les ressources nécessaires à l'agrandissement
     protected int nb_ressources; // pour définir le nombre de ressources nécéssaires pour agrandir
     protected String etabli; // pour accéder à l'établi lors de la création d'objets
