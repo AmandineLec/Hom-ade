@@ -1,12 +1,24 @@
 package fil.rouge;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "objet")
 public abstract class Objet {
 
     //#region Variables
-
+    @Id
+    @Column(name = "id_objet")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
+
+    @Column(name = "nom")
     protected String nom;
+
+    @Column(name = "type")
     protected EnumTypeObjet type_objet;
+
+    @Column(name = "categorie")
     protected int types;
     
     //#endregion
