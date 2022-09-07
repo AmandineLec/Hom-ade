@@ -1,14 +1,30 @@
 package fil.rouge;
 import java.util.HashMap;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "personnage")
 public abstract class Personnage {
+  @Id
+  @Column(name = "id_personnage")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected int id_personnage;
+
+  @Column(name = "nom")
   protected String name;
+
+  @Column(name = "sexe")
   protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
+
+  @ManyToOne
+  @JoinColumn(name = "id_maison")
+  protected Maison maison;
+
   protected HashMap<Integer, Integer> inventoryressource; //Permet de remonter uniquement les ressources pour la méthode recette
   protected HashMap<Integer, Integer> inventoryobjet;
   protected Outils outils;
-  protected Maison maison;
+  
 
 //#region getter and setter and one construtor
 

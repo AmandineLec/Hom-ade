@@ -3,13 +3,29 @@ package fil.rouge;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "maison")
 public class Maison {
+    @Id
+    @Column(name = "id_maison")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id_maison;
+
+    @Column(name = "niveau")
     protected int niveau; // début à 1
+
+    @Column(name = "nb_pieces")
     protected int nb_pieces; // début à 1
+
+    @OneToMany(mappedBy = "maison")
+    protected Set<Personnage> personnages = new HashSet<Personnage>();
+
     protected String id_ressource; // pour récupérer les ressources nécessaires à l'agrandissement
     protected int nb_ressources; // pour définir le nombre de ressources nécéssaires pour agrandir
     protected String etabli; // pour accéder à l'établi lors de la création d'objets
