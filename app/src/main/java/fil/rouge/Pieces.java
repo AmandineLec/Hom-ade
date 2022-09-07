@@ -1,18 +1,14 @@
 package fil.rouge;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import fil.rouge.utils.DBManager;
+import java.sql.*;
 
 public class Pieces {
-    protected Maison maison;
     protected int id_piece;
     protected String nom;
     protected int taille; //en mètres carrés
     protected int id_decoration; // pour récupérer la déco placée dans la maison
     protected int id_meuble; // pour récupérer le meuble placé dans la maison
+    protected int id_maison;
 
     //#region Constructeurs
     public Pieces(){
@@ -28,6 +24,25 @@ public class Pieces {
         this.nom = nom;
         this.taille = taille;
     }
+
+    public Pieces(int id){
+        try {
+            ResultSet resultat = DBManager.query("SELECT * FROM piece WHERE id_piece = "+id);
+            if(resultat.next()){
+                this.nom = resultat.getString("nom");
+                this.taille = resultat.getInt("type");
+                this.id_maison = resultat.getInt("id_maison");
+                this.id_piece = id;
+                }
+            }
+        catch (SQLException ex) {
+                // handle any errors
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("VendorError: " + ex.getErrorCode());
+            }
+    }
+
     //#endregion
 
     //#region GETSET
@@ -57,10 +72,6 @@ public class Pieces {
 
     public int getId_piece() {
         return id_piece;
-    }
-
-    public void setId_piece(int id_piece) {
-        this.id_piece = id_piece;
     }
 
     public String getNom() {

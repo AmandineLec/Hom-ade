@@ -9,7 +9,6 @@ public class RecoltableTest {
         Ressource bois = new Ressource("bois");
         bois.setId(1);
         ObjetRecoltable arbre = new ObjetRecoltable(bois, "bois de chêne", "chêne");
-        arbre.setType(bois);
         arbre.ramasser(perso, 1);
         assertTrue(perso.getInventoryressource().containsKey(bois.getId()));
     }

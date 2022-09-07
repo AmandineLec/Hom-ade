@@ -39,37 +39,37 @@ public class MaisonTest {
   }
 
 
-    @Test
-    public void levelUpTestAvecAjoutPiece(){
-        Pieces piece = new Pieces("salon", 10);
-        Maison maison = new Maison(1);
-        maison.setNiveau(3);
-        maison.levelUp(piece);
-        assertTrue(maison.getNiveau()==4 && maison.getNb_pieces()==2);
-    }
+  @Test
+  public void levelUpTestAvecAjoutPiece(){
+      Pieces piece = new Pieces("salon", 10);
+      Maison maison = new Maison(1);
+      maison.setNiveau(3);
+      maison.levelUp(piece);
+      assertTrue(maison.getNiveau()==4 && maison.getNb_pieces()==2);
+  }
 
-    @Test
-    public void levelUpTestAvecAgrandissement(){
-        Pieces piece = new Pieces("salon", 10);
-        Maison maison = new Maison(1);
-        maison.setNiveau(4);
-        maison.levelUp(piece);
-        assertTrue(maison.getNiveau()==5 && piece.getTaille()==11 && maison.nb_pieces==1);
-    }
-
-
-    @Test
-    public void pieceAccessibleTest(){
-        Maison maison = new Maison(1);
-        Pieces cuisine = new Pieces("cuisine");
-        maison.pieceAccessible(cuisine);
-        assertTrue(maison.getNb_pieces()==2 && maison.getPiece().getNom()=="cuisine");
-    }
-
-    @Test
-    void testSauvegarderMaison() {
-      assertTrue(Maison.sauvegarderMaison() != -1);
-    }
+  @Test
+  public void levelUpTestAvecAgrandissement(){
+      Pieces piece = new Pieces("salon", 10);
+      Maison maison = new Maison(1);
+      maison.setNiveau(4);
+      maison.levelUp(piece);
+      assertTrue(maison.getNiveau()==5 && piece.getTaille()==11 && maison.nb_pieces==1);
+  }
 
 
+  @Test
+  public void pieceAccessibleTest(){
+      Maison maison = new Maison(1);
+      maison.setNb_pieces(1);
+      Pieces cuisine = new Pieces("cuisine");
+      maison.pieceAccessible(cuisine);
+      assertTrue(maison.getNb_pieces()==2);
+  }
+
+  @Test
+  void testSauvegarderMaison() {
+    Maison maison = new Maison();
+    assertTrue(maison.sauvegarderMaison() != -1);
+  }
 }

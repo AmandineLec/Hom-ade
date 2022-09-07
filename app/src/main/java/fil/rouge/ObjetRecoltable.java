@@ -1,12 +1,18 @@
 package fil.rouge;
 
+import java.sql.*;
+
+import fil.rouge.utils.DBManager;
+
 public class ObjetRecoltable extends Objet {
     protected Outils outil; // id de l'outil à utiliser pour récolter
     protected Ressource typeRessource; // type de la ressource que cela va donner
     protected int quantite; // nombre de ressources que ca donne
-    protected String sorte;
-    protected int difficulte;
+    protected String sorte; // distingue les sortes de bois, types de pierres, types de métaux, etc
+    protected int difficulte; // difficulté d'accès à la ressource, définit le rendement.
     
+// TODO ajouter les requete d'acces bdd
+
     //#region Constructeurs
 
     public ObjetRecoltable(String nom){
@@ -22,6 +28,23 @@ public class ObjetRecoltable extends Objet {
         this.typeRessource = type;
         this.sorte = sorte;
     }
+
+    public ObjetRecoltable(int id){
+        super("");
+            try {
+                ResultSet resultat = DBManager.query("SELECT * FROM element_recoltable WHERE id_element_recoltable = "+id);
+                if(resultat.next()){
+                    this.nom = resultat.getString("nom");
+                    this.id = id;
+                    }
+                }
+                catch (SQLException ex) {
+                    // handle any errors
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                }
+    }
     //#endregion
 
 
@@ -34,12 +57,12 @@ public class ObjetRecoltable extends Objet {
         this.outil = outil;
     }
 
-    public Ressource getType() {
+    public Ressource getTypeRessource() {
         return typeRessource;
     }
     
 
-    public void setType(Ressource type) {
+    public void setTypeRessource(Ressource type) {
         this.typeRessource = type;
     }
 
@@ -71,7 +94,7 @@ public class ObjetRecoltable extends Objet {
 
     //#region Méthodes
     public boolean ramasser(Joueur joueur,int nombre){
-        if (joueur.ajouterRessource(this.getType(), nombre)){
+        if (joueur.ajouterRessource(this.getTypeRessource(), nombre)){
             return true;
         }
         return false;

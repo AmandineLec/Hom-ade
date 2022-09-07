@@ -60,10 +60,7 @@ public class JoueurTest {
   @Test
   void testSauvegarderJoueur(){
     Joueur mikasa = new Joueur("mikasa", 2);
-    assertFalse(Joueur.sauvegarderJoueur(mikasa) == -1);
+    assertFalse(mikasa.sauvegarderJoueur() == -1);
   }
-
-
-
 
 }
