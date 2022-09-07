@@ -6,8 +6,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "ressource")
 public class Ressource extends Objet implements IRamassable{
+    @Id
+    @Column(name = "id_ressource")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idRessource;
+
+    @Column(name = "nom")
+    private String nom;
+
+    @Column(name = "categorie")
     private String type = "";
 
     public Ressource(String nom, int id, String type){

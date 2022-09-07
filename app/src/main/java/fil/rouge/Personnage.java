@@ -21,8 +21,10 @@ public abstract class Personnage {
   @JoinColumn(name = "id_maison")
   protected Maison maison;
 
-  protected HashMap<Integer, Integer> inventoryressource; //Permet de remonter uniquement les ressources pour la méthode recette
+  
   protected HashMap<Integer, Integer> inventoryobjet;
+  protected HashMap<Integer, Integer> inventoryressource; //Permet de remonter uniquement les ressources pour la méthode recette
+  
   protected Outils outils;
   
 
