@@ -1,6 +1,22 @@
 package fil.rouge;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "element_recoltable")
 public class ObjetRecoltable {
+    @Id
+    @Column(name = "id_element_recoltable")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int id;
+
+    @Column(name = "nom")
+    protected String nom;
+
+    @Column(name = "categorie")
+    protected int categorie;
+
+    
     protected Outils outil; // id de l'outil à utiliser pour récolter
     protected Ressource typeRessource; // type de la ressource que cela va donner
     protected int quantite; // nombre de ressources que ca donne
