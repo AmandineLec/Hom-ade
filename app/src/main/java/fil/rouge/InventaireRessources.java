@@ -51,7 +51,7 @@ public class InventaireRessources {
     @Column(name = "quantite")
     protected int quantite;
 
-    #region getset
+    //#region getset
     public InventaireObjetKey getId() {
         return id;
     }
@@ -83,6 +83,8 @@ public class InventaireRessources {
     public void setQuantite(int quantite) {
         this.quantite = quantite;
     }
-    #endregion
+    //#endregion
+    
+
     
 }

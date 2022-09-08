@@ -86,4 +86,7 @@ public class RessourcesRecoltees {
     }
 
     //#endregion
+
+    
+
 }
