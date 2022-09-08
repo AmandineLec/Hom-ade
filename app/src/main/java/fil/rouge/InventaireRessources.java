@@ -47,4 +47,42 @@ public class InventaireRessources {
     @MapsId("idRessource")
     @JoinColumn(name = "id_ressource")
     protected Ressource ressource;
+
+    @Column(name = "quantite")
+    protected int quantite;
+
+    #region getset
+    public InventaireObjetKey getId() {
+        return id;
+    }
+
+    public void setId(InventaireObjetKey id) {
+        this.id = id;
+    }
+
+    public Personnage getPersonnage() {
+        return personnage;
+    }
+
+    public void setPersonnage(Personnage personnage) {
+        this.personnage = personnage;
+    }
+
+    public Ressource getRessource() {
+        return ressource;
+    }
+
+    public void setRessource(Ressource ressource) {
+        this.ressource = ressource;
+    }
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+    #endregion
+    
 }

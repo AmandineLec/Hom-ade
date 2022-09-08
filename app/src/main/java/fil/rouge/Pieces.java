@@ -1,23 +1,17 @@
 package fil.rouge;
 
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "piece")
+
 public class Pieces {
-    @Id
-    @Column(name = "id_piece")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     protected int id_piece;
 
-    @Column(name = "nom")
+    
     protected String nom;
 
-    @Column(name = "taille")
+    
     protected int taille; //en mètres carrés
 
-    @ManyToOne
-    @JoinColumn(name = "id_maison")
     protected Maison maison;
     
     protected int id_decoration; // pour récupérer la déco placée dans la maison

@@ -3,6 +3,7 @@ package fil.rouge;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,8 +27,8 @@ public class Maison {
     @OneToMany(mappedBy = "maison")
     protected Set<Personnage> personnages = new HashSet<Personnage>();
 
-    @OneToMany(mappedBy = "maison")
-    protected Set<Pieces> pieces = new HashSet<Pieces>();
+    @Transient
+    protected ArrayList<Pieces> pieces = new ArrayList<Pieces>();
 
     protected String id_ressource; // pour récupérer les ressources nécessaires à l'agrandissement
     protected int nb_ressources; // pour définir le nombre de ressources nécéssaires pour agrandir
