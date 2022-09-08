@@ -60,6 +60,9 @@ public class DBManager {
 
 
 
+    
+
+
 
     //initialise la connexion à la base de données
     public static void init() {
