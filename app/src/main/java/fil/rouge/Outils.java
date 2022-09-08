@@ -1,5 +1,8 @@
 package fil.rouge;
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
+
 import fil.rouge.utils.DBManager;
 import jakarta.persistence.*;
 
@@ -13,6 +16,9 @@ public class Outils extends Objet implements IEquipable {
 
         @Column(name = "capacite")
         protected int capacite;
+
+        @ManyToMany(mappedBy = "outils")
+        protected Set<ObjetRecoltable> outils = new HashSet<ObjetRecoltable>();
          //#endregion
 
         //#region Constructeur

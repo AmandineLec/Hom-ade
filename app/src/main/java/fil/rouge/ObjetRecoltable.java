@@ -1,5 +1,8 @@
 package fil.rouge;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,8 +19,14 @@ public class ObjetRecoltable {
     @Column(name = "categorie")
     protected int categorie;
 
-    
-    protected Outils outil; // id de l'outil à utiliser pour récolter
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "objet_element_recoltable",
+        joinColumns = @JoinColumn(name = "id_element_recoltable"),
+        inverseJoinColumns = @JoinColumn(name = "id_objet")
+    )
+    protected Set<Outils> outils = new HashSet<Outils>(); // id de l'outil à utiliser pour récolter
+
     protected Ressource typeRessource; // type de la ressource que cela va donner
     protected int quantite; // nombre de ressources que ca donne
     protected String sorte;
