@@ -1,19 +1,71 @@
 package fil.rouge;
 import java.util.HashMap;
+import java.io.Serializable;
 import java.sql.*;
 import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Recettes {
+@Embeddable
+class RecettesKey implements Serializable {
+    @Column(name = "id_objet")
+    protected int idObjet;
+
+    @Column(name = "id_ressource")
+    protected int idRessource;
+
+
+    //#region getset
+    public int getIdObjet() {
+        return idObjet;
+    }
+
+    public void setIdObjet(int idObjet) {
+        this.idObjet = idObjet;
+    }
+
+    public int getIdRessource() {
+        return idRessource;
+    }
+
+    public void setIdRessource(int idRessource) {
+        this.idRessource = idRessource;
+    }
+
+    //#endregion
+}
+@Entity
+@Table(name = "recette")
+class Recettes {
     //#region Variables
+    @EmbeddedId
+    protected RecettesKey id;
+
+    @ManyToOne
+    @MapsId("idObjet")
+    @JoinColumn(name = "id_objet")
+    protected Objet objet;
+
+    @ManyToOne
+    @MapsId("idRessource")
+    @JoinColumn(name = "id_ressource")
+    protected Ressource ressource;
+
+    @Column(name = "quantite")
+    protected int quantite_necessaire;
+
+    @Column(name = "niveau_requis")
+    protected int niveau_requis;
+
     protected String nom;
     protected HashMap<Integer, Integer> quantite;
-    protected int quantite_necessaire;
-    protected int id_element;
-    protected int niveau_requis;
-    protected int  id_ressource;
+    
+    //protected int id_element;
+    
+    //protected int  id_ressource;
 
     //#endregion
 
@@ -67,12 +119,31 @@ public class Recettes {
     public void setQuantite(HashMap<Integer, Integer> quantite) {
         this.quantite = quantite;
     }
-    public int getId_element() {
-        return id_element;
+    
+    public RecettesKey getId() {
+        return id;
     }
-    public void setId_element(int id_element) {
-        this.id_element = id_element;
+
+    public void setId(RecettesKey id) {
+        this.id = id;
     }
+
+    public Objet getObjet() {
+        return objet;
+    }
+
+    public void setObjet(Objet objet) {
+        this.objet = objet;
+    }
+
+    public Ressource getRessource() {
+        return ressource;
+    }
+
+    public void setRessource(Ressource ressource) {
+        this.ressource = ressource;
+    }
+
     public int getQuantite_necessaire() {
         return quantite_necessaire;
     }
