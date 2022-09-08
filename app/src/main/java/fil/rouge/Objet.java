@@ -1,5 +1,8 @@
 package fil.rouge;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +22,9 @@ public abstract class Objet {
 
     @Column(name = "categorie")
     protected int types;
+
+    @OneToMany(mappedBy = "objet")
+    protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
     
     //#endregion
 
@@ -56,6 +62,12 @@ public abstract class Objet {
     }
     public void setTypes(int types) {
         this.types = types;
+    }
+    public Set<InventaireObjet> getInventaireObjets() {
+        return inventaireObjets;
+    }
+    public void addInventaireObjets(InventaireObjet inventaireObjet) {
+        inventaireObjets.add(inventaireObjet);
     }
     
     

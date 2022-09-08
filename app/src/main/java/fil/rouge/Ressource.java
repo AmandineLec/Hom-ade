@@ -27,6 +27,8 @@ public class Ressource implements IRamassable{
     @OneToMany(mappedBy = "ressource")
     protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
 
+    @OneToMany(mappedBy = "ressource")
+    protected Set<InventaireRessources> inventaireRessources = new HashSet<InventaireRessources>();
 
     public Ressource(String nom, int id, String type){
         this.nom = nom;
@@ -73,12 +75,23 @@ public class Ressource implements IRamassable{
         return ressourcesRecoltees;
     }
 
-    public void setRessourcesRecoltees(RessourcesRecoltees ressourcesRecoltees) {
+    public void addRessourcesRecoltees(RessourcesRecoltees ressourcesRecoltees) {
         this.ressourcesRecoltees.add(ressourcesRecoltees);
     }
 
+    public Set<InventaireRessources> getInventaireRessources() {
+        return inventaireRessources;
+    }
+
+    public void addInventaireRessources(InventaireRessources inventaireRessource) {
+        inventaireRessources.add(inventaireRessource);
+    }
+
+
+    
     //#endregion
 
+    
     public boolean get(int id) {
         try {
             ResultSet resultat = DBManager.query("SELECT * FROM ressource WHERE id_ressource = "+id);
