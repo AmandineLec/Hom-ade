@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
 import fil.rouge.utils.DBManager;
 import jakarta.persistence.*;
@@ -22,6 +24,10 @@ public class Ressource implements IRamassable{
     @Column(name = "categorie")
     private String type = "";
 
+    @OneToMany(mappedBy = "ressource")
+    protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
+
+
     public Ressource(String nom, int id, String type){
         this.nom = nom;
         this.idRessource = id;
@@ -36,7 +42,42 @@ public class Ressource implements IRamassable{
         
     }
 
+    
+    //#region getset
 
+    public int getIdRessource() {
+        return idRessource;
+    }
+
+    public void setIdRessource(int idRessource) {
+        this.idRessource = idRessource;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Set<RessourcesRecoltees> getRessourcesRecoltees() {
+        return ressourcesRecoltees;
+    }
+
+    public void setRessourcesRecoltees(RessourcesRecoltees ressourcesRecoltees) {
+        this.ressourcesRecoltees.add(ressourcesRecoltees);
+    }
+
+    //#endregion
 
     public boolean get(int id) {
         try {

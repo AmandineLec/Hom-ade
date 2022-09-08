@@ -27,7 +27,9 @@ public class ObjetRecoltable {
     )
     protected Set<Outils> outils = new HashSet<Outils>(); // id de l'outil à utiliser pour récolter
 
-    protected Ressource typeRessource; // type de la ressource que cela va donner
+    @OneToMany(mappedBy = "objetRecoltable")
+    protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
+    
     protected int quantite; // nombre de ressources que ca donne
     protected String sorte;
     protected int difficulte;
@@ -44,33 +46,57 @@ public class ObjetRecoltable {
 
     public ObjetRecoltable(Ressource type, String nom, String sorte){
         
-        this.typeRessource = type;
+        //this.typeRessource = type;
         this.sorte = sorte;
     }
     //#endregion
 
 
     //#region GETSET
-    public Outils getOutil() {
-        return outil;
-    }
-
-    public void setOutil(Outils outil) {
-        this.outil = outil;
-    }
-
-    public Ressource getType() {
-        return typeRessource;
-    }
     
-
-    public void setType(Ressource type) {
-        this.typeRessource = type;
-    }
 
     public int getQuantite() {
         return quantite;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(int categorie) {
+        this.categorie = categorie;
+    }
+
+    public Set<Outils> getOutils() {
+        return outils;
+    }
+
+    public void addOutil(Outils outil) {
+        outils.add(outil);
+    }
+
+    public Set<RessourcesRecoltees> getRessourcesRecoltees() {
+        return ressourcesRecoltees;
+    }
+
+    public void addRessourcesRecoltees(RessourcesRecoltees ressourcesRecoltees) {
+        this.ressourcesRecoltees.add(ressourcesRecoltees);
 
     public void setQuantite(int quantite) {
         this.quantite = quantite;
