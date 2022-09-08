@@ -1,11 +1,17 @@
 package fil.rouge;
 import java.sql.*;
 import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
 
+@Entity
+@DiscriminatorValue(value = "1")
 public class Outils extends Objet implements IEquipable {
 
         //#region Variables
+        @Column(name = "resistance")
         protected int resistance;
+
+        @Column(name = "capacite")
         protected int capacite;
          //#endregion
 

@@ -1,6 +1,6 @@
 package fil.rouge;
 
-public class ObjetRecoltable extends Objet {
+public class ObjetRecoltable {
     protected Outils outil; // id de l'outil à utiliser pour récolter
     protected Ressource typeRessource; // type de la ressource que cela va donner
     protected int quantite; // nombre de ressources que ca donne
@@ -10,15 +10,15 @@ public class ObjetRecoltable extends Objet {
     //#region Constructeurs
 
     public ObjetRecoltable(String nom){
-        super(nom);
+        
     }
 
     public ObjetRecoltable(String nom, int id){
-        super(nom, id);
+        
     }
 
     public ObjetRecoltable(Ressource type, String nom, String sorte){
-        super(nom);
+        
         this.typeRessource = type;
         this.sorte = sorte;
     }

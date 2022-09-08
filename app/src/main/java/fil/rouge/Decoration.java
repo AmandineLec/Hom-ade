@@ -3,9 +3,13 @@ package fil.rouge;
 import java.sql.*;
 
 import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
 
+@Entity
+@DiscriminatorValue(value = "3")
 public class Decoration extends Objet implements Deplacable {
      //#region Variables
+     @Column(name = "taille")
      int taille;
      //#endregion
  

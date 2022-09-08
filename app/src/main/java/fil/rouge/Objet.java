@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "objet")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 public abstract class Objet {
 
     //#region Variables
@@ -14,9 +16,6 @@ public abstract class Objet {
 
     @Column(name = "nom")
     protected String nom;
-
-    @Column(name = "type")
-    protected EnumTypeObjet type_objet;
 
     @Column(name = "categorie")
     protected int types;
@@ -58,12 +57,7 @@ public abstract class Objet {
     public void setTypes(int types) {
         this.types = types;
     }
-    public EnumTypeObjet getType_objet() {
-        return type_objet;
-    }
-    public void setType_objet(EnumTypeObjet type_objet) {
-        this.type_objet = type_objet;
-    }
+    
     
     
     //#endregion 

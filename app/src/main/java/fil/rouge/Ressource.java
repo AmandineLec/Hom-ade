@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ressource")
-public class Ressource extends Objet implements IRamassable{
+public class Ressource implements IRamassable{
     @Id
     @Column(name = "id_ressource")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,16 +23,17 @@ public class Ressource extends Objet implements IRamassable{
     private String type = "";
 
     public Ressource(String nom, int id, String type){
-        super(nom, id);
+        this.nom = nom;
+        this.idRessource = id;
         this.type = type;
     }
 
     public Ressource(String nom){
-        super(nom);
+        this.nom = nom;
     }
 
     public Ressource(int id){
-        super(id);
+        
     }
 
 
@@ -43,7 +44,7 @@ public class Ressource extends Objet implements IRamassable{
             if(resultat.next()){
                 this.nom = resultat.getString("nom");
                 this.type = resultat.getString("type");
-                this.id = id;
+                this.idRessource = id;
                 return true;
             }    
 
@@ -58,7 +59,7 @@ public class Ressource extends Objet implements IRamassable{
 
     public boolean save() {
         String sql = "";
-        if (this.id != 0)
+        if (this.idRessource != 0)
             sql = "UPDATE ressource " +
                     "SET nom = ?, type = ? " +
                     "WHERE id_ressource = ?";        
@@ -69,13 +70,13 @@ public class Ressource extends Objet implements IRamassable{
             PreparedStatement stmt = DBManager.conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, this.nom);
             stmt.setString(2, this.type);
-            if (this.id != 0)
-                stmt.setInt(3, this.id);
+            if (this.idRessource != 0)
+                stmt.setInt(3, this.idRessource);
             
             stmt.execute();
             ResultSet resultat = stmt.getGeneratedKeys();
             if (resultat.next())
-                this.id = resultat.getInt(1);
+                this.idRessource = resultat.getInt(1);
             return true;
         
         }catch (SQLException ex) {
