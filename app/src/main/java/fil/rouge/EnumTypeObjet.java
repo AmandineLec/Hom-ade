@@ -9,6 +9,9 @@ public enum EnumTypeObjet {
     Decoration(3), 
     ObjetRecoltable(4),
     Ressource(5);
+
+    // A partir d'ici, c'est un model de syntaxe qui permet de modifier le comportement de l'énumération pour associer directement
+    // une valeur au type d'objet, et pour y accéder il faut juste faire: EnumTypeObjet.Outils.getValue();
     
     private int value;
     private static Map<Integer, EnumTypeObjet> map = new HashMap<>();

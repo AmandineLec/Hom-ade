@@ -44,7 +44,7 @@ public boolean retirerObjet(Objet objet, int quantite) {
 }
 
 public boolean ajouterRessource(Ressource ressource, int quantite) {
-  if (inventoryressource.containsKey(ressource.getId())) { // si l'inventaire contient déja l'ressource en question
+  if (inventoryressource.containsKey(ressource.getId())) { // si l'inventaire contient déja la ressource en question
     quantite += inventoryressource.get((ressource.getId())); // nouvelle quantité de l'ressource + ancienne quantité de l'ressource
   }
   inventoryressource.put(ressource.getId(), quantite); // on ajoute la ressource et sa nouvelle quantité
@@ -69,14 +69,14 @@ public boolean retirerRessource(Ressource ressource, int quantite) {
 
 
 
-  public static int sauvegarderJoueur(Joueur joueur){
+  public int sauvegarderJoueur(){
     try{
-      int idMaison = Maison.sauvegarderMaison();
+      int idMaison = this.maison.getId_maison();
       String query = "INSERT INTO personnage (nom,sexe,id_maison) VALUES (?,?,?)";
       PreparedStatement Stmt = DBManager.preparedStatement(query);
-      Stmt.setString(1, joueur.getName());
+      Stmt.setString(1, this.getName());
       //https: // stackoverflow.com/questions/45458881/setboolean-method-of-java-sql-preparedstatement
-      Stmt.setInt(2, joueur.getSexe());
+      Stmt.setInt(2, this.getSexe());
       Stmt.setInt(3, idMaison);
       Stmt.executeUpdate(); // execute la mise à jour dans la bdd
       ResultSet res = Stmt.getGeneratedKeys();

@@ -4,7 +4,7 @@ import java.util.HashMap;
 public abstract class Personnage {
   protected int id_personnage;
   protected String name;
-  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
+  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférez
   protected HashMap<Integer, Integer> inventoryressource; //Permet de remonter uniquement les ressources pour la méthode recette
   protected HashMap<Integer, Integer> inventoryobjet;
   protected Outils outils;
@@ -66,7 +66,7 @@ public abstract class Personnage {
     this.sexe = sexe;
     inventoryressource = new HashMap<Integer, Integer>();
     inventoryobjet = new HashMap<Integer, Integer>();
-    maison = new Maison(1);
+    maison = new Maison();
     }
 //#endregion
 

@@ -2,9 +2,9 @@ package fil.rouge;
 
 public class ObjetRecoltable extends Objet {
     protected Outils outil; // id de l'outil à utiliser pour récolter
-    protected Ressource type; // type de la ressource que cela va donner
-    protected int quantite; // nombr ede ressources que ca donne
-    protected String sorte;
+    protected Ressource typeRessource; // type de la ressource que cela va donner
+    protected int quantite; // nombre de ressources que ca donne
+    protected String sorte; // differente sorte de matières premières pour arbre => chène,sequoia,ébène
     protected int difficulte;
     //#region Constructeurs
 
@@ -18,7 +18,7 @@ public class ObjetRecoltable extends Objet {
 
     public ObjetRecoltable(Ressource type, String nom, String sorte){
         super(nom);
-        this.type = type;
+        this.typeRessource = type;
         this.sorte = sorte;
     }
     //#endregion
@@ -33,13 +33,13 @@ public class ObjetRecoltable extends Objet {
         this.outil = outil;
     }
 
-    public Ressource getType() {
-        return type;
+    public Ressource getTypeRessource() {
+        return typeRessource;
     }
-    
 
-    public void setType(Ressource type) {
-        this.type = type;
+
+    public void setTypeRessource(Ressource type) {
+        this.typeRessource = type;
     }
 
     public int getQuantite() {
@@ -70,7 +70,7 @@ public class ObjetRecoltable extends Objet {
 
     //#region Méthodes
     public boolean ramasser(Joueur joueur,int nombre){
-        if (joueur.ajouterRessource(this.getType(), nombre)){
+        if (joueur.ajouterRessource(this.getTypeRessource(), nombre)){
             return true;
         }
         return false;
@@ -126,7 +126,7 @@ public class ObjetRecoltable extends Objet {
             return true;
         }
         return false;
-    
+
 // si outil dispo dans inventaire alors on utilise pour extraire ressource selon la capacité (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire)
 // puis ramasser
     }
