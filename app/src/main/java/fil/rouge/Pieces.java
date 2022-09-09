@@ -1,41 +1,31 @@
 package fil.rouge;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-import fil.rouge.utils.DBManager;
 
 public class Pieces {
-    protected Maison maison;
+    
     protected int id_piece;
     protected String nom;
-    protected int taille; //en mètres carrés
+    protected Maison maison;
     protected int id_decoration; // pour récupérer la déco placée dans la maison
     protected int id_meuble; // pour récupérer le meuble placé dans la maison
+    protected int nbMeubles;
 
     //#region Constructeurs
-    public Pieces(){
-        this.taille = 9;
-    }
 
     public Pieces(String nom){
         this.nom = nom;
-        this.taille = 9;
     }
 
-    public Pieces(String nom, int taille){
-        this.nom = nom;
-        this.taille = taille;
-    }
+    //#endregion
 
     //#region GETSET
-    public int getTaille() {
-        return taille;
+    public int getNbMeubles() {
+        return nbMeubles;
     }
 
-    public void setTaille(int taille) {
-        this.taille = taille;
+    public void setNbMeubles(int nbMeubles) {
+        this.nbMeubles = nbMeubles;
     }
 
     public int getId_decoration() {
@@ -72,9 +62,6 @@ public class Pieces {
     //#endregion
 
     //#region Méthodes
-    public void agrandir(int agrandissement){
-        this.setTaille(this.getTaille() + 1);
-    }
 
     //#endregion
 }

@@ -1,14 +1,38 @@
 package fil.rouge;
-import java.util.HashMap;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "personnage")
 public abstract class Personnage {
-  protected int id_personnage;
+  @Id
+  @Column(name = "id_personnage")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  protected int idPersonnage;
+
+  @Column(name = "nom")
   protected String name;
-  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférez
-  protected HashMap<Integer, Integer> inventoryressource; //Permet de remonter uniquement les ressources pour la méthode recette
-  protected HashMap<Integer, Integer> inventoryobjet;
-  protected Outils outils;
+
+  @Column(name = "sexe")
+  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
+
+  @ManyToOne
+  @JoinColumn(name = "id_maison")
   protected Maison maison;
+
+  @OneToMany(mappedBy = "personnage")
+  // https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/HashSet.html
+  protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
+
+  @OneToMany(mappedBy = "personnage")
+  protected Set<InventaireRessources> inventaireRessources = new HashSet<InventaireRessources>();
+
+  
+  protected Outils outils;
+  
 
 //#region getter and setter and one construtor
 
@@ -28,20 +52,30 @@ public abstract class Personnage {
     this.sexe = newSexe;
   }
 
-  public HashMap<Integer, Integer> getInventoryressource() {
-    return inventoryressource;
+  
+
+  public int getId_personnage() {
+    return idPersonnage;
   }
 
-  public void setInventoryressource(HashMap<Integer, Integer> inventoryessource) {
-    this.inventoryressource = inventoryessource;
+  public void setId_personnage(int idPersonnage) {
+    this.idPersonnage = idPersonnage;
   }
 
-  public HashMap<Integer, Integer> getInventoryobjet() {
-    return inventoryobjet;
+  public Set<InventaireObjet> getInventaireObjet() {
+    return inventaireObjets;
   }
 
-  public void setInventoryobjet(HashMap<Integer, Integer> inventoryobjet) {
-    this.inventoryobjet = inventoryobjet;
+  public void addInventaireObjet(InventaireObjet inventaireObjet) {
+    inventaireObjets.add(inventaireObjet);
+  }
+
+  public Set<InventaireRessources> getInventaireRessource() {
+    return inventaireRessources;
+  }
+
+  public void addInventaireRessource(InventaireRessources inventaireRessource) {
+    inventaireRessources.add(inventaireRessource);
   }
 
   public Outils getOutils() {
@@ -64,10 +98,10 @@ public abstract class Personnage {
   public Personnage(String name, int sexe){
     this.name = name;
     this.sexe = sexe;
-    inventoryressource = new HashMap<Integer, Integer>();
-    inventoryobjet = new HashMap<Integer, Integer>();
+    
     maison = new Maison();
     }
 //#endregion
 
 }
+

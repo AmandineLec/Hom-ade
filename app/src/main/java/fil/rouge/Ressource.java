@@ -4,82 +4,102 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
 import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
 
-public class Ressource extends Objet implements IRamassable{
+@Entity
+@Table(name = "ressource")
+public class Ressource implements IRamassable {
+    @Id
+    @Column(name = "id_ressource")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idRessource;
+
+    @Column(name = "nom")
+    private String nom;
+
+    @Column(name = "categorie")
     private String type = "";
 
-    public Ressource(String nom, int id, String type){
-        super(nom, id);
+    @OneToMany(mappedBy = "ressource")
+    protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
+
+    @OneToMany(mappedBy = "ressource")
+    protected Set<InventaireRessources> inventaireRessources = new HashSet<InventaireRessources>();
+
+    public Ressource(String nom, int id, String type) {
+        this.nom = nom;
+        this.idRessource = id;
         this.type = type;
     }
 
-    public Ressource(String nom){
-        super(nom);
+    public Ressource(String nom) {
+        this.nom = nom;
     }
 
-    public Ressource(int id){
-        super(id);
+    public Ressource(int id) {
+
     }
 
+    // #region getset
 
-
-    public boolean get(int id) {
-        try {
-            ResultSet resultat = DBManager.query("SELECT * FROM ressource WHERE id_ressource = "+id);
-            if(resultat.next()){
-                this.nom = resultat.getString("nom");
-                this.type = resultat.getString("type");
-                this.id = id;
-                return true;
-            }    
-
-        }catch (SQLException ex) {
-            System.out.println("SQLException : " + ex.getMessage());
-            System.out.println("SQLState : " + ex.getSQLState());
-            System.out.println("VendorError : " + ex.getErrorCode());
-            
-        }
-        return false;
+    public int getIdRessource() {
+        return idRessource;
     }
 
-    public boolean save() {
-        String sql = "";
-        if (this.id != 0)
-            sql = "UPDATE ressource " +
-                    "SET nom = ?, type = ? " +
-                    "WHERE id_ressource = ?";        
-        else
-            sql = "INSERT INTO ressource(nom, type) " +
-                    "VALUES(?, ?)";
-        try {
-            PreparedStatement stmt = DBManager.conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, this.nom);
-            stmt.setString(2, this.type);
-            if (this.id != 0)
-                stmt.setInt(3, this.id);
-            
-            stmt.execute();
-            ResultSet resultat = stmt.getGeneratedKeys();
-            if (resultat.next())
-                this.id = resultat.getInt(1);
-            return true;
-        
-        }catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            return false;
-        }
+    public void setIdRessource(int idRessource) {
+        this.idRessource = idRessource;
     }
-        
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Set<RessourcesRecoltees> getRessourcesRecoltees() {
+        return ressourcesRecoltees;
+    }
+
+    public void addRessourcesRecoltees(RessourcesRecoltees ressourcesRecoltees) {
+        this.ressourcesRecoltees.add(ressourcesRecoltees);
+    }
+
+    public Set<InventaireRessources> getInventaireRessources() {
+        return inventaireRessources;
+    }
+
+    public void addInventaireRessources(InventaireRessources inventaireRessource) {
+        inventaireRessources.add(inventaireRessource);
+    }
+
+    // #endregion
+
+    public Ressource getById(int id) {
+        DBManager.open();
+        Ressource ressource = DBManager.session.getReference(Ressource.class, id);
+        DBManager.close();
+        return ressource;
+
+    }
+
+    
 
     public void ramasser(Joueur j, int quantite) {
         j.ajouterRessource(this, quantite);
     }
 
-    
-    
 }

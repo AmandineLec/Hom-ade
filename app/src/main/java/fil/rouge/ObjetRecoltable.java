@@ -1,50 +1,120 @@
 package fil.rouge;
 
-public class ObjetRecoltable extends Objet {
-    protected Outils outil; // id de l'outil à utiliser pour récolter
-    protected Ressource typeRessource; // type de la ressource que cela va donner
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Timer;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "element_recoltable")
+public class ObjetRecoltable {
+    @Id
+    @Column(name = "id_element_recoltable")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int id;
+
+    @Column(name = "nom")
+    protected String nom;
+
+    @Column(name = "categorie")
+    protected int categorie;
+
+    @Column(name= "niveau_requis")
+    private int niveauRequis;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "objet_element_recoltable",
+        joinColumns = @JoinColumn(name = "id_element_recoltable"),
+        inverseJoinColumns = @JoinColumn(name = "id_objet")
+    )
+    protected Set<Outils> outils = new HashSet<Outils>(); // id de l'outil à utiliser pour récolter
+
+    @OneToMany(mappedBy = "objetRecoltable")
+    protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
+
     protected int quantite; // nombre de ressources que ca donne
-    protected String sorte; // differente sorte de matières premières pour arbre => chène,sequoia,ébène
+    protected String sorte;
     protected int difficulte;
+    protected int clic;
+    
     //#region Constructeurs
 
     public ObjetRecoltable(String nom){
-        super(nom);
+        
     }
 
     public ObjetRecoltable(String nom, int id){
-        super(nom, id);
+        
     }
 
     public ObjetRecoltable(Ressource type, String nom, String sorte){
-        super(nom);
-        this.typeRessource = type;
+        
+        //this.typeRessource = type;
         this.sorte = sorte;
     }
     //#endregion
 
 
     //#region GETSET
-    public Outils getOutil() {
-        return outil;
-    }
-
-    public void setOutil(Outils outil) {
-        this.outil = outil;
-    }
-
-    public Ressource getTypeRessource() {
-        return typeRessource;
-    }
-
-
-    public void setTypeRessource(Ressource type) {
-        this.typeRessource = type;
-    }
+    
 
     public int getQuantite() {
         return quantite;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(int categorie) {
+        this.categorie = categorie;
+    }
+
+    public int getNiveauRequis() {
+        return niveauRequis;
+    }
+
+    public void setNiveauRequis(int niveauRequis) {
+        this.niveauRequis = niveauRequis;
+    }
+
+    public Set<Outils> getOutils() {
+        return outils;
+    }
+    public void setOutils(Set<Outils> outils) {
+        this.outils = outils;
+    }
+
+
+    public void addOutil(Outils outil) {
+        outils.add(outil);
+    }
+
+    public Set<RessourcesRecoltees> getRessourcesRecoltees() {
+        return ressourcesRecoltees;
+    }
+
+    public void addRessourcesRecoltees(RessourcesRecoltees ressourcesRecoltees) {
+        this.ressourcesRecoltees.add(ressourcesRecoltees);
 
     public void setQuantite(int quantite) {
         this.quantite = quantite;
@@ -66,11 +136,19 @@ public class ObjetRecoltable extends Objet {
         this.difficulte = difficulte;
     }
 
+    public int getClic() {
+        return clic;
+    }
+
+    public void setClic(int clic) {
+        this.clic = clic;
+    }
+
     //#endregion
 
     //#region Méthodes
     public boolean ramasser(Joueur joueur,int nombre){
-        if (joueur.ajouterRessource(this.getTypeRessource(), nombre)){
+        if (joueur.ajouterRessource(this.getType(), nombre)){
             return true;
         }
         return false;
@@ -126,14 +204,38 @@ public class ObjetRecoltable extends Objet {
             return true;
         }
         return false;
+    }
 
-// si outil dispo dans inventaire alors on utilise pour extraire ressource selon la capacité (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire)
+    public void resistance(){
+        Iterator<Outils> iOutils = outils.iterator();
+        while (iOutils.hasNext()) {
+            Outils outil = iOutils.next();
+            if(outil.getCapacite() > this.niveauRequis || outil.getCapacite() == this.niveauRequis){
+                this.clic = 1;
+            }
+            else{
+                this.clic = this.niveauRequis - outil.getCapacite();
+            }
+        }
+    }
+    //     if(this.outil.getCapacite() > this.niveauRequis || this.outil.getCapacite() == this.niveauRequis){
+    //         this.clic = 1;
+    //     }
+    //     else{
+    //         this.clic = this.niveauRequis - this.outil.getCapacite();
+    //     }
+    // }
+
+    
+
+    public static void tempsDeRepousse(){
+        Timer minuteur = new Timer();
+
+    }
+    
+// si outil dispo équipé alors on utilise pour extraire ressource selon la capacité outil et objet recoltable (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire => a faire plus tard)
 // puis ramasser
     }
 
 
 
-
-
-
-}

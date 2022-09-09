@@ -1,14 +1,31 @@
 package fil.rouge;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "objet")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 public abstract class Objet {
 
     //#region Variables
-
+    @Id
+    @Column(name = "id_objet")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
+
+    @Column(name = "nom")
     protected String nom;
-    protected EnumTypeObjet type_objet;
+
+    @Column(name = "categorie")
     protected int types;
-    
+
+    @OneToMany(mappedBy = "objet")
+    protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
+
     //#endregion
 
     //#region Constructeur
@@ -46,12 +63,13 @@ public abstract class Objet {
     public void setTypes(int types) {
         this.types = types;
     }
-    public EnumTypeObjet getType_objet() {
-        return type_objet;
+    public Set<InventaireObjet> getInventaireObjets() {
+        return inventaireObjets;
     }
-    public void setType_objet(EnumTypeObjet type_objet) {
-        this.type_objet = type_objet;
+    public void addInventaireObjets(InventaireObjet inventaireObjet) {
+        inventaireObjets.add(inventaireObjet);
     }
+    
     
     
     //#endregion 

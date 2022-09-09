@@ -1,12 +1,21 @@
 package fil.rouge;
 import java.sql.*;
-import fil.rouge.utils.DBManager;
+import java.util.HashSet;
+import java.util.Set;
 
+import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
+
+@Entity
+@DiscriminatorValue(value = "1")
 public class Outils extends Objet implements IEquipable {
 
         //#region Variables
-        protected int resistance;
+        @Column(name = "capacite")
         protected int capacite;
+
+        @ManyToMany(mappedBy = "outils")
+        protected Set<ObjetRecoltable> outils = new HashSet<ObjetRecoltable>();
          //#endregion
 
         //#region Constructeur

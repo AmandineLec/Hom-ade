@@ -1,11 +1,22 @@
 package fil.rouge;
 import java.sql.*;
 import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
 
+@Entity
+@DiscriminatorValue(value = "2")
 public class Meubles extends Objet implements Deplacable{
 
     //#region Variables
-    int taille;
+    @Column(name = "taille")
+    private int taille;
+
+    @Column(name = "id_piece")
+    protected int idPiece;
+
+    @Column(name = "position")
+    private double position;
+
     //#endregion
 
     //#region Constructeur

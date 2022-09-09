@@ -3,13 +3,17 @@ package fil.rouge;
 import java.sql.*;
 
 import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
 
+@Entity
+@DiscriminatorValue(value = "3")
 public class Decoration extends Objet implements Deplacable {
-     //#region Variables
+    //#region Variables
+    @Column(name = "taille")
     int taille;
-     //#endregion
+    //#endregion
 
-     //#region Constructeur
+    //#region Constructeur
     public Decoration(String nom){
         super(nom);
     }
@@ -41,7 +45,7 @@ public class Decoration extends Objet implements Deplacable {
     public void setTaille(int taille) {
         this.taille = taille;
     }
-    //#endregion GETTER & SETTER
+     //#endregion
 
      //#region METHOD
     public void deplacer(){
@@ -52,5 +56,6 @@ public class Decoration extends Objet implements Deplacable {
 
     }
 
-    //#endregion METHOD
+    //#endregion
 }
+

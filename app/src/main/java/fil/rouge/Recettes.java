@@ -1,54 +1,104 @@
 package fil.rouge;
 import java.util.HashMap;
+import java.io.Serializable;
 import java.sql.*;
 import fil.rouge.utils.DBManager;
+import jakarta.persistence.*;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Recettes {
+@Embeddable
+class RecettesKey implements Serializable {
+    @Column(name = "id_objet")
+    protected int idObjet;
+
+    @Column(name = "id_ressource")
+    protected int idRessource;
+
+
+    //#region getset
+    public int getIdObjet() {
+        return idObjet;
+    }
+
+    public void setIdObjet(int idObjet) {
+        this.idObjet = idObjet;
+    }
+
+    public int getIdRessource() {
+        return idRessource;
+    }
+
+    public void setIdRessource(int idRessource) {
+        this.idRessource = idRessource;
+    }
+
+    //#endregion
+}
+@Entity
+@Table(name = "recette")
+class Recettes {
     //#region Variables
+    @EmbeddedId
+    protected RecettesKey id;
+
+    @ManyToOne
+    @MapsId("idObjet")
+    @JoinColumn(name = "id_objet")
+    protected Objet objet;
+
+    @ManyToOne
+    @MapsId("idRessource")
+    @JoinColumn(name = "id_ressource")
+    protected Ressource ressource;
+
+    @Column(name = "quantite")
+    protected int quantiteNecessaire;
+
+    @Column(name = "niveau_requis")
+    protected int niveauRequis;
+
     protected String nom;
     protected HashMap<Integer, Integer> quantite;
-    protected int quantite_necessaire;
-    protected int id_element;
-    protected int niveau_requis;
-    protected int  id_ressource;
+    
+    //protected int id_element;
+    
+    //protected int  id_ressource;
 
     //#endregion
 
     //#region Constructeur
-    public Recettes(String nom, int id_element) {
-      this.nom = nom;
-      try {
-        ResultSet resultat = DBManager
-            .query("SELECT id_objet, niveau_requis FROM recette WHERE id_objet = " + id_element);
+    public Recettes(String nom, int idElement) {
+        this.nom = nom;
+    try {
+        ResultSet resultat = DBManager.query("SELECT id_objet, niveau_requis FROM recette WHERE id_objet = " + idElement);
         if (resultat.next()) { // si on a trouvé un resultat qui correspond à la requête
           this.quantite = new HashMap<Integer, Integer>(); // liste des ingrédients avec leurs quantité qui servira à
                                                            // définir si le joueur a la quantité de matière première
                                                            // nécessaire en comparant cette "quantite" à l'inventaire du
                                                            // joueur
-          this.id_element = resultat.getInt("id_objet");
-          this.niveau_requis = resultat.getInt("niveau_requis"); // il s'agira plus tard de faire une comparaison avec
+        this.idElement = resultat.getInt("id_objet");
+        this.niveauRequis = resultat.getInt("niveau_requis"); // il s'agira plus tard de faire une comparaison avec
                                                                  // le niveau de la maison du joueur
         }
-        ResultSet resultat2 = DBManager
-            .query("SELECT id_ressource, quantite FROM recette WHERE id_objet = " + id_element);
-        while (resultat2.next()) {
-          this.id_ressource = resultat2.getInt("id_ressource");
-          this.quantite_necessaire = resultat2.getInt("quantite");
-          quantite.put(id_ressource, quantite_necessaire); // c'est la recette avec ingredients et quantité necessaire
+        ResultSet resultat2 = DBManager.query("SELECT id_ressource, quantite FROM recette WHERE id_objet = " + idElement);
+            while (resultat2.next()) {
+                this.idRessource = resultat2.getInt("id_ressource");
+                this.quantiteNecessaire = resultat2.getInt("quantite");
+                quantite.put(idRessource, quantiteNecessaire); // c'est la recette avec ingredients et quantité necessaire
+            }
+        } catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
         }
-      } catch (SQLException ex) {
-        // handle any errors
-        System.out.println("SQLException: " + ex.getMessage());
-        System.out.println("SQLState: " + ex.getSQLState());
-        System.out.println("VendorError: " + ex.getErrorCode());
-      }
     }
 
-    public Recettes(int id_element){
-        this.id_element = id_element;
+    public Recettes(int idElement){
+        this.idElement = idElement;
         this.quantite = new HashMap<Integer, Integer>();
     }
     //#endregion
@@ -67,23 +117,42 @@ public class Recettes {
     public void setQuantite(HashMap<Integer, Integer> quantite) {
         this.quantite = quantite;
     }
-    public int getId_element() {
-        return id_element;
+    
+    public RecettesKey getId() {
+        return id;
     }
-    public void setId_element(int id_element) {
-        this.id_element = id_element;
+
+    public void setId(RecettesKey id) {
+        this.id = id;
     }
+
+    public Objet getObjet() {
+        return objet;
+    }
+
+    public void setObjet(Objet objet) {
+        this.objet = objet;
+    }
+
+    public Ressource getRessource() {
+        return ressource;
+    }
+
+    public void setRessource(Ressource ressource) {
+        this.ressource = ressource;
+    }
+
     public int getQuantite_necessaire() {
-        return quantite_necessaire;
+        return quantiteNecessaire;
     }
-    public void setQuantite_necessaire(int quantite_necessaire) {
-        this.quantite_necessaire = quantite_necessaire;
+    public void setQuantite_necessaire(int quantiteNecessaire) {
+        this.quantiteNecessaire = quantiteNecessaire;
     }
     public int getNiveau_requis() {
-        return niveau_requis;
+        return niveauRequis;
     }
     public void setNiveau_requis(int niveau_requis) {
-        this.niveau_requis = niveau_requis;
+        this.niveauRequis = niveau_requis;
     }
 
     //#endregion
@@ -91,6 +160,7 @@ public class Recettes {
     //#region METHOD
 
     //Méthode de création d'objet en fonction de son type  et de l'id élément de la recette
+    // sera refaite par Amandine
     public Objet creerObjet(int id_element){
         Objet objet = null;
         try {
@@ -140,8 +210,8 @@ public class Recettes {
                 //On compare les valeurs associés à la clef id_ressource dans les deux hashmap (recette et inventaire) si le nombre de ressource demandé dans la recette est
                 //supérieur au nombre de ressource présentes dans l'inventaire ou si la clef id_ressource n'est pas présente dans l'inventaire (et donc renvoi null)
                 //La variable craftable passe à false.
-                if(joueur.getInventoryressource().get(id_ressource)==null ||
-                this.getQuantite().get(id_ressource)>joueur.getInventoryressource().get(id_ressource)){
+                if(joueur.getInventaireRessource().get(id_ressource)==null ||
+                this.getQuantite().get(id_ressource)>joueur.getInventaireRessource().get(id_ressource)){
                     craftable = false;
                 }
             }
@@ -158,10 +228,10 @@ public class Recettes {
 
                     //On stocke la nouvelle valeur dans une variable quantité et on effectue le calcul : On soustraie la quantité nécessaire à la réalisation de la recette
                     //à la quantité de ressource présente dans l'inventaire
-                    int quantite = joueur.getInventoryressource().get(id_ressources) - this.getQuantite().get(id_ressources);
+                    int quantite = joueur.getInventaireRessource().get(id_ressources) - this.getQuantite().get(id_ressources);
 
                     //Et on remplace l'ancienne quantité par la nouvelle quantité dans l'inventaire.
-                    joueur.getInventoryressource().replace(id_ressources, quantite);
+                    joueur.getInventaireRessource().replace(id_ressources, quantite);
 
                     //On crée alors un nouvel objet grâce à son id, et en fonction de son type
                     objet = this.creerObjet(this.getId_element());
@@ -175,3 +245,4 @@ public class Recettes {
     }
     //#endregion
 }
+
