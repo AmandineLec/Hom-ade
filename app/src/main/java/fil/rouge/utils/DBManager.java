@@ -30,6 +30,7 @@ public class DBManager {
         session.close();
     }
 
+    
     //crée un point de sauvegarde dans la base de données
     public Savepoint setSavepoint(final String savePoint) {
         

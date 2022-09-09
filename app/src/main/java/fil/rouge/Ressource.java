@@ -1,9 +1,5 @@
 package fil.rouge;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,8 +24,9 @@ public class Ressource implements IRamassable {
     protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
 
     @OneToMany(mappedBy = "ressource")
-    protected Set<InventaireRessources> inventaireRessources = new HashSet<InventaireRessources>();
+    protected Set<InventaireRessource> inventaireRessources = new HashSet<InventaireRessource>();
 
+    //#region constructeurs
     public Ressource(String nom, int id, String type) {
         this.nom = nom;
         this.idRessource = id;
@@ -39,11 +36,8 @@ public class Ressource implements IRamassable {
     public Ressource(String nom) {
         this.nom = nom;
     }
-
-    public Ressource(int id) {
-
-    }
-
+    //#endregion
+    
     // #region getset
 
     public int getIdRessource() {
@@ -78,11 +72,11 @@ public class Ressource implements IRamassable {
         this.ressourcesRecoltees.add(ressourcesRecoltees);
     }
 
-    public Set<InventaireRessources> getInventaireRessources() {
+    public Set<InventaireRessource> getInventaireRessources() {
         return inventaireRessources;
     }
 
-    public void addInventaireRessources(InventaireRessources inventaireRessource) {
+    public void addInventaireRessources(InventaireRessource inventaireRessource) {
         inventaireRessources.add(inventaireRessource);
     }
 
@@ -93,7 +87,6 @@ public class Ressource implements IRamassable {
         Ressource ressource = DBManager.session.getReference(Ressource.class, id);
         DBManager.close();
         return ressource;
-
     }
 
     

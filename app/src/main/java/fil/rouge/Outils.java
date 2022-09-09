@@ -18,7 +18,7 @@ public class Outils extends Objet implements IEquipable {
         protected int capacite;
 
         @ManyToMany(mappedBy = "outils")
-        protected Set<ObjetRecoltable> outils = new HashSet<ObjetRecoltable>();
+        protected Set<ObjetRecoltable> ObjetRecoltables = new HashSet<ObjetRecoltable>();
          //#endregion
 
         //#region Constructeur
@@ -61,7 +61,13 @@ public class Outils extends Objet implements IEquipable {
         public void setCapacite(int capacite) {
             this.capacite = capacite;
         }
+        public Set<ObjetRecoltable> getObjetRecoltables() {
+            return ObjetRecoltables;
+        }
 
+        public void addObjetRecoltables(ObjetRecoltable objetRecoltable) {
+            ObjetRecoltables.add(objetRecoltable);
+        }
         //#endregion
 
 
@@ -87,5 +93,9 @@ public class Outils extends Objet implements IEquipable {
             return false;
         }
         //#endregion
+
+        
+
+        
 
 }

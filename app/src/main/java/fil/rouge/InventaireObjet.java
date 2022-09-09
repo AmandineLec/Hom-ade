@@ -48,6 +48,9 @@ public class InventaireObjet {
     @JoinColumn(name = "id_objet")
     protected Objet objet;
 
+    @Column(name = "quantite")
+    protected int quantite;
+
     //#region getset
     public InventaireObjetKey getId() {
         return id;
@@ -73,5 +76,31 @@ public class InventaireObjet {
         this.objet = objet;
     }
 
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
     //#endregion
+
+    InventaireObjet(Personnage personnage, Objet objet, int quantite) {
+        this.personnage = personnage;
+        this.objet = objet;
+        this.quantite = quantite;
+    }
+
+    public void ajouterObjet(int quantite) {
+        this.quantite += quantite;
+
+    }
+
+    public boolean retirerObjet(int quantite) {
+        if (quantite > this.quantite)
+            return false;
+        this.quantite -= quantite;
+        return true;
+    }
 }

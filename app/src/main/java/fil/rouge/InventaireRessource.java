@@ -5,7 +5,7 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 
 @Embeddable
-class InventaireRessourcesKey implements Serializable {
+class InventaireRessourceKey implements Serializable {
     @Column(name = "id_personnage")
     protected int idPersonnage;
 
@@ -34,9 +34,9 @@ class InventaireRessourcesKey implements Serializable {
 
 @Entity
 @Table(name = "inventaire_ressources")
-public class InventaireRessources {
+public class InventaireRessource {
     @EmbeddedId
-    protected InventaireObjetKey id;
+    protected InventaireRessourceKey id;
 
     @ManyToOne
     @MapsId("idPersonnage")
@@ -52,11 +52,11 @@ public class InventaireRessources {
     protected int quantite;
 
     //#region getset
-    public InventaireObjetKey getId() {
+    public InventaireRessourceKey getId() {
         return id;
     }
 
-    public void setId(InventaireObjetKey id) {
+    public void setId(InventaireRessourceKey id) {
         this.id = id;
     }
 
@@ -85,6 +85,21 @@ public class InventaireRessources {
     }
     //#endregion
     
+    InventaireRessource(Personnage personnage, Ressource ressource, int quantite) {
+        this.personnage = personnage;
+        this.ressource = ressource;
+        this.quantite = quantite;
+    }
 
-    
+    public void ajouterRessource(int quantite) {
+        this.quantite += quantite;
+
+    }
+
+    public boolean retirerRessource(int quantite) {
+        if (quantite > this.quantite)
+            return false;
+        this.quantite -= quantite;
+        return true;
+    }
 }
