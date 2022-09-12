@@ -2,7 +2,7 @@ package fil.rouge;
 
 public interface IRamassable {
     
-    public void ramasser(Joueur j, int quantite);
+    public void ramasser(Personnage j, int quantite);
          
     
 }

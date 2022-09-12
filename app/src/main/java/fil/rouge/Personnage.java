@@ -36,7 +36,7 @@ public class Personnage {
 
   @ManyToOne
   @JoinColumn(name = "outil")
-  protected Outils outil;
+  protected Outil outil;
   // #endregion
 
   // #region getter and setter and one construtor
@@ -81,11 +81,11 @@ public class Personnage {
     return inventaireRessources.add(inventaireRessource);
   }
 
-  public Outils getOutil() {
+  public Outil getOutil() {
     return outil;
   }
 
-  public void setOutil(Outils outil) {
+  public void setOutil(Outil outil) {
     this.outil = outil;
   }
 

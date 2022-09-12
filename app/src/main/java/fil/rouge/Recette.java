@@ -1,13 +1,9 @@
 package fil.rouge;
 import java.util.HashMap;
 import java.io.Serializable;
-import java.sql.*;
-import fil.rouge.utils.DBManager;
+
 import jakarta.persistence.*;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 @Embeddable
 class RecettesKey implements Serializable {
@@ -39,7 +35,7 @@ class RecettesKey implements Serializable {
 }
 @Entity
 @Table(name = "recette")
-class Recettes {
+class Recette {
     //#region Variables
     @EmbeddedId
     protected RecettesKey id;

@@ -25,39 +25,33 @@ public class ObjetRecoltable {
         joinColumns = @JoinColumn(name = "id_element_recoltable"),
         inverseJoinColumns = @JoinColumn(name = "id_objet")
     )
-    protected Set<Outils> outils = new HashSet<Outils>(); // id de l'outil à utiliser pour récolter
+    protected Set<Outil> outils = new HashSet<Outil>(); // id de l'outil à utiliser pour récolter
 
     @OneToMany(mappedBy = "objetRecoltable")
     protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
     
-    protected int quantite; // nombre de ressources que ca donne
-    protected String sorte;
+    @Column(name = "niveau_requis")
+    protected int niveauRequis;
+    
+    @Transient
     protected int difficulte;
     
     //#region Constructeurs
 
     public ObjetRecoltable(String nom){
-        
+        this.nom = nom;
     }
 
     public ObjetRecoltable(String nom, int id){
         
     }
 
-    public ObjetRecoltable(Ressource type, String nom, String sorte){
-        
-        //this.typeRessource = type;
-        this.sorte = sorte;
-    }
+   
     //#endregion
 
 
     //#region GETSET
     
-
-    public int getQuantite() {
-        return quantite;
-    }
 
     public int getId() {
         return id;
@@ -83,11 +77,11 @@ public class ObjetRecoltable {
         this.categorie = categorie;
     }
 
-    public Set<Outils> getOutils() {
+    public Set<Outil> getOutils() {
         return outils;
     }
 
-    public void addOutil(Outils outil) {
+    public void addOutil(Outil outil) {
         outils.add(outil);
     }
 
@@ -99,30 +93,21 @@ public class ObjetRecoltable {
         this.ressourcesRecoltees.add(ressourcesRecoltees);
     }
 
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
+    public int getNiveauRequis() {
+        return niveauRequis;
     }
 
-    public String getSorte() {
-        return sorte;
-    }
-
-    public void setSorte(String sorte) {
-        this.sorte = sorte;
-    }
-
-    public int getDifficulte() {
-        return difficulte;
-    }
-
-    public void setDifficulte(int difficulte) {
-        this.difficulte = difficulte;
+    public void setNiveauRequis(int niveauRequis) {
+        this.niveauRequis = niveauRequis;
     }
 
     //#endregion
 
+    
+
     //#region Méthodes
     // public boolean ramasser(Personnage joueur,int nombre){
+        
     //     if (joueur.ajouterRessource(this.getType(), nombre)){
     //         return true;
     //     }
@@ -153,35 +138,38 @@ public class ObjetRecoltable {
         return this.difficulte;
     }
 
-    public int quantiteProduite(){
-        if(this.difficulte == 1)
-            this.quantite = this.rand(1, 3);
+    // public int quantiteProduite(){
+    //     if(this.difficulte == 1)
+    //         this.quantite = this.rand(1, 3);
 
-        else if(this.difficulte == 2)
-            this.quantite = this.rand(1, 5);
+    //     else if(this.difficulte == 2)
+    //         this.quantite = this.rand(1, 5);
 
-        else if(this.difficulte == 3)
-            this.quantite = this.rand(2, 6);
+    //     else if(this.difficulte == 3)
+    //         this.quantite = this.rand(2, 6);
 
-        else if(this.difficulte == 4)
-            this.quantite = this.rand(2, 7);
+    //     else if(this.difficulte == 4)
+    //         this.quantite = this.rand(2, 7);
 
-        else if(this.difficulte == 5)
-            this.quantite = this.rand(3, 8);
+    //     else if(this.difficulte == 5)
+    //         this.quantite = this.rand(3, 8);
 
-        return this.quantite;
-    }
+    //     return this.quantite;
+    // }
 
-    public boolean recolter(Joueur joueur, Outils outil){
-        if (joueur.getOutils()==this.getOutil()){
-            int nombre = outil.getCapacite() * this.quantiteProduite();
-            this.ramasser(joueur, nombre);
+    public boolean recolter(Personnage joueur, Outil outil){
+        if (this.getOutils().contains(joueur.getOutil())){
+            for (RessourcesRecoltees ressourceR : ressourcesRecoltees) {
+            int nombre = ressourceR.getQuantite();
+            Ressource ressource = ressourceR.getRessource();
+            ressource.ramasser(joueur, nombre);
             return true;
+            }
         }
         return false;
     
 // si outil dispo équipé alors on utilise pour extraire ressource selon la capacité outil et objet recoltable (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire => a faire plus tard)
 // puis ramasser
     }
-
+    //#endregion
 }

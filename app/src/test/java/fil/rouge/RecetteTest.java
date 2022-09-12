@@ -26,7 +26,7 @@ public class RecetteTest {
 
     @Test
     public void Testrecette(){
-        Recettes recette = new Recettes("Hache rudimentaire", 4);
+        Recette recette = new Recette("Hache rudimentaire", 4);
         assertTrue(recette.getQuantite().containsKey(7));
         assertTrue(recette.getQuantite().containsKey(3));
     }
@@ -35,7 +35,7 @@ public class RecetteTest {
     @Test
     public void TestCreerItem(){
 
-        Outils canneapeche = new Outils(1);
+        Outil canneapeche = new Outil(1);
 
         Maison maison = new Maison();
         maison.setNiveau(1);
@@ -51,7 +51,7 @@ public class RecetteTest {
         joueur.getInventoryressource();
         joueur.setMaison(maison);
 
-        Recettes recette = new Recettes(1);
+        Recette recette = new Recette(1);
         recette.getQuantite().put(bois.getId(), 5);
         recette.getQuantite().put(lin.getId(), 6);
         recette.getQuantite();

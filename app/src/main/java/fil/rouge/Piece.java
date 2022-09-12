@@ -2,7 +2,7 @@ package fil.rouge;
 
 
 
-public class Pieces {
+public class Piece {
     
     protected int id_piece;
 
@@ -18,16 +18,16 @@ public class Pieces {
     protected int id_meuble; // pour récupérer le meuble placé dans la maison
 
     //#region Constructeurs
-    public Pieces(){
+    public Piece(){
         this.taille = 9;
     }
 
-    public Pieces(String nom){
+    public Piece(String nom){
         this.nom = nom;
         this.taille = 9;
     }
 
-    public Pieces(String nom, int taille){
+    public Piece(String nom, int taille){
         this.nom = nom;
         this.taille = taille;
     }

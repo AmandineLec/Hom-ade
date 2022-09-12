@@ -6,7 +6,7 @@ public class PieceTest {
 
     @Test
     public void AgrandirTest(){
-        Pieces piece = new Pieces("salon", 9);
+        Piece piece = new Piece("salon", 9);
         // piece.setTaille(piece.getTaille() + 1);
 
         piece.agrandir(1);

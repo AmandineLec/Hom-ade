@@ -1,14 +1,13 @@
 package fil.rouge;
-import java.sql.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import fil.rouge.utils.DBManager;
 import jakarta.persistence.*;
 
 @Entity
 @DiscriminatorValue(value = "1")
-public class Outils extends Objet implements IEquipable {
+public class Outil extends Objet implements IEquipable {
 
         //#region Variables
         @Column(name = "resistance")
@@ -25,29 +24,11 @@ public class Outils extends Objet implements IEquipable {
          //#endregion
 
         //#region Constructeur
-        public Outils(String nom) {
+        public Outil(String nom) {
             super(nom);
         }
 
-        public Outils(int id){
-            super("");
-            try {
-                ResultSet resultat = DBManager.query("SELECT * FROM objet WHERE id_objet = "+id);
-                if(resultat.next()){
-                    this.nom = resultat.getString("nom");
-                    this.types = resultat.getInt("type");
-                    // this.resistance = resultat.getInt("resistance");
-                    // this.capacite = resultat.getInt("capacite");
-                    this.id = id;
-                    }
-                }
-                catch (SQLException ex) {
-                    // handle any errors
-                    System.out.println("SQLException: " + ex.getMessage());
-                    System.out.println("SQLState: " + ex.getSQLState());
-                    System.out.println("VendorError: " + ex.getErrorCode());
-                }
-        }
+        
         //#endregion
 
         //#region GETTER & SETTER

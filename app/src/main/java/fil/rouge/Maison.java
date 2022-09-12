@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import fil.rouge.utils.DBManager;
 import jakarta.persistence.*;
 
 @Entity
@@ -26,12 +25,12 @@ public class Maison {
     protected Set<Personnage> personnages = new HashSet<Personnage>();
 
     @Transient
-    protected ArrayList<Pieces> pieces = new ArrayList<Pieces>();
+    protected ArrayList<Piece> pieces = new ArrayList<Piece>();
 
     protected String id_ressource; // pour récupérer les ressources nécessaires à l'agrandissement
     protected int nb_ressources; // pour définir le nombre de ressources nécéssaires pour agrandir
     protected String etabli; // pour accéder à l'établi lors de la création d'objets
-    protected Pieces piece; // pour accéder à la pièce
+    protected Piece piece; // pour accéder à la pièce
 
     //#region Constructeurs
     public Maison(){
@@ -41,7 +40,7 @@ public class Maison {
     public Maison(int nb_pieces){
         this. nb_pieces = nb_pieces;
         this.niveau = 1;
-        this.piece = new Pieces("salon");
+        this.piece = new Piece("salon");
     }
 
     //#endregion
@@ -96,18 +95,18 @@ public class Maison {
         this.id_maison = id_maison;
     }
 
-    public Pieces getPiece() {
+    public Piece getPiece() {
         return piece;
     }
 
-    public void setPiece(Pieces piece) {
+    public void setPiece(Piece piece) {
         this.piece = piece;
     }
 
     //#endregion
 
     //#region Méthodes
-    public void levelUp(Pieces piece){
+    public void levelUp(Piece piece){
         this.setNiveau(this.getNiveau()+1);
         if (this.getNiveau()>=1 && this.getNiveau()<=3){
             this.pieceAccessible(piece);
@@ -120,7 +119,7 @@ public class Maison {
         }
     }
 
-    public void pieceAccessible(Pieces piece){
+    public void pieceAccessible(Piece piece){
         this.setNb_pieces(this.getNb_pieces()+1);
         this.piece = piece;
     }

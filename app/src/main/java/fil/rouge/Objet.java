@@ -21,7 +21,7 @@ public abstract class Objet {
     protected String nom;
 
     @Column(name = "categorie")
-    protected int types;
+    protected int categorie;
 
     @OneToMany(mappedBy = "objet")
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
@@ -57,11 +57,11 @@ public abstract class Objet {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    public int getTypes() {
-        return types;
+    public int getCategorie() {
+        return categorie;
     }
-    public void setTypes(int types) {
-        this.types = types;
+    public void setCategorie(int categorie) {
+        this.categorie = categorie;
     }
     public Set<InventaireObjet> getInventaireObjets() {
         return inventaireObjets;

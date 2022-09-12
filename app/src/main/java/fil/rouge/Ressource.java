@@ -3,7 +3,6 @@ package fil.rouge;
 import java.util.HashSet;
 import java.util.Set;
 
-import fil.rouge.utils.DBManager;
 import jakarta.persistence.*;
 
 @Entity
@@ -82,16 +81,9 @@ public class Ressource implements IRamassable {
 
     // #endregion
 
-    public Ressource getById(int id) {
-        DBManager.open();
-        Ressource ressource = DBManager.session.getReference(Ressource.class, id);
-        DBManager.close();
-        return ressource;
-    }
+       
 
-    
-
-    public void ramasser(Joueur j, int quantite) {
+    public void ramasser(Personnage j, int quantite) {
         j.ajouterRessource(this, quantite);
     }
 

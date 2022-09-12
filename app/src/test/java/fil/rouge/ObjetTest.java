@@ -7,7 +7,7 @@ public class ObjetTest {
     @Test
     public void testequiper(){
         Joueur joueur = new Joueur("joueur", 1);
-        Outils hache = new Outils("hache");
+        Outil hache = new Outil("hache");
         joueur.ajouterObjet(hache, 1); //On ajoute l'hache dans l'inventaire avant de pouvoir l'équiper
 
         hache.equiper(joueur); //On équipe l'hache, qui doit s'enlever de l'inventaire.
@@ -18,7 +18,7 @@ public class ObjetTest {
     @Test
     public void testdesequipper(){
         Joueur joueur = new Joueur("joueur", 1);
-        Outils detecteur = new Outils("detecteur");
+        Outil detecteur = new Outil("detecteur");
         joueur.setOutils(detecteur);//On équipe le joueur du détecteur
 
         detecteur.desequipper(joueur);//On déséquippe le joueur

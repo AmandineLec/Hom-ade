@@ -14,11 +14,52 @@ public class App {
         System.out.println(ressource.getNom());
     }
 
+    public static Personnage getPersonnageById(int id) {
+        DBManager.open();
+        Personnage personnage = DBManager.session.getReference(Personnage.class, id);
+        DBManager.close();
+        return personnage;
+    }
 
     public static Ressource getRessourceById(int id) {
         DBManager.open();
         Ressource ressource = DBManager.session.getReference(Ressource.class, id);
         DBManager.close();
         return ressource;
+    }
+
+    public static Outil getOutilById(int id) {
+        DBManager.open();
+        Outil outil = DBManager.session.getReference(Outil.class, id);
+        DBManager.close();
+        return outil;
+    }
+
+    public static Meuble getMeubleById(int id) {
+        DBManager.open();
+        Meuble meuble = DBManager.session.getReference(Meuble.class, id);
+        DBManager.close();
+        return meuble;
+    }
+
+    public static Decoration getDecorationById(int id) {
+        DBManager.open();
+        Decoration decoration = DBManager.session.getReference(Decoration.class, id);
+        DBManager.close();
+        return decoration;
+    }
+    
+    public static ObjetRecoltable getObjetRecoltableById(int id) {
+        DBManager.open();
+        ObjetRecoltable objetRecoltable = DBManager.session.getReference(ObjetRecoltable.class, id);
+        DBManager.close();
+        return objetRecoltable;
+    }
+
+    public static Maison getMaisonById(int id) {
+        DBManager.open();
+        Maison maison = DBManager.session.getReference(Maison.class, id);
+        DBManager.close();
+        return maison;
     }
 }

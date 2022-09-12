@@ -42,7 +42,7 @@ public class RecoltableTest {
 
     @Test
     public void recolterTest(){
-        Outils hache = new Outils("hache");
+        Outil hache = new Outil("hache");
         hache.setCapacite(2);
         Joueur perso = new Joueur("Paul", 1);
         Ressource bois = new Ressource("bois");
