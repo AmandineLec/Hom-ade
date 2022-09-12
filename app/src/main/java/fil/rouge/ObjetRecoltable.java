@@ -97,6 +97,7 @@ public class ObjetRecoltable {
 
     public void addRessourcesRecoltees(RessourcesRecoltees ressourcesRecoltees) {
         this.ressourcesRecoltees.add(ressourcesRecoltees);
+    }
 
     public void setQuantite(int quantite) {
         this.quantite = quantite;
@@ -121,12 +122,12 @@ public class ObjetRecoltable {
     //#endregion
 
     //#region Méthodes
-    public boolean ramasser(Joueur joueur,int nombre){
-        if (joueur.ajouterRessource(this.getType(), nombre)){
-            return true;
-        }
-        return false;
-    }
+    // public boolean ramasser(Personnage joueur,int nombre){
+    //     if (joueur.ajouterRessource(this.getType(), nombre)){
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     public int rand(int min, int max){
         int rand = min + (int)(Math.random()*((max - min)+1));

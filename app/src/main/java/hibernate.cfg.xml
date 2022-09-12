@@ -20,14 +20,12 @@
             <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
             <property name="cache.use_query_cache">false</property>
             <mapping class="fil.rouge.Decoration"/>
-            <mapping class="fil.rouge.Joueur"/>
             <mapping class="fil.rouge.Maison"/>
             <mapping class="fil.rouge.Meubles"/>
             <mapping class="fil.rouge.Objet"/>
             <mapping class="fil.rouge.Outils"/>
             <mapping class="fil.rouge.Personnage"/>
             <mapping class="fil.rouge.Pieces"/>
-            <mapping class="fil.rouge.Pnj"/>
             <mapping class="fil.rouge.Recettes"/>
             <mapping class="fil.rouge.Ressource"/>
             <mapping class="fil.rouge.InventaireObjet"/>

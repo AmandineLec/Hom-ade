@@ -1,8 +1,6 @@
 package fil.rouge;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -127,29 +125,29 @@ public class Maison {
         this.piece = piece;
     }
 
-      public static int sauvegarderMaison(){
-        try{
-          Maison maisonJoueur = new Maison(1);
-          int niveauMaison = maisonJoueur.getNiveau();
-          int nbPiecesMaison = maisonJoueur.getNb_pieces();
-          String query = "INSERT INTO maison (niveau,nb_pieces) VALUES (?,?)";
-          PreparedStatement myStmt = DBManager.preparedStatement(query);
-          myStmt.setInt(1, niveauMaison);
-          myStmt.setInt(2, nbPiecesMaison);
-          myStmt.executeUpdate();
-          ResultSet res = myStmt.getGeneratedKeys();
-          res.next();
-          int clePrimaireMaison = res.getInt(1);
-          return clePrimaireMaison;
+//       public static int sauvegarderMaison(){
+//         try{
+//           Maison maisonJoueur = new Maison(1);
+//           int niveauMaison = maisonJoueur.getNiveau();
+//           int nbPiecesMaison = maisonJoueur.getNb_pieces();
+//           String query = "INSERT INTO maison (niveau,nb_pieces) VALUES (?,?)";
+//           PreparedStatement myStmt = DBManager.preparedStatement(query);
+//           myStmt.setInt(1, niveauMaison);
+//           myStmt.setInt(2, nbPiecesMaison);
+//           myStmt.executeUpdate();
+//           ResultSet res = myStmt.getGeneratedKeys();
+//           res.next();
+//           int clePrimaireMaison = res.getInt(1);
+//           return clePrimaireMaison;
 
-          } catch (SQLException ex) {
-          // handle any errors
-          System.out.println("SQLException: " + ex.getMessage());
-          System.out.println("SQLState: " + ex.getSQLState());
-          System.out.println("VendorError: " + ex.getErrorCode());
-        }
-      return -1;
-  }
+//           } catch (SQLException ex) {
+//           // handle any errors
+//           System.out.println("SQLException: " + ex.getMessage());
+//           System.out.println("SQLState: " + ex.getSQLState());
+//           System.out.println("VendorError: " + ex.getErrorCode());
+//         }
+//       return -1;
+//   }
 
     //#endregion
 }

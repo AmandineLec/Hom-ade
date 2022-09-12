@@ -3,12 +3,22 @@
  */
 package fil.rouge;
 
+import fil.rouge.utils.DBManager;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+    
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        Ressource ressource = getRessourceById(4);
+
+        System.out.println(ressource.getNom());
+    }
+
+
+    public static Ressource getRessourceById(int id) {
+        DBManager.open();
+        Ressource ressource = DBManager.session.getReference(Ressource.class, id);
+        DBManager.close();
+        return ressource;
     }
 }

@@ -34,7 +34,9 @@ public class Personnage {
   @OneToMany(mappedBy = "personnage")
   protected Set<InventaireRessource> inventaireRessources = new HashSet<InventaireRessource>();
 
-  protected Outils outils;
+  @ManyToOne
+  @JoinColumn(name = "outil")
+  protected Outils outil;
   // #endregion
 
   // #region getter and setter and one construtor
@@ -79,12 +81,12 @@ public class Personnage {
     return inventaireRessources.add(inventaireRessource);
   }
 
-  public Outils getOutils() {
-    return outils;
+  public Outils getOutil() {
+    return outil;
   }
 
-  public void setOutils(Outils outils) {
-    this.outils = outils;
+  public void setOutil(Outils outil) {
+    this.outil = outil;
   }
 
   public Maison getMaison() {
