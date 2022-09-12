@@ -19,6 +19,9 @@ public class Outils extends Objet implements IEquipable {
 
         @ManyToMany(mappedBy = "outils")
         protected Set<ObjetRecoltable> ObjetRecoltables = new HashSet<ObjetRecoltable>();
+
+        @OneToMany(mappedBy = "outil")
+        protected Set<Personnage> personnages = new HashSet<Personnage>();
          //#endregion
 
         //#region Constructeur
@@ -73,21 +76,21 @@ public class Outils extends Objet implements IEquipable {
 
         //#region METHOD
 
-        public boolean equiper(Joueur target){
-            if(target.getOutils()!=null){
-                target.ajouterObjet(target.getOutils(), 1);
-                return true;
+        public boolean equiper(Personnage target){
+            if(target.getOutil()!=null){
+                target.ajouterObjet(target.getOutil(), 1);
+                
             }
             if(target.retirerObjet(this, 1)){
-                target.setOutils(this);
+                target.setOutil(this);
                 return true;
             }
             return false;
         }
-        public boolean desequipper(Joueur target){
-            if(target.getOutils()==this){
+        public boolean desequipper(Personnage target){
+            if(target.getOutil()==this){
                 target.ajouterObjet(this, 1);
-                target.setOutils(null);
+                target.setOutil(null);
                 return true;
             }
             return false;
