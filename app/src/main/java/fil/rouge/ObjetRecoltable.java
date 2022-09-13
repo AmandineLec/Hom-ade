@@ -8,10 +8,10 @@ public class ObjetRecoltable extends Objet {
     protected Outils outil; // id de l'outil à utiliser pour récolter
     protected Ressource typeRessource; // type de la ressource que cela va donner
     protected int quantite; // nombre de ressources que ca donne
-    protected String sorte; // distingue les sortes de bois, types de pierres, types de métaux, etc
+    protected int sorte; // distingue les sortes de bois, sortes de pierres, sortes de métaux, etc
     protected int difficulte; // difficulté d'accès à la ressource, définit le rendement.
-    
-// TODO ajouter les requete d'acces bdd
+    protected int clic;
+    protected int niveauRequis;
 
     //#region Constructeurs
 
@@ -23,7 +23,7 @@ public class ObjetRecoltable extends Objet {
         super(nom, id);
     }
 
-    public ObjetRecoltable(Ressource type, String nom, String sorte){
+    public ObjetRecoltable(Ressource type, String nom, int sorte){
         super(nom);
         this.typeRessource = type;
         this.sorte = sorte;
@@ -74,11 +74,11 @@ public class ObjetRecoltable extends Objet {
         this.quantite = quantite;
     }
 
-    public String getSorte() {
+    public int getSorte() {
         return sorte;
     }
 
-    public void setSorte(String sorte) {
+    public void setSorte(int sorte) {
         this.sorte = sorte;
     }
 
@@ -151,8 +151,21 @@ public class ObjetRecoltable extends Objet {
         }
         return false;
     
-// si outil dispo équipé alors on utilise pour extraire ressource selon la capacité outil et objet recoltable (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire => a faire plus tard)
-// puis ramasser
+        // si outil dispo équipé alors on utilise pour extraire ressource selon la capacité outil et objet recoltable (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire => a faire plus tard)
+        // puis ramasser
+        
     }
+
+
+    public void resistance(){
+        if(this.outil.getCapacite() > this.niveauRequis || this.outil.getCapacite() == this.niveauRequis){
+            this.clic = 1;
+        }
+        else{
+            this.clic = this.niveauRequis - this.outil.getCapacite();
+        }
+    }
+
+
 
 }

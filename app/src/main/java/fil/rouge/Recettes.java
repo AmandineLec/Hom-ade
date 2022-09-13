@@ -140,8 +140,8 @@ public class Recettes {
                 //On compare les valeurs associés à la clef id_ressource dans les deux hashmap (recette et inventaire) si le nombre de ressource demandé dans la recette est
                 //supérieur au nombre de ressource présentes dans l'inventaire ou si la clef id_ressource n'est pas présente dans l'inventaire (et donc renvoi null)
                 //La variable craftable passe à false.
-                if(joueur.getInventoryressource().get(id_ressource)==null ||
-                this.getQuantite().get(id_ressource)>joueur.getInventoryressource().get(id_ressource)){
+                if(joueur.getInventoryRessource().get(id_ressource)==null ||
+                this.getQuantite().get(id_ressource)>joueur.getInventoryRessource().get(id_ressource)){
                     craftable = false;
                 }
             }
@@ -158,10 +158,10 @@ public class Recettes {
 
                     //On stocke la nouvelle valeur dans une variable quantité et on effectue le calcul : On soustraie la quantité nécessaire à la réalisation de la recette
                     //à la quantité de ressource présente dans l'inventaire
-                    int quantite = joueur.getInventoryressource().get(id_ressources) - this.getQuantite().get(id_ressources);
+                    int quantite = joueur.getInventoryRessource().get(id_ressources) - this.getQuantite().get(id_ressources);
 
                     //Et on remplace l'ancienne quantité par la nouvelle quantité dans l'inventaire.
-                    joueur.getInventoryressource().replace(id_ressources, quantite);
+                    joueur.getInventoryRessource().replace(id_ressources, quantite);
 
                     //On crée alors un nouvel objet grâce à son id, et en fonction de son type
                     objet = this.creerObjet(this.getId_element());

@@ -42,7 +42,7 @@ public class MaisonTest {
   @Test
   public void levelUpTestAvecAjoutPiece(){
       Pieces piece = new Pieces("salon", 10);
-      Maison maison = new Maison(1);
+      Maison maison = new Maison();
       maison.setNiveau(3);
       maison.levelUp(piece);
       assertTrue(maison.getNiveau()==4 && maison.getNb_pieces()==2);
@@ -51,7 +51,7 @@ public class MaisonTest {
   @Test
   public void levelUpTestAvecAgrandissement(){
       Pieces piece = new Pieces("salon", 10);
-      Maison maison = new Maison(1);
+      Maison maison = new Maison();
       maison.setNiveau(4);
       maison.levelUp(piece);
       assertTrue(maison.getNiveau()==5 && piece.getTaille()==11 && maison.nb_pieces==1);
@@ -60,7 +60,7 @@ public class MaisonTest {
 
   @Test
   public void pieceAccessibleTest(){
-      Maison maison = new Maison(1);
+      Maison maison = new Maison();
       maison.setNb_pieces(1);
       Pieces cuisine = new Pieces("cuisine");
       maison.pieceAccessible(cuisine);

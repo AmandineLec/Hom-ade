@@ -51,6 +51,7 @@ public class Decoration extends Objet implements Deplacable {
     public void tourner(){
 
     }
+    
 
     //#endregion
 }

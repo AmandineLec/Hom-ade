@@ -7,35 +7,35 @@ import java.sql.SQLException;
 import fil.rouge.utils.DBManager;
 
 public class Joueur extends Personnage {
-  protected int id_maison;
+  // protected int id_maison;
 
 //#region  constructor
+  public Joueur(){}
 
   public Joueur(String name, int sexe){
     super(name, sexe);
   }
 //#endregion
 
-
 //#region method
 
 public boolean ajouterObjet(Objet objet, int quantite) {
-  if (inventoryobjet.containsKey(objet.getId())) { // si l'inventaire contient déja l'objet en question
-    quantite += inventoryobjet.get((objet.getId())); // nouvelle quantité de l'objet + ancienne quantité de l'objet
+  if (inventoryObjet.containsKey(objet.getId())) { // si l'inventaire contient déja l'objet en question
+    quantite += inventoryObjet.get((objet.getId())); // nouvelle quantité de l'objet + ancienne quantité de l'objet
   }
-  inventoryobjet.put(objet.getId(), quantite); // on ajoute la ressource et sa nouvelle quantité
-  return true; // ou inventoryobjet.get(objet); qui devrait donner la quantité de l'objet
+  inventoryObjet.put(objet.getId(), quantite); // on ajoute la ressource et sa nouvelle quantité
+  return true; 
 }
 
 public boolean retirerObjet(Objet objet, int quantite) {
   try {
-    if (inventoryobjet.get(objet.getId()) > quantite) {
-      quantite = inventoryobjet.get((objet.getId())) - quantite;
-      inventoryobjet.put(objet.getId(), quantite);
+    if (inventoryObjet.get(objet.getId()) > quantite) {
+      quantite = inventoryObjet.get((objet.getId())) - quantite;
+      inventoryObjet.put(objet.getId(), quantite);
       return true;
-    } else if (inventoryobjet.get(objet.getId()) == quantite) {
-      inventoryobjet.remove(objet.getId());
-      return true; // ou inventoryobjet.get(objet); qui devrait donnner 0
+    } else if (inventoryObjet.get(objet.getId()) == quantite) {
+      inventoryObjet.remove(objet.getId());
+      return true; // ou inventoryObjet.get(objet); qui devrait donnner 0
     }
   } catch (Exception e) {
     System.out.println("Vous ne pouvez pas supprimer plus d'objets que vous n'en disposez!");
@@ -44,22 +44,22 @@ public boolean retirerObjet(Objet objet, int quantite) {
 }
 
 public boolean ajouterRessource(Ressource ressource, int quantite) {
-  if (inventoryressource.containsKey(ressource.getId())) { // si l'inventaire contient déja l'ressource en question
-    quantite += inventoryressource.get((ressource.getId())); // nouvelle quantité de l'ressource + ancienne quantité de l'ressource
+  if (inventoryRessource.containsKey(ressource.getId())) { // si l'inventaire contient déja la ressource en question
+    quantite += inventoryRessource.get((ressource.getId())); // nouvelle quantité de ressource + ancienne quantité de ressource
   }
-  inventoryressource.put(ressource.getId(), quantite); // on ajoute la ressource et sa nouvelle quantité
-  return true; // ou inventoryressource.get(objet); qui devrait donner la quantité de ressource
+  inventoryRessource.put(ressource.getId(), quantite); // on ajoute la ressource et sa nouvelle quantité
+  return true;
 }
 
 public boolean retirerRessource(Ressource ressource, int quantite) {
   try {
-    if (inventoryressource.get(ressource.getId()) > quantite) {
-      quantite = inventoryressource.get((ressource.getId())) - quantite;
-      inventoryressource.put(ressource.getId(), quantite);
+    if (inventoryRessource.get(ressource.getId()) > quantite) {
+      quantite = inventoryRessource.get((ressource.getId())) - quantite;
+      inventoryRessource.put(ressource.getId(), quantite);
       return true;
-    } else if (inventoryressource.get(ressource.getId()) == quantite) {
-      inventoryressource.remove(ressource.getId());
-      return true; // ou inventoryressource.get(objet); qui devrait donnner 0
+    } else if (inventoryRessource.get(ressource.getId()) == quantite) {
+      inventoryRessource.remove(ressource.getId());
+      return true;
     }
   } catch (Exception e) {
     System.out.println("Vous ne pouvez pas supprimer plus d'objets que vous n'en disposez!");
@@ -69,9 +69,9 @@ public boolean retirerRessource(Ressource ressource, int quantite) {
 
 
 
-  public int sauvegarderJoueur(){
+  public boolean sauvegarderJoueur(){
     try{
-      int idMaison = this.maison.getId_maison();
+      int idMaison = this.maison.getIdMaison();
       String query = "INSERT INTO personnage (nom,sexe,id_maison) VALUES (?,?,?)";
       PreparedStatement Stmt = DBManager.preparedStatement(query);
       Stmt.setString(1, this.getName());
@@ -80,9 +80,10 @@ public boolean retirerRessource(Ressource ressource, int quantite) {
       Stmt.setInt(3, idMaison);
       Stmt.executeUpdate(); // execute la mise à jour dans la bdd
       ResultSet res = Stmt.getGeneratedKeys();
-      res.next(); // de type boolean et renvoit true si il y'a un prochain element à traiter
-      int clePrimaireJoueur = res.getInt(1);
-      return clePrimaireJoueur;
+      res.next(); 
+      this.idPersonnage = res.getInt(1);
+      this.maison.sauvegarderMaison();
+      return true; // de type boolean et renvoit true si il y'a un prochain element à traiter
 
     }catch(SQLException ex){
       // handle any errors
@@ -90,7 +91,7 @@ public boolean retirerRessource(Ressource ressource, int quantite) {
       System.out.println("SQLState: " + ex.getSQLState());
       System.out.println("VendorError: " + ex.getErrorCode());
     }
-    return -1;
+    return false;
   }
 
 //#endregion
