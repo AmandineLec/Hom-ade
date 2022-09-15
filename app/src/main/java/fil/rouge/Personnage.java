@@ -11,13 +11,13 @@ public abstract class Personnage {
   @Id
   @Column(name = "id_personnage")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  protected int id_personnage;
+  protected Integer id_personnage;
 
   @Column(name = "nom")
   protected String name;
 
   @Column(name = "sexe")
-  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
+  protected Integer sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
 
   @ManyToOne
   @JoinColumn(name = "id_maison")
@@ -30,7 +30,7 @@ public abstract class Personnage {
   protected Set<InventaireRessources> inventaireRessources = new HashSet<InventaireRessources>();
 
   
-  protected Outils outils;
+  // protected Outils outils;
   
 
 //#region getter and setter and one construtor
@@ -43,17 +43,17 @@ public abstract class Personnage {
     this.name = newName;
   }
 
-  public int getSexe() {
+  public Integer getSexe() {
     return sexe;
   }
 
-  public void setSexe(int newSexe) {
+  public void setSexe(Integer newSexe) {
     this.sexe = newSexe;
   }
 
   
 
-  public int getId_personnage() {
+  public Integer getId_personnage() {
     return id_personnage;
   }
 
@@ -77,13 +77,13 @@ public abstract class Personnage {
     inventaireRessources.add(inventaireRessource);
   }
 
-  public Outils getOutils() {
-    return outils;
-  }
+  // public Outils getOutils() {
+  //   return outils;
+  // }
 
-  public void setOutils(Outils outils) {
-    this.outils = outils;
-  }
+  // public void setOutils(Outils outils) {
+  //   this.outils = outils;
+  // }
 
 
   public Maison getMaison() {
@@ -94,7 +94,7 @@ public abstract class Personnage {
     this.maison = maison;
   }
 
-  public Personnage(String name, int sexe){
+  public Personnage(String name, Integer sexe){
     this.name = name;
     this.sexe = sexe;
     

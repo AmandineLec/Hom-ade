@@ -1,60 +1,60 @@
-package fil.rouge;
+// package fil.rouge;
 
-import static org.junit.jupiter.api.Assertions.*;
+// import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.Savepoint;
+// import java.sql.Savepoint;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.AfterAll;
+// import org.junit.jupiter.api.AfterEach;
+// import org.junit.jupiter.api.BeforeAll;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
 
-import fil.rouge.utils.DBManager;
-
-
-public class RessourceTest {
-    static Savepoint save;
-
-    @BeforeAll
-    static void setup() {
-        DBManager.init();
-        DBManager.setAutoCommit(false);
-    }
-
-    @BeforeEach
-    void init() {
-        save = DBManager.setSavePoint();
-    }
-
-    @AfterEach
-    void done() {
-        DBManager.rollback(save);
-    }
-
-    @AfterAll
-    static void teardown() {
-    }
+// import fil.rouge.utils.DBManager;
 
 
+// public class RessourceTest {
+//     static Savepoint save;
 
-    @Test
-    public void testRamasser() {
-        Ressource test = new Ressource("test");
-        Joueur j = new Joueur("test", 1);
-        test.ramasser(j, 1);
-        assertEquals(1, j.getInventoryressource().get(test.getId()));
+//     @BeforeAll
+//     static void setup() {
+//         DBManager.init();
+//         DBManager.setAutoCommit(false);
+//     }
 
-    }
+//     @BeforeEach
+//     void init() {
+//         save = DBManager.setSavePoint();
+//     }
 
-    @Test
-    public void testRamasserPlusieurs() {
-        Ressource test = new Ressource("test");
-        Joueur j = new Joueur("test", 1);
+//     @AfterEach
+//     void done() {
+//         DBManager.rollback(save);
+//     }
 
-        test.ramasser(j, 5);
+//     @AfterAll
+//     static void teardown() {
+//     }
 
-        assertEquals(5, j.getInventoryressource().get(test.getId()));
-    }
 
-}
+
+//     @Test
+//     public void testRamasser() {
+//         Ressource test = new Ressource("test");
+//         Joueur j = new Joueur("test", 1);
+//         test.ramasser(j, 1);
+//         assertEquals(1, j.getInventoryressource().get(test.getId()));
+
+//     }
+
+//     @Test
+//     public void testRamasserPlusieurs() {
+//         Ressource test = new Ressource("test");
+//         Joueur j = new Joueur("test", 1);
+
+//         test.ramasser(j, 5);
+
+//         assertEquals(5, j.getInventoryressource().get(test.getId()));
+//     }
+
+// }

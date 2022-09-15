@@ -11,13 +11,14 @@ public class ObjetRecoltable {
     @Id
     @Column(name = "id_element_recoltable")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    protected Integer id;
 
     @Column(name = "nom")
     protected String nom;
 
     @Column(name = "categorie")
-    protected int categorie;
+    protected Integer categorie;
+
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -25,7 +26,7 @@ public class ObjetRecoltable {
         joinColumns = @JoinColumn(name = "id_element_recoltable"),
         inverseJoinColumns = @JoinColumn(name = "id_objet")
     )
-    protected Set<Outils> outils = new HashSet<Outils>(); // id de l'outil à utiliser pour récolter
+    protected Set<Objet> objets = new HashSet<Objet>(); // id de l'outil à utiliser pour récolter
 
     @OneToMany(mappedBy = "objetRecoltable")
     protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
@@ -55,15 +56,15 @@ public class ObjetRecoltable {
     //#region GETSET
     
 
-    public int getQuantite() {
+    public Integer getQuantite() {
         return quantite;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,21 +76,21 @@ public class ObjetRecoltable {
         this.nom = nom;
     }
 
-    public int getCategorie() {
+    public Integer getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(int categorie) {
+    public void setCategorie(Integer categorie) {
         this.categorie = categorie;
     }
 
-    public Set<Outils> getOutils() {
-        return outils;
+    public Set<Objet> getObjets() {
+        return objets;
     }
 
-    public void addOutil(Outils outil) {
-        outils.add(outil);
-    }
+    // public void addOutil(Outils outil) {
+    //     outils.add(outil);
+    // }
 
     public Set<RessourcesRecoltees> getRessourcesRecoltees() {
         return ressourcesRecoltees;
@@ -97,8 +98,9 @@ public class ObjetRecoltable {
 
     public void addRessourcesRecoltees(RessourcesRecoltees ressourcesRecoltees) {
         this.ressourcesRecoltees.add(ressourcesRecoltees);
+    }
 
-    public void setQuantite(int quantite) {
+    public void setQuantite(Integer quantite) {
         this.quantite = quantite;
     }
 
@@ -110,21 +112,21 @@ public class ObjetRecoltable {
         this.sorte = sorte;
     }
 
-    public int getDifficulte() {
+    public Integer getDifficulte() {
         return difficulte;
     }
 
-    public void setDifficulte(int difficulte) {
+    public void setDifficulte(Integer difficulte) {
         this.difficulte = difficulte;
     }
 
     //#endregion
 
     //#region Méthodes
-    public boolean ramasser(Joueur joueur,int nombre){
-        if (joueur.ajouterRessource(this.getType(), nombre)){
-            return true;
-        }
+    public boolean ramasser(Personnage joueur,int nombre){
+        // if (joueur.ajouterRessource(this.getType(), nombre)){
+        //     return true;
+        // }
         return false;
     }
 
@@ -171,16 +173,16 @@ public class ObjetRecoltable {
         return this.quantite;
     }
 
-    public boolean recolter(Joueur joueur, Outils outil){
-        if (joueur.getOutils()==this.getOutil()){
-            int nombre = outil.getCapacite() * this.quantiteProduite();
-            this.ramasser(joueur, nombre);
-            return true;
-        }
-        return false;
+    // public boolean recolter(Personnage joueur, Outils outil){
+    //     // if (joueur.getOutils()==this.getOutil()){
+    //     //     int nombre = outil.getCapacite() * this.quantiteProduite();
+    //     //     this.ramasser(joueur, nombre);
+    //     //     return true;
+    //     // }
+    //     return false;
     
 // si outil dispo équipé alors on utilise pour extraire ressource selon la capacité outil et objet recoltable (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire => a faire plus tard)
 // puis ramasser
-    }
+    // }
 
 }

@@ -1,13 +1,13 @@
 package fil.rouge;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+// import java.sql.PreparedStatement;
+// import java.sql.ResultSet;
+// import java.sql.SQLException;
+// import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import fil.rouge.utils.DBManager;
+// import fil.rouge.utils.DBManager;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,24 +16,24 @@ public class Maison {
     @Id
     @Column(name = "id_maison")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id_maison;
+    protected Integer id_maison;
 
     @Column(name = "niveau")
-    protected int niveau; // début à 1
+    protected Integer niveau; // début à 1
 
     @Column(name = "nb_pieces")
-    protected int nb_pieces; // début à 1
+    protected Integer nb_pieces; // début à 1
 
     @OneToMany(mappedBy = "maison")
     protected Set<Personnage> personnages = new HashSet<Personnage>();
 
     @Transient
-    protected ArrayList<Pieces> pieces = new ArrayList<Pieces>();
+    // protected ArrayList<Pieces> pieces = new ArrayList<Pieces>();
 
     protected String id_ressource; // pour récupérer les ressources nécessaires à l'agrandissement
     protected int nb_ressources; // pour définir le nombre de ressources nécéssaires pour agrandir
     protected String etabli; // pour accéder à l'établi lors de la création d'objets
-    protected Pieces piece; // pour accéder à la pièce
+    // protected Pieces piece; // pour accéder à la pièce
 
     //#region Constructeurs
     public Maison(){
@@ -43,7 +43,7 @@ public class Maison {
     public Maison(int nb_pieces){
         this. nb_pieces = nb_pieces;
         this.niveau = 1;
-        this.piece = new Pieces("salon");
+        // this.piece = new Pieces("salon");
     }
 
     //#endregion
@@ -98,58 +98,58 @@ public class Maison {
         this.id_maison = id_maison;
     }
 
-    public Pieces getPiece() {
-        return piece;
-    }
+    // public Pieces getPiece() {
+    //     return piece;
+    // }
 
-    public void setPiece(Pieces piece) {
-        this.piece = piece;
-    }
+    // public void setPiece(Pieces piece) {
+    //     this.piece = piece;
+    // }
 
     //#endregion
 
     //#region Méthodes
-    public void levelUp(Pieces piece){
-        this.setNiveau(this.getNiveau()+1);
-        if (this.getNiveau()>=1 && this.getNiveau()<=3){
-            this.pieceAccessible(piece);
-        }
-        else if(this.getNiveau()>3 && this.getNiveau()%2==0){ // si le niveau est pair on ajoute une pièce
-            this.pieceAccessible(piece);
-        }
-        else{
-            piece.agrandir(1);
-        }
-    }
+    // public void levelUp(Pieces piece){
+    //     this.setNiveau(this.getNiveau()+1);
+    //     if (this.getNiveau()>=1 && this.getNiveau()<=3){
+    //         this.pieceAccessible(piece);
+    //     }
+    //     else if(this.getNiveau()>3 && this.getNiveau()%2==0){ // si le niveau est pair on ajoute une pièce
+    //         this.pieceAccessible(piece);
+    //     }
+    //     else{
+    //         piece.agrandir(1);
+    //     }
+    // }
 
-    public void pieceAccessible(Pieces piece){
-        this.setNb_pieces(this.getNb_pieces()+1);
-        this.piece = piece;
-    }
+    // public void pieceAccessible(Pieces piece){
+    //     this.setNb_pieces(this.getNb_pieces()+1);
+    //     this.piece = piece;
+    // }
 
-      public static int sauvegarderMaison(){
-        try{
-          Maison maisonJoueur = new Maison(1);
-          int niveauMaison = maisonJoueur.getNiveau();
-          int nbPiecesMaison = maisonJoueur.getNb_pieces();
-          String query = "INSERT INTO maison (niveau,nb_pieces) VALUES (?,?)";
-          PreparedStatement myStmt = DBManager.preparedStatement(query);
-          myStmt.setInt(1, niveauMaison);
-          myStmt.setInt(2, nbPiecesMaison);
-          myStmt.executeUpdate();
-          ResultSet res = myStmt.getGeneratedKeys();
-          res.next();
-          int clePrimaireMaison = res.getInt(1);
-          return clePrimaireMaison;
+//       public static int sauvegarderMaison(){
+//         try{
+//           Maison maisonJoueur = new Maison(1);
+//           int niveauMaison = maisonJoueur.getNiveau();
+//           int nbPiecesMaison = maisonJoueur.getNb_pieces();
+//           String query = "INSERT INTO maison (niveau,nb_pieces) VALUES (?,?)";
+//           PreparedStatement myStmt = DBManager.preparedStatement(query);
+//           myStmt.setInt(1, niveauMaison);
+//           myStmt.setInt(2, nbPiecesMaison);
+//           myStmt.executeUpdate();
+//           ResultSet res = myStmt.getGeneratedKeys();
+//           res.next();
+//           int clePrimaireMaison = res.getInt(1);
+//           return clePrimaireMaison;
 
-          } catch (SQLException ex) {
-          // handle any errors
-          System.out.println("SQLException: " + ex.getMessage());
-          System.out.println("SQLState: " + ex.getSQLState());
-          System.out.println("VendorError: " + ex.getErrorCode());
-        }
-      return -1;
-  }
+//           } catch (SQLException ex) {
+//           // handle any errors
+//           System.out.println("SQLException: " + ex.getMessage());
+//           System.out.println("SQLState: " + ex.getSQLState());
+//           System.out.println("VendorError: " + ex.getErrorCode());
+//         }
+//       return -1;
+//   }
 
     //#endregion
 }

@@ -8,25 +8,25 @@ import jakarta.persistence.*;
 @Embeddable
 class RessourceRecolteesKey implements Serializable {
     @Column(name = "id_element_recoltable")
-    protected int idElementRecoltable;
+    protected Integer idElementRecoltable;
 
     @Column(name = "id_ressource")
-    protected int idRessource;
+    protected Integer idRessource;
 
     //#region getset
-    public int getIdElementRecoltable() {
+    public Integer getIdElementRecoltable() {
         return idElementRecoltable;
     }
 
-    public void setIdElementRecoltable(int idElementRecoltable) {
+    public void setIdElementRecoltable(Integer idElementRecoltable) {
         this.idElementRecoltable = idElementRecoltable;
     }
 
-    public int getIdRessource() {
+    public Integer getIdRessource() {
         return idRessource;
     }
 
-    public void setIdRessource(int idRessource) {
+    public void setIdRessource(Integer idRessource) {
         this.idRessource = idRessource;
     }
     //#endregion
@@ -50,7 +50,7 @@ public class RessourcesRecoltees {
     protected Ressource ressource;
 
     @Column(name = "quantite")
-    protected int quantite;
+    protected Integer quantite;
 
     //#region getset
     public RessourceRecolteesKey getId() {
@@ -77,11 +77,11 @@ public class RessourcesRecoltees {
         this.ressource = ressource;
     }
 
-    public int getQuantite() {
+    public Integer getQuantite() {
         return quantite;
     }
 
-    public void setQuantite(int quantite) {
+    public void setQuantite(Integer quantite) {
         this.quantite = quantite;
     }
 

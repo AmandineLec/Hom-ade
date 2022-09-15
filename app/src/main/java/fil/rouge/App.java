@@ -3,12 +3,43 @@
  */
 package fil.rouge;
 
+import java.util.List;
+
+
+import fil.rouge.utils.DBManager;
+import jakarta.persistence.TypedQuery;
+
 public class App {
+
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        // creerObjet(6);
+
+
+
+    }
+
+    public static void creerObjet(Integer id_element){
+
+        DBManager.open();
+        TypedQuery<Ressource> myQuery = DBManager.session.createQuery("SELECT r FROM Ressource r", Ressource.class);
+        List<Ressource> objets = myQuery.getResultList();
+        // myQuery.setParameter("id_element", id_element);
+        objets.forEach((objet)->{
+            System.out.println(objet.getNom());
+        });
+    }
+
+    public Ressource getById(int id) {
+        DBManager.open();
+        Ressource ressource = DBManager.session.getReference(Ressource.class, id);
+        DBManager.close();
+        return ressource;
+
     }
 }
+

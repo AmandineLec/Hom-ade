@@ -1,84 +1,84 @@
-package fil.rouge;
+// package fil.rouge;
 
 
 
-public class Pieces {
+// public class Pieces {
     
-    protected int id_piece;
-
-    
-    protected String nom;
+//     protected int id_piece;
 
     
-    protected int taille; //en mètres carrés
+//     protected String nom;
 
-    protected Maison maison;
     
-    protected int id_decoration; // pour récupérer la déco placée dans la maison
-    protected int id_meuble; // pour récupérer le meuble placé dans la maison
+//     protected int taille; //en mètres carrés
 
-    //#region Constructeurs
-    public Pieces(){
-        this.taille = 9;
-    }
+//     protected Maison maison;
+    
+//     protected int id_decoration; // pour récupérer la déco placée dans la maison
+//     protected int id_meuble; // pour récupérer le meuble placé dans la maison
 
-    public Pieces(String nom){
-        this.nom = nom;
-        this.taille = 9;
-    }
+//     //#region Constructeurs
+//     public Pieces(){
+//         this.taille = 9;
+//     }
 
-    public Pieces(String nom, int taille){
-        this.nom = nom;
-        this.taille = taille;
-    }
-    //#endregion
+//     public Pieces(String nom){
+//         this.nom = nom;
+//         this.taille = 9;
+//     }
 
-    //#region GETSET
-    public int getTaille() {
-        return taille;
-    }
+//     public Pieces(String nom, int taille){
+//         this.nom = nom;
+//         this.taille = taille;
+//     }
+//     //#endregion
 
-    public void setTaille(int taille) {
-        this.taille = taille;
-    }
+//     //#region GETSET
+//     public int getTaille() {
+//         return taille;
+//     }
 
-    public int getId_decoration() {
-        return id_decoration;
-    }
+//     public void setTaille(int taille) {
+//         this.taille = taille;
+//     }
 
-    public void setId_decoration(int id_decoration) {
-        this.id_decoration = id_decoration;
-    }
+//     public int getId_decoration() {
+//         return id_decoration;
+//     }
 
-    public int getId_meuble() {
-        return id_meuble;
-    }
+//     public void setId_decoration(int id_decoration) {
+//         this.id_decoration = id_decoration;
+//     }
 
-    public void setId_meuble(int id_meuble) {
-        this.id_meuble = id_meuble;
-    }
+//     public int getId_meuble() {
+//         return id_meuble;
+//     }
 
-    public int getId_piece() {
-        return id_piece;
-    }
+//     public void setId_meuble(int id_meuble) {
+//         this.id_meuble = id_meuble;
+//     }
 
-    public void setId_piece(int id_piece) {
-        this.id_piece = id_piece;
-    }
+//     public int getId_piece() {
+//         return id_piece;
+//     }
 
-    public String getNom() {
-        return nom;
-    }
+//     public void setId_piece(int id_piece) {
+//         this.id_piece = id_piece;
+//     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-    //#endregion
+//     public String getNom() {
+//         return nom;
+//     }
 
-    //#region Méthodes
-    public void agrandir(int agrandissement){
-        this.setTaille(this.getTaille() + 1);
-    }
+//     public void setNom(String nom) {
+//         this.nom = nom;
+//     }
+//     //#endregion
 
-    //#endregion
-}
+//     //#region Méthodes
+//     public void agrandir(int agrandissement){
+//         this.setTaille(this.getTaille() + 1);
+//     }
+
+//     //#endregion
+// }

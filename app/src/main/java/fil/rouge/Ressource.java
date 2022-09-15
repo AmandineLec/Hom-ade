@@ -1,9 +1,9 @@
 package fil.rouge;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+// import java.sql.PreparedStatement;
+// import java.sql.ResultSet;
+// import java.sql.SQLException;
+// import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +16,7 @@ public class Ressource implements IRamassable {
     @Id
     @Column(name = "id_ressource")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idRessource;
+    private Integer idRessource;
 
     @Column(name = "nom")
     private String nom;
@@ -44,13 +44,17 @@ public class Ressource implements IRamassable {
 
     }
 
+    public Ressource(){
+        
+    }
+
     // #region getset
 
-    public int getIdRessource() {
+    public Integer getIdRessource() {
         return idRessource;
     }
 
-    public void setIdRessource(int idRessource) {
+    public void setIdRessource(Integer idRessource) {
         this.idRessource = idRessource;
     }
 
@@ -98,8 +102,8 @@ public class Ressource implements IRamassable {
 
     
 
-    public void ramasser(Joueur j, int quantite) {
-        j.ajouterRessource(this, quantite);
+    public void ramasser(Personnage j, int quantite) {
+        // j.ajouterRessource(this, quantite);
     }
 
 }

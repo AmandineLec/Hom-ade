@@ -1,6 +1,6 @@
 package fil.rouge;
-import java.sql.*;
-import fil.rouge.utils.DBManager;
+// import java.sql.*;
+// import fil.rouge.utils.DBManager;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,39 +9,40 @@ public class Meubles extends Objet implements Deplacable{
 
     //#region Variables
     @Column(name = "taille")
-    int taille;
+    Integer taille;
     //#endregion
 
     //#region Constructeur
-    public Meubles(String nom){
-        super(nom);
-    }
+    // public Meubles(String nom){
+    //     super(nom);
+    // }
 
-    public Meubles(int id){
-        super("");
-            try {
-                ResultSet resultat = DBManager.query("SELECT * FROM objet WHERE id_objet = "+id);
-                if(resultat.next()){
-                    this.nom = resultat.getString("nom");
-                    this.types = resultat.getInt("type");
-                    this.id = id;
-                    }
-                }
-                catch (SQLException ex) {
-                    // handle any errors
-                    System.out.println("SQLException: " + ex.getMessage());
-                    System.out.println("SQLState: " + ex.getSQLState());
-                    System.out.println("VendorError: " + ex.getErrorCode());
-                }
-    }
+    // public Meubles(int id){
+    //     super("");
+    //         try {
+    //             ResultSet resultat = DBManager.query("SELECT * FROM objet WHERE id_objet = "+id);
+    //             if(resultat.next()){
+    //                 this.nom = resultat.getString("nom");
+    //                 this.types = resultat.getInt("type");
+    //                 this.id = id;
+    //                 }
+    //             }
+    //             catch (SQLException ex) {
+    //                 // handle any errors
+    //                 System.out.println("SQLException: " + ex.getMessage());
+    //                 System.out.println("SQLState: " + ex.getSQLState());
+    //                 System.out.println("VendorError: " + ex.getErrorCode());
+    //             }
+    // }
     //#endregion
 
     //#region GETTER & SETTER
-    public int getTaille() {
+
+    public Integer getTaille() {
         return taille;
     }
 
-    public void setTaille(int taille) {
+    public void setTaille(Integer taille) {
         this.taille = taille;
     }
     //#endregion
