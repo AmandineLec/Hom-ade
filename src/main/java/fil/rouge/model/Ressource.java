@@ -19,7 +19,7 @@ public class Ressource implements IRamassable {
     @Id
     @Column(name = "id_ressource")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idRessource;
+    private Integer id;
 
     @Column(name = "nom")
     private String nom;
@@ -39,7 +39,7 @@ public class Ressource implements IRamassable {
 
     public Ressource(String nom, int id, String type) {
         this.nom = nom;
-        this.idRessource = id;
+        this.id = id;
         this.type = type;
     }
 
@@ -50,12 +50,12 @@ public class Ressource implements IRamassable {
     
     // #region getset
 
-    public int getIdRessource() {
-        return idRessource;
+    public int getId() {
+        return id;
     }
 
-    public void setIdRessource(int idRessource) {
-        this.idRessource = idRessource;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {

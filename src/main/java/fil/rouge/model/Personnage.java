@@ -146,7 +146,7 @@ public class Personnage {
     Iterator<InventaireRessource> it = inventaireRessources.iterator();
     while (it.hasNext()) {
       InventaireRessource invRes = it.next();
-      if (invRes.getId().getIdRessource() == ressource.getIdRessource()) {
+      if (invRes.getId().getIdRessource() == ressource.getId()) {
         invRes.ajouterRessource(quantite);
         return true;
       }
@@ -160,7 +160,7 @@ public class Personnage {
     Iterator<InventaireRessource> it = inventaireRessources.iterator();
     while (it.hasNext()) {
       InventaireRessource invRes = it.next();
-      if (invRes.getId().getIdRessource() == ressource.getIdRessource()) {
+      if (invRes.getId().getIdRessource() == ressource.getId()) {
         return invRes.retirerRessource(quantite);
 
       }
