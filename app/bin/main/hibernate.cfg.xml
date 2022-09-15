@@ -30,5 +30,8 @@
             <mapping class="fil.rouge.Pnj"/>
             <mapping class="fil.rouge.Recettes"/>
             <mapping class="fil.rouge.Ressource"/>
+            <mapping class="fil.rouge.InventaireObjet"/>
+            <mapping class="fil.rouge.InventaireRessources"/>
+            <mapping class="fil.rouge.RessourcesRecoltees"/>
       </session-factory>
 </hibernate-configuration>
