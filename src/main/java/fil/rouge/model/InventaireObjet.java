@@ -116,3 +116,4 @@ public class InventaireObjet {
         return true;
     }
 }
+

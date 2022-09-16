@@ -34,7 +34,7 @@ public abstract class Objet {
 
     @OneToMany(mappedBy = "objet")
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
-    
+
     //#endregion
 
     //#region Constructeur
