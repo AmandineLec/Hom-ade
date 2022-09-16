@@ -19,7 +19,7 @@ public class jeuController {
     @GetMapping("/jeu")
     public String jeu(Model model) {
         Optional<Ressource> ressource = ressourceRepository.findById(4);
-        System.out.println(ressource.get().getNom());
+        
         model.addAttribute("ressource", ressource.get());
         return "jeu";
     }
