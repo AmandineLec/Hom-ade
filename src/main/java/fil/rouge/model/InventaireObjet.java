@@ -11,11 +11,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
-@Embeddable
+// https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/io/Serializable.html
+// https://www.jmdoudoux.fr/java/dej/chap-jpa.htm
+@Embeddable // pour la création d'une clé primaire resultante de l'agregation de deux entité : personnage et objet
+//  https://www.geeksforgeeks.org/serializable-interface-in-java/
 class InventaireObjetKey implements Serializable{
     /**
 	 * 
 	 */
+    // https://stackoverflow.com/questions/285793/what-is-a-serialversionuid-and-why-should-i-use-it
 	private static final long serialVersionUID = -5030374201224878732L;
 
 	@Column(name = "id_personnage")
@@ -104,7 +108,9 @@ public class InventaireObjet {
         this.quantite = quantite;
     }
 
-    public void ajouterObjet(int quantite) {
+
+    //#region méthodes du service
+    public void ajouterObjet(int quantite) { 
         this.quantite += quantite;
 
     }
@@ -115,5 +121,6 @@ public class InventaireObjet {
         this.quantite -= quantite;
         return true;
     }
+    //#endregion méthodes du service
 }
 

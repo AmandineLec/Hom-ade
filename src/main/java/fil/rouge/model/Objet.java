@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "objet")
+// https://www.baeldung.com/hibernate-inheritance
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 public abstract class Objet {
@@ -32,7 +33,7 @@ public abstract class Objet {
     @Column(name = "categorie")
     protected int categorie;
 
-    @OneToMany(mappedBy = "objet")
+    @OneToMany(mappedBy = "objet") // un objet(déjà crée en bdd) peut être dans plusieurs inventaires
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
     //#endregion

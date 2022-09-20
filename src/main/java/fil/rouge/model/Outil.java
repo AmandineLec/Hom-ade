@@ -22,10 +22,10 @@ public class Outil extends Objet implements IEquipable {
         @Column(name = "capacite")
         protected int capacite;
 
-        @ManyToMany(mappedBy = "outils")
-        protected Set<ObjetRecoltable> ObjetRecoltables = new HashSet<ObjetRecoltable>();
+        @ManyToMany(mappedBy = "outils") // des outils peuvent recolter plusieurs objets
+        protected Set<ObjetRecoltable> ObjetRecoltables = new HashSet<ObjetRecoltable>(); // obtenir la liste des objets qu'un outil peut recolter
 
-        @OneToMany(mappedBy = "outil")
+        @OneToMany(mappedBy = "outil") 
         protected Set<Personnage> personnages = new HashSet<Personnage>();
          //#endregion
 
@@ -64,18 +64,18 @@ public class Outil extends Objet implements IEquipable {
         //#region METHOD
 
         public boolean equiper(Personnage target){
-            if(target.getOutil()!=null){
+            if(target.getOutil()!=null){ // si le joueur n'est pas équipé de l'outil
                 target.ajouterObjet(target.getOutil(), 1);
                 
             }
-            if(target.retirerObjet(this, 1)){
+            if(target.retirerObjet(this, 1)){ // si le joueur dispose de l'outil dans son inventaire
                 target.setOutil(this);
                 return true;
             }
             return false;
         }
         public boolean desequipper(Personnage target){
-            if(target.getOutil()==this){
+            if(target.getOutil()==this){ // si il est équipé de l'outil
                 target.ajouterObjet(this, 1);
                 target.setOutil(null);
                 return true;

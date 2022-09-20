@@ -170,8 +170,8 @@ public class ObjetRecoltable {
     // }
 
     public boolean recolter(Personnage joueur, Outil outil){
-        if (this.getOutils().contains(joueur.getOutil())){
-            for (RessourcesRecoltees ressourceR : ressourcesRecoltees) {
+        if (this.getOutils().contains(joueur.getOutil())){ // Si le joueur a l'outil nécessaire
+            for (RessourcesRecoltees ressourceR : ressourcesRecoltees) { // pour toutes les ressources recoltables
             int nombre = ressourceR.getQuantite();
             Ressource ressource = ressourceR.getRessource();
             ressource.ramasser(joueur, nombre);

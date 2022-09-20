@@ -21,36 +21,29 @@ public class Maison {
     @Id
     @Column(name = "id_maison")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id_maison;
+    protected int idMaison;
 
     @Column(name = "niveau")
     protected int niveau; // début à 1
 
     @Column(name = "nb_pieces")
-    protected int nb_pieces; // début à 1
+    protected int nbPieces; // début à 1
 
     @OneToMany(mappedBy = "maison")
     protected Set<Personnage> personnages = new HashSet<Personnage>();
 
-    @Transient
+    @Transient // non sauvegardé dans la bdd. Pour accéder à la pièce
     protected ArrayList<Piece> pieces = new ArrayList<Piece>();
 
-    // protected String id_ressource; // pour récupérer les ressources nécessaires à l'agrandissement
-    // protected int nb_ressources; // pour définir le nombre de ressources nécéssaires pour agrandir
+    // protected String idRessource; // pour récupérer les ressources nécessaires à l'augmentation du niveau
+    // protected int nbRessources; // pour définir le nombre de ressources nécéssaires pour ajouter une pièce
     // protected String etabli; // pour accéder à l'établi lors de la création d'objets
-    // protected Piece piece; // pour accéder à la pièce
+    // protected Piece piece; 
 
     //#region Constructeurs
     public Maison(){
         this.niveau = 1;
     }
-
-    // public Maison(int nb_pieces){
-    //     this. nb_pieces = nb_pieces;
-    //     this.niveau = 1;
-    //     this.piece = new Piece("salon");
-    // }
-
     //#endregion
 
     //#region GETSET
@@ -63,11 +56,11 @@ public class Maison {
     }
 
     public int getNb_pieces() {
-        return nb_pieces;
+        return nbPieces;
     }
 
     public void setNb_pieces(int nb_pieces) {
-        this.nb_pieces = nb_pieces;
+        this.nbPieces = nb_pieces;
     }
 
     // public String getId_ressource() {
@@ -96,21 +89,23 @@ public class Maison {
     // }
 
     public int getId_maison() {
-        return id_maison;
+        return idMaison;
     }
 
-    public void setId_maison(int id_maison) {
-        this.id_maison = id_maison;
+    public void setId_maison(int idMaison) {
+        this.idMaison = idMaison;
     }
 
-    // public Piece getPiece() {
-    //     return piece;
-    // }
+    public ArrayList<Piece> getPieces() {
+        return pieces;
+    }
 
-    // public void setPiece(Piece piece) {
-    //     this.piece = piece;
-    // }
+    public void setPieces(ArrayList<Piece> pieces) {
+        this.pieces = pieces;
+    }
 
+
+    
     //#endregion
 
     //#region Méthodes

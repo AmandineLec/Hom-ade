@@ -22,28 +22,34 @@ import javax.persistence.Table;
 @Table(name = "personnage")
 public class Personnage {
   // #region variables
+  // https://www.baeldung.com/hibernate-identifiers  
   @Id
   @Column(name = "id_personnage")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  protected int id_personnage;
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // la clé primaire est auto-incrémentée par la bdd
+  protected int idPersonnage;
 
   @Column(name = "nom")
   protected String name;
 
   @Column(name = "sexe")
-  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
+  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférez
 
+  // https://koor.fr/Java/TutorialJEE/jee_jpa_many_to_one.wp
+  // mapping sans table d'association
   @ManyToOne
-  @JoinColumn(name = "id_maison")
-  protected Maison maison;
+  @JoinColumn(name = "id_maison") // Plusieurs joueurs(un joueur et un png) peuvent accéder à une maison. Retrouver la maison associée aux joueurs.
+  protected Maison maison; 
 
-  @OneToMany(mappedBy = "personnage")
+  // https://koor.fr/Java/TutorialJEE/jee_jpa_one_to_many.wp
+  // mapping avec table d'association qui stocke les foreign keys
+  @OneToMany(mappedBy = "personnage") // Un joueur peut avoir un inventaire de plusieurs objets. Retrouver tous les objets de son inventaire.
+  // https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/Set.html
   protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
   @OneToMany(mappedBy = "personnage")
   protected Set<InventaireRessource> inventaireRessources = new HashSet<InventaireRessource>();
 
-  @ManyToOne
+  @ManyToOne // car l'outil est déja créee en bdd
   @JoinColumn(name = "outil")
   protected Outil outil;
   // #endregion
@@ -66,12 +72,12 @@ public class Personnage {
     this.sexe = newSexe;
   }
 
-  public int getId_personnage() {
-    return id_personnage;
+  public int getIdPersonnage() {
+    return idPersonnage;
   }
 
-  public void setId_personnage(int id_personnage) {
-    this.id_personnage = id_personnage;
+  public void setIdPersonnage(int idPersonnage) {
+    this.idPersonnage = idPersonnage;
   }
 
   public Set<InventaireObjet> getInventaireObjet() {
@@ -109,22 +115,22 @@ public class Personnage {
   public Personnage(String name, int sexe) {
     this.name = name;
     this.sexe = sexe;
-
-    //maison = new Maison(1);
+    //this.maison = new Maison(); pour attribuer d'emblée une maison à chaque joueur créee Voir avec Loic
   }
   // #endregion
 
   public boolean ajouterObjet(Objet objet, int quantite) {
-
+    // https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/Iterator.html
     Iterator<InventaireObjet> it = inventaireObjets.iterator();
-    while (it.hasNext()) {
-      InventaireObjet invObjet = it.next();
-      if (invObjet.getId().getIdObjet() == objet.getId()) {
+    while (it.hasNext()) { // Returns true if the iteration has more elements
+      InventaireObjet invObjet = it.next(); // Returns the next element in the iteration.
+
+      if (invObjet.getId().getIdObjet() == objet.getId()) { // si l'inventaire contient déjà l'objet à ajouter on augmente sa quantité pour garder le même emplacement.
         invObjet.ajouterObjet(quantite);
         return true;
       }
     }
-    InventaireObjet invObj = new InventaireObjet(this, objet, quantite);
+    InventaireObjet invObj = new InventaireObjet(this, objet, quantite); // dans le cas où l'objet n'est pas déja présent on créer un nouvel inventaire auxquel on ajoute l'objet et sa quantité
     return addInventaireObjet(invObj);
 
   }
