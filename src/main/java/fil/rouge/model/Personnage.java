@@ -46,9 +46,20 @@ public class Personnage {
   @ManyToOne
   @JoinColumn(name = "outil")
   protected Outil outil;
+
+  @Column(name = "mail")
+  protected String mail;
+
+  @Column(name = "password")
+  protected String password;
   // #endregion
 
-  // #region getter and setter and one construtor
+  public Personnage(String name, int sexe) {
+    this.name = name;
+    this.sexe = sexe;
+  }
+
+  // #region GET/SET
 
   public String getName() {
     return name;
@@ -106,70 +117,6 @@ public class Personnage {
     this.maison = maison;
   }
 
-  public Personnage(String name, int sexe) {
-    this.name = name;
-    this.sexe = sexe;
-
-    //maison = new Maison(1);
-  }
   // #endregion
 
-  public boolean ajouterObjet(Objet objet, int quantite) {
-
-    Iterator<InventaireObjet> it = inventaireObjets.iterator();
-    while (it.hasNext()) {
-      InventaireObjet invObjet = it.next();
-      if (invObjet.getId().getIdObjet() == objet.getId()) {
-        invObjet.ajouterObjet(quantite);
-        return true;
-      }
-    }
-    InventaireObjet invObj = new InventaireObjet(this, objet, quantite);
-    return addInventaireObjet(invObj);
-
-  }
-
-  public boolean retirerObjet(Objet objet, int quantite) {
-    Iterator<InventaireObjet> it = inventaireObjets.iterator();
-    while (it.hasNext()) {
-      InventaireObjet invObjet = it.next();
-      if (invObjet.getId().getIdObjet() == objet.getId()) {
-        return invObjet.retirerObjet(quantite);
-
-      }
-    }
-    return false;
-  }
-
-  public boolean ajouterRessource(Ressource ressource, int quantite) {
-
-    Iterator<InventaireRessource> it = inventaireRessources.iterator();
-    while (it.hasNext()) {
-      InventaireRessource invRes = it.next();
-      if (invRes.getId().getIdRessource() == ressource.getId()) {
-        invRes.ajouterRessource(quantite);
-        return true;
-      }
-    }
-    InventaireRessource invRes = new InventaireRessource(this, ressource, quantite);
-    return addInventaireRessource(invRes);
-
-  }
-
-  public boolean retirerRessource(Ressource ressource, int quantite) {
-    Iterator<InventaireRessource> it = inventaireRessources.iterator();
-    while (it.hasNext()) {
-      InventaireRessource invRes = it.next();
-      if (invRes.getId().getIdRessource() == ressource.getId()) {
-        return invRes.retirerRessource(quantite);
-
-      }
-    }
-    return false;
-  }
-
-  public boolean sauvegarderJoueur() {
-    
-    return true;
-  }
 }

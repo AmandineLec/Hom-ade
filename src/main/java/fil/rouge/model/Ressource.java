@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import fil.rouge.IRamassable;
+import fil.rouge.inter.IRamassable;
 
 @Entity
 @Table(name = "ressource")
@@ -95,7 +95,7 @@ public class Ressource implements IRamassable {
        
 
     public void ramasser(Personnage j, int quantite) {
-        j.ajouterRessource(this, quantite);
+        // j.ajouterRessource(this, quantite);
     }
 
 }

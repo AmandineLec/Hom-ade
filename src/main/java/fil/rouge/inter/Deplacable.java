@@ -1,4 +1,4 @@
-package fil.rouge;
+package fil.rouge.inter;
 
 public interface Deplacable {
     public void deplacer();

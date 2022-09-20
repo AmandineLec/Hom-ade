@@ -63,15 +63,6 @@ public class InventaireObjet {
     @Column(name = "quantite")
     protected int quantite;
 
-    //#region getset
-    public InventaireObjetKey getId() {
-        return id;
-    }
-
-    public void setId(InventaireObjetKey id) {
-        this.id = id;
-    }
-
     public Personnage getPersonnage() {
         return personnage;
     }
@@ -98,7 +89,7 @@ public class InventaireObjet {
 
     //#endregion
 
-    InventaireObjet(Personnage personnage, Objet objet, int quantite) {
+    public InventaireObjet(Personnage personnage, Objet objet, int quantite) {
         this.personnage = personnage;
         this.objet = objet;
         this.quantite = quantite;
