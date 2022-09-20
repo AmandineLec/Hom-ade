@@ -1,4 +1,4 @@
-package fil.rouge.Controller;
+package fil.rouge.controller;
 
 import java.util.Optional;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import fil.rouge.Repository.RessourceRepository;
+import fil.rouge.dao.RessourceRepository;
 import fil.rouge.model.Ressource;
 
 @Controller
