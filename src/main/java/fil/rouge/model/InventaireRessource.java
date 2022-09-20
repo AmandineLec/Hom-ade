@@ -2,21 +2,9 @@ package fil.rouge.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Embeddable
-<<<<<<< HEAD:app/src/main/java/fil/rouge/InventaireRessources.java
-class InventaireRessourcesKey implements Serializable {
-    @Column(name = "id_personnage")
-    protected Integer idPersonnage;
-=======
 class InventaireRessourceKey implements Serializable {
     /**
 	 * 
@@ -24,8 +12,8 @@ class InventaireRessourceKey implements Serializable {
 	private static final long serialVersionUID = 189750697029213336L;
 
 	@Column(name = "id_personnage")
-    protected int idPersonnage;
->>>>>>> Yannick:src/main/java/fil/rouge/model/InventaireRessource.java
+    protected Integer idPersonnage;
+
 
     @Column(name = "id_ressource")
     protected Integer idRessource;
@@ -123,3 +111,4 @@ public class InventaireRessource {
         return true;
     }
 }
+

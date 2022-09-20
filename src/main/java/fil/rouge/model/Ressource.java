@@ -1,22 +1,9 @@
 package fil.rouge.model;
 
-<<<<<<< HEAD:app/src/main/java/fil/rouge/Ressource.java
-// import java.sql.PreparedStatement;
-// import java.sql.ResultSet;
-// import java.sql.SQLException;
-// import java.sql.Statement;
-=======
->>>>>>> Yannick:src/main/java/fil/rouge/model/Ressource.java
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import fil.rouge.IRamassable;
 
@@ -26,11 +13,7 @@ public class Ressource implements IRamassable {
     @Id
     @Column(name = "id_ressource")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< HEAD:app/src/main/java/fil/rouge/Ressource.java
-    private Integer idRessource;
-=======
     private Integer id;
->>>>>>> Yannick:src/main/java/fil/rouge/model/Ressource.java
 
     @Column(name = "nom")
     private String nom;
@@ -57,25 +40,6 @@ public class Ressource implements IRamassable {
     public Ressource(String nom) {
         this.nom = nom;
     }
-<<<<<<< HEAD:app/src/main/java/fil/rouge/Ressource.java
-
-    public Ressource(int id) {
-
-    }
-
-    public Ressource(){
-        
-    }
-
-    // #region getset
-
-    public Integer getIdRessource() {
-        return idRessource;
-    }
-
-    public void setIdRessource(Integer idRessource) {
-        this.idRessource = idRessource;
-=======
     //#endregion
     
     // #region getset
@@ -86,7 +50,6 @@ public class Ressource implements IRamassable {
 
     public void setId(int id) {
         this.id = id;
->>>>>>> Yannick:src/main/java/fil/rouge/model/Ressource.java
     }
 
     public String getNom() {
@@ -123,19 +86,9 @@ public class Ressource implements IRamassable {
 
     // #endregion
 
-       
 
-<<<<<<< HEAD:app/src/main/java/fil/rouge/Ressource.java
-    }
-
-    
-
-    public void ramasser(Personnage j, int quantite) {
-        // j.ajouterRessource(this, quantite);
-=======
     public void ramasser(Personnage j, int quantite) {
         j.ajouterRessource(this, quantite);
->>>>>>> Yannick:src/main/java/fil/rouge/model/Ressource.java
     }
 
 }

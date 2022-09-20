@@ -1,31 +1,15 @@
 package fil.rouge.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-<<<<<<< HEAD:app/src/main/java/fil/rouge/Objet.java
-import fil.rouge.utils.DBManager;
-import jakarta.persistence.*;
-// import org.hibernate.Session;
-=======
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
->>>>>>> Yannick:src/main/java/fil/rouge/model/Objet.java
+import javax.persistence.*;
 
 @Entity
 @Table(name = "objet")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
-@NamedQuery(name="Objet.getType", query="SELECT o FROM Objet o WHERE id = :id_element")
+// @NamedQuery(name="Objet.getType", query="SELECT o FROM Objet o WHERE id = :id_element")
 public class Objet {
 
     //#region Variables
@@ -38,23 +22,13 @@ public class Objet {
     protected String nom;
 
     @Column(name = "categorie")
-<<<<<<< HEAD:app/src/main/java/fil/rouge/Objet.java
-    protected Integer types;
-
-    // @Column(name="type")
-    // protected Integer type;
-
-    @OneToMany(mappedBy = "objet" )
-    protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
-=======
     protected int categorie;
->>>>>>> Yannick:src/main/java/fil/rouge/model/Objet.java
 
     @OneToMany(mappedBy = "objet")
-    protected Set<Recettes> recette = new HashSet<Recettes>();
+    protected Set<Recette> recette = new HashSet<Recette>();
 
-    @ManyToMany(mappedBy = "objets")
-    protected Set<ObjetRecoltable> objets = new HashSet<ObjetRecoltable>();
+    @OneToMany(mappedBy = "objet")
+    protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
     
     //#endregion
 
@@ -83,32 +57,18 @@ public class Objet {
     public String getNom() {
         return nom;    }
 
-    // public Integer getType() {
-    //     return type;
-    // }
-    public int getTypes() {
-        return types;
-    }
 
-    // public void setType(Integer type) {
-    //     this.type = type;
-    // }
     public void setId(Integer id) {
         this.id = id;
     }
     public void setNom(String nom) {
         this.nom = nom;
     }
-<<<<<<< HEAD:app/src/main/java/fil/rouge/Objet.java
-    public void setTypes(Integer types) {
-        this.types = types;
-=======
     public int getCategorie() {
         return categorie;
     }
     public void setCategorie(int categorie) {
         this.categorie = categorie;
->>>>>>> Yannick:src/main/java/fil/rouge/model/Objet.java
     }
     public Set<InventaireObjet> getInventaireObjets() {
         return inventaireObjets;

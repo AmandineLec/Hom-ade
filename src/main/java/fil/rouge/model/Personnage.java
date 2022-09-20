@@ -4,18 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-
-
+import javax.persistence.*;
 
 
 @Entity
@@ -25,7 +14,7 @@ public class Personnage {
   @Id
   @Column(name = "id_personnage")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  protected int id_personnage;
+  protected Integer id_personnage;
 
   @Column(name = "nom")
   protected String name;

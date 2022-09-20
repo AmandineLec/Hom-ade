@@ -4,18 +4,7 @@ package fil.rouge.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "element_recoltable")
@@ -23,11 +12,7 @@ public class ObjetRecoltable {
     @Id
     @Column(name = "id_element_recoltable")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< HEAD:app/src/main/java/fil/rouge/ObjetRecoltable.java
-    protected Integer id;
-=======
     protected int idElementRecoltable;
->>>>>>> Yannick:src/main/java/fil/rouge/model/ObjetRecoltable.java
 
     @Column(name = "nom")
     protected String nom;
@@ -42,11 +27,7 @@ public class ObjetRecoltable {
         joinColumns = @JoinColumn(name = "id_element_recoltable"),
         inverseJoinColumns = @JoinColumn(name = "id_objet")
     )
-<<<<<<< HEAD:app/src/main/java/fil/rouge/ObjetRecoltable.java
-    protected Set<Objet> objets = new HashSet<Objet>(); // id de l'outil à utiliser pour récolter
-=======
     protected Set<Outil> outils = new HashSet<Outil>(); // id de l'outil à utiliser pour récolter
->>>>>>> Yannick:src/main/java/fil/rouge/model/ObjetRecoltable.java
 
     @OneToMany(mappedBy = "objetRecoltable")
     protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
@@ -74,25 +55,12 @@ public class ObjetRecoltable {
     //#region GETSET
     
 
-<<<<<<< HEAD:app/src/main/java/fil/rouge/ObjetRecoltable.java
-    public Integer getQuantite() {
-        return quantite;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-=======
     public int getId() {
         return idElementRecoltable;
     }
 
     public void setId(int id) {
         this.idElementRecoltable = id;
->>>>>>> Yannick:src/main/java/fil/rouge/model/ObjetRecoltable.java
     }
 
     public String getNom() {
@@ -111,15 +79,6 @@ public class ObjetRecoltable {
         this.categorie = categorie;
     }
 
-<<<<<<< HEAD:app/src/main/java/fil/rouge/ObjetRecoltable.java
-    public Set<Objet> getObjets() {
-        return objets;
-    }
-
-    // public void addOutil(Outils outil) {
-    //     outils.add(outil);
-    // }
-=======
     public Set<Outil> getOutils() {
         return outils;
     }
@@ -127,7 +86,6 @@ public class ObjetRecoltable {
     public void addOutil(Outil outil) {
         outils.add(outil);
     }
->>>>>>> Yannick:src/main/java/fil/rouge/model/ObjetRecoltable.java
 
     public Set<RessourcesRecoltees> getRessourcesRecoltees() {
         return ressourcesRecoltees;
@@ -135,34 +93,14 @@ public class ObjetRecoltable {
 
     public void addRessourcesRecoltees(RessourcesRecoltees ressourcesRecoltees) {
         this.ressourcesRecoltees.add(ressourcesRecoltees);
-<<<<<<< HEAD:app/src/main/java/fil/rouge/ObjetRecoltable.java
-    }
-
-    public void setQuantite(Integer quantite) {
-        this.quantite = quantite;
-=======
->>>>>>> Yannick:src/main/java/fil/rouge/model/ObjetRecoltable.java
     }
 
     public int getNiveauRequis() {
         return niveauRequis;
     }
 
-<<<<<<< HEAD:app/src/main/java/fil/rouge/ObjetRecoltable.java
-    public void setSorte(String sorte) {
-        this.sorte = sorte;
-    }
-
-    public Integer getDifficulte() {
-        return difficulte;
-    }
-
-    public void setDifficulte(Integer difficulte) {
-        this.difficulte = difficulte;
-=======
     public void setNiveauRequis(int niveauRequis) {
         this.niveauRequis = niveauRequis;
->>>>>>> Yannick:src/main/java/fil/rouge/model/ObjetRecoltable.java
     }
 
     //#endregion
@@ -170,14 +108,6 @@ public class ObjetRecoltable {
     
 
     //#region Méthodes
-<<<<<<< HEAD:app/src/main/java/fil/rouge/ObjetRecoltable.java
-    public boolean ramasser(Personnage joueur,int nombre){
-        // if (joueur.ajouterRessource(this.getType(), nombre)){
-        //     return true;
-        // }
-        return false;
-    }
-=======
     // public boolean ramasser(Personnage joueur,int nombre){
         
     //     if (joueur.ajouterRessource(this.getType(), nombre)){
@@ -185,7 +115,6 @@ public class ObjetRecoltable {
     //     }
     //     return false;
     // }
->>>>>>> Yannick:src/main/java/fil/rouge/model/ObjetRecoltable.java
 
     public int rand(int min, int max){
         int rand = min + (int)(Math.random()*((max - min)+1));
@@ -230,20 +159,6 @@ public class ObjetRecoltable {
     //     return this.quantite;
     // }
 
-<<<<<<< HEAD:app/src/main/java/fil/rouge/ObjetRecoltable.java
-    // public boolean recolter(Personnage joueur, Outils outil){
-    //     // if (joueur.getOutils()==this.getOutil()){
-    //     //     int nombre = outil.getCapacite() * this.quantiteProduite();
-    //     //     this.ramasser(joueur, nombre);
-    //     //     return true;
-    //     // }
-    //     return false;
-    
-// si outil dispo équipé alors on utilise pour extraire ressource selon la capacité outil et objet recoltable (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire => a faire plus tard)
-// puis ramasser
-    // }
-
-=======
     public boolean recolter(Personnage joueur, Outil outil){
         if (this.getOutils().contains(joueur.getOutil())){
             for (RessourcesRecoltees ressourceR : ressourcesRecoltees) {
@@ -259,5 +174,4 @@ public class ObjetRecoltable {
 // puis ramasser
     }
     //#endregion
->>>>>>> Yannick:src/main/java/fil/rouge/model/ObjetRecoltable.java
 }
