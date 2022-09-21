@@ -2,7 +2,7 @@ package fil.rouge.model;
 
 import javax.persistence.*;
 
-import fil.rouge.Deplacable;
+import fil.rouge.inter.Deplacable;
 
 @Entity
 @DiscriminatorValue(value = "2")

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import fil.rouge.IEquipable;
+import fil.rouge.inter.IEquipable;
 
 @Entity
 @DiscriminatorValue(value = "1")
@@ -13,10 +13,10 @@ public class Outil extends Objet implements IEquipable {
 
         //#region Variables
         @Column(name = "resistance")
-        protected int resistance;
+        protected Integer resistance;
 
         @Column(name = "capacite")
-        protected int capacite;
+        protected Integer capacite;
 
         @ManyToMany(mappedBy = "outils")
         protected Set<ObjetRecoltable> ObjetRecoltables = new HashSet<ObjetRecoltable>();
@@ -30,6 +30,9 @@ public class Outil extends Objet implements IEquipable {
             super(nom);
         }
 
+        public Outil(){
+
+        }
         
         //#endregion
 

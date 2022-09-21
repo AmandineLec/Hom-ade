@@ -39,7 +39,7 @@ class RecettesKey implements Serializable {
 }
 @Entity
 @Table(name = "recette")
-class Recette {
+public class Recette {
     //#region Variables
     @EmbeddedId
     protected RecettesKey id;

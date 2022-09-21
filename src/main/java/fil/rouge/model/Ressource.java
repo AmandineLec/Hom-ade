@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import fil.rouge.IRamassable;
+import fil.rouge.inter.IRamassable;
 
 @Entity
 @Table(name = "ressource")

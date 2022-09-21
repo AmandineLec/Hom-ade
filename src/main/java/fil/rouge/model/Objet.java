@@ -75,39 +75,6 @@ public class Objet {
     }
     public void addInventaireObjets(InventaireObjet inventaireObjet) {
         inventaireObjets.add(inventaireObjet);
-    }   
-    
-    
+    } 
     //#endregion 
-
-    //#region Method
-
-    // public void creerObjet(int id_element){
-    //     DBManager.open();
-    //     TypedQuery<Objet> myQuery = DBManager.session.createNamedQuery("Objet.getType", Objet.class);
-    //     List<Objet> objets = myQuery.getResultList();
-    //     myQuery.setParameter("id_element", id_element);
-    //     objets.forEach((objet)->{
-    //         System.out.println(objet.getNom());
-    //     });
-
-
-
-                // if(resultat.next()){
-                //     if(resultat.getInt("o.type") == EnumTypeObjet.Outils.getValue()){
-                //         objet = new Outils(id_element);
-                //     }
-                //     else if(resultat.getInt("o.type") == EnumTypeObjet.Meubles.getValue()){
-                //         objet = new Meubles(id_element);
-                //     }
-                //     else if(resultat.getInt("o.type") == EnumTypeObjet.Decoration.getValue()){
-                //         objet = new Decoration(id_element);
-                //     }
-    
-                // }
-            
-
-    //#endregion
-    
-
 }

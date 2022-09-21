@@ -1,4 +1,4 @@
-package fil.rouge;
+package fil.rouge.inter;
 
 import fil.rouge.model.Personnage;
 
