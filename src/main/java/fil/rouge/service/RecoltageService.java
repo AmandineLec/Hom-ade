@@ -18,16 +18,16 @@ public class RecoltageService {
 
 
     
-    public boolean utiliserOutil(Personnage personnage, ObjetRecoltable objetRecoltable) {
-
+    public int utiliserOutil(Personnage personnage, int objetRecoltableId, int resistance) {
+        ObjetRecoltable objetRecoltable = objetRecoltableRepository.findById(objetRecoltableId).get();
         Outil outil = personnage.getOutil();
         
         Set<Outil> outils = objetRecoltable.getOutils();
         if (!outils.contains(outil))
-            return false;
+            return -100;
 
-        objetRecoltable.setDifficulte(objetRecoltable.getDifficulte() - outil.getCapacite());
-        return true;
+        resistance -= outil.getCapacite();
+        return resistance;
     }
 
     

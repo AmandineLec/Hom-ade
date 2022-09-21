@@ -1,7 +1,7 @@
 package fil.rouge.service;
 
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -50,14 +50,10 @@ public class RamassageService {
 
   }
 
-  public HashMap<Integer, Integer> listeRessourcesRamassees(int objetRecoltableId) {
-
-    HashMap<Integer, Integer> listeRes = new HashMap<>(5);
+  public List<RessourcesRecoltees> listeRessourcesRamassees(int objetRecoltableId) {
+   
     List<RessourcesRecoltees> listeResRec = ressourcesRecolteesRepository.findById_IdElementRecoltable(objetRecoltableId);
-    for (RessourcesRecoltees resRec : listeResRec) {
-      listeRes.put(resRec.getRessource().getId(), resRec.getQuantite());
-    }
-
-    return listeRes;
+    
+    return listeResRec;
   }
 }
