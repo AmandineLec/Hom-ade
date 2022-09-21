@@ -58,6 +58,8 @@ public class Personnage {
     this.sexe = sexe;
   }
 
+  public Personnage(){}
+
   // #region GET/SET
 
   public String getName() {
