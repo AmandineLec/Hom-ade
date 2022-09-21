@@ -25,9 +25,9 @@ public class InventaireObjetService {
     private InventaireObjetRepository ioRepository;
 
     //Permet d'ajouter un objet dans l'inventaire
-    public boolean ajouterObjet(int idPerso, int Idobj, int quantite){ // id perso concerné, id objet à ajouter, quantité à ajouter
+    public boolean ajouterObjet(int idPerso, int idObj, int quantite){ // id perso concerné, id objet à ajouter, quantité à ajouter
         Personnage personnage = pRepository.getReferenceById(idPerso); // Méthode de JpaRepository permettant de créer une "fausse" entité (éphémère) (ne récupère que ce qu'il y a besoin, cad l'id)
-        Objet objet = oRepository.getReferenceById(Idobj);
+        Objet objet = oRepository.getReferenceById(idObj);
 
         Collection<InventaireObjet> it = ioRepository.findByPersonnageAndObjet(personnage, objet); //On récupère les inventaires via la query d'InventaireObjetRepository
         for(InventaireObjet invObjet : it){ // On parcours la collection d'inventaire
@@ -53,13 +53,17 @@ public class InventaireObjetService {
 
         Collection<InventaireObjet> it = ioRepository.findByPersonnageAndObjet(personnage, objet); //On récupère les inventaires via la query d'InventaireObjetRepository
         for(InventaireObjet invObjet : it){ // On parcours la collection d'inventaire
-            if (invObjet.getObjet().getId() == objet.getId()) {// Si l'id de l'objet à retirer est trouvé dans la collection
+            // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
+            if (invObjet.getObjet().getId() == objet.getId() && invObjet.getPersonnage().getId_personnage() == personnage.getId_personnage()) {
                 invObjet.retirerObjet(quantite); // Alors on modifie la quantité de l'objet
                 ioRepository.save(invObjet); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true; // Return true si on a réussi à retirer la quantité d'objet indiquée
             }
         }
-        return false; // Si l'id n'est pas trouvé, on ne peut pas le retirer donc return false
+        return false; // Si les id ne sont pas trouvés, on ne peut pas retirer donc return false
     }
+
+
+    
 
 }
