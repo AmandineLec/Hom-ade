@@ -96,8 +96,10 @@ public class InventaireRessource {
         this.quantite = quantite;
     }
     //#endregion
+
+    public InventaireRessource() {}
     
-    InventaireRessource(Personnage personnage, Ressource ressource, int quantite) {
+    public InventaireRessource(Personnage personnage, Ressource ressource, int quantite) {
         this.personnage = personnage;
         this.ressource = ressource;
         this.quantite = quantite;
@@ -114,4 +116,6 @@ public class InventaireRessource {
         this.quantite -= quantite;
         return true;
     }
+
+    
 }

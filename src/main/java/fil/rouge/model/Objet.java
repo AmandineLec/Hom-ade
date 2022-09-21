@@ -11,7 +11,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "type")
 public abstract class Objet {
 
-    //#region Variables
+    // #region Variables
     @Id
     @Column(name = "id_objet")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,28 +25,30 @@ public abstract class Objet {
 
     @OneToMany(mappedBy = "objet")
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
-    
-    //#endregion
 
-    //#region Constructeur
+    // #endregion
 
-    public Objet(String nom){
+    // #region Constructeur
+
+    public Objet(String nom) {
         this.nom = nom;
     }
-    public Objet(int id){
+
+    public Objet(int id) {
         this.id = id;
     }
 
-    public Objet(String nom, int id){
-        this.nom = nom; 
-        this.id = id; 
+    public Objet(String nom, int id) {
+        this.nom = nom;
+        this.id = id;
     }
-    //#endregion
+    // #endregion
 
-    //#region GETTER & SETTER
+    // #region GETTER & SETTER
     public int getId() {
         return id;
     }
+
     public String getNom() {
         return nom;
     }
@@ -54,26 +56,35 @@ public abstract class Objet {
     public void setId(int id) {
         this.id = id;
     }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
+
     public int getCategorie() {
         return categorie;
     }
+
     public void setCategorie(int categorie) {
         this.categorie = categorie;
     }
+
     public Set<InventaireObjet> getInventaireObjets() {
         return inventaireObjets;
     }
+
     public void addInventaireObjets(InventaireObjet inventaireObjet) {
         inventaireObjets.add(inventaireObjet);
     }
-    
-    
-    
-    //#endregion 
 
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Objet))
+            return false;
+        Objet objet = (Objet)obj;
+        return objet.getId() == id;
+    }
+
+    // #endregion
 
 }

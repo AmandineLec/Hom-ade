@@ -4,18 +4,7 @@ package fil.rouge.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "element_recoltable")
@@ -65,12 +54,20 @@ public class ObjetRecoltable {
     //#region GETSET
     
 
-    public int getId() {
+    public int getIdElementRecoltable() {
         return idElementRecoltable;
     }
 
-    public void setId(int id) {
-        this.idElementRecoltable = id;
+    public void setIdElementRecoltable(int idElementRecoltable) {
+        this.idElementRecoltable = idElementRecoltable;
+    }
+
+    public int getDifficulte() {
+        return difficulte;
+    }
+
+    public void setDifficulte(int difficulte) {
+        this.difficulte = difficulte;
     }
 
     public String getNom() {

@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import fil.rouge.Deplacable;
+import fil.rouge.inter.Deplacable;
 
 @Entity
 @DiscriminatorValue(value = "2")

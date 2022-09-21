@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import fil.rouge.IEquipable;
+import fil.rouge.inter.IEquipable;
 
 @Entity
 @DiscriminatorValue(value = "1")
@@ -83,6 +83,9 @@ public class Outil extends Objet implements IEquipable {
             return false;
         }
         //#endregion
+
+
+        
 
         
 
