@@ -39,6 +39,8 @@ public class ObjetRecoltable {
     
     //#region Constructeurs
 
+    public ObjetRecoltable() {}
+
     public ObjetRecoltable(String nom){
         this.nom = nom;
     }

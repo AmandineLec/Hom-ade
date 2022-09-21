@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fil.rouge.model.Personnage;
-import fil.rouge.model.Ressource;
 import fil.rouge.model.RessourcesRecoltees;
 
 

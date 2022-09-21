@@ -1,7 +1,6 @@
 package fil.rouge.service;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -39,7 +38,7 @@ public class RamassageService {
     Iterator<InventaireRessource> it = personnage.getInventaireRessource().iterator();
     while (it.hasNext()) {
       InventaireRessource invRes = it.next();
-      if (invRes.getRessource().getId() == ressource.getId()) {
+      if (invRes.getRessource().getId() == ressourceId) {
         invRes.setQuantite(invRes.getQuantite() + quantite);
         return true;
       }
