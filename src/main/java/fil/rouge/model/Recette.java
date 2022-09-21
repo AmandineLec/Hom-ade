@@ -1,6 +1,7 @@
 package fil.rouge.model;
 import java.io.Serializable;
 
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -46,7 +47,7 @@ class RecettesKey implements Serializable {
 }
 @Entity
 @Table(name = "recette")
-class Recette {
+public class Recette {
     //#region Variables
     @EmbeddedId
     protected RecettesKey id;
@@ -163,6 +164,8 @@ class Recette {
     public void setNiveau_requis(int niveau_requis) {
         this.niveau_requis = niveau_requis;
     }
+
+
 
     //#endregion
 

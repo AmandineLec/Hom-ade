@@ -112,10 +112,10 @@ public class Personnage {
     this.maison = maison;
   }
 
-  public Personnage(String name, int sexe) {
+  public Personnage(String name, int sexe, Maison maison) {
     this.name = name;
     this.sexe = sexe;
-    //this.maison = new Maison(); pour attribuer d'emblée une maison à chaque joueur créee Voir avec Loic
+    this.maison = maison; //pour attribuer d'emblée une maison à chaque joueur créee Voir avec Loic
   }
   // #endregion
 

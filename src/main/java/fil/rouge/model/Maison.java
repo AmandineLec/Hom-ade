@@ -3,7 +3,9 @@ package fil.rouge.model;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -35,6 +37,22 @@ public class Maison {
     @Transient // non sauvegardé dans la bdd. Pour accéder à la pièce
     protected ArrayList<Piece> pieces = new ArrayList<Piece>();
 
+    @Transient
+    protected ArrayList<HashMap<Integer, Integer>> recettes = new ArrayList<>();
+
+    public ArrayList<HashMap<Integer, Integer>> ajouterRecettes(){
+        recettes.add(this.recetteNiveauMaisonDe1A2());
+        recettes.add(this.recetteNiveauMaisonDe2A3());
+        recettes.add(this.recetteNiveauMaisonDe3A4());
+        recettes.add(this.recetteNiveauMaisonDe4A5());
+        recettes.add(this.recetteNiveauMaisonDe5A6());
+        recettes.add(this.recetteNiveauMaisonDe6A7());
+        recettes.add(this.recetteNiveauMaisonDe7A8());
+        recettes.add(this.recetteNiveauMaisonDe8A9());
+        recettes.add(this.recetteNiveauMaisonDe9A10());
+        return recettes;
+    }
+
     // protected String idRessource; // pour récupérer les ressources nécessaires à l'augmentation du niveau
     // protected int nbRessources; // pour définir le nombre de ressources nécéssaires pour ajouter une pièce
     // protected String etabli; // pour accéder à l'établi lors de la création d'objets
@@ -45,6 +63,7 @@ public class Maison {
         this.niveau = 1;
     }
     //#endregion
+
 
     //#region GETSET
     public int getNiveau() {
@@ -62,6 +81,15 @@ public class Maison {
     public void setNb_pieces(int nb_pieces) {
         this.nbPieces = nb_pieces;
     }
+
+    public ArrayList<HashMap<Integer, Integer>> getRecettes() {
+        return recettes;
+    }
+
+    public void setRecettes(ArrayList<HashMap<Integer, Integer>> recettes) {
+        this.recettes = recettes;
+    }
+
 
     // public String getId_ressource() {
     //     return id_ressource;
@@ -150,6 +178,103 @@ public class Maison {
 //         }
 //       return -1;
 //   }
+public HashMap<Integer, Integer>  recetteNiveauMaisonDe1A2(){
+    HashMap<Integer, Integer> niveau2 = new HashMap<Integer, Integer >();
+    niveau2.put(7,2);
+    niveau2.put(2,2);
+    niveau2.put(33,2);
+    niveau2.put(3,2);
+    niveau2.put(1,2);
+    // recuperer la ressource ayant pour id => 7
+    // recuperer la ressource ayant pour id => 2
+    // recuperer la ressource ayant pour id => 33
+    // recuperer la ressource ayant pour id => 3
+    // recuperer la ressource ayant pour id => 1
+    return niveau2;
+}
+
+public HashMap<Integer, Integer>  recetteNiveauMaisonDe2A3(){
+    HashMap<Integer, Integer> niveau3 = new HashMap<Integer, Integer >();
+    niveau3.put(7,3);
+    niveau3.put(2,3);
+    niveau3.put(33,3);
+    niveau3.put(3,3);
+    niveau3.put(1,3);
+    return niveau3;
+}
+
+public HashMap<Integer, Integer>  recetteNiveauMaisonDe3A4(){
+    HashMap<Integer, Integer> niveau4 = new HashMap<Integer, Integer >();
+    niveau4.put(7,4);
+    niveau4.put(23,4);
+    niveau4.put(34,4);
+    niveau4.put(17,4);
+    niveau4.put(27,4);
+    return niveau4;
+}
+
+public HashMap<Integer, Integer>  recetteNiveauMaisonDe4A5(){
+    HashMap<Integer, Integer> niveau5 = new HashMap<Integer, Integer >();
+    niveau5.put(8,5);
+    niveau5.put(22,5);
+    niveau5.put(34,5);
+    niveau5.put(17,5);
+    niveau5.put(28,5);
+    return niveau5;
+}
+
+
+public HashMap<Integer, Integer>  recetteNiveauMaisonDe5A6(){
+    HashMap<Integer, Integer> niveau6 = new HashMap<Integer, Integer >();
+    niveau6.put(8,6);
+    niveau6.put(22,6);
+    niveau6.put(34,6);
+    niveau6.put(17,6);
+    niveau6.put(28,6);
+    return niveau6;
+}
+
+public HashMap<Integer, Integer>  recetteNiveauMaisonDe6A7(){
+    HashMap<Integer, Integer> niveau7 = new HashMap<Integer, Integer >();
+    niveau7.put(8,7);
+    niveau7.put(22,7);
+    niveau7.put(34,7);
+    niveau7.put(17,7);
+    niveau7.put(28,7);
+    return niveau7;
+}
+
+public HashMap<Integer, Integer>  recetteNiveauMaisonDe7A8(){
+    HashMap<Integer, Integer> niveau8 = new HashMap<Integer, Integer >();
+    niveau8.put(9,4);
+    niveau8.put(23,4);
+    niveau8.put(35,4);
+    niveau8.put(18,4);
+    niveau8.put(29,4);
+    return niveau8;
+}
+
+public HashMap<Integer, Integer>  recetteNiveauMaisonDe8A9(){
+    HashMap<Integer, Integer> niveau9 = new HashMap<Integer, Integer >();
+    niveau9.put(9,5);
+    niveau9.put(23,5);
+    niveau9.put(35,5);
+    niveau9.put(18,5);
+    niveau9.put(29,5);
+    return niveau9;
+}
+
+public HashMap<Integer, Integer>  recetteNiveauMaisonDe9A10(){
+    HashMap<Integer, Integer> niveau10 = new HashMap<Integer, Integer >();
+    niveau10.put(9,6);
+    niveau10.put(23,6);
+    niveau10.put(35,6);
+    niveau10.put(18,6);
+    niveau10.put(29,6);
+    return niveau10;
+}
+
+
 
     //#endregion
 }
