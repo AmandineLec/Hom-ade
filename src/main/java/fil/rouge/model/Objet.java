@@ -29,7 +29,7 @@ public class Objet {
 
     @OneToMany(mappedBy = "objet")
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
-    
+
     //#endregion
 
     //#region Constructeur
@@ -75,6 +75,8 @@ public class Objet {
     }
     public void addInventaireObjets(InventaireObjet inventaireObjet) {
         inventaireObjets.add(inventaireObjet);
-    } 
+    }
+    
     //#endregion 
+
 }

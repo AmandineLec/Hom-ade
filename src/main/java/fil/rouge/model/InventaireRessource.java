@@ -93,7 +93,7 @@ public class InventaireRessource {
 
     //#endregion
     
-    InventaireRessource(Personnage personnage, Ressource ressource, int quantite) {
+    public InventaireRessource(Personnage personnage, Ressource ressource, int quantite) {
         this.personnage = personnage;
         this.ressource = ressource;
         this.quantite = quantite;

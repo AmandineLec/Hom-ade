@@ -157,6 +157,12 @@ public class Recette {
         this.niveau_requis = niveau_requis;
     }
 
+    public Recette(Ressource ressource, int quantite, int niveauRequis){
+        this.ressource = ressource;
+        this.quantite_necessaire = quantite;
+        this.niveau_requis = niveauRequis;
+    }
+
     //#endregion
 
     //#region METHOD

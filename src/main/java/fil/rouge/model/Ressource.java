@@ -88,7 +88,7 @@ public class Ressource implements IRamassable {
 
 
     public void ramasser(Personnage j, int quantite) {
-        j.ajouterRessource(this, quantite);
+        // j.ajouterRessource(this, quantite);
     }
 
 }
