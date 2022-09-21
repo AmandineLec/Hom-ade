@@ -24,6 +24,13 @@ class InventaireObjetKey implements Serializable{
     @Column(name = "id_objet")
     protected int idObjet;
 
+    public InventaireObjetKey(int id_personnage, int objetId) {
+        this.idPersonnage = id_personnage;
+        this.idObjet = objetId;
+    }
+
+    public InventaireObjetKey(){}
+
     //#region getset
     public int getIdPersonnage() {
         return idPersonnage;
@@ -63,6 +70,10 @@ public class InventaireObjet {
     @Column(name = "quantite")
     protected int quantite;
 
+    public InventaireObjetKey getId(){
+        return this.id;
+    }
+
     public Personnage getPersonnage() {
         return personnage;
     }
@@ -93,6 +104,8 @@ public class InventaireObjet {
         this.personnage = personnage;
         this.objet = objet;
         this.quantite = quantite;
+
+        this.id = new InventaireObjetKey(personnage.getId_personnage(), objet.getId());
     }
 
     public void ajouterObjet(int quantite) {

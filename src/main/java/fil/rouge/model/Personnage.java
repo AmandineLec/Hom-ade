@@ -1,7 +1,6 @@
 package fil.rouge.model;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -37,7 +36,7 @@ public class Personnage {
   @JoinColumn(name = "id_maison")
   protected Maison maison;
 
-  @OneToMany(mappedBy = "personnage")
+  @OneToMany(mappedBy = "personnage") 
   protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
   @OneToMany(mappedBy = "personnage")

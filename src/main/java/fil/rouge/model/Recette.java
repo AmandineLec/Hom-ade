@@ -46,7 +46,7 @@ class RecettesKey implements Serializable {
 }
 @Entity
 @Table(name = "recette")
-class Recette {
+public class Recette {
     //#region Variables
     @EmbeddedId
     protected RecettesKey id;
@@ -162,6 +162,12 @@ class Recette {
     }
     public void setNiveau_requis(int niveau_requis) {
         this.niveau_requis = niveau_requis;
+    }
+
+    public Recette(Ressource ressource, int quantite, int niveauRequis){
+        this.ressource = ressource;
+        this.quantite_necessaire = quantite;
+        this.niveau_requis = niveauRequis;
     }
 
     //#endregion
