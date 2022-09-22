@@ -33,7 +33,7 @@ public class InventaireRessourceService {
         for(InventaireRessource invRes : it){ // On parcours la collection d'inventaire
 
             // Si l'id de la ressource à ajouter ET si l'id du perso sont trouvés
-            if (invRes.getRessource().getId() == ressource.getId() && invRes.getPersonnage().getId_personnage() == personnage.getId_personnage()) { 
+            if (invRes.getRessource().getId() == ressource.getId() && invRes.getPersonnage().getIdPersonnage() == personnage.getIdPersonnage()) { 
                 invRes.ajouterRessource(quantite); // Alors on modifie la quantité de la ressource
                 irRepository.save(invRes); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true;
@@ -54,7 +54,7 @@ public class InventaireRessourceService {
         Collection<InventaireRessource> it = irRepository.findByPersonnageAndRessource(personnage, ressource); //On récupère les inventaires via la query d'InventaireRessourceRepository
         for(InventaireRessource invRes : it){ // On parcours la collection d'inventaire
             // Si l'id de la ressource à ajouter ET si l'id du perso sont trouvés
-            if (invRes.getRessource().getId() == ressource.getId() && invRes.getPersonnage().getId_personnage() == personnage.getId_personnage()) {
+            if (invRes.getRessource().getId() == ressource.getId() && invRes.getPersonnage().getIdPersonnage() == personnage.getIdPersonnage()) {
                 invRes.retirerRessource(quantite); // Alors on modifie la quantité de la ressource
                 irRepository.save(invRes); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true; // Return true si on a réussi à retirer la quantité de ressource indiquée

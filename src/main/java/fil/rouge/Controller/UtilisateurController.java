@@ -8,4 +8,3 @@ public class UtilisateurController {
 }
 
 // POST => entity personnage
-// Ajout attributs mail et mdp

@@ -13,9 +13,7 @@ import javax.persistence.Table;
 
 @Embeddable
 class InventaireObjetKey implements Serializable{
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -5030374201224878732L;
 
 	@Column(name = "id_personnage")
@@ -105,7 +103,7 @@ public class InventaireObjet {
         this.objet = objet;
         this.quantite = quantite;
 
-        this.id = new InventaireObjetKey(personnage.getId_personnage(), objet.getId());
+        this.id = new InventaireObjetKey(personnage.getIdPersonnage(), objet.getId());
     }
 
     public void ajouterObjet(int quantite) {

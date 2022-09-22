@@ -10,7 +10,7 @@ import fil.rouge.model.Objet;
 import fil.rouge.model.Personnage;
 
 @Repository
-public interface InventaireObjetRepository extends CrudRepository<InventaireObjet, Integer> {
+public interface InventaireObjetRepository extends CrudRepository<InventaireObjet, Long> {
     // Créer requete list inventaire find by idperso AND id objet
     List<InventaireObjet> findByPersonnageAndObjet(Personnage personnage, Objet objet);
 }

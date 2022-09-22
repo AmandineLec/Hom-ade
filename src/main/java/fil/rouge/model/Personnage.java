@@ -24,7 +24,7 @@ public class Personnage {
   @Id
   @Column(name = "id_personnage")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  protected int id_personnage;
+  protected int idPersonnage;
 
   @Column(name = "nom")
   protected String name;
@@ -58,6 +58,13 @@ public class Personnage {
     this.sexe = sexe;
   }
 
+  public Personnage(String name, int sexe, String mail, String password) {
+    this.name = name;
+    this.sexe = sexe;
+    this.name = name;
+    this.password = password;
+  }
+
   public Personnage(){}
 
   // #region GET/SET
@@ -78,12 +85,12 @@ public class Personnage {
     this.sexe = newSexe;
   }
 
-  public int getId_personnage() {
-    return id_personnage;
+  public int getIdPersonnage() {
+    return idPersonnage;
   }
 
-  public void setId_personnage(int id_personnage) {
-    this.id_personnage = id_personnage;
+  public void setIdPersonnage(int id_personnage) {
+    this.idPersonnage = id_personnage;
   }
 
   public Set<InventaireObjet> getInventaireObjet() {
@@ -116,6 +123,38 @@ public class Personnage {
 
   public void setMaison(Maison maison) {
     this.maison = maison;
+  }
+
+  public Set<InventaireObjet> getInventaireObjets() {
+    return inventaireObjets;
+  }
+
+  public void setInventaireObjets(Set<InventaireObjet> inventaireObjets) {
+    this.inventaireObjets = inventaireObjets;
+  }
+
+  public Set<InventaireRessource> getInventaireRessources() {
+    return inventaireRessources;
+  }
+
+  public void setInventaireRessources(Set<InventaireRessource> inventaireRessources) {
+    this.inventaireRessources = inventaireRessources;
+  }
+
+  public String getMail() {
+    return mail;
+  }
+
+  public void setMail(String mail) {
+    this.mail = mail;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   // #endregion

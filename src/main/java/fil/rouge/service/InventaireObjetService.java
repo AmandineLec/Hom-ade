@@ -33,7 +33,7 @@ public class InventaireObjetService {
         for(InventaireObjet invObjet : it){ // On parcours la collection d'inventaire
 
             // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
-            if (invObjet.getObjet().getId() == objet.getId() && invObjet.getPersonnage().getId_personnage() == personnage.getId_personnage()) { 
+            if (invObjet.getObjet().getId() == objet.getId() && invObjet.getPersonnage().getIdPersonnage() == personnage.getIdPersonnage()) { 
                 invObjet.ajouterObjet(quantite); // Alors on modifie la quantité de l'objet
                 ioRepository.save(invObjet); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true;
@@ -54,7 +54,7 @@ public class InventaireObjetService {
         Collection<InventaireObjet> it = ioRepository.findByPersonnageAndObjet(personnage, objet); //On récupère les inventaires via la query d'InventaireObjetRepository
         for(InventaireObjet invObjet : it){ // On parcours la collection d'inventaire
             // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
-            if (invObjet.getObjet().getId() == objet.getId() && invObjet.getPersonnage().getId_personnage() == personnage.getId_personnage()) {
+            if (invObjet.getObjet().getId() == objet.getId() && invObjet.getPersonnage().getIdPersonnage() == personnage.getIdPersonnage()) {
                 invObjet.retirerObjet(quantite); // Alors on modifie la quantité de l'objet
                 ioRepository.save(invObjet); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true; // Return true si on a réussi à retirer la quantité d'objet indiquée
