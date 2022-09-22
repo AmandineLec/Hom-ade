@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 @Entity
 @Table(name = "maison")
@@ -38,7 +39,10 @@ public class Maison {
     protected ArrayList<Piece> pieces = new ArrayList<Piece>();
 
     @Transient
-    protected ArrayList<HashMap<Integer, Integer>> recettes = new ArrayList<>();
+    protected ArrayList<RecetteMaison> recetteMaison = new ArrayList<RecetteMaison>();
+    
+
+
 
     public ArrayList<HashMap<Integer, Integer>> ajouterRecettes(){
         recettes.add(this.recetteNiveauMaisonDe1A2());
@@ -178,99 +182,139 @@ public class Maison {
 //         }
 //       return -1;
 //   }
-public HashMap<Integer, Integer>  recetteNiveauMaisonDe1A2(){
-    HashMap<Integer, Integer> niveau2 = new HashMap<Integer, Integer >();
-    niveau2.put(7,2);
-    niveau2.put(2,2);
-    niveau2.put(33,2);
-    niveau2.put(3,2);
-    niveau2.put(1,2);
-    // recuperer la ressource ayant pour id => 7
-    // recuperer la ressource ayant pour id => 2
-    // recuperer la ressource ayant pour id => 33
-    // recuperer la ressource ayant pour id => 3
-    // recuperer la ressource ayant pour id => 1
+public RecetteMaison niveauDeux(){
+    RecetteMaison niveau2 = new RecetteMaison();
+    Ingredients i1 = new Ingredients(7,2);
+    niveau2.setI1(i1);
+    Ingredients i2 = new Ingredients(2,2);
+    niveau2.setI2(i2);
+    Ingredients i3 = new Ingredients(33,2);
+    niveau2.setI3(i3);
+    Ingredients i4 = new Ingredients(3,2);
+    niveau2.setI4(i4);
+    Ingredients i5 = new Ingredients(1,2);
+    niveau2.setI5(i5);
     return niveau2;
 }
 
-public HashMap<Integer, Integer>  recetteNiveauMaisonDe2A3(){
-    HashMap<Integer, Integer> niveau3 = new HashMap<Integer, Integer >();
-    niveau3.put(7,3);
-    niveau3.put(2,3);
-    niveau3.put(33,3);
-    niveau3.put(3,3);
-    niveau3.put(1,3);
+public RecetteMaison niveauTrois(){
+    RecetteMaison niveau3 = new RecetteMaison();
+    Ingredients i1 = new Ingredients(7,3);
+    niveau3.setI1(i1);
+    Ingredients i2 = new Ingredients(2,3);
+    niveau3.setI2(i2);
+    Ingredients i3 = new Ingredients(33,3);
+    niveau3.setI2(i3);
+    Ingredients i4 = new Ingredients(3,3);
+    niveau3.setI4(i4);
+    Ingredients i5 = new Ingredients(1,3);
+    niveau3.setI5(i5);
     return niveau3;
 }
 
-public HashMap<Integer, Integer>  recetteNiveauMaisonDe3A4(){
-    HashMap<Integer, Integer> niveau4 = new HashMap<Integer, Integer >();
-    niveau4.put(7,4);
-    niveau4.put(23,4);
-    niveau4.put(34,4);
-    niveau4.put(17,4);
-    niveau4.put(27,4);
+public RecetteMaison niveauQuatre(){
+    RecetteMaison niveau4 = new RecetteMaison();
+    Ingredients i1 = new Ingredients(7,4);
+    niveau4.setI1(i1);
+    Ingredients i2 = new Ingredients(23,4);
+    niveau4.setI2(i2);
+    Ingredients i3 = new Ingredients(34,4);
+    niveau4.setI3(i3);
+    Ingredients i4 = new Ingredients(17,4);
+    niveau4.setI4(i4);
+    Ingredients i5 = new Ingredients(27,4);
+    niveau4.setI5(i5);
     return niveau4;
 }
 
-public HashMap<Integer, Integer>  recetteNiveauMaisonDe4A5(){
-    HashMap<Integer, Integer> niveau5 = new HashMap<Integer, Integer >();
-    niveau5.put(8,5);
-    niveau5.put(22,5);
-    niveau5.put(34,5);
-    niveau5.put(17,5);
-    niveau5.put(28,5);
+public RecetteMaison niveauCinq(){
+    RecetteMaison niveau5 = new RecetteMaison();
+    Ingredients i1 = new Ingredients(8,5);
+    niveau5.setI1(i1);
+    Ingredients i2 = new Ingredients(22,5);
+    niveau5.setI2(i2);
+    Ingredients i3 = new Ingredients(34,5);
+    niveau5.setI3(i3);
+    Ingredients i4 = new Ingredients(17,5);
+    niveau5.setI4(i4);
+    Ingredients i5 = new Ingredients(28,5);
+    niveau5.setI5(i5);
     return niveau5;
 }
 
 
-public HashMap<Integer, Integer>  recetteNiveauMaisonDe5A6(){
-    HashMap<Integer, Integer> niveau6 = new HashMap<Integer, Integer >();
-    niveau6.put(8,6);
-    niveau6.put(22,6);
-    niveau6.put(34,6);
-    niveau6.put(17,6);
-    niveau6.put(28,6);
+public RecetteMaison niveauSix(){
+    RecetteMaison niveau6 = new RecetteMaison();
+    Ingredients i1 = new Ingredients(8,6);
+    niveau6.setI1(i1);
+    Ingredients i2 = new Ingredients(22,6);
+    niveau6.setI2(i2);
+    Ingredients i3 = new Ingredients(34,6);
+    niveau6.setI3(i3);
+    Ingredients i4 = new Ingredients(17,6);
+    niveau6.setI4(i4);
+    Ingredients i5 = new Ingredients(28,6);
+    niveau6.setI5(i5);
     return niveau6;
 }
 
-public HashMap<Integer, Integer>  recetteNiveauMaisonDe6A7(){
-    HashMap<Integer, Integer> niveau7 = new HashMap<Integer, Integer >();
-    niveau7.put(8,7);
-    niveau7.put(22,7);
-    niveau7.put(34,7);
-    niveau7.put(17,7);
-    niveau7.put(28,7);
+public RecetteMaison niveauSept(){
+    RecetteMaison niveau7 = new RecetteMaison();
+    Ingredients i1 = new Ingredients(8,7);
+    niveau7.setI1(i1);
+    Ingredients i2 = new Ingredients(22,7);
+    niveau7.setI2(i2);
+    Ingredients i3 = new Ingredients(34,7);
+    niveau7.setI3(i3);
+    Ingredients i4 = new Ingredients(17,7);
+    niveau7.setI4(i4);
+    Ingredients i5 = new Ingredients(28,7);
+    niveau7.setI5(i5);
     return niveau7;
 }
 
-public HashMap<Integer, Integer>  recetteNiveauMaisonDe7A8(){
-    HashMap<Integer, Integer> niveau8 = new HashMap<Integer, Integer >();
-    niveau8.put(9,4);
-    niveau8.put(23,4);
-    niveau8.put(35,4);
-    niveau8.put(18,4);
-    niveau8.put(29,4);
+public RecetteMaison niveauHuit(){
+    RecetteMaison niveau8 = new RecetteMaison();
+    Ingredients i1 = new Ingredients(9,4);
+    niveau8.setI1(i1);
+    Ingredients i2 = new Ingredients(23,4);
+    niveau8.setI2(i2);
+    Ingredients i3 = new Ingredients(35,4);
+    niveau8.setI3(i3);
+    Ingredients i4 = new Ingredients(18,4);
+    niveau8.setI4(i4);
+    Ingredients i5 = new Ingredients(29,4);
+    niveau8.setI5(i5);
     return niveau8;
 }
 
-public HashMap<Integer, Integer>  recetteNiveauMaisonDe8A9(){
-    HashMap<Integer, Integer> niveau9 = new HashMap<Integer, Integer >();
-    niveau9.put(9,5);
-    niveau9.put(23,5);
-    niveau9.put(35,5);
-    niveau9.put(18,5);
-    niveau9.put(29,5);
+public RecetteMaison niveauNeuf(){
+    RecetteMaison niveau9 =  new RecetteMaison();
+    Ingredients i1 = new Ingredients(9,5);
+    niveau9.setI1(i1);
+    Ingredients i2 = new Ingredients(23, 5);
+    niveau9.setI2(i2);
+    Ingredients i3 = new Ingredients(35, 5);
+    niveau9.setI3(i3);
+    Ingredients i4 = new Ingredients(18, 5);
+    niveau9.setI4(i4);
+    Ingredients i5 = new Ingredients(29, 5);
+    niveau9.setI5(i5);
     return niveau9;
 }
 
-public HashMap<Integer, Integer>  recetteNiveauMaisonDe9A10(){
-    HashMap<Integer, Integer> niveau10 = new HashMap<Integer, Integer >();
-    niveau10.put(9,6);
-    niveau10.put(23,6);
-    niveau10.put(35,6);
-    niveau10.put(18,6);
-    niveau10.put(29,6);
+public RecetteMaison niveauDix(){
+    RecetteMaison niveau10 = new RecetteMaison();
+    Ingredients i1 = new Ingredients(9, 6);
+    niveau10.setI1(i1);
+    Ingredients i2 = new Ingredients(23, 6);
+    niveau10.setI2(i2);
+    Ingredients i3 = new Ingredients(35, 6);
+    niveau10.setI3(i3);
+    Ingredients i4 = new Ingredients(18, 6);
+    niveau10.setI4(i4);
+    Ingredients i5 = new Ingredients(29, 6);
+    niveau10.setI5(i5);
     return niveau10;
 }
 

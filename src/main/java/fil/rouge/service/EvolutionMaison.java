@@ -3,6 +3,9 @@ package fil.rouge.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -22,14 +25,40 @@ public class EvolutionMaison {
     @Autowired
     private InventaireRessource inventaireRessourceRepository;
 
+    @Autowired
+    private Maison maisonRepository;
+
     // @Autowired
     // private Recette recette;
     public void augmenterNiveauMaison(int idPersonnage){
         // accèder à l'inventaire des ressources du personnage
         // comparer ses ressources à celles nécessaires pour augmenter le niveau de la maison
         // si il a les ressources nécessaires, maison.getNiveau =+ 1;
-        Optional<Personnage> personnage = personnageRepository.findById(idPersonnage);
-        Collection <InventaireRessource> ressourcesDuPersonnage  = personnage.get().getInventaireRessource();
+        Optional<Personnage> personnage = personnageRepository.findById(idPersonnage); // récupérer l'id du joueur pour accèder à son inventaire de ressource
+        Set<InventaireRessource> ressourcesDuPersonnage  = personnage.get().getInventaireRessource(); // accès à l' inventaire des ressources du joueur
+        Maison maisonDuPersonnage = personnage.get().getMaison();
+        List<HashMap<Integer, Integer>> recettesDeLaMaisonDuPersonnage = maisonDuPersonnage.getRecettes();
+
+        Collection<Integer> idRessources;
+        Collection<Integer> quantiteRessources;
+
+        for(HashMap<Integer, Integer> recettes : recettesDeLaMaisonDuPersonnage){
+            idRessources = recettes.keySet();
+            quantiteRessources = recettes.values();
+        }
+
+        Iterator<InventaireRessource> ressources = ressourcesDuPersonnage.iterator();
+        Set<Integer> idTRouves;
+        //vérification de la présence de l'id ressource dans les recettes de la maison
+        while(ressources.hasNext()) {
+            InventaireRessource ressource = ressources.next();
+            if(idRessources.contains(ressource.getRessource().getId())){
+                idTRouves.add(ressource.getRessource().getId());
+            }
+        }
+
+
+
 
                 for (InventaireRessource inventaireRessource : ressourcesDuPersonnage) {
                     int idRessource = inventaireRessource.getRessource().getId();
