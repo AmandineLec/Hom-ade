@@ -31,6 +31,7 @@ public class RamassageService {
   @Autowired
   InventaireRessourceRepository inventaireRessourceRepository;
 
+  // Ajoute les ressources ramassées dans l'inventaire
   public boolean ajoutRessourceInventaire(Personnage personnage, int ressourceId, int quantite) {
     
     Ressource ressource = ressourceRepository.findById(ressourceId).get();
@@ -39,16 +40,16 @@ public class RamassageService {
     while (it.hasNext()) {
       InventaireRessource invRes = it.next();
       if (invRes.getRessource().getId() == ressourceId) {
-        invRes.setQuantite(invRes.getQuantite() + quantite);
+        invRes.setQuantite(invRes.getQuantite() + quantite);        // Si la ressource est dans l'inventaire, modifie la quantité
         return true;
       }
     }
     InventaireRessource invRes = new InventaireRessource(personnage, ressource, quantite);
-    return personnage.addInventaireRessource(invRes);
-      
-
+    return personnage.addInventaireRessource(invRes);               // Si la ressource n'est pas dans l'inventaire, l'ajoute dans l'inventaire
+    
   }
 
+  // Retourne la liste des ressources ramassées
   public List<RessourcesRecoltees> listeRessourcesRamassees(int objetRecoltableId) {
    
     List<RessourcesRecoltees> listeResRec = ressourcesRecolteesRepository.findById_IdElementRecoltable(objetRecoltableId);

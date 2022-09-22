@@ -1,9 +1,6 @@
 package fil.rouge.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,44 +9,13 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 
-@Embeddable
-class RessourceRecolteesKey implements Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -5306688055493608727L;
 
-	@Column(name = "id_element_recoltable")
-    protected int idElementRecoltable;
-
-    @Column(name = "id_ressource")
-    protected int idRessource;
-
-    //#region getset
-    public int getIdElementRecoltable() {
-        return idElementRecoltable;
-    }
-
-    public void setIdElementRecoltable(int idElementRecoltable) {
-        this.idElementRecoltable = idElementRecoltable;
-    }
-
-    public int getIdRessource() {
-        return idRessource;
-    }
-
-    public void setIdRessource(int idRessource) {
-        this.idRessource = idRessource;
-    }
-    //#endregion
-    
-}
 
 @Entity
 @Table(name = "ressources_recoltees")
 public class RessourcesRecoltees {
     @EmbeddedId
-    protected RessourceRecolteesKey id;
+    protected RessourcesRecolteesKey id;
 
     @ManyToOne
     @MapsId("idElementRecoltable")
@@ -65,11 +31,11 @@ public class RessourcesRecoltees {
     protected int quantite;
 
     //#region getset
-    public RessourceRecolteesKey getId() {
+    public RessourcesRecolteesKey getId() {
         return id;
     }
 
-    public void setId(RessourceRecolteesKey id) {
+    public void setId(RessourcesRecolteesKey id) {
         this.id = id;
     }
 

@@ -112,6 +112,8 @@ public class Personnage {
 
     //maison = new Maison(1);
   }
+
+  public Personnage() {}
   // #endregion
 
   public boolean ajouterObjet(Objet objet, int quantite) {
