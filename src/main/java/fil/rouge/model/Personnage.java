@@ -1,7 +1,6 @@
 package fil.rouge.model;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -22,39 +21,53 @@ import javax.persistence.Table;
 @Table(name = "personnage")
 public class Personnage {
   // #region variables
-  // https://www.baeldung.com/hibernate-identifiers  
   @Id
   @Column(name = "id_personnage")
-  @GeneratedValue(strategy = GenerationType.IDENTITY) // la clé primaire est auto-incrémentée par la bdd
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected int idPersonnage;
 
   @Column(name = "nom")
   protected String name;
 
   @Column(name = "sexe")
-  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférez
+  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
 
-  // https://koor.fr/Java/TutorialJEE/jee_jpa_many_to_one.wp
-  // mapping sans table d'association
   @ManyToOne
-  @JoinColumn(name = "id_maison") // Plusieurs joueurs(un joueur et un png) peuvent accéder à une maison. Retrouver la maison associée aux joueurs.
-  protected Maison maison; 
+  @JoinColumn(name = "id_maison")
+  protected Maison maison;
 
-  // https://koor.fr/Java/TutorialJEE/jee_jpa_one_to_many.wp
-  // mapping avec table d'association qui stocke les foreign keys
-  @OneToMany(mappedBy = "personnage") // Un joueur peut avoir un inventaire de plusieurs objets. Retrouver tous les objets de son inventaire.
-  // https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/Set.html
+  @OneToMany(mappedBy = "personnage") 
   protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
   @OneToMany(mappedBy = "personnage")
   protected Set<InventaireRessource> inventaireRessources = new HashSet<InventaireRessource>();
 
-  @ManyToOne // car l'outil est déja créee en bdd
+  @ManyToOne
   @JoinColumn(name = "outil")
   protected Outil outil;
+
+  @Column(name = "mail")
+  protected String mail;
+
+  @Column(name = "password")
+  protected String password;
   // #endregion
 
-  // #region getter and setter and one construtor
+  public Personnage(String name, int sexe) {
+    this.name = name;
+    this.sexe = sexe;
+  }
+
+  public Personnage(String name, int sexe, String mail, String password) {
+    this.name = name;
+    this.sexe = sexe;
+    this.name = name;
+    this.password = password;
+  }
+
+  public Personnage(){}
+
+  // #region GET/SET
 
   public String getName() {
     return name;
@@ -76,8 +89,8 @@ public class Personnage {
     return idPersonnage;
   }
 
-  public void setIdPersonnage(int idPersonnage) {
-    this.idPersonnage = idPersonnage;
+  public void setIdPersonnage(int id_personnage) {
+    this.idPersonnage = id_personnage;
   }
 
   public Set<InventaireObjet> getInventaireObjet() {
@@ -112,70 +125,40 @@ public class Personnage {
     this.maison = maison;
   }
 
-  public Personnage(String name, int sexe, Maison maison) {
-    this.name = name;
-    this.sexe = sexe;
-    this.maison = maison; //pour attribuer d'emblée une maison à chaque joueur créee Voir avec Loic
+  public Set<InventaireObjet> getInventaireObjets() {
+    return inventaireObjets;
   }
+
+  public void setInventaireObjets(Set<InventaireObjet> inventaireObjets) {
+    this.inventaireObjets = inventaireObjets;
+  }
+
+  public Set<InventaireRessource> getInventaireRessources() {
+    return inventaireRessources;
+  }
+
+  public void setInventaireRessources(Set<InventaireRessource> inventaireRessources) {
+    this.inventaireRessources = inventaireRessources;
+  }
+
+  public String getMail() {
+    return mail;
+  }
+
+  public void setMail(String mail) {
+    this.mail = mail;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
   // #endregion
 
-  public boolean ajouterObjet(Objet objet, int quantite) {
-    // https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/Iterator.html
-    Iterator<InventaireObjet> it = inventaireObjets.iterator();
-    while (it.hasNext()) { // Returns true if the iteration has more elements
-      InventaireObjet invObjet = it.next(); // Returns the next element in the iteration.
-
-      if (invObjet.getId().getIdObjet() == objet.getId()) { // si l'inventaire contient déjà l'objet à ajouter on augmente sa quantité pour garder le même emplacement.
-        invObjet.ajouterObjet(quantite);
-        return true;
-      }
-    }
-    InventaireObjet invObj = new InventaireObjet(this, objet, quantite); // dans le cas où l'objet n'est pas déja présent on créer un nouvel inventaire auxquel on ajoute l'objet et sa quantité
-    return addInventaireObjet(invObj);
-
-  }
-
-  public boolean retirerObjet(Objet objet, int quantite) {
-    Iterator<InventaireObjet> it = inventaireObjets.iterator();
-    while (it.hasNext()) {
-      InventaireObjet invObjet = it.next();
-      if (invObjet.getId().getIdObjet() == objet.getId()) {
-        return invObjet.retirerObjet(quantite);
-
-      }
-    }
-    return false;
-  }
-
-  public boolean ajouterRessource(Ressource ressource, int quantite) {
-
-    Iterator<InventaireRessource> it = inventaireRessources.iterator();
-    while (it.hasNext()) {
-      InventaireRessource invRes = it.next();
-      if (invRes.getId().getIdRessource() == ressource.getId()) {
-        invRes.ajouterRessource(quantite);
-        return true;
-      }
-    }
-    InventaireRessource invRes = new InventaireRessource(this, ressource, quantite);
-    return addInventaireRessource(invRes);
-
-  }
-
-  public boolean retirerRessource(Ressource ressource, int quantite) {
-    Iterator<InventaireRessource> it = inventaireRessources.iterator();
-    while (it.hasNext()) {
-      InventaireRessource invRes = it.next();
-      if (invRes.getId().getIdRessource() == ressource.getId()) {
-        return invRes.retirerRessource(quantite);
-
-      }
-    }
-    return false;
-  }
-
-  public boolean sauvegarderJoueur() {
-    
-    return true;
-  }
 }
+
+

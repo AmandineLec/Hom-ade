@@ -71,10 +71,6 @@ public abstract class Objet {
         inventaireObjets.add(inventaireObjet);
     }
     
-    
-    
     //#endregion 
-
-    
 
 }

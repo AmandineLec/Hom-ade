@@ -1,7 +1,6 @@
 package fil.rouge.model;
 import java.io.Serializable;
 
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -165,7 +164,11 @@ public class Recette {
         this.niveau_requis = niveau_requis;
     }
 
-
+    public Recette(Ressource ressource, int quantite, int niveauRequis){
+        this.ressource = ressource;
+        this.quantite_necessaire = quantite;
+        this.niveau_requis = niveauRequis;
+    }
 
     //#endregion
 
@@ -255,4 +258,5 @@ public class Recette {
     //     return craftable;
     }
     //#endregion
+
 

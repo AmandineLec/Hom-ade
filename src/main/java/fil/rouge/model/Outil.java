@@ -64,22 +64,22 @@ public class Outil extends Objet implements IEquipable {
         //#region METHOD
 
         public boolean equiper(Personnage target){
-            if(target.getOutil()!=null){ // si le joueur n'est pas équipé de l'outil
-                target.ajouterObjet(target.getOutil(), 1);
+            // if(target.getOutil()!=null){
+            //     target.ajouterObjet(target.getOutil(), 1);
                 
-            }
-            if(target.retirerObjet(this, 1)){ // si le joueur dispose de l'outil dans son inventaire
-                target.setOutil(this);
-                return true;
-            }
+            // }
+            // if(target.retirerObjet(this, 1)){
+            //     target.setOutil(this);
+            //     return true;
+            // }
             return false;
         }
         public boolean desequipper(Personnage target){
-            if(target.getOutil()==this){ // si il est équipé de l'outil
-                target.ajouterObjet(this, 1);
-                target.setOutil(null);
-                return true;
-            }
+            // if(target.getOutil()==this){
+            //     target.ajouterObjet(this, 1);
+            //     target.setOutil(null);
+            //     return true;
+            // }
             return false;
         }
         //#endregion

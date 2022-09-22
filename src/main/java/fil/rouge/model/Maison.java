@@ -1,11 +1,8 @@
 package fil.rouge.model;
-
-
-
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.HashSet;
-import java.util.Map;
+
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -16,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.criteria.CriteriaBuilder.In;
+
 
 @Entity
 @Table(name = "maison")
@@ -35,8 +32,8 @@ public class Maison {
     @OneToMany(mappedBy = "maison")
     protected Set<Personnage> personnages = new HashSet<Personnage>();
 
-    @Transient // non sauvegardé dans la bdd. Pour accéder à la pièce
-    protected ArrayList<Piece> pieces = new ArrayList<Piece>();
+    // @Transient // non sauvegardé dans la bdd. Pour accéder à la pièce
+    // protected ArrayList<Piece> pieces = new ArrayList<Piece>();
 
     @Transient
     protected ArrayList<RecetteMaison> recetteMaison = new ArrayList<RecetteMaison>();
@@ -44,18 +41,18 @@ public class Maison {
 
 
 
-    public ArrayList<HashMap<Integer, Integer>> ajouterRecettes(){
-        recettes.add(this.recetteNiveauMaisonDe1A2());
-        recettes.add(this.recetteNiveauMaisonDe2A3());
-        recettes.add(this.recetteNiveauMaisonDe3A4());
-        recettes.add(this.recetteNiveauMaisonDe4A5());
-        recettes.add(this.recetteNiveauMaisonDe5A6());
-        recettes.add(this.recetteNiveauMaisonDe6A7());
-        recettes.add(this.recetteNiveauMaisonDe7A8());
-        recettes.add(this.recetteNiveauMaisonDe8A9());
-        recettes.add(this.recetteNiveauMaisonDe9A10());
-        return recettes;
-    }
+    // public ArrayList<HashMap<Integer, Integer>> ajouterRecettes(){
+    //     recettes.add(this.recetteNiveauMaisonDe1A2());
+    //     recettes.add(this.recetteNiveauMaisonDe2A3());
+    //     recettes.add(this.recetteNiveauMaisonDe3A4());
+    //     recettes.add(this.recetteNiveauMaisonDe4A5());
+    //     recettes.add(this.recetteNiveauMaisonDe5A6());
+    //     recettes.add(this.recetteNiveauMaisonDe6A7());
+    //     recettes.add(this.recetteNiveauMaisonDe7A8());
+    //     recettes.add(this.recetteNiveauMaisonDe8A9());
+    //     recettes.add(this.recetteNiveauMaisonDe9A10());
+    //     return recettes;
+    // }
 
     // protected String idRessource; // pour récupérer les ressources nécessaires à l'augmentation du niveau
     // protected int nbRessources; // pour définir le nombre de ressources nécéssaires pour ajouter une pièce
@@ -86,13 +83,13 @@ public class Maison {
         this.nbPieces = nb_pieces;
     }
 
-    public ArrayList<HashMap<Integer, Integer>> getRecettes() {
-        return recettes;
-    }
+    // public ArrayList<HashMap<Integer, Integer>> getRecettes() {
+    //     return recettes;
+    // }
 
-    public void setRecettes(ArrayList<HashMap<Integer, Integer>> recettes) {
-        this.recettes = recettes;
-    }
+    // public void setRecettes(ArrayList<HashMap<Integer, Integer>> recettes) {
+    //     this.recettes = recettes;
+    // }
 
 
     // public String getId_ressource() {
@@ -128,13 +125,13 @@ public class Maison {
         this.idMaison = idMaison;
     }
 
-    public ArrayList<Piece> getPieces() {
-        return pieces;
-    }
+    // public ArrayList<Piece> getPieces() {
+    //     return pieces;
+    // }
 
-    public void setPieces(ArrayList<Piece> pieces) {
-        this.pieces = pieces;
-    }
+    // public void setPieces(ArrayList<Piece> pieces) {
+    //     this.pieces = pieces;
+    // }
 
 
     
