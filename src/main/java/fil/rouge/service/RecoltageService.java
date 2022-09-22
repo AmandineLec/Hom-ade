@@ -21,9 +21,9 @@ public class RecoltageService {
     public int utiliserOutil(Personnage personnage, int objetRecoltableId, int resistance) {
         ObjetRecoltable objetRecoltable = objetRecoltableRepository.findById(objetRecoltableId).get();
         Outil outil = personnage.getOutil();
-        
         Set<Outil> outils = objetRecoltable.getOutils();
-        if (!outils.contains(outil))
+        
+        if (!(outils.contains(outil)))
             return -100;            // Retourne -100 si l'outil utilisé ne peut pas être utilisé sur l'objet récoltable
 
         resistance -= outil.getCapacite();

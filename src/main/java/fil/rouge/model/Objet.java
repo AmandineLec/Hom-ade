@@ -1,6 +1,7 @@
 package fil.rouge.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -29,6 +30,8 @@ public abstract class Objet {
     // #endregion
 
     // #region Constructeur
+
+    public Objet() {}
 
     public Objet(String nom) {
         this.nom = nom;
@@ -79,12 +82,27 @@ public abstract class Objet {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Objet))
+        if (obj == this)
+            return true;
+        if (obj == null || obj.getClass() != this.getClass())
             return false;
         Objet objet = (Objet)obj;
         return objet.getId() == id;
     }
 
+    @Override
+    public String toString() {
+        return "Objet [id=" + id + ", nom=" + nom + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    
+
     // #endregion
 
+    
 }

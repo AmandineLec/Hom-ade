@@ -10,8 +10,10 @@
         <p th:text="${ressource.nom}"></p>
     </div> -->
     <form action="/recolte" method="post">
-        
-        <input type="submit"/>
+        <input type="hidden" name="id" value="8" />
+        <input type="hidden" name="resistanceInit" value="10" />
+        <p>Résistance : <span th:text="${resistance}">10</span></p>
+        <input type="submit" value="Arbre" />
 
     </form>
 </body>
