@@ -1,6 +1,7 @@
 package fil.rouge.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "type")
 public abstract class Objet {
 
-    //#region Variables
+    // #region Variables
     @Id
     @Column(name = "id_objet")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,27 +27,31 @@ public abstract class Objet {
     @OneToMany(mappedBy = "objet")
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
-    //#endregion
+    // #endregion
 
-    //#region Constructeur
+    // #region Constructeur
 
-    public Objet(String nom){
+    public Objet() {}
+
+    public Objet(String nom) {
         this.nom = nom;
     }
-    public Objet(int id){
+
+    public Objet(int id) {
         this.id = id;
     }
 
-    public Objet(String nom, int id){
-        this.nom = nom; 
-        this.id = id; 
+    public Objet(String nom, int id) {
+        this.nom = nom;
+        this.id = id;
     }
-    //#endregion
+    // #endregion
 
-    //#region GETTER & SETTER
+    // #region GETTER & SETTER
     public int getId() {
         return id;
     }
+
     public String getNom() {
         return nom;
     }
@@ -54,22 +59,50 @@ public abstract class Objet {
     public void setId(int id) {
         this.id = id;
     }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
+
     public int getCategorie() {
         return categorie;
     }
+
     public void setCategorie(int categorie) {
         this.categorie = categorie;
     }
+
     public Set<InventaireObjet> getInventaireObjets() {
         return inventaireObjets;
     }
+
     public void addInventaireObjets(InventaireObjet inventaireObjet) {
         inventaireObjets.add(inventaireObjet);
     }
-    
-    //#endregion 
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (obj == null || obj.getClass() != this.getClass())
+            return false;
+        Objet objet = (Objet)obj;
+        return objet.getId() == id;
+    }
+
+    @Override
+    public String toString() {
+        return "Objet [id=" + id + ", nom=" + nom + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    
+
+    // #endregion
+
+    
 }
