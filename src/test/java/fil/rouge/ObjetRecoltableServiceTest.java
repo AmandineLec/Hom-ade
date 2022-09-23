@@ -3,10 +3,8 @@ package fil.rouge;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,7 +17,7 @@ import fil.rouge.model.Personnage;
 import fil.rouge.service.ObjetRecoltableService;
 
 @SpringBootTest
-public class RecoltageServiceTest {
+public class ObjetRecoltableServiceTest {
     
     @Autowired
     ObjetRecoltableService objetRecoltableService;
@@ -62,5 +60,26 @@ public class RecoltageServiceTest {
             
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void givenObjetRecoltableDisparait_WhenReapparaitBeforeCooldown_ThenReturnFalse() {
+        ObjetRecoltable objetRecoltable = new ObjetRecoltable();
+        objetRecoltable.setCooldown(100);
+        objetRecoltableService.disparait(objetRecoltable);
+        assertThat(objetRecoltableService.reapparait(objetRecoltable)).isFalse();
+    }
+
+    @Test
+    public void givenObjetRecoltableDisparait_WhenReapparaitAfterCooldown_ThenReturnTrue() {
+        ObjetRecoltable objetRecoltable = new ObjetRecoltable();
+        objetRecoltable.setCooldown(100);
+        objetRecoltableService.disparait(objetRecoltable);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {           
+            e.printStackTrace();
+        }
+        assertThat(objetRecoltableService.reapparait(objetRecoltable)).isTrue();
     }
 }
