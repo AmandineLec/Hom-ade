@@ -15,13 +15,13 @@ import fil.rouge.dao.ObjetRecoltableRepository;
 import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
-import fil.rouge.service.RecoltageService;
+import fil.rouge.service.ObjetRecoltableService;
 
 @SpringBootTest
 public class RecoltageServiceTest {
     
     @Autowired
-    RecoltageService recoltageService;
+    ObjetRecoltableService recoltageService;
 
     @MockBean
     ObjetRecoltableRepository objetRecoltableRepository;

@@ -11,7 +11,7 @@ import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
 
 @Service
-public class RecoltageService {
+public class ObjetRecoltableService {
 
     @Autowired
     ObjetRecoltableRepository objetRecoltableRepository;
@@ -30,5 +30,4 @@ public class RecoltageService {
         return resistance;          // Retourne la résistance de l'objet récoltable après utilisation de l'outil
     }
 
-    
 }

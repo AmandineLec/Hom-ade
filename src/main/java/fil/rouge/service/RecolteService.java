@@ -9,7 +9,6 @@ import fil.rouge.model.Personnage;
 import fil.rouge.model.RessourcesRecoltees;
 
 
-
 @Service
 public class RecolteService {
 
@@ -17,7 +16,7 @@ public class RecolteService {
     RamassageService ramassageService;
 
     @Autowired
-    RecoltageService recoltageService;
+    ObjetRecoltableService recoltageService;
 
     
     

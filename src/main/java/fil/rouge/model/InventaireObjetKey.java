@@ -11,32 +11,32 @@ public class InventaireObjetKey implements Serializable{
 	private static final long serialVersionUID = -5030374201224878732L;
 
 	@Column(name = "id_personnage")
-    protected int idPersonnage;
+    protected Integer idPersonnage;
 
     @Column(name = "id_objet")
-    protected int idObjet;
+    protected Integer idObjet;
 
-    public InventaireObjetKey(int id_personnage, int objetId) {
-        this.idPersonnage = id_personnage;
+    public InventaireObjetKey(Integer idPersonnage, Integer objetId) {
+        this.idPersonnage = idPersonnage;
         this.idObjet = objetId;
     }
 
     public InventaireObjetKey(){}
 
     //#region getset
-    public int getIdPersonnage() {
+    public Integer getIdPersonnage() {
         return idPersonnage;
     }
 
-    public void setIdPersonnage(int idPersonnage) {
+    public void setIdPersonnage(Integer idPersonnage) {
         this.idPersonnage = idPersonnage;
     }
 
-    public int getIdObjet() {
+    public Integer getIdObjet() {
         return idObjet;
     }
 
-    public void setIdObjet(int idObjet) {
+    public void setIdObjet(Integer idObjet) {
         this.idObjet = idObjet;
     }
     //#endregion
