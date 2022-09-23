@@ -34,10 +34,6 @@ public class InventaireRessource {
         return id;
     }
 
-    public void setId(InventaireRessourceKey id) {
-        this.id = id;
-    }
-
     public Personnage getPersonnage() {
         return personnage;
     }
@@ -69,6 +65,7 @@ public class InventaireRessource {
         this.personnage = personnage;
         this.ressource = ressource;
         this.quantite = quantite;
+        this.id = new InventaireRessourceKey(personnage.getIdPersonnage(), ressource.getId());
     }
 
     public void ajouterRessource(int quantite) {
@@ -85,3 +82,5 @@ public class InventaireRessource {
 
     
 }
+
+

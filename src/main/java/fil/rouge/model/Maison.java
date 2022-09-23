@@ -1,8 +1,5 @@
 package fil.rouge.model;
 
-
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "maison")
@@ -32,8 +28,8 @@ public class Maison {
     @OneToMany(mappedBy = "maison")
     protected Set<Personnage> personnages = new HashSet<Personnage>();
 
-    @Transient
-    protected ArrayList<Piece> pieces = new ArrayList<Piece>();
+    // @Transient
+    // protected ArrayList<Piece> pieces = new ArrayList<Piece>();
 
     // protected String id_ressource; // pour récupérer les ressources nécessaires à l'agrandissement
     // protected int nb_ressources; // pour définir le nombre de ressources nécéssaires pour agrandir

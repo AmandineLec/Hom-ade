@@ -3,6 +3,8 @@ package fil.rouge.Controller;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class CreationController {
+public class UtilisateurController {
     
 }
+
+// POST => entity personnage

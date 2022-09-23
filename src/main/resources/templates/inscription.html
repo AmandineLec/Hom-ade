@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Add Person</title>
+   </head>
+   
+   <body>
+   <h1>Articles</h1>
+   <hr>
+	<a href="http://localhost:8080/inscription">Connexion</a>
+   <br><br>
+	<form action="#" th:action="@{/inscription}" th:object="${personnage}" method="post">
+	
+		<label for='name'>Mail</label><br>
+  		<input type='email' name='name' th:field="*{name}"><br>
+      <br>
+	 	<label for='password'>Mot de passe </label><br>
+  		<input type='password' name='password' th:field="*{password}"><br>
+      <br>
+      <label for='name'>Nom de votre personnage</label><br>
+  		<input type='email' name='name' th:field="*{name}"><br>
+      <br>
+
+      <legend>Choisissez le genre de votre personnage</legend>
+      <input type="radio" id="feminin" name="sexe" value="2">
+      <label for="feminin">Féminin</label>
+      <br>
+
+      <input type="radio" id="masculin" name="sexe" value="1">
+      <label for="masculin">Masculin</label>
+
+      <br>
+      <br>
+  		<input type='submit' value='Submit'>
+  		
+	</form>
+   </body>
+</html>
