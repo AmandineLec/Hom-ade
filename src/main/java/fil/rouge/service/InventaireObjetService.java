@@ -29,7 +29,7 @@ public class InventaireObjetService {
         Personnage personnage = pRepository.getReferenceById(idPerso); // Méthode de JpaRepository permettant de créer une "fausse" entité (éphémère) (ne récupère que ce qu'il y a besoin, cad l'id)
         Objet objet = oRepository.getReferenceById(idObj);
 
-        Collection<InventaireObjet> it = ioRepository.findByPersonnageAndObjet(personnage, objet); //On récupère les inventaires via la query d'InventaireObjetRepository
+        Collection<InventaireObjet> it = ioRepository.findByPersonnage(personnage); //On récupère les inventaires via la query d'InventaireObjetRepository
         for(InventaireObjet invObjet : it){ // On parcours la collection d'inventaire
 
             // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
@@ -51,7 +51,7 @@ public class InventaireObjetService {
         Personnage personnage = pRepository.getReferenceById(idPerso); // Méthode de JpaRepository permettant de créer une "fausse" entité (éphémère) (ne récupère que ce qu'il y a besoin, cad l'id)
         Objet objet = oRepository.getReferenceById(idObj);
 
-        Collection<InventaireObjet> it = ioRepository.findByPersonnageAndObjet(personnage, objet); //On récupère les inventaires via la query d'InventaireObjetRepository
+        Collection<InventaireObjet> it = ioRepository.findByPersonnage(personnage); //On récupère les inventaires via la query d'InventaireObjetRepository
         for(InventaireObjet invObjet : it){ // On parcours la collection d'inventaire
             // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
             if (invObjet.getObjet().getId() == objet.getId() && invObjet.getPersonnage().getIdPersonnage() == personnage.getIdPersonnage()) {

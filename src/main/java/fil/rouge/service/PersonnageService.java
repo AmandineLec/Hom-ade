@@ -120,7 +120,7 @@ public class PersonnageService {
 
   public void equiperOutil(int idPersonnage, Outil outilAEquiper) throws Exception{
     Optional<Personnage> personnage = pRepository.findById(idPersonnage);
-    Set<InventaireObjet> inventaireObjet = personnage.get().getInventaireObjets();
+    Set<InventaireObjet> inventaireObjet = personnage.get().getInventaireObjet();
     boolean outilPresent = false; 
     for(InventaireObjet invObjet : inventaireObjet){
       if(invObjet.getObjet().getId() == outilAEquiper.getId()){

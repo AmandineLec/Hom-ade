@@ -1,35 +1,65 @@
-// package fil.rouge.service;
+package fil.rouge.service;
 
-// import java.util.ArrayList;
-// import java.util.Collection;
-// import java.util.HashMap;
-// import java.util.Iterator;
-// import java.util.List;
-// import java.util.ListIterator;
-// import java.util.Optional;
-// import java.util.Set;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
-// import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 
-// import fil.rouge.dao.MaisonRepository;
-// import fil.rouge.dao.PersonnageRepository;
-// import fil.rouge.model.InventaireRessource;
-// import fil.rouge.model.Maison;
-// import fil.rouge.model.Personnage;
-// import fil.rouge.model.Recette;
-// import fil.rouge.model.Ressource;
+import fil.rouge.dao.InventaireMaisonRepository;
+import fil.rouge.dao.ObjetRepository;
+import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.model.EquipementMaison;
+import fil.rouge.model.InventaireObjet;
+import fil.rouge.model.Maison;
+import fil.rouge.model.Objet;
+import fil.rouge.model.Personnage;
 
-// public class EvolutionMaison {
-//     @Autowired
-//     PersonnageRepository personnageRepository;
+public class EvolutionMaisonService {
+    @Autowired
+    PersonnageRepository personnageRepository;
 
-//     public void ajouterDeco(int idPersonnage){
-//         Optional<Personnage> personnage = personnageRepository.findById(idPersonnage);
-//         Maison maisonDuPersonnage = personnage.get().getMaison();
-        
+    @Autowired
+    InventaireMaisonRepository inventaireMaisonRepository;
 
-//     }
+    @Autowired
+    InventaireObjetService serviceInventaireObjet;
+
+    @Autowired
+    ObjetRepository objetRepository;
+
+
+    public void ajouterObjet(Integer idPersonnage, Integer idObjet, int typeObjet, int quantiteObjet){
+        Optional<Personnage> personnage = personnageRepository.findById(idPersonnage); // j'accède au personnage
+        Optional<Objet> objet = objetRepository.findById(idObjet); // j'accède à l'objet 
+        Maison maisonDuPersonnage = personnage.get().getMaison(); // j'accède à sa maison
+        List<EquipementMaison> inventaireDeLaMaison = inventaireMaisonDuPersonnage(maisonDuPersonnage); // j'accède à ce qui est placé dans la maison
+        Set<InventaireObjet> inventairePersonnage = personnage.get().getInventaireObjet(); // j'accède à l'inventaire des objets du personnage
+        boolean disposeDeLObjet = false;
+        for(InventaireObjet inventaireObjet:inventairePersonnage){ // je parcours l'inventaire des objets du personnage 
+            if(inventaireObjet.getObjet().getId() == idObjet ){ // pour vérifier si il dispose de l'objet à ajouter dans sa maison
+                disposeDeLObjet = true;
+            }
+        }
+        if(disposeDeLObjet == true){ // si il dispose de l'objet à placer dans la maison
+            serviceInventaireObjet.retirerObjet(idObjet, quantiteObjet, idPersonnage); // je retire l'objet de l'inventaire du personnage
+            for(EquipementMaison objets: inventaireDeLaMaison){ // je parcours les objets placés dans la maison
+                if(objets.getObjet().getId() == idObjet){ // si il y a déja l'objet
+                    objets.ajouterObjet(quantiteObjet); // j'augmente sa quantité
+                }
+                else{
+                    // si l'objet n'est pas present
+                    EquipementMaison objetAajouter = new EquipementMaison(maisonDuPersonnage,objet.get(), quantiteObjet, typeObjet); // je place l'objet dans la maison
+                    inventaireMaisonRepository.save(objetAajouter); // je le sauvegarde dans la bdd
+                } 
+            }
+        }
+    }
+
+    public List<EquipementMaison> inventaireMaisonDuPersonnage(Maison maisonPerso){ // méthodes pour accéder aux objets placés dans la maison grâce au repository InventaireMaisonRepository 
+        return inventaireMaisonRepository.findByMaison(maisonPerso);
+    }
     
     
     
-// }
+}

@@ -125,22 +125,6 @@ public class Personnage {
     this.maison = maison;
   }
 
-  public Set<InventaireObjet> getInventaireObjets() {
-    return inventaireObjets;
-  }
-
-  public void setInventaireObjets(Set<InventaireObjet> inventaireObjets) {
-    this.inventaireObjets = inventaireObjets;
-  }
-
-  public Set<InventaireRessource> getInventaireRessources() {
-    return inventaireRessources;
-  }
-
-  public void setInventaireRessources(Set<InventaireRessource> inventaireRessources) {
-    this.inventaireRessources = inventaireRessources;
-  }
-
   public String getMail() {
     return mail;
   }
