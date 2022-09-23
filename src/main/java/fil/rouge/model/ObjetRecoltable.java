@@ -20,6 +20,9 @@ public class ObjetRecoltable {
     @Column(name = "categorie")
     protected int categorie;
 
+    @Column(name = "pv")
+    protected int pv;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "objet_element_recoltable",
@@ -33,9 +36,12 @@ public class ObjetRecoltable {
     
     @Column(name = "niveau_requis")
     protected int niveauRequis;
+
+    @Column(name = "cooldown")
+    protected long cooldown;
     
     @Transient
-    protected int difficulte;
+    protected long disparitionTime;
     
     //#region Constructeurs
 
@@ -63,13 +69,7 @@ public class ObjetRecoltable {
         this.idElementRecoltable = idElementRecoltable;
     }
 
-    public int getDifficulte() {
-        return difficulte;
-    }
-
-    public void setDifficulte(int difficulte) {
-        this.difficulte = difficulte;
-    }
+    
 
     public String getNom() {
         return nom;
@@ -110,6 +110,32 @@ public class ObjetRecoltable {
     public void setNiveauRequis(int niveauRequis) {
         this.niveauRequis = niveauRequis;
     }
+
+    public int getPv() {
+        return pv;
+    }
+
+    public void setPv(int pv) {
+        this.pv = pv;
+    }
+
+    public long getCooldown() {
+        return cooldown;
+    }
+
+    public void setCooldown(long cooldown) {
+        this.cooldown = cooldown;
+    }
+
+    public long getDisparitionTime() {
+        return disparitionTime;
+    }
+
+    public void setDisparitionTime(long disparitionTime) {
+        this.disparitionTime = disparitionTime;
+    }
+
+    
 
     //#endregion
 

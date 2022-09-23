@@ -41,10 +41,8 @@ public class RecoltageServiceTest {
         personnage.setOutil(outil1);
         objetRecoltable.addOutil(outil2);
         objetRecoltable.addOutil(outil3);
-        
-        Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
-        
-        assertThrows(WrongToolException.class, ()-> objetRecoltableService.utiliserOutil(personnage, 1, 10));
+                      
+        assertThrows(WrongToolException.class, ()-> objetRecoltableService.utiliserOutil(personnage, objetRecoltable, 10));
     }
 
     @Test
@@ -58,10 +56,8 @@ public class RecoltageServiceTest {
         personnage.setOutil(outil1);
         objetRecoltable.addOutil(outil1);
 
-        Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
-
         try {
-            assertThat(objetRecoltableService.utiliserOutil(personnage, 1, 10)).isEqualTo(7);
+            assertThat(objetRecoltableService.utiliserOutil(personnage, objetRecoltable, 10)).isEqualTo(7);
         } catch (WrongToolException e) {
             
             e.printStackTrace();

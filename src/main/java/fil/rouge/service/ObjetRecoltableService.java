@@ -24,8 +24,7 @@ public class ObjetRecoltableService {
       }
 
     // Simule l'utilisation d'un outil sur un objet récoltable
-    public int utiliserOutil(Personnage personnage, int objetRecoltableId, int resistance) throws WrongToolException {
-        ObjetRecoltable objetRecoltable = objetRecoltableRepository.findById(objetRecoltableId).get();
+    public int utiliserOutil(Personnage personnage, ObjetRecoltable objetRecoltable, int pv) throws WrongToolException {
         Outil outil = personnage.getOutil();
         Set<Outil> outils = objetRecoltable.getOutils();
         
@@ -33,9 +32,18 @@ public class ObjetRecoltableService {
             throw new WrongToolException("Vous n'utilisez pas le bon outil"); // Lance une exception si l'outil utilisé ne peut pas être utilisé sur l'objet récoltable
                        
 
-        resistance -= outil.getCapacite();
-        return resistance;          // Retourne la résistance de l'objet récoltable après utilisation de l'outil
+        pv -= outil.getCapacite();
+        return pv;          // Retourne la résistance de l'objet récoltable après utilisation de l'outil
     }
 
-    
+    public void disparait(ObjetRecoltable objetRecoltable) {
+        objetRecoltable.setDisparitionTime(System.currentTimeMillis());
+    }
+
+    // Indique si un objet récoltable peut réapparaitre
+    public boolean reapparait(ObjetRecoltable objetRecoltable) {
+        long time = System.currentTimeMillis();
+
+        return time >= objetRecoltable.getDisparitionTime() + objetRecoltable.getCooldown();
+    }
 }
