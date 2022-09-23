@@ -153,6 +153,25 @@ public class PersonnageService {
     }
   }
 
+  public void rangerOutil(int idPersonnage, Outil outilEnMain) throws Exception{
+
+    Optional<Personnage> personnage = pRepository.findById(idPersonnage);
+    boolean aUnOutilEnMain = false;
+      if(personnage.get().getOutil()!= null){
+        aUnOutilEnMain = true;
+      }
+      else {
+        aUnOutilEnMain = false;
+      }
+      if (aUnOutilEnMain == true){
+        serviceInventaireObjet.ajouterObjet(idPersonnage, outilEnMain.getId(), 1);
+        personnage.get().setOutil(null);
+      }
+      else{
+        throw new Exception("Vous n'êtes pas équipé d'un outil");
+      }
+  }
+
 
 
 }
