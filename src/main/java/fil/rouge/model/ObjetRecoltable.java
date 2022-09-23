@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "element_recoltable")
 public class ObjetRecoltable {
     @Id
-    @Column(name = "id_element_recoltable")
+    @Column(name = "element_recoltable_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int idElementRecoltable;
 
@@ -26,8 +26,8 @@ public class ObjetRecoltable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "objet_element_recoltable",
-        joinColumns = @JoinColumn(name = "id_element_recoltable"),
-        inverseJoinColumns = @JoinColumn(name = "id_objet")
+        joinColumns = @JoinColumn(name = "element_recoltable_id"),
+        inverseJoinColumns = @JoinColumn(name = "objet_id")
     )
     protected Set<Outil> outils = new HashSet<Outil>(); // id de l'outil à utiliser pour récolter
 
