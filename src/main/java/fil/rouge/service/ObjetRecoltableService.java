@@ -2,6 +2,8 @@ package fil.rouge.service;
 
 import java.util.Set;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,14 @@ import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
 
 @Service
-public class RecoltageService {
+public class ObjetRecoltableService {
 
     @Autowired
     ObjetRecoltableRepository objetRecoltableRepository;
 
+    public ObjetRecoltable getObjetRecoltable(int objetRecoltableId) throws EntityNotFoundException {
+        return ServiceUtils.getEntity(objetRecoltableRepository, objetRecoltableId);
+      }
 
     // Simule l'utilisation d'un outil sur un objet récoltable
     public int utiliserOutil(Personnage personnage, int objetRecoltableId, int resistance) throws WrongToolException {

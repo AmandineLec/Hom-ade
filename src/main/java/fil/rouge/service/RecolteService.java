@@ -15,10 +15,10 @@ import fil.rouge.model.RessourcesRecoltees;
 public class RecolteService {
 
     @Autowired
-    RamassageService ramassageService;
+    RessourceService ressourceService;
 
     @Autowired
-    RecoltageService recoltageService;
+    ObjetRecoltableService objetRecoltableService;
 
     
     
@@ -26,15 +26,15 @@ public class RecolteService {
         
         try {
             // Lors du clic, on utilise l'outil du personnage sur l'objet récoltable, et on récupère sa nouvelle résistance
-            resistance = Math.max(recoltageService.utiliserOutil(personnage, objetRecoltableId, resistance), 0);
+            resistance = Math.max(objetRecoltableService.utiliserOutil(personnage, objetRecoltableId, resistance), 0);
         } catch (WrongToolException e) {
             e.printStackTrace();
         }
         // Si la résistance est à 0, on récupère la liste des ressources à récupérer sur l'objet récoltable et on les ajoute à l'inventaire
         if (resistance == 0) {
-            List<RessourcesRecoltees> listeRessources = ramassageService.listeRessourcesRamassees(objetRecoltableId);
+            List<RessourcesRecoltees> listeRessources = ressourceService.listeRessourcesRamassees(objetRecoltableId);
             for (RessourcesRecoltees ressources : listeRessources) {
-                ramassageService.ajoutRessourceInventaire(personnage, ressources.getRessource().getId(), ressources.getQuantite());
+                ressourceService.ajoutRessourceInventaire(personnage, ressources.getRessource().getId(), ressources.getQuantite());
             }
         }
 

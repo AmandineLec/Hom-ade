@@ -16,13 +16,13 @@ import fil.rouge.exception.WrongToolException;
 import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
-import fil.rouge.service.RecoltageService;
+import fil.rouge.service.ObjetRecoltableService;
 
 @SpringBootTest
 public class RecoltageServiceTest {
     
     @Autowired
-    RecoltageService recoltageService;
+    ObjetRecoltableService objetRecoltableService;
 
     @MockBean
     ObjetRecoltableRepository objetRecoltableRepository;
@@ -44,7 +44,7 @@ public class RecoltageServiceTest {
         
         Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
         
-        assertThrows(WrongToolException.class, ()-> recoltageService.utiliserOutil(personnage, 1, 10));
+        assertThrows(WrongToolException.class, ()-> objetRecoltableService.utiliserOutil(personnage, 1, 10));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class RecoltageServiceTest {
         Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
 
         try {
-            assertThat(recoltageService.utiliserOutil(personnage, 1, 10)).isEqualTo(7);
+            assertThat(objetRecoltableService.utiliserOutil(personnage, 1, 10)).isEqualTo(7);
         } catch (WrongToolException e) {
             
             e.printStackTrace();

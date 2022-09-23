@@ -3,6 +3,7 @@ package fil.rouge.service;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import fil.rouge.model.Ressource;
 import fil.rouge.model.RessourcesRecoltees;
 
 @Service
-public class RamassageService {
+public class RessourceService {
 
   @Autowired
   PersonnageRepository personnageRepository;
@@ -30,6 +31,10 @@ public class RamassageService {
 
   @Autowired
   InventaireRessourceRepository inventaireRessourceRepository;
+
+  public Ressource getRessource(int ressourceId) throws EntityNotFoundException {
+    return ServiceUtils.getEntity(ressourceRepository, ressourceId);
+  }
 
   // Ajoute les ressources ramassées dans l'inventaire
   public boolean ajoutRessourceInventaire(Personnage personnage, int ressourceId, int quantite) {
