@@ -25,11 +25,13 @@ public class RecolteService {
     public int recoltageRamassage(Personnage personnage, int objetRecoltableId, int resistance) {
         
         try {
-            resistance = recoltageService.utiliserOutil(personnage, objetRecoltableId, resistance);
+            // Lors du clic, on utilise l'outil du personnage sur l'objet récoltable, et on récupère sa nouvelle résistance
+            resistance = Math.max(recoltageService.utiliserOutil(personnage, objetRecoltableId, resistance), 0);
         } catch (WrongToolException e) {
             e.printStackTrace();
         }
-        if (resistance <= 0) {
+        // Si la résistance est à 0, on récupère la liste des ressources à récupérer sur l'objet récoltable et on les ajoute à l'inventaire
+        if (resistance == 0) {
             List<RessourcesRecoltees> listeRessources = ramassageService.listeRessourcesRamassees(objetRecoltableId);
             for (RessourcesRecoltees ressources : listeRessources) {
                 ramassageService.ajoutRessourceInventaire(personnage, ressources.getRessource().getId(), ressources.getQuantite());

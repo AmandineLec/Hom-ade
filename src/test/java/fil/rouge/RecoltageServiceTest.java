@@ -63,7 +63,7 @@ public class RecoltageServiceTest {
         try {
             assertThat(recoltageService.utiliserOutil(personnage, 1, 10)).isEqualTo(7);
         } catch (WrongToolException e) {
-            // TODO Auto-generated catch block
+            
             e.printStackTrace();
         }
     }
