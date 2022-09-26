@@ -63,6 +63,8 @@ public class RessourcesRecoltees {
         this.quantite = quantite;
     }
 
+    public RessourcesRecoltees(){}
+
     //#endregion
 
     

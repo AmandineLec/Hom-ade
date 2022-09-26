@@ -36,6 +36,8 @@ public class RessourcesRecolteesKey implements Serializable {
     public void setIdRessource(int idRessource) {
         this.idRessource = idRessource;
     }
+
+    public RessourcesRecolteesKey(){}
     //#endregion
     
 }

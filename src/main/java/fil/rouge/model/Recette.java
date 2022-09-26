@@ -170,6 +170,10 @@ public class Recette {
         this.niveau_requis = niveauRequis;
     }
 
+    public Recette(){
+
+    }
+
     //#endregion
 
     //#region METHOD

@@ -17,6 +17,8 @@ public class Decoration extends Objet implements Deplacable {
         super(nom);
     }
 
+    public Decoration(){}
+
     
      //#endregion
 

@@ -21,6 +21,8 @@ public class InventaireRessourceKey implements Serializable {
         this.idRessource = ressourceId;
     }
 
+    public InventaireRessourceKey(){}
+
     //#region getset
     public Integer getIdPersonnage() {
         return idPersonnage;

@@ -20,6 +20,8 @@ public class Meuble extends Objet implements Deplacable{
         super(nom);
     }
 
+    public Meuble(){
+    }
     
     //#endregion
 

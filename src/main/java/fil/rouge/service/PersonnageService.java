@@ -1,6 +1,7 @@
 package fil.rouge.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -8,7 +9,9 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fil.rouge.dao.MaisonRepository;
 import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.model.Maison;
 import fil.rouge.model.Personnage;
 
 
@@ -19,15 +22,21 @@ public class PersonnageService {
   @Autowired
   private PersonnageRepository pRepository;
 
+  @Autowired
+  private MaisonRepository mrepository;
+
   // Inscription au jeu
   public boolean inscription(String mail, String password, String name, int sexe) throws Exception {
     List<Personnage> persos = pRepository.findAll();
     for(Personnage perso : persos){
-      if(perso.getMail() == mail){
+      if(perso.getMail().equals(mail)){
         throw new Exception("Ce mail est déjà utilisé");
       }
     }
     Personnage personnage = new Personnage(name, sexe, mail, password);
+    Maison maison = new Maison();
+    mrepository.save(maison);
+    personnage.setMaison(maison);
     pRepository.save(personnage);
     return true;
   }
@@ -45,13 +54,13 @@ public class PersonnageService {
   }
 
   // Connexion à la partie
-  public boolean connexionPartie(String mail, String password) throws IllegalAccessException{
+  public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
     Optional<Personnage> perso = pRepository.findByMailAndPassword(mail, password);
-    if(perso.get().getMail() == mail && perso.get().getPassword() == password){
-      return true;
+    if(perso.isPresent()){
+      return perso.get();
     }
     else{
-      throw new IllegalAccessException("Identifiants incorrects");
+      throw new NoSuchElementException("L'optional est vide.....");
     }
   }
 

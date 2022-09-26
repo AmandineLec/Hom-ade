@@ -17,7 +17,7 @@ public class Maison {
     @Id
     @Column(name = "id_maison")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id_maison;
+    protected int idMaison;
 
     @Column(name = "niveau")
     protected int niveau; // début à 1
@@ -45,11 +45,11 @@ public class Maison {
     }
 
     public int getId_maison() {
-        return id_maison;
+        return idMaison;
     }
 
-    public void setId_maison(int id_maison) {
-        this.id_maison = id_maison;
+    public void setId_maison(int idMaison) {
+        this.idMaison = idMaison;
     }
 
 }

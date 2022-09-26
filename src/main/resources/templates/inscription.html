@@ -4,14 +4,18 @@
       <meta charset="UTF-8" />
       <title>Bob le Bricoleur</title>
       <link rel="stylesheet" href="style.css"/>
+      <link rel="shortcut icon" type="image/gif" href="img/house.png"/>
+
    </head>
    
    <body>
    <h1>Inscription</h1>
    <br>
-	<a href="connexion.html">Connexion</a>
-	<br><br>
-   <form action="#" th:action="@{/inscription}" th:object="${personnage}" method="post">
+   <form action="#" th:action="@{/new_connexion}" method="post">
+	   <button id="connexion" type="submit">Connexion</button>
+   </form>
+	<br>
+   <form action="#" th:action="@{/partie}" th:object="${personnage}" method="post">
 	
 		<label for='mail'>Mail</label><br>
   		<input type='email' name='mail' id='mail' th:field="*{mail}"><br>
@@ -29,10 +33,22 @@
       <input type="radio" id="masculin" name="sexe" value="1" th:field="*{sexe}">
       <label for="masculin">Masculin</label>
       <br><br>
-      <div>
+      <div id="choixA">
          <p>Avatar</p>
-         <img src="img/femme.png" alt="avatar femme">
-         <img src="img/homme.png" alt="avatar femme">
+         <div id="avatar">
+            <span>
+               <input type="radio" id="femme" name="avatar" value="2">
+               <label for="femme">
+                  <img src="img/femme.png" alt="avatar femme">
+               </label>   
+            </span>
+            <span>
+               <input type="radio" id="masculin" name="avatar" value="1">
+               <label for="masculin">
+                  <img src="img/homme.png" alt="avatar homme">
+               </label>
+            </span>
+         </div>
       </div>
       <br>
       <br>

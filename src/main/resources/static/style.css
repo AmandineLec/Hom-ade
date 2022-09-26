@@ -18,7 +18,7 @@ a{
     color: #99B800;
 }
 
-form, div{
+form, #choixA, #infosP{
     margin: auto;
     padding: 2%;
     width: 50%;
@@ -46,4 +46,20 @@ button:hover{
 
 img{
     width: 128px;
+    margin-top: 5%;
+}
+
+#avatar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+h2{
+    background-color: #DD9D04;
+    color: #643F1D;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
 }
