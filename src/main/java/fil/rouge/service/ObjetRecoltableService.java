@@ -51,6 +51,7 @@ public class ObjetRecoltableService {
         return time >= objetRecoltable.getDisparitionTime() + objetRecoltable.getCooldown();
     }
 
+    // Récupère tous les DTO des objets récoltables
     public List<ObjetRecoltableDTO> getAllObjetRecoltable() {
         return ((List<ObjetRecoltable>) objetRecoltableRepository
                 .findAll())
@@ -59,7 +60,7 @@ public class ObjetRecoltableService {
                     .collect(Collectors.toList());
     }
 
-
+    // convertit un objet récoltable en DTO
     private ObjetRecoltableDTO convertDataIntoDTO(ObjetRecoltable objetRecoltable) {
         ObjetRecoltableDTO dto = new ObjetRecoltableDTO();
 
