@@ -25,6 +25,7 @@ public class Personnage {
   @JoinColumn(name = "id_maison")
   protected Maison maison;
 
+  
   @OneToMany(mappedBy = "personnage") 
   protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
@@ -45,6 +46,16 @@ public class Personnage {
   public Personnage(String name, int sexe) {
     this.name = name;
     this.sexe = sexe;
+  }
+
+  public Personnage(){
+
+  }
+
+  public Personnage(String name, int sexe, Integer id_personnage){
+    this.name = name; 
+    this.sexe = sexe; 
+    this.id_personnage = id_personnage; 
   }
 
   // #region GET/SET
@@ -106,5 +117,4 @@ public class Personnage {
   }
 
   // #endregion
-
 }

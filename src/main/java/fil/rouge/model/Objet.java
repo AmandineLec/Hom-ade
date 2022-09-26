@@ -67,6 +67,12 @@ public class Objet {
     public int getCategorie() {
         return categorie;
     }
+    public Set<Recette> getRecette() {
+        return recette;
+    }
+    public void setRecette(Set<Recette> recette) {
+        this.recette = recette;
+    }
     public void setCategorie(int categorie) {
         this.categorie = categorie;
     }

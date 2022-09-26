@@ -17,9 +17,9 @@ class InventaireObjetKey implements Serializable{
     @Column(name = "id_objet")
     protected int idObjet;
 
-    public InventaireObjetKey(int id_personnage, int objetId) {
+    public InventaireObjetKey(int id_personnage, int idObjet) {
         this.idPersonnage = id_personnage;
-        this.idObjet = objetId;
+        this.idObjet = idObjet;
     }
 
     public InventaireObjetKey(){}
@@ -101,15 +101,15 @@ public class InventaireObjet {
         this.id = new InventaireObjetKey(personnage.getId_personnage(), objet.getId());
     }
 
-    public void ajouterObjet(int quantite) {
-        this.quantite += quantite;
+    public void ajouterObjet(int quantity) {
+        this.quantite += quantity;
 
     }
 
-    public boolean retirerObjet(int quantite) {
-        if (quantite > this.quantite)
+    public boolean retirerObjet(int quantity) {
+        if (quantity > this.quantite)
             return false;
-        this.quantite -= quantite;
+        this.quantite -= quantity;
         return true;
     }
 }

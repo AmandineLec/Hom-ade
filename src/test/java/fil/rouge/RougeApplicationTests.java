@@ -1,4 +1,4 @@
-package projet.fil.rouge;
+package fil.rouge;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -18,6 +18,15 @@ class InventaireRessourceKey implements Serializable {
     @Column(name = "id_ressource")
     protected Integer idRessource;
 
+    public InventaireRessourceKey(int id_personnage, int idRessource) {
+        this.idPersonnage = id_personnage;
+        this.idRessource = idRessource;
+    }
+
+    public InventaireRessourceKey(){
+
+    };
+
     //#region getset
     public Integer getIdPersonnage() {
         return idPersonnage;
@@ -92,7 +101,14 @@ public class InventaireRessource {
     }
 
     //#endregion
-    
+    public InventaireRessource(Personnage personnage){
+        this.personnage = personnage; 
+    };
+
+    public InventaireRessource(){
+
+    };
+
     public InventaireRessource(Personnage personnage, Ressource ressource, int quantite) {
         this.personnage = personnage;
         this.ressource = ressource;

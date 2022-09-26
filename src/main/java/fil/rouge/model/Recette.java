@@ -17,6 +17,10 @@ class RecettesKey implements Serializable {
     @Column(name = "id_ressource")
     protected int idRessource;
 
+    public RecettesKey(int idObjet, int idRessource) {
+        this.idRessource = idRessource;
+        this.idObjet = idObjet;
+    }
 
     //#region getset
     public int getIdObjet() {
@@ -59,17 +63,17 @@ public class Recette {
 
     @Column(name = "niveau_requis")
     protected int niveau_requis;
-
-    // protected String nom;
-    // protected HashMap<Integer, Integer> quantite;
-    
-    //protected int id_element;
-    
-    //protected int  id_ressource;
-
     //#endregion
 
     //#region Constructeur
+
+    public Recette(Objet objet, Ressource ressource, int quantite_necessaire){
+        this.objet = objet; 
+        this.ressource = ressource;
+        this.quantite_necessaire = quantite_necessaire;
+
+        this.id = new RecettesKey(ressource.getId(), objet.getId());
+    }
     // public Recettes(String nom, int id_element) {
     //   this.nom = nom;
     //   try {
@@ -97,11 +101,6 @@ public class Recette {
     //     System.out.println("SQLState: " + ex.getSQLState());
     //     System.out.println("VendorError: " + ex.getErrorCode());
     //   }
-    // }
-
-    // public Recettes(int id_element){
-    //     this.id_element = id_element;
-    //     this.quantite = new HashMap<Integer, Integer>();
     // }
     //#endregion
 

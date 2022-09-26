@@ -7,28 +7,33 @@ import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.ObjetRepository;
 import fil.rouge.model.Objet;
+import fil.rouge.model.Personnage;
 
 @Service
 public class ObjetService {
 
     @Autowired
-    protected ObjetRepository objetRepository;
+    protected ObjetRepository oRepository;
+
+    @Autowired 
+    private InventaireObjetService inventaireObjetService;
 
     public ObjetService(){
 
     }
 
     public ObjetRepository getObjetRepository() {
-        return objetRepository;
+        return oRepository;
     }
 
-    public void setObjetRepository(ObjetRepository objetRepository) {
-        this.objetRepository = objetRepository;
+    public void setObjetRepository(ObjetRepository oRepository) {
+        this.oRepository = oRepository;
     }
 
-    public Objet createObject(int id){
-        Optional<Objet> Optobjet = objetRepository.findById(id);
+    public boolean createObject(Personnage personnage, int id){
+        Optional<Objet> Optobjet = oRepository.findById(id);
         Objet objet = Optobjet.get();
-        return objet;
+        inventaireObjetService.ajouterObjet(personnage, objet.getId(), 1);
+        return true;
     }
 }
