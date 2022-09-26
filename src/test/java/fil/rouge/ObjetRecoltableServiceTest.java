@@ -44,7 +44,7 @@ public class ObjetRecoltableServiceTest {
     }
 
     @Test
-    public void givenObjetRecoltableWithResistance10_WhenOutilCapacite3_ThenReturn7() {
+    public void givenObjetRecoltableWithPv10_WhenOutilCapacite3_ThenReturn7() {
         ObjetRecoltable objetRecoltable = new ObjetRecoltable();
         Personnage personnage = new Personnage("toto", 1);
         Outil outil1 = new Outil("outil1");

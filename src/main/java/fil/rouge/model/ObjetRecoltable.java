@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "element_recoltable")
 public class ObjetRecoltable {
     @Id
-    @Column(name = "element_recoltable_id")
+    @Column(name = "id_element_recoltable")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int idElementRecoltable;
 
@@ -26,8 +26,8 @@ public class ObjetRecoltable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "objet_element_recoltable",
-        joinColumns = @JoinColumn(name = "element_recoltable_id"),
-        inverseJoinColumns = @JoinColumn(name = "objet_id")
+        joinColumns = @JoinColumn(name = "id_element_recoltable"),
+        inverseJoinColumns = @JoinColumn(name = "id_objet")
     )
     protected Set<Outil> outils = new HashSet<Outil>(); // id de l'outil à utiliser pour récolter
 
@@ -36,7 +36,7 @@ public class ObjetRecoltable {
     
     @Column(name = "niveau_requis")
     protected int niveauRequis;
-
+    
     @Column(name = "cooldown")
     protected long cooldown;
     
@@ -55,7 +55,7 @@ public class ObjetRecoltable {
         
     }
 
-
+   
     //#endregion
 
     //#region GETSET
@@ -68,8 +68,6 @@ public class ObjetRecoltable {
     public void setIdElementRecoltable(int idElementRecoltable) {
         this.idElementRecoltable = idElementRecoltable;
     }
-
-    
 
     public String getNom() {
         return nom;
@@ -118,7 +116,7 @@ public class ObjetRecoltable {
     public void setPv(int pv) {
         this.pv = pv;
     }
-
+    
     public long getCooldown() {
         return cooldown;
     }

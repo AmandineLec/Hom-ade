@@ -18,7 +18,7 @@ import fil.rouge.model.Ressource;
 import fil.rouge.service.RessourceService;
 
 @SpringBootTest
-public class RessourceServiceTest {
+public class RamassageServiceTest {
 
     @Autowired
     RessourceService ressourceService;
