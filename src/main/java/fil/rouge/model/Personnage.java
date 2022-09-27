@@ -14,9 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-
-
-
 @Entity
 @Table(name = "personnage")
 public class Personnage {
@@ -30,7 +27,7 @@ public class Personnage {
   protected String name;
 
   @Column(name = "sexe")
-  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
+  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférez
 
   @ManyToOne
   @JoinColumn(name = "id_maison")
@@ -61,7 +58,7 @@ public class Personnage {
   public Personnage(String name, int sexe, String mail, String password) {
     this.name = name;
     this.sexe = sexe;
-    this.name = name;
+    this.mail = mail;
     this.password = password;
   }
 

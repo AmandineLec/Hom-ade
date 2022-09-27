@@ -65,6 +65,8 @@ public class InventaireObjet {
         this.id = new InventaireObjetKey(personnage.getIdPersonnage(), objet.getId());
     }
 
+    public InventaireObjet(){}
+
     public void ajouterObjet(int quantite) {
         this.quantite += quantite;
 
