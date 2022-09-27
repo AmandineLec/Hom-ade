@@ -26,7 +26,7 @@
       <label for='name'>Nom de votre personnage</label><br>
   		<input type='text' name='name' id='name' th:field="*{name}"><br>
 
-      <input type="radio" id="feminin" name="sexe" value="2" th:field="*{sexe}">
+      <input type="radio" id="feminin" name="sexe" value="2"  checked th:field="*{sexe}">
       <label for="feminin">Féminin</label>
       <br>
 
@@ -37,13 +37,13 @@
          <p>Avatar</p>
          <div id="avatar">
             <span>
-               <input type="radio" id="femme" name="avatar" value="2">
+               <input type="radio" id="femme" name="avatar" value="2" >
                <label for="femme">
                   <img src="img/femme.png" alt="avatar femme">
                </label>   
             </span>
             <span>
-               <input type="radio" id="masculin" name="avatar" value="1">
+               <input type="radio" id="masculin" name="avatar" value="1" checked>
                <label for="masculin">
                   <img src="img/homme.png" alt="avatar homme">
                </label>
