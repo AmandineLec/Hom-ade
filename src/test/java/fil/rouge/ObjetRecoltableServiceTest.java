@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import fil.rouge.dao.ObjetRecoltableRepository;
+import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.exception.WrongToolException;
 import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;

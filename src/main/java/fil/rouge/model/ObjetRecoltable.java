@@ -52,7 +52,8 @@ public class ObjetRecoltable {
     }
 
     public ObjetRecoltable(String nom, int id){
-        
+        this.nom = nom;
+        this.idElementRecoltable = id;
     }
 
    

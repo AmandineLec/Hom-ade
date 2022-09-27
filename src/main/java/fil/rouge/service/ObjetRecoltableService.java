@@ -33,14 +33,14 @@ public class ObjetRecoltableService {
         
         if (!(outils.contains(outil)))
             throw new WrongToolException("Vous n'utilisez pas le bon outil"); // Lance une exception si l'outil utilisé ne peut pas être utilisé sur l'objet récoltable 
-
-        pv -= outil.getCapacite();
-        return pv;          // Retourne la résistance de l'objet récoltable après utilisation de l'outil
+        
+        return pv - outil.getCapacite();         // Retourne les pv de l'objet récoltable après utilisation de l'outil
     }
 
 
-    public void disparait(ObjetRecoltable objetRecoltable) {
+    public ObjetRecoltable disparait(ObjetRecoltable objetRecoltable) {
         objetRecoltable.setDisparitionTime(System.currentTimeMillis());
+        return objetRecoltable;
     }
 
 
