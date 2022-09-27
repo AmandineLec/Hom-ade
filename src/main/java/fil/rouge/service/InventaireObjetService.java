@@ -1,7 +1,6 @@
 package fil.rouge.service;
 
 import java.util.Collection;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public class InventaireObjetService {
         for(InventaireObjet invObjet : it){ // On parcours la collection d'inventaire
 
             // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
-            if (invObjet.getObjet().getId() == objet.get().getId()) { 
+            if (invObjet.getObjet().getId() == objet.getId()) { 
                 invObjet.ajouterObjet(quantite); // Alors on modifie la quantité de l'objet
                 ioRepository.save(invObjet); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true;
@@ -42,7 +41,7 @@ public class InventaireObjetService {
         }
 
         // si pas trouvé l'association
-        InventaireObjet invObj = new InventaireObjet(personnage, objet.get(), quantite); //On crée un nouvel inventaire objet
+        InventaireObjet invObj = new InventaireObjet(personnage, objet, quantite); //On crée un nouvel inventaire objet
         ioRepository.save(invObj); //On save en BDD
         return true;
     }
@@ -54,7 +53,7 @@ public class InventaireObjetService {
         Collection<InventaireObjet> it = ioRepository.findByPersonnage(personnage); //On récupère les inventaires via la query d'InventaireObjetRepository
         for(InventaireObjet invObjet : it){ // On parcours la collection d'inventaire
             // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
-            if (invObjet.getObjet().getId() == objet.get().getId()) {
+            if (invObjet.getObjet().getId() == objet.getId()) {
                 invObjet.retirerObjet(quantite); // Alors on modifie la quantité de l'objet
                 ioRepository.save(invObjet); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true; // Return true si on a réussi à retirer la quantité d'objet indiquée

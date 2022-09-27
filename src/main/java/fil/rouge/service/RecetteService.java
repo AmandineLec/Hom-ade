@@ -68,7 +68,6 @@ public class RecetteService {
                     }                
                 }
             }
-            if(personnage.getMaison().getNiveau() == recette.getNiveau_requis())
         return false;
     }
 }
