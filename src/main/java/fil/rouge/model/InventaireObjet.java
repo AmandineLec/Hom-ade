@@ -6,9 +6,7 @@ import javax.persistence.*;
 
 @Embeddable
 class InventaireObjetKey implements Serializable{
-    /**
-	 * 
-	 */
+    
 	private static final long serialVersionUID = -5030374201224878732L;
 
 	@Column(name = "id_personnage")
@@ -22,7 +20,7 @@ class InventaireObjetKey implements Serializable{
         this.idObjet = idObjet;
     }
 
-    public InventaireObjetKey(){}
+    public InventaireObjetKey(){};
 
     //#region getset
     public int getIdPersonnage() {
@@ -62,6 +60,8 @@ public class InventaireObjet {
 
     @Column(name = "quantite")
     protected int quantite;
+
+    public InventaireObjet(){};
 
     public InventaireObjetKey getId(){
         return this.id;

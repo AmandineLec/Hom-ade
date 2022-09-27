@@ -101,10 +101,6 @@ public class InventaireRessource {
     }
 
     //#endregion
-    public InventaireRessource(Personnage personnage){
-        this.personnage = personnage; 
-    };
-
     public InventaireRessource(){
 
     };

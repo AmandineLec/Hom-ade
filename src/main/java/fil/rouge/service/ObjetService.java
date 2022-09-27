@@ -29,10 +29,13 @@ public class ObjetService {
     public void setObjetRepository(ObjetRepository oRepository) {
         this.oRepository = oRepository;
     }
-
-    public boolean createObject(Personnage personnage, int id){
+    //Méthode de création d'un objet
+    public boolean creerObjet(Personnage personnage, int id){
+        //On crée un liste optional des objets en faisant un appel sur la BDD avec un ID
         Optional<Objet> Optobjet = oRepository.findById(id);
+        //On va chercher l'objet présent dans la liste/ 
         Objet objet = Optobjet.get();
+        //On fait appel à la méthide ajouter objet pour ajouter l'objet dans l'inventaire du personnage. 
         inventaireObjetService.ajouterObjet(personnage, objet.getId(), 1);
         return true;
     }
