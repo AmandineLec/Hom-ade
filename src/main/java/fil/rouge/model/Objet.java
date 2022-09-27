@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "objet")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
-public abstract class Objet {
+public class Objet {
 
     //#region Variables
     @Id

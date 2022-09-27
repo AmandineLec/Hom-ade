@@ -34,7 +34,7 @@ public class InventaireObjetServiceTest {
     @Test
     public void InventaireObjetServiceTestAjouterObjet(){
         //On instancie un personnage test
-        Personnage personnage = new Personnage("Jpp", 1, 1);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         //On instancie un objet test
         Objet objet = new Objet("Hache", 1);
         //ON instancie une liste "Inventaire objet" qui va nous servir pour le mockito
@@ -52,7 +52,7 @@ public class InventaireObjetServiceTest {
     @Test
     public void InventaireObejtServiceTestRetirerObjet(){
         //On instancie un personnage test
-        Personnage personnage = new Personnage("Jpp", 1, 1);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         //On instancie un objet test
         Objet objet = new Objet("Hache", 1);
         //On instancie une liste d''inventaire objet

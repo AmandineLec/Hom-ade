@@ -52,10 +52,19 @@ public class Personnage {
 
   }
 
-  public Personnage(String name, int sexe, Integer id_personnage){
+  public Personnage(String name, int sexe, String mail, String password){
     this.name = name; 
     this.sexe = sexe; 
-    this.id_personnage = id_personnage; 
+    this.mail = mail; 
+    this.password = password; 
+  }
+
+  public Personnage(String name, int sexe, String mail, String password, Integer id){
+    this.name = name; 
+    this.sexe = sexe; 
+    this.mail = mail; 
+    this.password = password; 
+    this.id_personnage = id; 
   }
 
   // #region GET/SET
@@ -77,11 +86,11 @@ public class Personnage {
   }
 
   public int getIdPersonnage() {
-    return idPersonnage;
+    return id_personnage;
   }
 
   public void setIdPersonnage(int id_personnage) {
-    this.idPersonnage = id_personnage;
+    this.id_personnage = id_personnage;
   }
 
   public Set<InventaireObjet> getInventaireObjet() {

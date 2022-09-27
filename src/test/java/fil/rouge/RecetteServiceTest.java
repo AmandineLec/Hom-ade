@@ -49,7 +49,7 @@ public class RecetteServiceTest {
     @Test
     public void RecetteTest(){
         //On instancie un nouveau personnage
-        Personnage personnage = new Personnage("Jpp", 1, 3);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         //On instancie deux nouveaux objets afin de vérifier qu'un nouvel objet est bien ajouté dans un inventaire quand des objets y sont déjà présents
         Objet objet = new Objet("Objet", 3);
         Objet obj = new Objet("Hache", 2);

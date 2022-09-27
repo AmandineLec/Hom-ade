@@ -34,7 +34,7 @@ public class ObjetServiceTest {
     public void givenObjet_WhenFindById_ShouldreturnObjet(){
 
         //On instancie un nouveau personnage
-        Personnage personnage = new Personnage("Jpp", 1, 3);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         //on instancie un nouvel objet qui sera utilisé pour le mockito
         Objet obj = new Objet("Hache", 2);
         //On instancie une liste optional qui sera utilisée pour le mockito. 

@@ -32,7 +32,7 @@ public class InventaireRessourceServiceTest {
     @Test
     public void InventaireRessourceServiceTestAjouterRessource(){
         //ON instancie un nouveau personnage
-        Personnage personnage = new Personnage("Jpp", 1, 1);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         //ON instancie une nouvelle ressource
         Ressource ressource = new Ressource("Ressourcetest", 1, "Test");
         //On instancie un nouvel inventaire ressource que l'on "set"à notre personnage, avec la ressource présente dans l'inventaire mais en quantité 0
@@ -57,7 +57,7 @@ public class InventaireRessourceServiceTest {
     public void InventaireRessourceServiceTestRetirerRessource(){
 
         //On instancie un nouveau personnage
-        Personnage personnage = new Personnage("Jpp", 1, 1);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         //On instancie une nouvelle ressource
         Ressource ressource = new Ressource("Ressourcetest", 1, "Test");
         //On instancie un nouvel inventaire ressource que l'on attribue au personnage avec ma ressource présente dans l'inventaire en quantité 4

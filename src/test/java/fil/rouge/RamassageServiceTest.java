@@ -30,7 +30,7 @@ public class RamassageServiceTest {
     public void given4Ressource_WhenPersoHasNoRessource_ThenReturn4() {
         Ressource ressource = new Ressource();
         ressource.setId(1);
-        Personnage personnage = new Personnage("toto", 1);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
 
         Mockito.when(ressourceRepository.findById(1)).thenReturn(Optional.of(ressource));
         ressourceService.ajoutRessourceInventaire(personnage,1, 4);
@@ -43,7 +43,7 @@ public class RamassageServiceTest {
     public void given4Ressource_WhenPersoHas2Ressource_ThenReturn6() {
         Ressource ressource = new Ressource();
         ressource.setId(1);
-        Personnage personnage = new Personnage("toto", 1);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         InventaireRessource inventaireRessource = new InventaireRessource(personnage, ressource, 2);
         personnage.addInventaireRessource(inventaireRessource);
 
