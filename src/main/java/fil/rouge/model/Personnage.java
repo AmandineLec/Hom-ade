@@ -76,12 +76,12 @@ public class Personnage {
     this.sexe = newSexe;
   }
 
-  public int getId_personnage() {
-    return id_personnage;
+  public int getIdPersonnage() {
+    return idPersonnage;
   }
 
-  public void setId_personnage(int id_personnage) {
-    this.id_personnage = id_personnage;
+  public void setIdPersonnage(int id_personnage) {
+    this.idPersonnage = id_personnage;
   }
 
   public Set<InventaireObjet> getInventaireObjet() {
@@ -114,6 +114,22 @@ public class Personnage {
 
   public void setMaison(Maison maison) {
     this.maison = maison;
+  }
+
+  public String getMail() {
+    return mail;
+  }
+
+  public void setMail(String mail) {
+    this.mail = mail;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   // #endregion

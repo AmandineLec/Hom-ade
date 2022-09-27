@@ -1,4 +1,4 @@
-package fil.rouge.Controller;
+package fil.rouge.controller;
 
 import org.springframework.stereotype.Controller;
 
@@ -8,4 +8,3 @@ public class UtilisateurController {
 }
 
 // POST => entity personnage
-// Ajout attributs mail et mdp

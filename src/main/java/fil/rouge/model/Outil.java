@@ -11,80 +11,82 @@ import fil.rouge.inter.IEquipable;
 @DiscriminatorValue(value = "1")
 public class Outil extends Objet implements IEquipable {
 
-        //#region Variables
-        @Column(name = "resistance")
-        protected Integer resistance;
+    // #region Variables
+    @Column(name = "resistance")
+    protected int resistance;
 
-        @Column(name = "capacite")
-        protected Integer capacite;
+    @Column(name = "capacite")
+    protected int capacite;
 
-        @ManyToMany(mappedBy = "outils")
-        protected Set<ObjetRecoltable> ObjetRecoltables = new HashSet<ObjetRecoltable>();
+    @ManyToMany(mappedBy = "outils")
+    protected Set<ObjetRecoltable> ObjetRecoltables = new HashSet<ObjetRecoltable>();
 
-        @OneToMany(mappedBy = "outil")
-        protected Set<Personnage> personnages = new HashSet<Personnage>();
-         //#endregion
+    @OneToMany(mappedBy = "outil")
+    protected Set<Personnage> personnages = new HashSet<Personnage>();
+    // #endregion
 
-        //#region Constructeur
-        public Outil(String nom) {
-            super(nom);
-        }
+    // #region Constructeur
+    public Outil(String nom) {
+        super(nom);
+    }
 
-        public Outil(){
+    public Outil(int id) {
+        super(id);
+    }
 
-        }
-        
-        //#endregion
+    public Outil() {
+    }
+    // #endregion
 
-        //#region GETTER & SETTER
-        public int getResistance() {
-            return resistance;
-        }
+    // #region GETTER & SETTER
+    public int getResistance() {
+        return resistance;
+    }
 
-        public void setResistance(int resistance) {
-            this.resistance = resistance;
-        }
-        public int getCapacite() {
-            return capacite;
-        }
-        public void setCapacite(int capacite) {
-            this.capacite = capacite;
-        }
-        public Set<ObjetRecoltable> getObjetRecoltables() {
-            return ObjetRecoltables;
-        }
+    public void setResistance(int resistance) {
+        this.resistance = resistance;
+    }
 
-        public void addObjetRecoltables(ObjetRecoltable objetRecoltable) {
-            ObjetRecoltables.add(objetRecoltable);
-        }
-        //#endregion
+    public int getCapacite() {
+        return capacite;
+    }
 
+    public void setCapacite(int capacite) {
+        this.capacite = capacite;
+    }
 
-        //#region METHOD
+    public Set<ObjetRecoltable> getObjetRecoltables() {
+        return ObjetRecoltables;
+    }
 
-        public boolean equiper(Personnage target){
-            // if(target.getOutil()!=null){
-            //     target.ajouterObjet(target.getOutil(), 1);
-                
-            // }
-            // if(target.retirerObjet(this, 1)){
-            //     target.setOutil(this);
-            //     return true;
-            // }
-            return false;
-        }
-        public boolean desequipper(Personnage target){
-            // if(target.getOutil()==this){
-            //     target.ajouterObjet(this, 1);
-            //     target.setOutil(null);
-            //     return true;
-            // }
-            return false;
-        }
-        //#endregion
+    public void addObjetRecoltables(ObjetRecoltable objetRecoltable) {
+        ObjetRecoltables.add(objetRecoltable);
+    }
+    // #endregion
 
-        
+    // #region METHOD
 
-        
+    public boolean equiper(Personnage target) {
+        // if (target.getOutil() != null) {
+        //     target.ajouterObjet(target.getOutil(), 1);
+
+        // }
+        // if (target.retirerObjet(this, 1)) {
+        //     target.setOutil(this);
+        //     return true;
+        // }
+        return false;
+    }
+
+    public boolean desequipper(Personnage target) {
+        // if (target.getOutil() == this) {
+        //     target.ajouterObjet(this, 1);
+        //     target.setOutil(null);
+        //     return true;
+        // }
+        return false;
+    }
+
+    // #endregion
 
 }

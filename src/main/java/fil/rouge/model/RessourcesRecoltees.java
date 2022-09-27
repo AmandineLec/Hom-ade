@@ -42,7 +42,7 @@ class RessourceRecolteesKey implements Serializable {
 @Table(name = "ressources_recoltees")
 public class RessourcesRecoltees {
     @EmbeddedId
-    protected RessourceRecolteesKey id;
+    protected RessourcesRecolteesKey id;
 
     @ManyToOne
     @MapsId("idElementRecoltable")
@@ -58,11 +58,11 @@ public class RessourcesRecoltees {
     protected Integer quantite;
 
     //#region getset
-    public RessourceRecolteesKey getId() {
+    public RessourcesRecolteesKey getId() {
         return id;
     }
 
-    public void setId(RessourceRecolteesKey id) {
+    public void setId(RessourcesRecolteesKey id) {
         this.id = id;
     }
 

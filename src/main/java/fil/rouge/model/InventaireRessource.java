@@ -28,19 +28,19 @@ class InventaireRessourceKey implements Serializable {
     };
 
     //#region getset
-    public Integer getIdPersonnage() {
+    public int getIdPersonnage() {
         return idPersonnage;
     }
 
-    public void setIdPersonnage(Integer idPersonnage) {
+    public void setIdPersonnage(int idPersonnage) {
         this.idPersonnage = idPersonnage;
     }
 
-    public Integer getIdRessource() {
+    public int getIdRessource() {
         return idRessource;
     }
 
-    public void setIdRessource(Integer idRessource) {
+    public void setIdRessource(int idRessource) {
         this.idRessource = idRessource;
     }
     //#endregion
@@ -64,16 +64,11 @@ public class InventaireRessource {
     protected Ressource ressource;
 
     @Column(name = "quantite")
-    protected Integer quantite;
+    protected int quantite;
 
-    
     //#region getset
     public InventaireRessourceKey getId() {
         return id;
-    }
-
-    public void setId(InventaireRessourceKey id) {
-        this.id = id;
     }
 
     public Personnage getPersonnage() {
@@ -92,14 +87,13 @@ public class InventaireRessource {
         this.ressource = ressource;
     }
 
-    public Integer getQuantite() {
+    public int getQuantite() {
         return quantite;
     }
 
-    public void setQuantite(Integer quantite) {
+    public void setQuantite(int quantite) {
         this.quantite = quantite;
     }
-
     //#endregion
     public InventaireRessource(){
 
@@ -109,6 +103,7 @@ public class InventaireRessource {
         this.personnage = personnage;
         this.ressource = ressource;
         this.quantite = quantite;
+        this.id = new InventaireRessourceKey(personnage.getIdPersonnage(), ressource.getId());
     }
 
     public void ajouterRessource(int quantite) {
@@ -122,5 +117,7 @@ public class InventaireRessource {
         this.quantite -= quantite;
         return true;
     }
+
+    
 }
 

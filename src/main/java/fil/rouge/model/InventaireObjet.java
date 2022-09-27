@@ -97,8 +97,7 @@ public class InventaireObjet {
         this.personnage = personnage;
         this.objet = objet;
         this.quantite = quantite;
-
-        this.id = new InventaireObjetKey(personnage.getId_personnage(), objet.getId());
+        this.id = new InventaireObjetKey(personnage.getIdPersonnage(), objet.getId());
     }
 
     public void ajouterObjet(int quantity) {
@@ -106,10 +105,10 @@ public class InventaireObjet {
 
     }
 
-    public boolean retirerObjet(int quantity) {
-        if (quantity > this.quantite)
+    public boolean retirerObjet(int quantite) {
+        if (quantite > this.quantite)
             return false;
-        this.quantite -= quantity;
+        this.quantite -= quantite;
         return true;
     }
 }
