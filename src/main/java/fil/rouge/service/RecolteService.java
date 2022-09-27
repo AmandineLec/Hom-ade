@@ -11,7 +11,6 @@ import fil.rouge.model.Personnage;
 import fil.rouge.model.RessourcesRecoltees;
 
 
-
 @Service
 public class RecolteService {
 

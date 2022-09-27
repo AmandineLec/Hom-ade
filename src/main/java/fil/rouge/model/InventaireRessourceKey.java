@@ -7,38 +7,36 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class InventaireRessourceKey implements Serializable {
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 189750697029213336L;
 
 	@Column(name = "id_personnage")
-    protected int idPersonnage;
+    protected Integer idPersonnage;
 
     @Column(name = "id_ressource")
-    protected int idRessource;
+    protected Integer idRessource;
 
-    public InventaireRessourceKey(int id_personnage, int ressourceId) {
+    public InventaireRessourceKey(Integer id_personnage, Integer ressourceId) {
         this.idPersonnage = id_personnage;
         this.idRessource = ressourceId;
     }
 
-    public InventaireRessourceKey(){};
+    public InventaireRessourceKey(){}
 
     //#region getset
-    public int getIdPersonnage() {
+    public Integer getIdPersonnage() {
         return idPersonnage;
     }
 
-    public void setIdPersonnage(int idPersonnage) {
+    public void setIdPersonnage(Integer idPersonnage) {
         this.idPersonnage = idPersonnage;
     }
 
-    public int getIdRessource() {
+    public Integer getIdRessource() {
         return idRessource;
     }
 
-    public void setIdRessource(int idRessource) {
+    public void setIdRessource(Integer idRessource) {
         this.idRessource = idRessource;
     }
     //#endregion

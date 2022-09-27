@@ -1,6 +1,7 @@
 package fil.rouge.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -8,7 +9,10 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fil.rouge.dao.MaisonRepository;
 import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.exception.MailAlreadyUsedException;
+import fil.rouge.model.Maison;
 import fil.rouge.model.Personnage;
 
 
@@ -19,40 +23,49 @@ public class PersonnageService {
   @Autowired
   private PersonnageRepository pRepository;
 
+  @Autowired
+  private MaisonRepository mrepository;
+
   // Inscription au jeu
-  public boolean inscription(String mail, String password, String name, int sexe) throws Exception {
+  public boolean inscription(String mail, String password, String name, int sexe) throws MailAlreadyUsedException {
     List<Personnage> persos = pRepository.findAll();
     for(Personnage perso : persos){
-      if(perso.getMail() == mail){
-        throw new Exception("Ce mail est déjà utilisé");
+      if(perso.getMail().equals(mail)){
+        throw new MailAlreadyUsedException("Ce mail est déjà utilisé");
       }
     }
     Personnage personnage = new Personnage(name, sexe, mail, password);
+    Maison maison = new Maison();
+    mrepository.save(maison);
+    personnage.setMaison(maison);
     pRepository.save(personnage);
     return true;
   }
 
   // Suppression du compte
   public boolean suppressionPartie(String mail) throws EntityNotFoundException{
-    Optional<Personnage> perso = pRepository.findByMail(mail);
-    if(perso.get().getMail() == mail){
-      pRepository.delete(perso.get());
-      return true;
+    Optional<Personnage> personnage = pRepository.findByMail(mail);
+    List<Personnage> persos = pRepository.findAll();
+    for(Personnage perso : persos){
+      if(perso.getMail() == personnage.get().getMail() && perso.getPassword() == personnage.get().getPassword()){
+        pRepository.delete(personnage.get());
+        return true;
+        }
     }
-    else{
-      throw new EntityNotFoundException("Compte non trouvé");
-    }
+    throw new EntityNotFoundException("Compte non trouvé");
   }
 
   // Connexion à la partie
-  public boolean connexionPartie(String mail, String password) throws IllegalAccessException{
-    Optional<Personnage> perso = pRepository.findByMailAndPassword(mail, password);
-    if(perso.get().getMail() == mail && perso.get().getPassword() == password){
-      return true;
+  public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
+    Optional<Personnage> personnage = pRepository.findByMailAndPassword(mail, password);
+    List<Personnage> persos = pRepository.findAll();
+    for(Personnage perso : persos){
+      if(perso.getMail() == personnage.get().getMail() && perso.getPassword() == personnage.get().getPassword()){
+        return personnage.get();
+      }
     }
-    else{
-      throw new IllegalAccessException("Identifiants incorrects");
-    }
+    throw new NoSuchElementException("Identifiants incorrects");
+
   }
 
   // Modifier les infos du compte
@@ -110,7 +123,6 @@ public class PersonnageService {
       throw new Exception("Personnage inexistant");
     }
   }
-
 }
 
 

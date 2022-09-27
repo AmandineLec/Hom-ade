@@ -19,7 +19,7 @@ public class Personnage {
   protected String name;
 
   @Column(name = "sexe")
-  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférer
+  protected int sexe = 1; // 1 pour masculin 2 pour féminin ou inversement si vous préférez
 
   @ManyToOne
   @JoinColumn(name = "id_maison")

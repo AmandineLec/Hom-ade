@@ -61,7 +61,7 @@ public class RecetteServiceTest {
         //Réaliser la recette
         Recette recette1 = new Recette(obj, ressource1, 2, 1);
         //On instancie une nouvelle maison que l'on va attribuer au personnage puisque c'est la maison qui détermine le niveau du personnage. 
-        Maison maison = new Maison(1, 1, 1);
+        Maison maison = new Maison(1, 1);
         personnage.setMaison(maison);
         //On instancie l'inventaireRessource que l'on attribue au personnage et on lui donne la ressource en quantité 4
         InventaireRessource inventaireR = new InventaireRessource(personnage, ressource1, 4);

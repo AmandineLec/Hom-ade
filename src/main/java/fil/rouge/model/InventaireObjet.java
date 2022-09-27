@@ -62,7 +62,6 @@ public class InventaireObjet {
 
     public void ajouterObjet(int quantity) {
         this.quantite += quantity;
-
     }
 
     public boolean retirerObjet(int quantite) {
