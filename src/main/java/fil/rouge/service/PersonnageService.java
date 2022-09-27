@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.MaisonRepository;
 import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.exception.MailAlreadyUsedException;
 import fil.rouge.model.Maison;
 import fil.rouge.model.Personnage;
 
@@ -26,11 +27,11 @@ public class PersonnageService {
   private MaisonRepository mrepository;
 
   // Inscription au jeu
-  public boolean inscription(String mail, String password, String name, int sexe) throws Exception {
+  public boolean inscription(String mail, String password, String name, int sexe) throws MailAlreadyUsedException {
     List<Personnage> persos = pRepository.findAll();
     for(Personnage perso : persos){
       if(perso.getMail().equals(mail)){
-        throw new Exception("Ce mail est déjà utilisé");
+        throw new MailAlreadyUsedException("Ce mail est déjà utilisé");
       }
     }
     Personnage personnage = new Personnage(name, sexe, mail, password);
@@ -43,25 +44,28 @@ public class PersonnageService {
 
   // Suppression du compte
   public boolean suppressionPartie(String mail) throws EntityNotFoundException{
-    Optional<Personnage> perso = pRepository.findByMail(mail);
-    if(perso.get().getMail() == mail){
-      pRepository.delete(perso.get());
-      return true;
+    Optional<Personnage> personnage = pRepository.findByMail(mail);
+    List<Personnage> persos = pRepository.findAll();
+    for(Personnage perso : persos){
+      if(perso.getMail() == personnage.get().getMail() && perso.getPassword() == personnage.get().getPassword()){
+        pRepository.delete(personnage.get());
+        return true;
+        }
     }
-    else{
-      throw new EntityNotFoundException("Compte non trouvé");
-    }
+    throw new EntityNotFoundException("Compte non trouvé");
   }
 
   // Connexion à la partie
   public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
-    Optional<Personnage> perso = pRepository.findByMailAndPassword(mail, password);
-    if(perso.isPresent()){
-      return perso.get();
+    Optional<Personnage> personnage = pRepository.findByMailAndPassword(mail, password);
+    List<Personnage> persos = pRepository.findAll();
+    for(Personnage perso : persos){
+      if(perso.getMail() == personnage.get().getMail() && perso.getPassword() == personnage.get().getPassword()){
+        return personnage.get();
+      }
     }
-    else{
-      throw new NoSuchElementException("L'optional est vide.....");
-    }
+    throw new NoSuchElementException("Identifiants incorrects");
+
   }
 
   // Modifier les infos du compte
@@ -119,7 +123,6 @@ public class PersonnageService {
       throw new Exception("Personnage inexistant");
     }
   }
-
 }
 
 
