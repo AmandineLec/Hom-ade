@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.RecetteRepository;
+import fil.rouge.exception.ReceiptsException;
 import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.Objet;
 import fil.rouge.model.Personnage;
@@ -36,18 +37,18 @@ public class RecetteService {
         this.recetteRepository = recetteRepository;
     }
 
-    public boolean fusionnerRessource(int idObj, Personnage personnage){
+    public boolean fusionnerRessource(int idObj, Personnage personnage) throws ReceiptsException {
         //On instancie un objet en getReferenceById car on ne sait pas à l'avance quel objet on veut créer. 
         Objet objet = oRepository.getReferenceById(idObj);
 
         //On va chercher en BDD toutes les lignes composant une recette en fonction de l'id de l'objet que l'on veut créer
         List<Recette> recettes = recetteRepository.findByObjet(objet);
 
-        //POur chaque ligne présente dans la recette
+        //Pour chaque ligne présente dans la recette
         for (Recette recette : recettes){
 
             //On vérifie si le niveau de la maison du joueur est le même que le niveau de le recette si oui ou continue, si non, on ne peut pas créer l'objet.
-            if( personnage.getMaison().getNiveau() == recette.getNiveau_requis())
+            if(personnage.getMaison().getNiveau() >= recette.getNiveau_requis()){
 
             //Pour chaque ressource présente dans l'inventaire du personnage
                 for(InventaireRessource inventaireRessource : personnage.getInventaireRessource()){
@@ -65,10 +66,16 @@ public class RecetteService {
                         //Finalement, on crée l'objet, et on l'ajoute à l'inventaire du personnage. 
                         objetService.creerObjet(personnage, idObj);                   
                         return true; 
-                    }                
+                    } 
+                    else {
+                        throw new ReceiptsException("Vous n'avez pas assez de ressources pour créer cet objet !");
+                    }               
                 }
             }
-            if(personnage.getMaison().getNiveau() == recette.getNiveau_requis())
+            else {
+                throw new ReceiptsException("Vous n'avez pas le niveau requis pour créer cet objet");
+            }
+        }
         return false;
     }
 }

@@ -17,6 +17,7 @@ import fil.rouge.dao.InventaireRessourceRepository;
 import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.RecetteRepository;
 import fil.rouge.dao.RessourceRepository;
+import fil.rouge.exception.ReceiptsException;
 import fil.rouge.model.InventaireObjet;
 import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.Maison;
@@ -47,7 +48,7 @@ public class RecetteServiceTest {
     InventaireObjetRepository inventaireObjetRepository;
 
     @Test
-    public void RecetteTest(){
+    public void RecetteTest() throws ReceiptsException{
         //On instancie un nouveau personnage
         Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         //On instancie deux nouveaux objets afin de vérifier qu'un nouvel objet est bien ajouté dans un inventaire quand des objets y sont déjà présents

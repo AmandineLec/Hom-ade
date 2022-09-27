@@ -1,51 +1,6 @@
 package fil.rouge.model;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
-
-@Embeddable
-class InventaireRessourceKey implements Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 189750697029213336L;
-
-	@Column(name = "id_personnage")
-    protected Integer idPersonnage;
-
-
-    @Column(name = "id_ressource")
-    protected Integer idRessource;
-
-    public InventaireRessourceKey(int id_personnage, int idRessource) {
-        this.idPersonnage = id_personnage;
-        this.idRessource = idRessource;
-    }
-
-    public InventaireRessourceKey(){
-
-    };
-
-    //#region getset
-    public int getIdPersonnage() {
-        return idPersonnage;
-    }
-
-    public void setIdPersonnage(int idPersonnage) {
-        this.idPersonnage = idPersonnage;
-    }
-
-    public int getIdRessource() {
-        return idRessource;
-    }
-
-    public void setIdRessource(int idRessource) {
-        this.idRessource = idRessource;
-    }
-    //#endregion
-    
-}
 
 @Entity
 @Table(name = "inventaire_ressources")
