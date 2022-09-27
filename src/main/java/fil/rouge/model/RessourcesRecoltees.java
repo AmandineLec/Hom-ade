@@ -1,15 +1,42 @@
 package fil.rouge.model;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
+import java.io.Serializable;
+
+import javax.persistence.*;
 
 
+@Embeddable
+class RessourceRecolteesKey implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5306688055493608727L;
 
+	@Column(name = "id_element_recoltable")
+    protected int idElementRecoltable;
+
+    @Column(name = "id_ressource")
+    protected Integer idRessource;
+
+    //#region getset
+    public Integer getIdElementRecoltable() {
+        return idElementRecoltable;
+    }
+
+    public void setIdElementRecoltable(Integer idElementRecoltable) {
+        this.idElementRecoltable = idElementRecoltable;
+    }
+
+    public Integer getIdRessource() {
+        return idRessource;
+    }
+
+    public void setIdRessource(Integer idRessource) {
+        this.idRessource = idRessource;
+    }
+    //#endregion
+    
+}
 
 @Entity
 @Table(name = "ressources_recoltees")
@@ -28,7 +55,7 @@ public class RessourcesRecoltees {
     protected Ressource ressource;
 
     @Column(name = "quantite")
-    protected int quantite;
+    protected Integer quantite;
 
     //#region getset
     public RessourcesRecolteesKey getId() {
@@ -55,11 +82,11 @@ public class RessourcesRecoltees {
         this.ressource = ressource;
     }
 
-    public int getQuantite() {
+    public Integer getQuantite() {
         return quantite;
     }
 
-    public void setQuantite(int quantite) {
+    public void setQuantite(Integer quantite) {
         this.quantite = quantite;
     }
 

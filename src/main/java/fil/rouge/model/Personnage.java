@@ -3,15 +3,7 @@ package fil.rouge.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -21,7 +13,7 @@ public class Personnage {
   @Id
   @Column(name = "id_personnage")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  protected int idPersonnage;
+  protected Integer id_personnage;
 
   @Column(name = "nom")
   protected String name;
@@ -33,6 +25,7 @@ public class Personnage {
   @JoinColumn(name = "id_maison")
   protected Maison maison;
 
+  
   @OneToMany(mappedBy = "personnage") 
   protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
@@ -55,14 +48,24 @@ public class Personnage {
     this.sexe = sexe;
   }
 
-  public Personnage(String name, int sexe, String mail, String password) {
-    this.name = name;
-    this.sexe = sexe;
-    this.mail = mail;
-    this.password = password;
+  public Personnage(){
+
   }
 
-  public Personnage(){}
+  public Personnage(String name, int sexe, String mail, String password){
+    this.name = name; 
+    this.sexe = sexe; 
+    this.mail = mail; 
+    this.password = password; 
+  }
+
+  public Personnage(String name, int sexe, String mail, String password, Integer id){
+    this.name = name; 
+    this.sexe = sexe; 
+    this.mail = mail; 
+    this.password = password; 
+    this.id_personnage = id; 
+  }
 
   // #region GET/SET
 
@@ -83,11 +86,11 @@ public class Personnage {
   }
 
   public int getIdPersonnage() {
-    return idPersonnage;
+    return id_personnage;
   }
 
   public void setIdPersonnage(int id_personnage) {
-    this.idPersonnage = id_personnage;
+    this.id_personnage = id_personnage;
   }
 
   public Set<InventaireObjet> getInventaireObjet() {
@@ -139,5 +142,4 @@ public class Personnage {
   }
 
   // #endregion
-
 }

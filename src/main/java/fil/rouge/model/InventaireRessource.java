@@ -1,14 +1,51 @@
 package fil.rouge.model;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+@Embeddable
+class InventaireRessourceKey implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 189750697029213336L;
+
+	@Column(name = "id_personnage")
+    protected Integer idPersonnage;
 
 
+    @Column(name = "id_ressource")
+    protected Integer idRessource;
+
+    public InventaireRessourceKey(int id_personnage, int idRessource) {
+        this.idPersonnage = id_personnage;
+        this.idRessource = idRessource;
+    }
+
+    public InventaireRessourceKey(){
+
+    };
+
+    //#region getset
+    public int getIdPersonnage() {
+        return idPersonnage;
+    }
+
+    public void setIdPersonnage(int idPersonnage) {
+        this.idPersonnage = idPersonnage;
+    }
+
+    public int getIdRessource() {
+        return idRessource;
+    }
+
+    public void setIdRessource(int idRessource) {
+        this.idRessource = idRessource;
+    }
+    //#endregion
+    
+}
 
 @Entity
 @Table(name = "inventaire_ressources")
@@ -58,9 +95,10 @@ public class InventaireRessource {
         this.quantite = quantite;
     }
     //#endregion
+    public InventaireRessource(){
 
-    public InventaireRessource() {}
-    
+    };
+
     public InventaireRessource(Personnage personnage, Ressource ressource, int quantite) {
         this.personnage = personnage;
         this.ressource = ressource;
@@ -82,5 +120,4 @@ public class InventaireRessource {
 
     
 }
-
 

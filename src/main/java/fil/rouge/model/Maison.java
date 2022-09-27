@@ -3,13 +3,7 @@ package fil.rouge.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "maison")
@@ -17,7 +11,7 @@ public class Maison {
     @Id
     @Column(name = "id_maison")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int idMaison;
+    protected Integer idMaison;
 
     @Column(name = "niveau")
     protected int niveau; // début à 1
@@ -31,6 +25,11 @@ public class Maison {
     //#region Constructeurs
     public Maison(){
         this.niveau = 1;
+    }
+
+    public Maison(Integer id_maison, int niveau){
+        this.niveau = niveau;
+        this.idMaison = id_maison; 
     }
 
     //#endregion

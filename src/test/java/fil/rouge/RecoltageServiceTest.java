@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import fil.rouge.dao.ObjetRecoltableRepository;
+import fil.rouge.exception.WrongToolException;
 import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
@@ -27,7 +28,7 @@ public class RecoltageServiceTest {
     ObjetRecoltableRepository objetRecoltableRepository;
     
     @Test
-    public void givenObjetRecoltable_WhenOutilNotInOutils_ThenReturnMinus100() {
+    public void givenObjetRecoltable_WhenOutilNotInOutils_ThenReturnMinus100() throws WrongToolException {
         ObjetRecoltable objetRecoltable = new ObjetRecoltable();
         Personnage personnage = new Personnage("toto", 1);
         Outil outil1 = new Outil("outil1");
@@ -43,11 +44,11 @@ public class RecoltageServiceTest {
         
         Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
         
-        assertThat(recoltageService.utiliserOutil(personnage, 1, 10)).isEqualTo(-100);
+        assertThat(recoltageService.utiliserOutil(personnage, objetRecoltable, 10)).isEqualTo(-100);
     }
 
     @Test
-    public void givenObjetRecoltableWithResistance10_WhenOutilCapacite3_ThenReturn7() {
+    public void givenObjetRecoltableWithResistance10_WhenOutilCapacite3_ThenReturn7() throws WrongToolException {
         ObjetRecoltable objetRecoltable = new ObjetRecoltable();
         Personnage personnage = new Personnage("toto", 1);
         Outil outil1 = new Outil("outil1");
@@ -59,6 +60,6 @@ public class RecoltageServiceTest {
 
         Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
 
-        assertThat(recoltageService.utiliserOutil(personnage, 1, 10)).isEqualTo(7);
+        assertThat(recoltageService.utiliserOutil(personnage, objetRecoltable, 10)).isEqualTo(7);
     }
 }

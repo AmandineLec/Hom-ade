@@ -1,12 +1,11 @@
 package fil.rouge.service;
 
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import fil.rouge.dao.InventaireRessourceRepository;
-import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dao.RessourceRepository;
 import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.Personnage;
@@ -14,56 +13,52 @@ import fil.rouge.model.Ressource;
 
 @Service
 public class InventaireRessourceService {
-    
-    @Autowired
-    private PersonnageRepository pRepository;
-
-    @Autowired 
-    private RessourceRepository rRepository;
 
     @Autowired
-    private InventaireRessourceRepository irRepository;
+    InventaireRessourceRepository inventaireRessourceRepository;
 
-    //Permet d'ajouter une ressource dans l'inventaire
-    public boolean ajouterRessource(int idPerso, int idRes, int quantite){ // id perso concerné, id ressource à ajouter, quantité à ajouter
-        Personnage personnage = pRepository.getReferenceById(idPerso); // Méthode de JpaRepository permettant de créer une "fausse" entité (éphémère) (ne récupère que ce qu'il y a besoin, cad l'id)
-        Ressource ressource = rRepository.getReferenceById(idRes);
+    @Autowired
+    RessourceRepository ressourceRepository;
 
-        Collection<InventaireRessource> it = irRepository.findByPersonnageAndRessource(personnage, ressource); //On récupère les inventaires via la query d'InventaireRessourceRepository
-        for(InventaireRessource invRes : it){ // On parcours la collection d'inventaire
-
-            // Si l'id de la ressource à ajouter ET si l'id du perso sont trouvés
-            if (invRes.getRessource().getId() == ressource.getId() && invRes.getPersonnage().getIdPersonnage() == personnage.getIdPersonnage()) { 
-                invRes.ajouterRessource(quantite); // Alors on modifie la quantité de la ressource
-                irRepository.save(invRes); // On sauvegarde en BDD la MAJ de l'inventaire
+    //Méhtode d'ajout de ressource dans l'inventaire du personnage en fonction de l'id de la ressource que l'on veut ajouter, du personnage a qui on veut l'ajouter et de la quantité ramasser/récolter
+    public boolean ajouterRessource(int idRessource, Personnage personnage, int quantite){
+        //On instancie une ressource que l'on va retirer en getReferenceById car on ne sait pas quelle ressource on va retirer par avance. 
+        Ressource resource = ressourceRepository.getReferenceById(idRessource);
+        //On va chercher toutes les ressources présentes dans l'inventaire du personnage. 
+        List<InventaireRessource> ressources = inventaireRessourceRepository.findByPersonnage(personnage);
+        //Pour chaque ressource présente dans l'inventaire
+        for(InventaireRessource ressource : ressources){
+            //On compare l'id de la ressource instanciée avec les id des ressources présentes dans l'inventaire
+            if(resource.getId() == ressource.getRessource().getId()){
+                //Si la ressource est déjà présente, on met à jour sa quantité
+                ressource.ajouterRessource(quantite);
+                //On save ensuite la nouvelle quantité dans la base de données. 
+                inventaireRessourceRepository.save(ressource);
                 return true;
             }
         }
-
-        // si pas trouvé l'association
-        InventaireRessource invObj = new InventaireRessource(personnage, ressource, quantite);
-        irRepository.save(invObj);
-        return true;
+        //Si on ne trouve aucun inventaireRessource au personnage (et donc qu'il est vide), On lui crée son inventaire, 
+        //En lui ajoutant la ressource et lui settant la quantité. 
+        InventaireRessource invRessource = new InventaireRessource(personnage, resource, quantite);
+        //On save ensuite cet inventaire dans la base de données. 
+        inventaireRessourceRepository.save(invRessource);
+        return true; 
     }
 
-    //Permet de retirer une ressource de l'inventaire
-    public boolean retirerRessource(int idRes, int quantite, int idPerso) { // ressource à retirer, quantité à retirer, id du perso concerné
-        Personnage personnage = pRepository.getReferenceById(idPerso); // Méthode de JpaRepository permettant de créer une "fausse" entité (éphémère) (ne récupère que ce qu'il y a besoin, cad l'id)
-        Ressource ressource = rRepository.getReferenceById(idRes);
+    //Permet de retirer un objet de l'inventaire
+    public boolean retirerRessource(int idRessource, int quantite, Personnage personnage) { // Ressource à retirer, quantité à retirer, id du perso concerné
+        Ressource ressource = ressourceRepository.getReferenceById(idRessource);
 
-        Collection<InventaireRessource> it = irRepository.findByPersonnageAndRessource(personnage, ressource); //On récupère les inventaires via la query d'InventaireRessourceRepository
-        for(InventaireRessource invRes : it){ // On parcours la collection d'inventaire
-            // Si l'id de la ressource à ajouter ET si l'id du perso sont trouvés
-            if (invRes.getRessource().getId() == ressource.getId() && invRes.getPersonnage().getIdPersonnage() == personnage.getIdPersonnage()) {
-                invRes.retirerRessource(quantite); // Alors on modifie la quantité de la ressource
-                irRepository.save(invRes); // On sauvegarde en BDD la MAJ de l'inventaire
+        List<InventaireRessource> it = inventaireRessourceRepository.findByPersonnage(personnage); //On récupère les inventaires via la query d'InventaireRessourceRepository
+        for(InventaireRessource invRessource : it){ // On parcours la collection d'inventaire
+            if (invRessource.getRessource().getId() == ressource.getId()) {// Si l'id de la ressource à retirer est trouvé dans la collection
+                invRessource.retirerRessource(quantite); // Alors on modifie la quantité de la ressource
+                inventaireRessourceRepository.save(invRessource); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true; // Return true si on a réussi à retirer la quantité de ressource indiquée
             }
         }
-        return false; // Si les id ne sont pas trouvés, on ne peut pas retirer donc return false
+        return false; // Si l'id n'est pas trouvé, on ne peut pas le retirer donc return false
     }
 
-
-    
 
 }

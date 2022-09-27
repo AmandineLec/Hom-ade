@@ -2,7 +2,9 @@ package fil.rouge.service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,13 +13,14 @@ import fil.rouge.dao.InventaireRessourceRepository;
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dao.RessourceRepository;
 import fil.rouge.dao.RessourcesRecolteesRepository;
+import fil.rouge.dto.RessourceDTO;
 import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.Personnage;
 import fil.rouge.model.Ressource;
 import fil.rouge.model.RessourcesRecoltees;
 
 @Service
-public class RamassageService {
+public class RessourceService {
 
   @Autowired
   PersonnageRepository personnageRepository;
@@ -30,6 +33,10 @@ public class RamassageService {
 
   @Autowired
   InventaireRessourceRepository inventaireRessourceRepository;
+
+  public Ressource getRessource(int ressourceId) throws EntityNotFoundException {
+    return ServiceUtils.getEntity(ressourceRepository, ressourceId);
+  }
 
   // Ajoute les ressources ramassées dans l'inventaire
   public boolean ajoutRessourceInventaire(Personnage personnage, int ressourceId, int quantite) {
@@ -55,5 +62,24 @@ public class RamassageService {
     List<RessourcesRecoltees> listeResRec = ressourcesRecolteesRepository.findById_IdElementRecoltable(objetRecoltableId);
     
     return listeResRec;
+  }
+
+  //Récupère tous les DTO des ressources
+  public List<RessourceDTO> getAlRessources() {
+    return ((List<Ressource>) ressourceRepository
+            .findAll())
+            .stream()
+            .map(this::convertDataIntoDTO)
+              .collect(Collectors.toList());
+  }
+
+  // Convertit les ressources en DTO
+  private RessourceDTO convertDataIntoDTO(Ressource ressource) {
+    RessourceDTO dto = new RessourceDTO();
+
+    dto.setIdRessource(ressource.getId());
+    dto.setNom(ressource.getNom());
+
+    return dto;
   }
 }

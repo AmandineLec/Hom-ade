@@ -1,4 +1,4 @@
-package fil.rouge.Controller;
+package fil.rouge.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
