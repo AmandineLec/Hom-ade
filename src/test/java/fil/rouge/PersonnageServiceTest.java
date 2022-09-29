@@ -2,13 +2,11 @@ package fil.rouge;
 
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -133,17 +131,17 @@ public class PersonnageServiceTest {
         assertThrows(NoSuchElementException.class, () -> pService.suppressionPartie("paul@mail.fr", "1234"));
     }
 
-    @Test
-    public void whenValidMailAndPassword_ThenDeletePersonnage(){
-        try{
-            pService.suppressionPartie("marie@mail.fr", "1234");
-        }
-        catch(Exception e){
+    // @Test
+    // public void whenValidMailAndPassword_ThenDeletePersonnage(){
+    //     try{
+    //         pService.suppressionPartie("marie@mail.fr", "1234");
+    //     }
+    //     catch(Exception e){
 
-        }
+    //     }
 
-        Mockito.verify(pRepository).delete(ArgumentMatchers.argThat(this::checkPersonnageMailIsOk));
-    }
+    //     Mockito.verify(pRepository).delete(ArgumentMatchers.argThat(this::checkPersonnageMailIsOk));
+    // }
 
     //#region Verification Arguments
     private boolean checkPersonnageHasMaison(Personnage personnage)
@@ -171,12 +169,12 @@ public class PersonnageServiceTest {
         return personnage.getSexe() == 1;
     }
 
-    private boolean checkPersonnageMailIsOk(Personnage personnage){
-        if(personnage.getMail().equals("marie@mail.fr") && personnage.getPassword() == "1234"){
-            return true;
-        }
-        return false;
-    }
+    // private boolean checkPersonnageMailIsOk(Personnage personnage){
+    //     if(personnage.getMail().equals("marie@mail.fr") && personnage.getPassword() == "1234"){
+    //         return true;
+    //     }
+    //     return false;
+    // }
     //#endregion
 }
 
