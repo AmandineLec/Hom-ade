@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "inventaire_maison")
-public class EquipementMaison { // ce n'est pas une classe servant d'inventaire à la maison. Ce sont les objets placés dans la maison
+public class EquipementMaison { // ce n'est pas une classe(table intermediare) servant d'inventaire à la maison. Ce sont les objets placés dans la maison
     @EmbeddedId
     protected EquipementMaisonkey id;
 

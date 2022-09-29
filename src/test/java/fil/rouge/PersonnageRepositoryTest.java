@@ -31,8 +31,9 @@ public class PersonnageRepositoryTest {
     @Sql("GivenPersonnageWithEmailAndPasswordWhenFindingByEmailAndPasswordShouldReturnPersonnage.sql")
     public void GivenPersonnageWithEmailAndPasswordWhenFindingByEmailAndPasswordShouldReturnPersonnage(){
         List<Personnage> joueursTest = personnageRepository.findByMailAndPassword("jane@doe.mail.fr", "soccer89");
-
+        // test validé sous réserve de trouver une assertion moins longue ultérieurement
         assertTrue(joueursTest.get(0).getMail().equals("jane@doe.mail.fr" )&& joueursTest.get(0).getPassword().equals("soccer89" ) , "Si le mail jane@doe.mail.fr et le mot de passe soccer89 sont renvoyés c'est que la méthode fonctionne");
+        
 
     }
 
