@@ -1,8 +1,6 @@
 package fil.rouge.model;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 import fil.rouge.inter.Deplacable;
 
@@ -20,6 +18,8 @@ public class Meuble extends Objet implements Deplacable{
         super(nom);
     }
 
+    public Meuble(){
+    }
     
     //#endregion
 

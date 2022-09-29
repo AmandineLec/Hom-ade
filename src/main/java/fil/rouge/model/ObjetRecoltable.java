@@ -1,10 +1,10 @@
 package fil.rouge.model;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+
 
 @Entity
 @Table(name = "element_recoltable")
@@ -18,7 +18,10 @@ public class ObjetRecoltable {
     protected String nom;
 
     @Column(name = "categorie")
-    protected int categorie;
+    protected Integer categorie;
+
+    @Column(name = "pv")
+    protected int pv;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -34,8 +37,11 @@ public class ObjetRecoltable {
     @Column(name = "niveau_requis")
     protected int niveauRequis;
     
+    @Column(name = "cooldown")
+    protected long cooldown;
+    
     @Transient
-    protected int difficulte;
+    protected long disparitionTime;
     
     //#region Constructeurs
 
@@ -45,15 +51,16 @@ public class ObjetRecoltable {
         this.nom = nom;
     }
 
-    public ObjetRecoltable(String nom, int id){
-        
+    public ObjetRecoltable(String nom, int categorie, int niveauRequis, int pv){
+        this.nom = nom;
+        this.categorie = categorie;
+        this.niveauRequis = niveauRequis;
+        this.pv = pv;
     }
-
-
     //#endregion
 
+
     //#region GETSET
-    
 
     public int getIdElementRecoltable() {
         return idElementRecoltable;
@@ -61,14 +68,6 @@ public class ObjetRecoltable {
 
     public void setIdElementRecoltable(int idElementRecoltable) {
         this.idElementRecoltable = idElementRecoltable;
-    }
-
-    public int getDifficulte() {
-        return difficulte;
-    }
-
-    public void setDifficulte(int difficulte) {
-        this.difficulte = difficulte;
     }
 
     public String getNom() {
@@ -79,11 +78,11 @@ public class ObjetRecoltable {
         this.nom = nom;
     }
 
-    public int getCategorie() {
+    public Integer getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(int categorie) {
+    public void setCategorie(Integer categorie) {
         this.categorie = categorie;
     }
 
@@ -111,74 +110,33 @@ public class ObjetRecoltable {
         this.niveauRequis = niveauRequis;
     }
 
-    //#endregion
+    public int getPv() {
+        return pv;
+    }
 
-    //#region Méthodes
-    // public boolean ramasser(Personnage joueur,int nombre){
-        
-    //     if (joueur.ajouterRessource(this.getType(), nombre)){
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
-    // public int rand(int min, int max){
-    //     int rand = min + (int)(Math.random()*((max - min)+1));
-    //     return rand;
-    // }
-
-    // public int difficulte(String sorte){
-    //     if(sorte.equals("roseau") || sorte.equals("sardine") || sorte.equals("fer") || sorte.equals("brique") || sorte.equals("champignon") || sorte.equals("mare")){
-    //         this.difficulte = 1;
-    //     }
-    //     if(sorte.equals("bambou") || sorte.equals("carpe")|| sorte.equals("cuivre") || sorte.equals("granit") || sorte.equals("coton") || sorte.equals("rivière")){
-    //         this.difficulte = 2;
-    //     }
-    //     if(sorte.equals("chêne") || sorte.equals("truite") || sorte.equals("aimant") || sorte.equals("marbre") || sorte.equals("lin") || sorte.equals("source")){
-    //         this.difficulte = 3;
-    //     }
-    //     if(sorte.equals("ébène ") || sorte.equals("brochet") || sorte.equals("or") || sorte.equals("schiste") || sorte.equals("orties") || sorte.equals("pluie")){
-    //         this.difficulte = 4;
-    //     }
-    //     if(sorte.equals("séquoïa") || sorte.equals("requin") || sorte.equals("titane") || sorte.equals("diamant") || sorte.equals("rosier") || sorte.equals("seve")){
-    //         this.difficulte = 5;
-    //     }
-    //     return this.difficulte;
-    // }
-
-    // public int quantiteProduite(){
-    //     if(this.difficulte == 1)
-    //         this.quantite = this.rand(1, 3);
-
-    //     else if(this.difficulte == 2)
-    //         this.quantite = this.rand(1, 5);
-
-    //     else if(this.difficulte == 3)
-    //         this.quantite = this.rand(2, 6);
-
-    //     else if(this.difficulte == 4)
-    //         this.quantite = this.rand(2, 7);
-
-    //     else if(this.difficulte == 5)
-    //         this.quantite = this.rand(3, 8);
-
-    //     return this.quantite;
-    // }
-
-    // public boolean recolter(Personnage joueur, Outil outil){
-    //     if (this.getOutils().contains(joueur.getOutil())){
-    //         for (RessourcesRecoltees ressourceR : ressourcesRecoltees) {
-    //         int nombre = ressourceR.getQuantite();
-    //         Ressource ressource = ressourceR.getRessource();
-    //         ressource.ramasser(joueur, nombre);
-    //         return true;
-    //         }
-    //     }
-    //     return false;
+    public void setPv(int pv) {
+        this.pv = pv;
+    }
     
-// si outil dispo équipé alors on utilise pour extraire ressource selon la capacité outil et objet recoltable (+ on retire de la résistance et si resistance >= 0 alors on retire l'objet de l'inventaire => a faire plus tard)
-// puis ramasser
-//    }
+    public long getCooldown() {
+        return cooldown;
+    }
+
+    public void setCooldown(long cooldown) {
+        this.cooldown = cooldown;
+    }
+
+    public long getDisparitionTime() {
+        return disparitionTime;
+    }
+
+    public void setDisparitionTime(long disparitionTime) {
+        this.disparitionTime = disparitionTime;
+    }
+
+    
+
     //#endregion
+
 
 }

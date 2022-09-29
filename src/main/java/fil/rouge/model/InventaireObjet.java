@@ -1,13 +1,7 @@
 package fil.rouge.model;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
 
+import javax.persistence.*;
 
 @Entity
 @Table(name = "inventaire_objet")
@@ -27,6 +21,8 @@ public class InventaireObjet {
 
     @Column(name = "quantite")
     protected int quantite;
+
+    public InventaireObjet(){};
 
     public InventaireObjetKey getId(){
         return this.id;
@@ -65,11 +61,16 @@ public class InventaireObjet {
         this.id = new InventaireObjetKey(personnage.getIdPersonnage(), objet.getId());
     }
 
+<<<<<<< HEAD
 
     //#region méthodes du service
     public void ajouterObjet(int quantite) { 
         this.quantite += quantite;
 
+=======
+    public void ajouterObjet(int quantity) {
+        this.quantite += quantity;
+>>>>>>> Marie
     }
 
     public boolean retirerObjet(int quantite) {

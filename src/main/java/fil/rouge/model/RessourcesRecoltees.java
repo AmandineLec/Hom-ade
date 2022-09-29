@@ -1,13 +1,6 @@
 package fil.rouge.model;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
-
+import javax.persistence.*;
 
 
 
@@ -28,7 +21,7 @@ public class RessourcesRecoltees {
     protected Ressource ressource;
 
     @Column(name = "quantite")
-    protected int quantite;
+    protected Integer quantite;
 
     //#region getset
     public RessourcesRecolteesKey getId() {
@@ -55,13 +48,15 @@ public class RessourcesRecoltees {
         this.ressource = ressource;
     }
 
-    public int getQuantite() {
+    public Integer getQuantite() {
         return quantite;
     }
 
-    public void setQuantite(int quantite) {
+    public void setQuantite(Integer quantite) {
         this.quantite = quantite;
     }
+
+    public RessourcesRecoltees(){}
 
     //#endregion
 

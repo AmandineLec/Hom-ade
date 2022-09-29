@@ -15,13 +15,13 @@ import fil.rouge.dao.RessourceRepository;
 import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.Personnage;
 import fil.rouge.model.Ressource;
-import fil.rouge.service.RamassageService;
+import fil.rouge.service.RessourceService;
 
 @SpringBootTest
 public class RamassageServiceTest {
 
     @Autowired
-    RamassageService ramassageService;
+    RessourceService ressourceService;
 
     @MockBean
     RessourceRepository ressourceRepository;
@@ -30,10 +30,10 @@ public class RamassageServiceTest {
     public void given4Ressource_WhenPersoHasNoRessource_ThenReturn4() {
         Ressource ressource = new Ressource();
         ressource.setId(1);
-        Personnage personnage = new Personnage("toto", 1);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
 
         Mockito.when(ressourceRepository.findById(1)).thenReturn(Optional.of(ressource));
-        ramassageService.ajoutRessourceInventaire(personnage,1, 4);
+        ressourceService.ajoutRessourceInventaire(personnage,1, 4);
 
         Iterator<InventaireRessource> it = personnage.getInventaireRessource().iterator();
         assertThat(it.next().getQuantite()).isEqualTo(4);
@@ -43,12 +43,12 @@ public class RamassageServiceTest {
     public void given4Ressource_WhenPersoHas2Ressource_ThenReturn6() {
         Ressource ressource = new Ressource();
         ressource.setId(1);
-        Personnage personnage = new Personnage("toto", 1);
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         InventaireRessource inventaireRessource = new InventaireRessource(personnage, ressource, 2);
         personnage.addInventaireRessource(inventaireRessource);
 
         Mockito.when(ressourceRepository.findById(1)).thenReturn(Optional.of(ressource));
-        ramassageService.ajoutRessourceInventaire(personnage,1, 4);
+        ressourceService.ajoutRessourceInventaire(personnage,1, 4);
 
         Iterator<InventaireRessource> it = personnage.getInventaireRessource().iterator();
         assertThat(it.next().getQuantite()).isEqualTo(6);

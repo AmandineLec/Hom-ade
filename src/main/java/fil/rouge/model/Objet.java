@@ -11,13 +11,13 @@ import javax.persistence.*;
 // https://www.baeldung.com/hibernate-inheritance
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
-public abstract class Objet {
+public class Objet {
 
-    // #region Variables
+    //#region Variables
     @Id
     @Column(name = "id_objet")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    protected Integer id;
 
     @Column(name = "nom")
     protected String nom;
@@ -25,7 +25,14 @@ public abstract class Objet {
     @Column(name = "categorie")
     protected int categorie;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "objet") // un objet(déjà crée en bdd) peut être dans plusieurs inventaires
+=======
+    @OneToMany(mappedBy = "objet")
+    protected Set<Recette> recette = new HashSet<Recette>();
+
+    @OneToMany(mappedBy = "objet")
+>>>>>>> Marie
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
     @OneToMany(mappedBy = "objet") // grâce à la table equipement_maison : accés à tous les objets equipes
@@ -33,15 +40,12 @@ public abstract class Objet {
 
     // #endregion
 
-    // #region Constructeur
+    //#region Constructeur
 
-    public Objet() {}
-
-    public Objet(String nom) {
+    public Objet(String nom){
         this.nom = nom;
     }
-
-    public Objet(int id) {
+    public Objet(int id){
         this.id = id;
     }
 
@@ -49,10 +53,13 @@ public abstract class Objet {
         this.nom = nom;
         this.id = id;
     }
-    // #endregion
+    public Objet(){
+        
+    }
+    //#endregion
 
-    // #region GETTER & SETTER
-    public int getId() {
+    //#region GETTER & SETTER
+    public Integer getId() {
         return id;
     }
 
@@ -60,7 +67,7 @@ public abstract class Objet {
         return nom;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,7 +78,12 @@ public abstract class Objet {
     public int getCategorie() {
         return categorie;
     }
-
+    public Set<Recette> getRecette() {
+        return recette;
+    }
+    public void setRecette(Set<Recette> recette) {
+        this.recette = recette;
+    }
     public void setCategorie(int categorie) {
         this.categorie = categorie;
     }

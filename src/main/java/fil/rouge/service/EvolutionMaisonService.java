@@ -46,7 +46,7 @@ public class EvolutionMaisonService {
         // si il ne dispose pas de l'objet
         throw new ObjetMaisonException("Vous ne disposez pas de cet objet");
         if(disposeDeLObjet == true){ // si il dispose de l'objet à placer dans la maison
-            serviceInventaireObjet.retirerObjet(idObjet, quantiteObjet, idPersonnage); // je retire l'objet de l'inventaire du personnage
+            serviceInventaireObjet.retirerObjet(idObjet, quantiteObjet, personnage.get()); // je retire l'objet de l'inventaire du personnage
             for(EquipementMaison objets: inventaireDeLaMaison){ // je parcours les objets placés dans la maison
                 if(objets.getObjet().getId() == idObjet){ // si il y a déja l'objet
                     objets.ajouterObjet(quantiteObjet); // j'augmente sa quantité
@@ -74,7 +74,7 @@ public class EvolutionMaisonService {
             if(equipementMaison.getObjet().getId() == objet.get().getId()){ // si l'objet est placé dans la maison
                // vérifier si l'objet est placé et si la quantité placé >= quantité à retirer
                 if(equipementMaison.getQuantite() >= quantiteObjetARetirer){
-                    serviceInventaireObjet.ajouterObjet(idPersonnage, idObjetARetirer, quantiteObjetARetirer);
+                    serviceInventaireObjet.ajouterObjet(personnage.get(), idObjetARetirer, quantiteObjetARetirer);
                     return true;
                 }
                 else{

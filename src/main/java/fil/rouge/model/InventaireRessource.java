@@ -1,14 +1,7 @@
 package fil.rouge.model;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
 
-
+import javax.persistence.*;
 
 @Entity
 @Table(name = "inventaire_ressources")
@@ -58,9 +51,10 @@ public class InventaireRessource {
         this.quantite = quantite;
     }
     //#endregion
+    public InventaireRessource(){
 
-    public InventaireRessource() {}
-    
+    };
+
     public InventaireRessource(Personnage personnage, Ressource ressource, int quantite) {
         this.personnage = personnage;
         this.ressource = ressource;
@@ -82,5 +76,4 @@ public class InventaireRessource {
 
     
 }
-
 
