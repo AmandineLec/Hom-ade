@@ -1,4 +1,4 @@
-package fil.rouge.Controller;
+package fil.rouge.controller;
 
 import org.springframework.web.bind.annotation.SessionAttribute;
 

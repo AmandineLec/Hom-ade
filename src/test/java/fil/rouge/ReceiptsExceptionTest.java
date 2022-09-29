@@ -52,11 +52,12 @@ public class ReceiptsExceptionTest {
         Objet obj = new Objet("Hache", 1);
         Ressource ressource1 = new Ressource("Ressource1", 1, "Test1");
         Recette recette1 = new Recette(obj, ressource1, 2, 2);
-        Maison maison = new Maison(1, 1, 1);
+        Maison maison = new Maison(1, 1);
         personnage.setMaison(maison);
         InventaireRessource inventaireR = new InventaireRessource(personnage, ressource1, 4);
+        personnage.addInventaireRessource(inventaireR);
         
-        Mockito.when(objetRepository.getReferenceById(2)).thenReturn(obj);
+        Mockito.when(objetRepository.getReferenceById(1)).thenReturn(obj);
         Mockito.when(ressourceRepository.getReferenceById(1)).thenReturn(ressource1);
         List<Recette> recettes = new ArrayList<>();
         recettes.add(recette1);
@@ -69,6 +70,61 @@ public class ReceiptsExceptionTest {
         List<InventaireObjet> inventaireObjets = new ArrayList<>();
         Mockito.when(inventaireObjetRepository.findByPersonnage(personnage)).thenReturn(inventaireObjets);
 
-        assertThrows(ReceiptsException.class, ()-> recetteService.fusionnerRessource(obj.getId(), personnage));
+        assertThrows(ReceiptsException.class, () -> recetteService.fusionnerRessource(obj.getId(), personnage));
+    }
+
+    @Test
+    public void RecetteExceptionTestQuantite() throws ReceiptsException{
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
+        Objet obj = new Objet("Hache", 1);
+        Ressource ressource1 = new Ressource("Ressource1", 1, "Test1");
+        Recette recette1 = new Recette(obj, ressource1, 2, 1);
+        Maison maison = new Maison(1, 1);
+        personnage.setMaison(maison);
+        InventaireRessource inventaireR = new InventaireRessource(personnage, ressource1, 1);
+        personnage.addInventaireRessource(inventaireR);
+        
+        Mockito.when(objetRepository.getReferenceById(1)).thenReturn(obj);
+        Mockito.when(ressourceRepository.getReferenceById(1)).thenReturn(ressource1);
+        List<Recette> recettes = new ArrayList<>();
+        recettes.add(recette1);
+        Mockito.when(recetteRepository.findByObjet(obj)).thenReturn(recettes);
+        
+        List<InventaireRessource> inventaireRessources = new ArrayList<>();
+        inventaireRessources.add(inventaireR);
+        Mockito.when(inventaireRessourceRepository.findByPersonnage(personnage)).thenReturn(inventaireRessources);
+
+        List<InventaireObjet> inventaireObjets = new ArrayList<>();
+        Mockito.when(inventaireObjetRepository.findByPersonnage(personnage)).thenReturn(inventaireObjets);
+
+        assertThrows(ReceiptsException.class, () -> recetteService.fusionnerRessource(obj.getId(), personnage));
+    }
+    @Test
+    public void RecetteExceptionTestRessource() throws ReceiptsException{
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
+        Objet obj = new Objet("Hache", 1);
+        Ressource ressource1 = new Ressource("Ressource1", 1, "Test1");
+        Ressource ressource2  = new Ressource("Ressource2", 2, "Test2");
+        Recette recette1 = new Recette(obj, ressource1, 2, 1);
+        Maison maison = new Maison(1, 1);
+        personnage.setMaison(maison);
+        InventaireRessource inventaireR = new InventaireRessource();
+        inventaireR.setRessource(ressource2);
+        personnage.addInventaireRessource(inventaireR);
+        
+        Mockito.when(objetRepository.getReferenceById(1)).thenReturn(obj);
+        Mockito.when(ressourceRepository.getReferenceById(1)).thenReturn(ressource1);
+        List<Recette> recettes = new ArrayList<>();
+        recettes.add(recette1);
+        Mockito.when(recetteRepository.findByObjet(obj)).thenReturn(recettes);
+        
+        List<InventaireRessource> inventaireRessources = new ArrayList<>();
+        inventaireRessources.add(inventaireR);
+        Mockito.when(inventaireRessourceRepository.findByPersonnage(personnage)).thenReturn(inventaireRessources);
+
+        List<InventaireObjet> inventaireObjets = new ArrayList<>();
+        Mockito.when(inventaireObjetRepository.findByPersonnage(personnage)).thenReturn(inventaireObjets);
+
+        assertThrows(ReceiptsException.class, () -> recetteService.fusionnerRessource(obj.getId(), personnage));
     }
 }

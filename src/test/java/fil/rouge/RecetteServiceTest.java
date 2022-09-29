@@ -1,8 +1,7 @@
 package fil.rouge;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
@@ -18,6 +17,7 @@ import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.RecetteRepository;
 import fil.rouge.dao.RessourceRepository;
 import fil.rouge.exception.ReceiptsException;
+import fil.rouge.exception.ReceiptsQuantityException;
 import fil.rouge.model.InventaireObjet;
 import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.Maison;
@@ -48,27 +48,28 @@ public class RecetteServiceTest {
     InventaireObjetRepository inventaireObjetRepository;
 
     @Test
-    public void RecetteTest() throws ReceiptsException{
+    public void RecetteTest() throws ReceiptsException, ReceiptsQuantityException{
         //On instancie un nouveau personnage
         Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
-        //On instancie deux nouveaux objets afin de vérifier qu'un nouvel objet est bien ajouté dans un inventaire quand des objets y sont déjà présents
-        Objet objet = new Objet("Objet", 3);
+        //On instancie un nouvel objet
         Objet obj = new Objet("Hache", 2);
+        Objet objet = new Objet("Objet", 1);
         //On instancie une nouvelle ressource qui sera utilisée pour le mockito
         Ressource ressource1 = new Ressource("Ressource1", 1, "Test1");
         //On instancie une nouvelle recette, lié à l'objet "Hache" et à la ressource 3, on "set" la quantité nécessaire
-        //que l'on doit posséder dans son inventaire pour créer l'objet ainsi que le niveau requis pour pouvoir
-        //Réaliser la recette
+        //que l'on doit posséder dans son inventaire pour créer l'objet ainsi que le niveau requis pour pouvoir réaliser la recette
         Recette recette1 = new Recette(obj, ressource1, 2, 1);
         //On instancie une nouvelle maison que l'on va attribuer au personnage puisque c'est la maison qui détermine le niveau du personnage. 
         Maison maison = new Maison(1, 1);
         personnage.setMaison(maison);
+
         //On instancie l'inventaireRessource que l'on attribue au personnage et on lui donne la ressource en quantité 4
         InventaireRessource inventaireR = new InventaireRessource(personnage, ressource1, 4);
-        //On instancie l'inventaire objet que l'on attribue au personnage et on lui donne un objet en quantité 1
+        personnage.addInventaireRessource(inventaireR);
         InventaireObjet inventaireO = new InventaireObjet(personnage, objet, 1);
+        personnage.addInventaireObjet(inventaireO);
         
-        //On vient mocket l'objet repository "getreferencebyId" pour qu'il nous retourne l'objet "Hache"
+        //On vient mocker l'objet repository "getreferencebyId" pour qu'il nous retourne l'objet "Hache"
         Mockito.when(objetRepository.getReferenceById(2)).thenReturn(obj);
         //On vient mocker le ressourcerepository "getReferenceById" pour qu'il nous retourne la ressource1
         Mockito.when(ressourceRepository.getReferenceById(1)).thenReturn(ressource1);
@@ -85,18 +86,19 @@ public class RecetteServiceTest {
         //On mocke l'inventaireRessourceRepository pour qu'il nous retourne la liste des inventaires ressources
         Mockito.when(inventaireRessourceRepository.findByPersonnage(personnage)).thenReturn(inventaireRessources);
 
-        //On crée un nouvel liste d'inventaireObjet que l'on va utilisé pour le mockito et on y ajoute l'inventaire objet du personnage
+        //On crée un nouvel liste d'inventaireObjet que l'on va utilisé pour le mockito
         List<InventaireObjet> inventaireObjets = new ArrayList<>();
-        inventaireObjets.add(inventaireO);
         //On mocke l'inventaireObjetRepository pour qu'il nous retourne la liste des inventaires objets
         Mockito.when(inventaireObjetRepository.findByPersonnage(personnage)).thenReturn(inventaireObjets);
+        inventaireObjets.add(inventaireO);
+
 
         //On vient utiliser la méthode fusionnerRessource qui doit vérifier que le personnage possède le niveau nécessaire pour créer un objet, 
         //ainsi que les ressources demandées en quantité suffisante. Si oui, on crée un nouvel objet, on l'ajoute à l'inventaire
         //Du personnage et on lui retire les ressource consommer de son inventaire. 
         recetteService.fusionnerRessource(obj.getId(), personnage);
         //On vérifie que l'inventaire objet du personnage possède bien deux objets. 
-        assertThat(personnage.getInventaireObjet().size()==2);
+        assertTrue(personnage.getInventaireObjet().size()==2);
 
 
     }
