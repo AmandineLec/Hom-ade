@@ -2,9 +2,7 @@ package fil.rouge;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
-
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,27 +15,48 @@ import fil.rouge.model.Personnage;
 @DataJpaTest
 public class PersonnageRepositoryTest {
     @Autowired
-	private PersonnageRepository personnageRepository;
+	private PersonnageRepository pRepository;
 
     @Test
     @Sql("GivenPersonnageWithEmailWhenFindingByEmailShouldReturnPersonnage.sql")
     public void GivenPersonnageWithEmailWhenFindingByEmailShouldReturnPersonnage(){
-    List<Personnage> joueursTest = personnageRepository.findByMail("john@doe.mail.fr");
+    Personnage joueursTest = pRepository.findByMail("john@doe.mail.fr").get();
     
-    assertEquals("john@doe.mail.fr", joueursTest.get(0).getMail(), "Si le mail john@doe.mail.fr est renvoyé c'est que la méthode fonctionne");
+    assertEquals("john@doe.mail.fr", joueursTest.getMail());
     }
 
     @Test
     @Sql("GivenPersonnageWithEmailAndPasswordWhenFindingByEmailAndPasswordShouldReturnPersonnage.sql")
     public void GivenPersonnageWithEmailAndPasswordWhenFindingByEmailAndPasswordShouldReturnPersonnage(){
-        List<Personnage> joueursTest = personnageRepository.findByMailAndPassword("jane@doe.mail.fr", "soccer89");
+        Personnage joueursTest = pRepository.findByMailAndPassword("jane@doe.mail.fr", "soccer89").get();
         // test validé sous réserve de trouver une assertion moins longue ultérieurement
-        assertTrue(joueursTest.get(0).getMail().equals("jane@doe.mail.fr" )&& joueursTest.get(0).getPassword().equals("soccer89" ) , "Si le mail jane@doe.mail.fr et le mot de passe soccer89 sont renvoyés c'est que la méthode fonctionne");
-        
-
+        assertTrue(joueursTest.getMail().equals("jane@doe.mail.fr" )&& joueursTest.getPassword().equals("soccer89" ));
     }
 
 
+    //Si mail non présent en BDD
+    @Test
+    @Sql("givenPersonnageWithMail_WhenNotFindingByMail_ThenReturnNoPersonnage.sql")
+    public void givenPersonnageWithMail_WhenNotFindingByMail_ThenReturnNoPersonnage(){
+        Optional<Personnage> perso = pRepository.findByMail("pierre@aa.fr");
+        assertTrue(perso.isEmpty());
+    }
+
+    // Si mail non présent mais password présent en BDD
+    @Test
+    @Sql("givenPersonnageWithMailAndPassword_WhenNotFindingByMailAndPassword_ThenReturnNoPersonnage.sql")
+    public void givenPersonnageWithWrongMailAndGoodPassword_WhenNotFindingByMailAndPassword_ThenReturnNoPersonnage(){
+        Optional<Personnage> perso = pRepository.findByMailAndPassword("pierre@aa.fr", "1323");
+        assertTrue(perso.isEmpty());
+    }
+
+    // Si mail présent mais password non présent en BDD
+    @Test
+    @Sql("givenPersonnageWithMailAndPassword_WhenNotFindingByMailAndPassword_ThenReturnNoPersonnage.sql")
+    public void givenPersonnageWithGoodMailAndWrongPassword_WhenNotFindingByMailAndPassword_ThenReturnNoPersonnage(){
+        Optional<Personnage> perso = pRepository.findByMailAndPassword("joe@aa.fr", "1324");
+        assertTrue(perso.isEmpty());
+    }
 
 
 
