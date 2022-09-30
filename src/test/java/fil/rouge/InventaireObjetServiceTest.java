@@ -1,7 +1,6 @@
 package fil.rouge;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +36,9 @@ public class InventaireObjetServiceTest {
         Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         //On instancie un objet test
         Objet objet = new Objet("Hache", 1);
+        //On instancie un inventaire objet que l'on ajoute au personnage
+        InventaireObjet inventaireO = new InventaireObjet();
+        personnage.addInventaireObjet(inventaireO);
         //ON instancie une liste "Inventaire objet" qui va nous servir pour le mockito
         List<InventaireObjet> objets = new ArrayList<>();
         //On mocke le inventaireObjetRepository pour le test, et on lui renvoie la liste d'inventaireobjet instanciée plus haut.
@@ -46,7 +48,7 @@ public class InventaireObjetServiceTest {
         //On utilise la méthode à tester
         inventaireObjetService.ajouterObjet(personnage, 1, 1);
         //On vérifie que l'inventaire du personnage a bien été créé, et qu'il a une taille de 1 (et donc qu'il contient qqch)
-        assertThat(personnage.getInventaireObjet().size()==1);
+        assertTrue(personnage.getInventaireObjet().size()==2);
     }
     
     @Test

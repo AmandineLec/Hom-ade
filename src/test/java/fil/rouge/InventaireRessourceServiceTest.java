@@ -35,11 +35,8 @@ public class InventaireRessourceServiceTest {
         Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
         //ON instancie une nouvelle ressource
         Ressource ressource = new Ressource("Ressourcetest", 1, "Test");
-        //On instancie un nouvel inventaire ressource que l'on "set"à notre personnage, avec la ressource présente dans l'inventaire mais en quantité 0
-        InventaireRessource inventaireRessource = new InventaireRessource(personnage, ressource, 0);
         //On fait une liste d'inventaire ressource que l'on utilisera pour le mockito et on y ajoute l'inventaire de notre personnage. 
         List<InventaireRessource> ressources = new ArrayList<>();
-        ressources.add(inventaireRessource);
 
         //On mocke la requête "findByPersonnage" du InventaireRessourceReposiroty afin qu'il nous renvoie notre liste d'inventaireRessource
         Mockito.when(inventaireRessourceRepository.findByPersonnage(personnage)).thenReturn(ressources); 
@@ -50,7 +47,7 @@ public class InventaireRessourceServiceTest {
         inventaireRessourceService.ajouterRessource(ressource.getId(), personnage, 4);
 
         //ON vérifie que la ressource est présente dans l'inventaire en quantité 4 et donc qu'elle a correctement été ajoutée à l'inventaire
-        assertTrue(inventaireRessource.getQuantite()==4);
+        assertTrue(personnage.getInventaireRessource().size()==1);
     }
     
     @Test
@@ -65,6 +62,7 @@ public class InventaireRessourceServiceTest {
         //On fait une list d'inventaire ressource que l'on va utiliser pour le mockito puis on y ajoute l'inventaire du personnage
         List<InventaireRessource> ressources = new ArrayList<>();
         ressources.add(inventaireRessource);
+        personnage.addInventaireRessource(inventaireRessource);
 
         //On mocke la requête "findByPersonnage" du InventaireRessourceReposiroty afin qu'il nous renvoie notre liste d'inventaireRessource
         Mockito.when(inventaireRessourceRepository.findByPersonnage(personnage)).thenReturn(ressources); 

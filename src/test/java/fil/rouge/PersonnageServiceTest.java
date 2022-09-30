@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -199,21 +201,20 @@ public class PersonnageServiceTest {
 
     @Test
     public void checkIfHasTool(){
-        // je crée un optional de personnage contenant un nouveau Perso
-        Optional<Personnage> Bob = Optional.of(new Personnage());
-        // Je simule une requête pour que mon perso fasse référence à Bob dans la bdd
-        Mockito.when(pRepository.findById(31)).thenReturn(Bob);
-        // je crée un optional d'objet contenant un nouvel Objet
-        Optional<Objet> hacheRudimentaire = Optional.of(new Objet());
+        // je créer un perso
+        Personnage Bob = new Personnage("Bob", 1);
+        // Je créer un objet
+        Objet hacheRudimentaire = new Objet("hacheRudimentaire", 3);
         // je simule une requête pour que mon outil fasse référence à la hache Rudimentaire dans la bdd
-        Mockito.when(objRepo.findById(3)).thenReturn(hacheRudimentaire);
+        Mockito.when(objRepo.getReferenceById(3)).thenReturn(hacheRudimentaire);
 
         List<InventaireObjet> inventaireBob = new ArrayList<InventaireObjet>();
-        Mockito.when(iORepository.findByPersonnage(Bob.get())).thenReturn(inventaireBob);
+        
+        Mockito.when(iORepository.findByPersonnage(Bob)).thenReturn(inventaireBob);
         // j'ajoute l'outil à l'inventaireObjet du personnage
-        inventaireObjetService.ajouterObjet(Bob.get(), 3, 1);
+        inventaireObjetService.ajouterObjet(Bob, hacheRudimentaire.getId(), 1);
         // si la taille de l'inventaire de Bob est égale à 1 => true, le test passe
-        assertTrue(Bob.get().getInventaireObjet().size() == 1);
+        assertTrue(Bob.getInventaireObjet().size() == 1);
         // pService.equiperOutil(31, (Outil)hacheRudimentaire.get());
         // assertEquals(Bob.get().getOutil(),hacheRudimentaire);
     }
