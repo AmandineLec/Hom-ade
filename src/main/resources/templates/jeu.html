@@ -7,6 +7,21 @@
 <link rel="icon" type="image/gif" href="img/house.png"/>
 </head>
 <body>
+    <h1>
+        <form action="#" th:action="@{/go_home6}" method="post" id="flogo">
+           <button id="btnlogo" type="submit"><img src="img/house.png" alt="house" class="imgHome" id="logo"></button>
+        </form>
+        <form action="#" th:action="@{/retour_compte2}" method="post" id="retourCompteForm">
+            <button id="retourCompteBtn" type="submit">
+                <div th:if="${personnage.sexe == 1}">
+                    <img src="img/homme.png" alt="" id="retourHomme">
+                </div>
+                <div th:if="${personnage.sexe == 2}">
+                    <img src="img/femme.png" alt="" id="retourFemme">
+                </div>
+            </button>
+        </form>
+     </h1>
     <!-- <div class="container" >
         <p th:text="${ressource.nom}"></p>
     </div> -->

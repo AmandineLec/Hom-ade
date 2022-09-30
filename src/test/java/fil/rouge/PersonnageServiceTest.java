@@ -169,12 +169,6 @@ public class PersonnageServiceTest {
         return personnage.getSexe() == 1;
     }
 
-    // private boolean checkPersonnageMailIsOk(Personnage personnage){
-    //     if(personnage.getMail().equals("marie@mail.fr") && personnage.getPassword() == "1234"){
-    //         return true;
-    //     }
-    //     return false;
-    // }
     //#endregion
 }
 

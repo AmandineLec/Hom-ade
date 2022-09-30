@@ -12,7 +12,8 @@ h1{
     color: #99B800;
     /* border: #EEAB00 solid 1px; */
     border-radius: 5px;
-
+    display: flex;
+    justify-content: space-between;
 }
 
 a{
@@ -88,4 +89,18 @@ article{
 
 .imgHome{
     margin-top: 0%;
+}
+
+#logo, #btnlogo, #flogo, #retourCompteForm, #retourCompteBtn, #retourFemme{
+    width: 64px;
+    background-color:#643F1D;
+    border: 0px;
+    padding: 0%;
+    margin: 0;
+
+}
+
+#retourCompteBtn{
+    color: #99B800;
+
 }

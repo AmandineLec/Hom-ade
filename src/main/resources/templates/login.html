@@ -8,7 +8,12 @@
    </head>
    
    <body>
-   <h1>Connexion</h1>
+      <h1>
+         <form action="#" th:action="@{/go_home4}" method="post" id="flogo">
+            <button id="btnlogo" type="submit"><img src="img/house.png" alt="house" class="imgHome" id="logo"></button>
+         </form>
+         <span>Connexion</span>
+      </h1>
    <br>
    <form action="#" th:action="@{/new_inscription}" method="post">
 	   <button id="inscription" type="submit">Inscription</button>
