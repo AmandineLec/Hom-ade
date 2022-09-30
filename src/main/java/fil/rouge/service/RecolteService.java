@@ -23,10 +23,9 @@ public class RecolteService {
 
     
     
-    public ObjetRecoltableDTO recoltageRamassage(Personnage personnage, int objetRecoltableId, int pv) {
+    public ObjetRecoltableDTO recolteRamassage(Personnage personnage, int objetRecoltableId, int pv) {
         ObjetRecoltable objetRecoltable = objetRecoltableService.getObjetRecoltable(objetRecoltableId);
         
-
         try {
             // Lors du clic, on utilise l'outil du personnage sur l'objet récoltable, et on récupère sa nouvelle résistance
             pv = Math.max(objetRecoltableService.utiliserOutil(personnage, objetRecoltable, pv), 0);
@@ -43,6 +42,7 @@ public class RecolteService {
             objetRecoltable = objetRecoltableService.disparait(objetRecoltable);
         }
         ObjetRecoltableDTO dto = convertDataIntoDTO(objetRecoltable);
+        System.out.println("test : " + dto);
         return dto;
     }
 

@@ -39,7 +39,13 @@ public class ObjetRecoltableDTO {
     public void setDisparitionTime(long disparitionTime) {
         this.disparitionTime = disparitionTime;
     }
+    
 
     //#endregion
     
+    @Override
+    public String toString() {
+        return "ObjetRecoltableDTO [cooldown=" + cooldown + ", disparitionTime=" + disparitionTime
+                + ", idObjetRecoltable=" + idObjetRecoltable + ", nom=" + nom + ", pv=" + pv + "]";
+    }
 }

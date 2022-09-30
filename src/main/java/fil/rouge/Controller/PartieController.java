@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dto.PersonnageDto;
 import fil.rouge.model.Personnage;
@@ -25,6 +26,7 @@ public class PartieController {
   @Autowired
 	public PersonnageRepository pRepository;
 
+  
     @PostMapping("/gestion_compte") // Accede via l'url /partie et via les infos entrées dans le formulaire...
 	public String gererCompte(@ModelAttribute PersonnageDto personnage, Model model) throws Exception {
 		model.addAttribute("personnage", personnage);
@@ -41,13 +43,15 @@ public class PartieController {
     @GetMapping("/")
     public String debutPartie(Principal principal, Model model){
       Personnage personnage = pRepository.findByMail(principal.getName()).get();
+      
       model.addAttribute("personnage", personnage);
 
       return "/partie";
     }
 
     @PostMapping("/play_game") // Accede via l'url /partie et via les infos entrées dans le formulaire...
-    public String jouer(@ModelAttribute PersonnageDto personnage, Model model) throws Exception {
+    public String jouer(Principal principal, Model model) throws Exception {
+      Personnage personnage = pRepository.findByMail(principal.getName()).get();     
       model.addAttribute("personnage", personnage);
       return "/jeu"; // ...A la page partie.html
       }

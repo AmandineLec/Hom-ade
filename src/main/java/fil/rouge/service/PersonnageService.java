@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -147,4 +148,8 @@ public class PersonnageService {
       throw new Exception("Personnage inexistant");
     }
   }
+
+  public Personnage getPersonnage(int PersonnageId) throws EntityNotFoundException {
+    return ServiceUtils.getEntity(pRepository, PersonnageId);
+}
 }

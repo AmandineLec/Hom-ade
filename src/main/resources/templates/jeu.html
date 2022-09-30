@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Bob le Bricoleur</title>
-<link rel="stylesheet" href="style.css"/>
-<link rel="icon" type="image/gif" href="img/house.png"/>
+    <meta charset="UTF-8">
+    <title>Bob le Bricoleur</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/gif" href="img/house.png" />
 </head>
+
 <body>
     <!-- <div class="container" >
-        <p th:text="${ressource.nom}"></p>
+        <h2>Bienvenue <span th:text="${personnage.name}">inconnu</span></h2>
     </div> -->
-    <form th:action="${/recolte}" action="#" method="post" th:object="${dto}">
-        <input type="input" name="id" value="8" />
-        <input type="input" name="pv" value="15" />
-        <input type="submit" value="Arbre" />
+    <div th:if="${oRDto != null}">
+        <div th:if="${oRDto.pv == 0}">
+            <p id="infosP">L'arbre est tombé</p>
+        </div>
+        <div th:unless="${oRDto.pv == 0}">
+            <form th:action="@{/recolte}" action="#" method="post" th:object="${oRDto}">
+                <p th:text="*{pv}"></p>
+                <input type="hidden" name="id" value="8" />
+                <input type="submit" value="Arbre" />
 
-    </form>
+            </form>
+        </div>
+    </div>
+    <div th:unless="${oRDto != null}">
+        <form th:action="@{/recolte}" action="#" method="post">
+            <input type="hidden" name="id" value="8" />
+            <input type="submit" value="Arbre" />
+
+        </form>
+    </div>
 </body>
+
 </html>
