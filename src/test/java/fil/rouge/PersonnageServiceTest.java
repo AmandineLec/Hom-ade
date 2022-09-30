@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -131,17 +131,25 @@ public class PersonnageServiceTest {
         assertThrows(NoSuchElementException.class, () -> pService.suppressionPartie("paul@mail.fr", "1234"));
     }
 
-    // @Test
-    // public void whenValidMailAndPassword_ThenDeletePersonnage(){
-    //     try{
-    //         pService.suppressionPartie("marie@mail.fr", "1234");
-    //     }
-    //     catch(Exception e){
+    @Test
+    public void whenValidMailAndPassword_ThenDeletePersonnage(){
+        Optional<Personnage> personnage = Optional.of(new Personnage("bob", 1, "marie@mail.fr", "1234"));
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+        pService.suppressionPartie("marie@mail.fr", "1234");
+       
+        Mockito.verify(pRepository).delete(personnage.get());
+    }
 
-    //     }
+    @Test
+    public void whenWrongMailAndGoodPassword_ThenConnexion(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+       
+        assertThrows(NoSuchElementException.class, () -> pService.connexionPartie("mari@mail.fr", "1234"));
+    }
 
-    //     Mockito.verify(pRepository).delete(ArgumentMatchers.argThat(this::checkPersonnageMailIsOk));
-    // }
+    
+
 
     //#region Verification Arguments
     private boolean checkPersonnageHasMaison(Personnage personnage)
