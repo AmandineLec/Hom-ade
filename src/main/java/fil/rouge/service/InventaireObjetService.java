@@ -30,7 +30,6 @@ public class InventaireObjetService {
 
         Collection<InventaireObjet> it = ioRepository.findByPersonnage(personnage); //On récupère les inventaires via la query d'InventaireObjetRepository
         for(InventaireObjet invObjet : it){ // On parcours la collection d'inventaire
-
             // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
             if (invObjet.getObjet().getId() == objet.getId()) { 
                 invObjet.setQuantite(invObjet.getQuantite()+quantite); // Alors on modifie la quantité de l'objet

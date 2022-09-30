@@ -30,7 +30,6 @@ public class ObjetService {
     }
     //Méthode de création d'un objet
     public boolean creerObjet(Personnage personnage, int id){
-        //On crée un liste optional des objets en faisant un appel sur la BDD avec un ID
         Objet objet = oRepository.getReferenceById(id);
         //On fait appel à la méthide ajouter objet pour ajouter l'objet dans l'inventaire du personnage. 
         inventaireObjetService.ajouterObjet(personnage, objet.getId(), 1);
