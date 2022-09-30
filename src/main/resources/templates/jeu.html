@@ -2,10 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Jeu</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<title>Bob le Bricoleur</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="icon" type="image/gif" href="img/house.png"/>
 </head>
 <body>
+    <h1>
+        <form action="#" th:action="@{/go_home6}" method="post" id="flogo">
+           <button id="btnlogo" type="submit"><img src="img/house.png" alt="house" class="imgHome" id="logo"></button>
+        </form>
+        <form action="#" th:action="@{/retour_compte2}" method="post" id="retourCompteForm">
+            <button id="retourCompteBtn" type="submit">
+                <div th:if="${personnage.sexe == 1}">
+                    <img src="img/homme.png" alt="" id="retourHomme">
+                </div>
+                <div th:if="${personnage.sexe == 2}">
+                    <img src="img/femme.png" alt="" id="retourFemme">
+                </div>
+            </button>
+        </form>
+     </h1>
     <!-- <div class="container" >
         <p th:text="${ressource.nom}"></p>
     </div> -->
@@ -14,7 +30,6 @@
         <input type="hidden" name="resistanceInit" value="10" />
         <p>Résistance : <span th:text="${resistance}">10</span></p>
         <input type="submit" value="Arbre" />
-
     </form>
 </body>
 </html>

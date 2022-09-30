@@ -84,8 +84,12 @@ public class RecetteService {
                     throw new ReceiptsException("Vous n'avez pas le niveau requis pour créer cet objet");
                 }
             }
+<<<<<<< HEAD
         }
         //On retourne le booléen qui nous permettra de savoir si la recette a pu être réalisée. 
         return craftable;
+=======
+        return false;
+>>>>>>> Marie
     }
 }

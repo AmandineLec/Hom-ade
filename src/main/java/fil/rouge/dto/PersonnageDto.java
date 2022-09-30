@@ -1,30 +1,44 @@
 package fil.rouge.dto;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-public class InscriptionDto {
+public class PersonnageDto {
 
-
+  @NotNull
+  @NotEmpty
   protected String name;
 
-  protected int sexe = 1;
+  @NotNull
+  @NotEmpty
+  protected int sexe;
 
+  @NotNull
+  @NotEmpty
   protected String mail;
 
+  @NotNull
+  @NotEmpty
   protected String password;
 
-  public InscriptionDto(String name, int sexe) {
+  public PersonnageDto(String name, int sexe) {
       this.name = name;
       this.sexe = sexe;
     }
+
+  public PersonnageDto(String mail, String password){
+    this.mail = mail;
+    this.password = password;
+  }
   
-  public InscriptionDto(String name, int sexe, String mail, String password) {
+  public PersonnageDto(String name, int sexe, String mail, String password) {
       this.name = name;
       this.sexe = sexe;
       this.mail = mail;
       this.password = password;
     }
   
-  public InscriptionDto(){}
+  public PersonnageDto(){}
     
   // #region GET/SET
 

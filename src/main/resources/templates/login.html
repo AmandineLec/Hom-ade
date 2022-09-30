@@ -8,19 +8,25 @@
    </head>
    
    <body>
-   <h1>Connexion</h1>
+      <h1>
+         <form action="#" th:action="@{/go_home4}" method="post" id="flogo">
+            <button id="btnlogo" type="submit"><img src="img/house.png" alt="house" class="imgHome" id="logo"></button>
+         </form>
+         <span>Connexion</span>
+      </h1>
    <br>
    <form action="#" th:action="@{/new_inscription}" method="post">
 	   <button id="inscription" type="submit">Inscription</button>
    </form>
 	<br>
-   <form action="#" th:action="@{/se_connecter}" th:object="${personnage}" method="post">
+   
+   <form th:action='@{/login}' action="#" method="post">
 	
 		<label for='mail'>Mail</label><br>
-  		<input type='email' name='mail' th:field="*{mail}"><br>
+  		<input type='email' name='username' id="mail"><br>
       <br>
 	 	<label for='password'>Mot de passe </label><br>
-  		<input type='password' name='password' th:field="*{password}"><br>
+  		<input type='password' name='password' id="password"><br>
 
       <br>
   		<button type='submit'>C'est parti !</button>

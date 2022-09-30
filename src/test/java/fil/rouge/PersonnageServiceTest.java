@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -29,8 +31,6 @@ public class PersonnageServiceTest {
 
     @Test
     public void WhenInvalidInscription_ThenThrowsException() {
-        //Personnage personnage = new Personnage("Jean", 1, "marie@mail.fr", "1234");
-        //Mockito.when(pRepository.save(personnage)).thenReturn(personnage);
 
         List<Personnage> personnages = new ArrayList<Personnage>();
         Personnage perso = new Personnage("Pierre", 1, "marie@mail.fr", "123");
@@ -50,7 +50,7 @@ public class PersonnageServiceTest {
             pService.inscription("marie@mail.fr", "1254", "Paul", 2);
         }
         catch(Exception e){
-
+            System.out.println("Un affichage inutile dans la console juste pour ne pas rien mettre");
         }
         /* Syntaxes pour faire une vérification d'un argument de méthode :
         * ArgumentMatcher<Personnage> matcher = this::checkPersonnageHasMaison;
@@ -117,7 +117,41 @@ public class PersonnageServiceTest {
         Mockito.verify(pRepository).save(ArgumentMatchers.argThat(this::checkPersonnageIsMale));
     }
 
+    @Test
+    public void givenMailAndPassword_WhenNotFoundPersoWithMailAndPassword_ThenThrowsException() {
 
+        List<Personnage> personnages = new ArrayList<Personnage>();
+        Personnage perso = new Personnage("Pierre", 1, "marie@mail.fr", "123");
+        personnages.add(perso);
+        personnages.stream().map(x -> x.getMail());
+        personnages.stream().map(x -> x.getPassword());
+
+        Mockito.when(pRepository.findAll()).thenReturn(personnages);
+
+        assertThrows(NoSuchElementException.class, () -> pService.suppressionPartie("paul@mail.fr", "1234"));
+    }
+
+    @Test
+    public void whenValidMailAndPassword_ThenDeletePersonnage(){
+        Optional<Personnage> personnage = Optional.of(new Personnage("bob", 1, "marie@mail.fr", "1234"));
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+        pService.suppressionPartie("marie@mail.fr", "1234");
+       
+        Mockito.verify(pRepository).delete(personnage.get());
+    }
+
+    @Test
+    public void whenWrongMailAndGoodPassword_ThenConnexion(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+       
+        assertThrows(NoSuchElementException.class, () -> pService.connexionPartie("mari@mail.fr", "1234"));
+    }
+
+    
+
+
+    //#region Verification Arguments
     private boolean checkPersonnageHasMaison(Personnage personnage)
     {
         return personnage.getMaison() != null;
@@ -142,5 +176,7 @@ public class PersonnageServiceTest {
     {
         return personnage.getSexe() == 1;
     }
+
+    //#endregion
 }
 

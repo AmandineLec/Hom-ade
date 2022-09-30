@@ -9,13 +9,18 @@
    </head>
    
    <body>
-   <h1>Inscription</h1>
+   <h1>
+      <form action="#" th:action="@{/go_home2}" method="post" id="flogo">
+         <button id="btnlogo" type="submit"><img src="img/house.png" alt="house" class="imgHome" id="logo"></button>
+      </form>
+      <span>Inscription</span>
+   </h1>
    <br>
    <form action="#" th:action="@{/new_connexion}" method="post">
 	   <button id="connexion" type="submit">Connexion</button>
    </form>
 	<br>
-   <form action="#" th:action="@{/partie}" th:object="${personnage}" method="post">
+   <form action="#" th:action="@{/inscription}" th:object="${personnage}" method="post">
 	
 		<label for='mail'>Mail</label><br>
   		<input type='email' name='mail' id='mail' th:field="*{mail}"><br>
@@ -26,7 +31,7 @@
       <label for='name'>Nom de votre personnage</label><br>
   		<input type='text' name='name' id='name' th:field="*{name}"><br>
 
-      <input type="radio" id="feminin" name="sexe" value="2"  checked th:field="*{sexe}">
+      <input type="radio" id="feminin" name="sexe" value="2" th:field="*{sexe}" >
       <label for="feminin">Féminin</label>
       <br>
 
@@ -43,7 +48,7 @@
                </label>   
             </span>
             <span>
-               <input type="radio" id="masculin" name="avatar" value="1" checked>
+               <input type="radio" id="masculin" name="avatar" value="1">
                <label for="masculin">
                   <img src="img/homme.png" alt="avatar homme">
                </label>

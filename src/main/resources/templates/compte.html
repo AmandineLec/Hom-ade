@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Bob le Bricoleur</title>
+      <link rel="stylesheet" href="style.css"/>
+      <link rel="icon" type="image/gif" href="img/house.png"/>
+
+   </head>
+   
+   <body>
+    <h1>
+        <form action="#" th:action="@{/go_home3}" method="post" id="flogo">
+           <button id="btnlogo" type="submit"><img src="img/house.png" alt="house" class="imgHome" id="logo"></button>
+        </form>
+        <span>Connexion</span>
+    </h1>
+   <br>
+   <form action="#" th:action="@{/accueil_connexion}" method="post">
+	   <button id="deconnexion" type="submit">Déconnexion</button>
+   </form>
+	<br>
+
+
+   <div>
+		<h2>Bienvenue</h2>
+        <div id="infosP">
+            <!-- Supprimer compte, modifier Mdp, modifier mail, modifier sexe, modifier nom-->
+            <p id="infos">Entrez les informations à valider</p>
+            <div id="modif_infos">
+                <form action="#" th:action="@{/modif_sexe}">
+                    <label>Sexe</label>
+                    <br>
+                    <input type="text">
+                    <br>
+                    <input type="submit" value="Valider">
+                </form>
+                <form action="#" th:action="@{/modif_nom}">
+                    <label>Nom</label>
+                    <br>
+                    <input type="text">
+                    <br>
+                    <input type="submit" value="Valider">
+                </form>
+            </div>
+            <div id="modif_infos2">
+                <form action="#" th:action="@{/modif_mail}">
+                    <label>Mail</label>
+                    <br>
+                    <input type="mail">
+                    <br>
+                    <input type="submit" value="Valider">
+                </form>
+                <form action="#" th:action="@{/modif_password}">
+                    <label>Mot de passe</label>
+                    <br>
+                    <input type="password">
+                    <br>
+                    <input type="submit" value="Valider">
+                </form>
+            </div>
+        </div>
+        <br>
+        <form action="#" th:action="@{/retour_compte}" method="post">
+            <button id="retour" type="submit">Retour</button>
+        </form>
+
+   </div>
+   </body>
+</html>
