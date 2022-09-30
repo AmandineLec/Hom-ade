@@ -90,23 +90,23 @@ public class PersonnageService {
   // Modifier les infos du compte
 
   //Mail
-  public boolean modificationMail(Personnage personnage, String mail, String password) throws Exception{
+  public boolean modificationMail(Personnage personnage, String mail, String password, String newMail) throws NoSuchElementException{
     Optional<Personnage> perso = pRepository.findByMailAndPassword(mail, password);
     if(!perso.isEmpty()){
-      perso.get().setMail(mail);
+      perso.get().setMail(newMail);
       pRepository.save(perso.get());
       return true;
     }
     else{
-      throw new Exception("Personnage inexistant");
+      throw new NoSuchElementException("Personnage inexistant");
     }
   }
 
   //Password
-  public boolean modificationPassword(Personnage personnage, String password, String mail) throws Exception{
+  public boolean modificationPassword(Personnage personnage, String password, String mail, String newPassword) throws Exception{
     Optional<Personnage> perso = pRepository.findByMailAndPassword(mail, password);
     if(!perso.isEmpty()){
-      perso.get().setMail(password);
+      perso.get().setPassword(newPassword);
       pRepository.save(perso.get());
       return true;
     }
@@ -118,10 +118,10 @@ public class PersonnageService {
   // Modifier les infos du perso
 
   //Nom
-  public boolean modificationNomPerso(Personnage personnage, String name, String password, String mail) throws Exception{
+  public boolean modificationNomPerso(Personnage personnage, String name, String password, String mail, String newName) throws Exception{
     Optional<Personnage> perso = pRepository.findByMailAndPassword(mail, password);
     if(!perso.isEmpty()){
-      perso.get().setName(name);
+      perso.get().setName(newName);
       pRepository.save(perso.get());
       return true;
     }
@@ -131,10 +131,10 @@ public class PersonnageService {
   }
 
   //Sexe
-  public boolean modificationSexePerso(Personnage personnage, int sexe, String password, String mail) throws Exception{
+  public boolean modificationSexePerso(Personnage personnage, int sexe, String password, String mail, int newSex) throws Exception{
     Optional<Personnage> perso = pRepository.findByMailAndPassword(mail, password);
     if(!perso.isEmpty()){
-      perso.get().setSexe(sexe);
+      perso.get().setSexe(newSex);
       pRepository.save(perso.get());
       return true;
     }
