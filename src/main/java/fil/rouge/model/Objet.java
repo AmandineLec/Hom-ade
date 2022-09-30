@@ -25,14 +25,10 @@ public class Objet {
     @Column(name = "categorie")
     protected int categorie;
 
-<<<<<<< HEAD
-    @OneToMany(mappedBy = "objet") // un objet(déjà crée en bdd) peut être dans plusieurs inventaires
-=======
     @OneToMany(mappedBy = "objet")
     protected Set<Recette> recette = new HashSet<Recette>();
 
     @OneToMany(mappedBy = "objet")
->>>>>>> Marie
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
     @OneToMany(mappedBy = "objet") // grâce à la table equipement_maison : accés à tous les objets equipes

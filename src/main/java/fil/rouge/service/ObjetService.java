@@ -35,7 +35,7 @@ public class ObjetService {
         Optional<Objet> Optobjet = oRepository.findById(id);
         //On va chercher l'objet présent dans la liste/ 
         Objet objet = Optobjet.get();
-        //On fait appel à la méthide ajouter objet pour ajouter l'objet dans l'inventaire du personnage. 
+        //On fait appel à la méthode ajouter objet pour ajouter l'objet dans l'inventaire du personnage. 
         inventaireObjetService.ajouterObjet(personnage, objet.getId(), 1);
         return true;
     }

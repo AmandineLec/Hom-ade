@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -15,9 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.exception.MailAlreadyUsedException;
+import fil.rouge.model.Objet;
+import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
+import fil.rouge.service.InventaireObjetService;
+import fil.rouge.service.ObjetService;
 import fil.rouge.service.PersonnageService;
 
 @SpringBootTest
@@ -25,6 +30,15 @@ public class PersonnageServiceTest {
     
     @Autowired
     PersonnageService pService;
+
+    @MockBean
+    InventaireObjetService inventaireObjetService;
+
+    @MockBean
+    ObjetService objService;
+
+    @MockBean
+    ObjetRepository objRepo;
 
     @MockBean
     PersonnageRepository pRepository;
@@ -176,6 +190,32 @@ public class PersonnageServiceTest {
     //     return false;
     // }
     //#endregion
+
+    @Test
+    public boolean checkIfWeCanRetrieveObjetFromInventaire(){
+        // je crée un optional de personnage contentant un nouveau Perso
+        Optional<Personnage> Bob = Optional.of(new Personnage());
+        // Je simule une requête pour mon perso fasse rférence à Bob dans la bdd
+        Mockito.when(pRepository.findById(31)).thenReturn(Bob);
+        // je crée un optional d'objet contentant un nouvel objet
+        Optional<Objet> hacheRudimentaire = Optional.of(new Objet());
+        // je simule une requête pour aller chercher l'outil dont l'id est le 3 qui correspondra à mon hâche
+        Mockito.when(objRepo.findById(3)).thenReturn(hacheRudimentaire);
+        // j'ajoute l'outil à l'inventaireObjet du personnage
+        inventaireObjetService.ajouterObjet(Bob.get(), hacheRudimentaire.get().getId(), 1);
+
+
+        
+        
+        
+
+
+        
+        
+        
+        return true;
+
+    }
 }
 
 

@@ -61,16 +61,8 @@ public class InventaireObjet {
         this.id = new InventaireObjetKey(personnage.getIdPersonnage(), objet.getId());
     }
 
-<<<<<<< HEAD
-
-    //#region méthodes du service
-    public void ajouterObjet(int quantite) { 
-        this.quantite += quantite;
-
-=======
     public void ajouterObjet(int quantity) {
         this.quantite += quantity;
->>>>>>> Marie
     }
 
     public boolean retirerObjet(int quantite) {
