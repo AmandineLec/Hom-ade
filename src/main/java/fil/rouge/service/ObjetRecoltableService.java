@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.ObjetRecoltableRepository;
-import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dto.ObjetRecoltableDTO;
 
 import fil.rouge.exception.WrongToolException;

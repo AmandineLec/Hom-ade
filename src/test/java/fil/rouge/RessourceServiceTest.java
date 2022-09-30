@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dao.RessourceRepository;
-import fil.rouge.dto.PersonnageDto;
 import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.Personnage;
 import fil.rouge.model.Ressource;
@@ -35,7 +34,6 @@ public class RessourceServiceTest {
     public void given4Ressource_WhenPersoHasNoRessource_ThenReturn4() {
         Ressource ressource = new Ressource();
         ressource.setId(1);
-        //PersonnageDto personnageDto = new PersonnageDto("toto", "tata");
         Personnage personnage = new Personnage();
 
         Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
@@ -51,7 +49,6 @@ public class RessourceServiceTest {
     public void given4Ressource_WhenPersoHas2Ressource_ThenReturn6() {
         Ressource ressource = new Ressource();
         ressource.setId(1);
-        //PersonnageDto personnageDto = new PersonnageDto("toto", "tata");
         Personnage personnage = new Personnage();
         InventaireRessource inventaireRessource = new InventaireRessource(personnage, ressource, 2);
         personnage.addInventaireRessource(inventaireRessource);

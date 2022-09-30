@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import fil.rouge.dto.PersonnageDto;
-import fil.rouge.model.Personnage;
 import fil.rouge.service.PersonnageService;
 
 @Controller

@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import fil.rouge.dao.ObjetRecoltableRepository;
 import fil.rouge.dao.PersonnageRepository;
-import fil.rouge.dto.PersonnageDto;
 import fil.rouge.exception.WrongToolException;
 import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;
@@ -35,7 +34,6 @@ public class ObjetRecoltableServiceTest {
     @Test
     public void givenObjetRecoltable_WhenOutilNotInOutils_ThenThrowsException() {
         ObjetRecoltable objetRecoltable = new ObjetRecoltable();
-        PersonnageDto personnageDto = new PersonnageDto("toto", "tata");
         Personnage personnage = new Personnage();
         Outil outil1 = new Outil("outil1");
         outil1.setId(1);
@@ -55,7 +53,6 @@ public class ObjetRecoltableServiceTest {
     @Test
     public void givenObjetRecoltableWithPv10_WhenOutilCapacite3_ThenReturn7() {
         ObjetRecoltable objetRecoltable = new ObjetRecoltable();
-        PersonnageDto personnageDto = new PersonnageDto("toto", "tata");
         Personnage personnage = new Personnage();
         Outil outil1 = new Outil("outil1");
         outil1.setId(1);
