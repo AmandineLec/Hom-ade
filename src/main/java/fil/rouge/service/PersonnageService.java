@@ -1,19 +1,24 @@
 package fil.rouge.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.MaisonRepository;
 import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.dao.RoleRepository;
 import fil.rouge.exception.MailAlreadyUsedException;
+import fil.rouge.exception.NeedAMailToRegisterException;
+import fil.rouge.exception.NeedAPasswordToRegisterException;
 import fil.rouge.model.Maison;
 import fil.rouge.model.Personnage;
+import fil.rouge.model.Roles;
 
 
 
@@ -26,15 +31,35 @@ public class PersonnageService {
   @Autowired
   private MaisonRepository mrepository;
 
+  @Autowired
+  private RoleRepository rRepository;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   // Inscription au jeu
-  public boolean inscription(String mail, String password, String name, int sexe) throws MailAlreadyUsedException {
+  public boolean inscription(String mail, String password, String name, int sexe) throws Exception {
     List<Personnage> persos = pRepository.findAll();
     for(Personnage perso : persos){
       if(perso.getMail().equals(mail)){
         throw new MailAlreadyUsedException("Ce mail est déjà utilisé");
       }
     }
-    Personnage personnage = new Personnage(name, sexe, mail, password);
+
+    if(mail == null || mail.isEmpty()){
+      throw new NeedAMailToRegisterException("Vous devez entrer un mail valide pour vous inscrire");
+    }
+
+    if(password == null || password.isEmpty()){
+      throw new NeedAPasswordToRegisterException("Vous devez entrer un mot de passe valide pour vous inscrire");
+    }
+
+    Roles role = rRepository.findByName("user").get();
+    List<Roles> roles = new ArrayList<Roles>();
+    roles.add(role);
+    password = passwordEncoder.encode(password);
+    Personnage personnage = new Personnage(name, sexe, mail, password, true);
+    personnage.setRoles(roles);
     Maison maison = new Maison();
     mrepository.save(maison);
     personnage.setMaison(maison);
@@ -123,6 +148,3 @@ public class PersonnageService {
     }
   }
 }
-
-
-//

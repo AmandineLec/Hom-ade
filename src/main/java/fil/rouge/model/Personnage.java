@@ -1,5 +1,6 @@
 package fil.rouge.model;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,9 +12,9 @@ import javax.persistence.*;
 public class Personnage {
   // #region variables
   @Id
-  @Column(name = "id_personnage")
+  @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  protected Integer id_personnage;
+  protected Integer idPersonnage;
 
   @Column(name = "nom")
   protected String name;
@@ -24,7 +25,6 @@ public class Personnage {
   @ManyToOne
   @JoinColumn(name = "id_maison")
   protected Maison maison;
-
   
   @OneToMany(mappedBy = "personnage") 
   protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
@@ -36,20 +36,31 @@ public class Personnage {
   @JoinColumn(name = "outil")
   protected Outil outil;
 
-  @Column(name = "mail")
+  @Column(name = "mail", unique=true, nullable=false) // Pas forcément utile si déja setté en BDD, mais double vérification pour sécurité
   protected String mail;
 
   @Column(name = "password")
   protected String password;
+
+  private boolean enabled;
+
+  @ManyToMany(fetch = FetchType.EAGER) // LAZY = chargé quand appelé (getter, constructeur), EAGER = automatiquement chargé même sans appel
+  @JoinTable(
+    name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
+    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+  private Collection<Roles> roles;
+
   // #endregion
+
+
+  public Personnage(){
+
+  }
 
   public Personnage(String name, int sexe) {
     this.name = name;
     this.sexe = sexe;
-  }
-
-  public Personnage(){
-
   }
 
   public Personnage(String name, int sexe, String mail, String password){
@@ -59,12 +70,20 @@ public class Personnage {
     this.password = password; 
   }
 
+  public Personnage(String name, int sexe, String mail, String password, boolean enabled){
+    this.name = name; 
+    this.sexe = sexe; 
+    this.mail = mail; 
+    this.password = password; 
+    this.enabled = enabled; 
+  }
+
   public Personnage(String name, int sexe, String mail, String password, Integer id){
     this.name = name; 
     this.sexe = sexe; 
     this.mail = mail; 
     this.password = password; 
-    this.id_personnage = id; 
+    this.idPersonnage = id; 
   }
 
   // #region GET/SET
@@ -85,12 +104,12 @@ public class Personnage {
     this.sexe = newSexe;
   }
 
-  public int getIdPersonnage() {
-    return id_personnage;
+  public Integer getIdPersonnage() {
+    return idPersonnage;
   }
 
-  public void setIdPersonnage(int id_personnage) {
-    this.id_personnage = id_personnage;
+  public void setIdPersonnage(Integer idPersonnage) {
+    this.idPersonnage = idPersonnage;
   }
 
   public Set<InventaireObjet> getInventaireObjet() {
@@ -141,5 +160,49 @@ public class Personnage {
     this.password = password;
   }
 
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  public Collection<Roles> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(Collection<Roles> roles) {
+    this.roles = roles;
+  }
   // #endregion
+
+  
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((idPersonnage == null) ? 0 : idPersonnage.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+
+    Personnage other = (Personnage) obj;
+    if (idPersonnage == null) {
+      if (other.idPersonnage != null)
+        return false;
+    } else if (!idPersonnage.equals(other.idPersonnage))
+      return false;
+    
+    return true;
+  }
+
 }

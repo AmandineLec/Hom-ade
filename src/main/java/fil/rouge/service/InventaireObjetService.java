@@ -61,8 +61,4 @@ public class InventaireObjetService {
         }
         return false; // Si les id ne sont pas trouvés, on ne peut pas retirer donc return false
     }
-
-
-    
-
 }
