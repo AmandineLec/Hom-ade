@@ -43,8 +43,8 @@ public class PersonnageService {
   }
 
   // Suppression du compte
-  public boolean suppressionPartie(String mail) throws EntityNotFoundException{
-    Optional<Personnage> personnage = pRepository.findByMail(mail);
+  public boolean suppressionPartie(String mail, String password) throws NoSuchElementException{
+    Optional<Personnage> personnage = pRepository.findByMailAndPassword(mail, password);
     List<Personnage> persos = pRepository.findAll();
     for(Personnage perso : persos){
       if(perso.getMail() == personnage.get().getMail() && perso.getPassword() == personnage.get().getPassword()){
@@ -52,7 +52,7 @@ public class PersonnageService {
         return true;
         }
     }
-    throw new EntityNotFoundException("Compte non trouvé");
+    throw new NoSuchElementException("Compte non trouvé");
   }
 
   // Connexion à la partie
@@ -65,7 +65,6 @@ public class PersonnageService {
       }
     }
     throw new NoSuchElementException("Identifiants incorrects");
-
   }
 
   // Modifier les infos du compte

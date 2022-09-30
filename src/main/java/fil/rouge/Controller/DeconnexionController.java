@@ -12,10 +12,11 @@ import fil.rouge.dto.InscriptionDto;
 public class DeconnexionController {
 
 
-	@PostMapping("/accueil_inscription")
+	@PostMapping("/accueil_connexion")
 	public String newGame(Model model, @ModelAttribute InscriptionDto personnage) throws Exception {
+		personnage = new InscriptionDto();
 		model.addAttribute("personnage", personnage);
-		return "inscription";
+		return "connexion";
 	}
 
 }

@@ -12,11 +12,11 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "type")
 public class Objet {
 
-    // #region Variables
+    //#region Variables
     @Id
     @Column(name = "id_objet")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    protected Integer id;
 
     @Column(name = "nom")
     protected String nom;
@@ -25,19 +25,19 @@ public class Objet {
     protected int categorie;
 
     @OneToMany(mappedBy = "objet")
+    protected Set<Recette> recette = new HashSet<Recette>();
+
+    @OneToMany(mappedBy = "objet")
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
     // #endregion
 
-    // #region Constructeur
+    //#region Constructeur
 
-    public Objet() {}
-
-    public Objet(String nom) {
+    public Objet(String nom){
         this.nom = nom;
     }
-
-    public Objet(int id) {
+    public Objet(int id){
         this.id = id;
     }
 
@@ -45,10 +45,13 @@ public class Objet {
         this.nom = nom;
         this.id = id;
     }
-    // #endregion
+    public Objet(){
+        
+    }
+    //#endregion
 
-    // #region GETTER & SETTER
-    public int getId() {
+    //#region GETTER & SETTER
+    public Integer getId() {
         return id;
     }
 
@@ -56,7 +59,7 @@ public class Objet {
         return nom;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -67,7 +70,12 @@ public class Objet {
     public int getCategorie() {
         return categorie;
     }
-
+    public Set<Recette> getRecette() {
+        return recette;
+    }
+    public void setRecette(Set<Recette> recette) {
+        this.recette = recette;
+    }
     public void setCategorie(int categorie) {
         this.categorie = categorie;
     }

@@ -6,11 +6,13 @@ body{
 
 h1{
     background-color: #643F1D;
-    width: 50%;
+    width: 95%;
     margin: auto;
     padding: 2%;
     color: #99B800;
-    border: #EEAB00 solid 1px;
+    /* border: #EEAB00 solid 1px; */
+    border-radius: 5px;
+
 }
 
 a{
@@ -25,6 +27,8 @@ form, #choixA, #infosP{
     background-color: #643F1D;
     border: #EEAB00 solid 1px;
     color: #FFFFFF;
+    border-radius: 5px;
+
 }
 
 input{
@@ -34,9 +38,10 @@ input{
 button{
     border: #4A2B0F solid 1px;
     background-color: #EEAB00;
-    padding: 4%;
+    padding: 3%;
     border-radius: 50px;
     font-size: large;
+    width: 250px;
 }
 
 button:hover{
@@ -62,4 +67,16 @@ h2{
     margin-left: auto;
     margin-right: auto;
     padding: 2%;
+    border-radius: 5px;
+}
+
+#modif_infos, #modif_infos2{
+    display: flex;
+}
+
+#play_game{
+    display: flex;
+    margin: auto;
+    padding: 2%;
+    width: 54%;
 }
