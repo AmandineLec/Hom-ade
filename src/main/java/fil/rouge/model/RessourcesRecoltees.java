@@ -1,7 +1,7 @@
 package fil.rouge.model;
 
-import javax.persistence.*;
 
+import javax.persistence.*;
 
 
 @Entity

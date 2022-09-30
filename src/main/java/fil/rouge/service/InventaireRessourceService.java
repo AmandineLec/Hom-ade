@@ -13,7 +13,7 @@ import fil.rouge.model.Ressource;
 
 @Service
 public class InventaireRessourceService {
-
+    
     @Autowired
     InventaireRessourceRepository inventaireRessourceRepository;
 
@@ -31,7 +31,7 @@ public class InventaireRessourceService {
             //On compare l'id de la ressource instanciée avec les id des ressources présentes dans l'inventaire
             if(resource.getId() == ressource.getRessource().getId()){
                 //Si la ressource est déjà présente, on met à jour sa quantité
-                ressource.ajouterRessource(quantite);
+                ressource.setQuantite(ressource.getQuantite()+quantite);
                 //On save ensuite la nouvelle quantité dans la base de données. 
                 inventaireRessourceRepository.save(ressource);
                 return true;
@@ -40,6 +40,7 @@ public class InventaireRessourceService {
         //Si on ne trouve aucun inventaireRessource au personnage (et donc qu'il est vide), On lui crée son inventaire, 
         //En lui ajoutant la ressource et lui settant la quantité. 
         InventaireRessource invRessource = new InventaireRessource(personnage, resource, quantite);
+        personnage.addInventaireRessource(invRessource);
         //On save ensuite cet inventaire dans la base de données. 
         inventaireRessourceRepository.save(invRessource);
         return true; 
@@ -52,7 +53,7 @@ public class InventaireRessourceService {
         List<InventaireRessource> it = inventaireRessourceRepository.findByPersonnage(personnage); //On récupère les inventaires via la query d'InventaireRessourceRepository
         for(InventaireRessource invRessource : it){ // On parcours la collection d'inventaire
             if (invRessource.getRessource().getId() == ressource.getId()) {// Si l'id de la ressource à retirer est trouvé dans la collection
-                invRessource.retirerRessource(quantite); // Alors on modifie la quantité de la ressource
+                invRessource.setQuantite(invRessource.getQuantite()-quantite);; // Alors on modifie la quantité de la ressource
                 inventaireRessourceRepository.save(invRessource); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true; // Return true si on a réussi à retirer la quantité de ressource indiquée
             }
