@@ -16,7 +16,7 @@ public class DeconnexionController {
 	public String newGame(Model model, @ModelAttribute PersonnageDto personnage) throws Exception {
 		personnage = new PersonnageDto();
 		model.addAttribute("personnage", personnage);
-		return "/login";
+		return "/home";
 	}
 
 }

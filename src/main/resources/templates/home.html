@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Bob le Bricoleur</title>
+        <link rel="stylesheet" href="style.css"/>
+        <link rel="icon" type="image/gif" href="img/house.png"/>
+    </head>
+   
+    <body>
+        <h1>Bob le Bricoleur</h1>
+        <br>
+        <br>
+            <article>Un jeu familial pour toute la famille !</article>
+
+            <br>
+            <div id="play_game">
+                <form action="#" th:action="@{/first_inscription}" method="post">
+                    <button id="inscription" type="submit">Inscription</button>
+                </form>
+                <form action="#" th:action="@{/first_connexion}" method="post">
+                    <button id="connexion" type="submit">Connexion</button>
+                </form>
+            </div>
+            <img src="img/homme.png" alt="house" class="imgHome">
+            <img src="img/house.png" alt="house" class="imgHome">
+            <img src="img/femme.png" alt="house" class="imgHome">
+
+    </body>
+</html>
