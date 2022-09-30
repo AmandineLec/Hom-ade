@@ -7,16 +7,12 @@ import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.InventaireObjetRepository;
 import fil.rouge.dao.ObjetRepository;
-import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.model.InventaireObjet;
 import fil.rouge.model.Objet;
 import fil.rouge.model.Personnage;
 
 @Service
 public class InventaireObjetService {
-    
-    @Autowired
-    private PersonnageRepository pRepository; 
     
     @Autowired 
     private ObjetRepository oRepository;
@@ -38,7 +34,7 @@ public class InventaireObjetService {
             // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
             if (invObjet.getObjet().getId() == objet.getId()) { 
                 invObjet.setQuantite(invObjet.getQuantite()+quantite); // Alors on modifie la quantité de l'objet
-                pRepository.save(personnage); // On sauvegarde en BDD la MAJ de l'inventaire
+                ioRepository.save(invObjet); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true;
             }
         }
@@ -46,7 +42,7 @@ public class InventaireObjetService {
         // si pas trouvé l'association
         InventaireObjet invObj = new InventaireObjet(personnage, objet, quantite);
         personnage.addInventaireObjet(invObj); //On crée un nouvel inventaire objet
-        pRepository.save(personnage); //On save en BDD
+        ioRepository.save(invObj); //On save en BDD
         return true;
     }
 
@@ -59,7 +55,7 @@ public class InventaireObjetService {
             // Si l'id de l'objet à ajouter ET si l'id du perso sont trouvés
             if (invObjet.getObjet().getId() == objet.getId()) {
                 invObjet.setQuantite(invObjet.getQuantite()-quantite);; // Alors on modifie la quantité de l'objet
-                pRepository.save(personnage); // On sauvegarde en BDD la MAJ de l'inventaire
+                ioRepository.save(invObjet); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true; // Return true si on a réussi à retirer la quantité d'objet indiquée
             }
         }

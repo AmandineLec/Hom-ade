@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import fil.rouge.dao.InventaireRessourceRepository;
-import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dao.RessourceRepository;
 import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.Personnage;
@@ -14,9 +13,6 @@ import fil.rouge.model.Ressource;
 
 @Service
 public class InventaireRessourceService {
-
-    @Autowired
-    private PersonnageRepository pRepository; 
     
     @Autowired
     InventaireRessourceRepository inventaireRessourceRepository;
@@ -37,7 +33,7 @@ public class InventaireRessourceService {
                 //Si la ressource est déjà présente, on met à jour sa quantité
                 ressource.setQuantite(ressource.getQuantite()+quantite);
                 //On save ensuite la nouvelle quantité dans la base de données. 
-                pRepository.save(personnage);
+                inventaireRessourceRepository.save(ressource);
                 return true;
             }
         }
@@ -46,7 +42,7 @@ public class InventaireRessourceService {
         InventaireRessource invRessource = new InventaireRessource(personnage, resource, quantite);
         personnage.addInventaireRessource(invRessource);
         //On save ensuite cet inventaire dans la base de données. 
-        pRepository.save(personnage);
+        inventaireRessourceRepository.save(invRessource);
         return true; 
     }
 
@@ -58,7 +54,7 @@ public class InventaireRessourceService {
         for(InventaireRessource invRessource : it){ // On parcours la collection d'inventaire
             if (invRessource.getRessource().getId() == ressource.getId()) {// Si l'id de la ressource à retirer est trouvé dans la collection
                 invRessource.setQuantite(invRessource.getQuantite()-quantite);; // Alors on modifie la quantité de la ressource
-                pRepository.save(personnage); // On sauvegarde en BDD la MAJ de l'inventaire
+                inventaireRessourceRepository.save(invRessource); // On sauvegarde en BDD la MAJ de l'inventaire
                 return true; // Return true si on a réussi à retirer la quantité de ressource indiquée
             }
         }
