@@ -9,8 +9,6 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 
-
-
 @Entity
 @Table(name = "ressources_recoltees")
 public class RessourcesRecoltees {
