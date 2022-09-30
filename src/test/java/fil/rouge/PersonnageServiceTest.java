@@ -2,6 +2,7 @@ package fil.rouge;
 
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import fil.rouge.dao.InventaireObjetRepository;
 import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.exception.MailAlreadyUsedException;
+import fil.rouge.model.InventaireObjet;
 import fil.rouge.model.Objet;
-import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
 import fil.rouge.service.InventaireObjetService;
 import fil.rouge.service.ObjetService;
@@ -42,6 +44,10 @@ public class PersonnageServiceTest {
 
     @MockBean
     PersonnageRepository pRepository;
+
+    @MockBean
+    private InventaireObjetRepository iORepository;
+
 
     @Test
     public void WhenInvalidInscription_ThenThrowsException() {
@@ -192,29 +198,24 @@ public class PersonnageServiceTest {
     //#endregion
 
     @Test
-    public boolean checkIfWeCanRetrieveObjetFromInventaire(){
-        // je crée un optional de personnage contentant un nouveau Perso
+    public void checkIfHasTool(){
+        // je crée un optional de personnage contenant un nouveau Perso
         Optional<Personnage> Bob = Optional.of(new Personnage());
-        // Je simule une requête pour mon perso fasse rférence à Bob dans la bdd
+        // Je simule une requête pour que mon perso fasse référence à Bob dans la bdd
         Mockito.when(pRepository.findById(31)).thenReturn(Bob);
-        // je crée un optional d'objet contentant un nouvel objet
+        // je crée un optional d'objet contenant un nouvel Objet
         Optional<Objet> hacheRudimentaire = Optional.of(new Objet());
-        // je simule une requête pour aller chercher l'outil dont l'id est le 3 qui correspondra à mon hâche
+        // je simule une requête pour que mon outil fasse référence à la hache Rudimentaire dans la bdd
         Mockito.when(objRepo.findById(3)).thenReturn(hacheRudimentaire);
+
+        List<InventaireObjet> inventaireBob = new ArrayList<InventaireObjet>();
+        Mockito.when(iORepository.findByPersonnage(Bob.get())).thenReturn(inventaireBob);
         // j'ajoute l'outil à l'inventaireObjet du personnage
-        inventaireObjetService.ajouterObjet(Bob.get(), hacheRudimentaire.get().getId(), 1);
-
-
-        
-        
-        
-
-
-        
-        
-        
-        return true;
-
+        inventaireObjetService.ajouterObjet(Bob.get(), 3, 1);
+        // si la taille de l'inventaire de Bob est égale à 1 => true, le test passe
+        assertTrue(Bob.get().getInventaireObjet().size() == 1);
+        // pService.equiperOutil(31, (Outil)hacheRudimentaire.get());
+        // assertEquals(Bob.get().getOutil(),hacheRudimentaire);
     }
 }
 

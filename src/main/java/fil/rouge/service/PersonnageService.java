@@ -165,11 +165,7 @@ public class PersonnageService {
         outilPresent = true;
       }
     }
-    if (!outilPresent)
-      throw new OutilException("Vous ne disposez pas de cette outil dans votre inventaire");
-      // si il est déjà équipé de l'outil à équiper
-      if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == outilAEquiper.getId())
-        throw new OutilException("Vous êtes déjà equipé de cet outil");
+    if(outilPresent == true) {
       // si il est équipé d'un outil différent de celui à équiper
       if(personnage.get().getOutil() != null && personnage.get().getOutil().getId() != outilAEquiper.getId()){
         // ajouter l'outil qu'il avait en main dans son inventaire Objet
@@ -179,19 +175,13 @@ public class PersonnageService {
         // l'équiper de l'outil à équiper
         personnage.get().setOutil(outilAEquiper);
       }
-      // // si il est déjà équipé de l'outil à équiper
-      // else if(personnage.get().getOutil() != null && personnage.get().getOutil().getId() == outilAEquiper.getId()){
-      //   throw new OutilAbsentException("Vous êtes déjà equipé de cet outil");
-      // }
-      // else{
-      //   // retirer l'outil de son inventaire Objet et l'en équiper
-      //   try{
-      //   serviceInventaireObjet.retirerObjet(idPersonnage, personnage.get().getOutil().getId(), 1);
-      //     personnage.get().setOutil(outilAEquiper);
-      //   }catch(IllegalArgumentException ex){
-      //     ex.printStackTrace();
-      //   }
-      // }
+      // si il est déjà équipé de l'outil à équiper
+      if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == outilAEquiper.getId())
+        throw new OutilException("Vous êtes déjà equipé de cet outil");
+    }
+
+    if (!outilPresent)
+      throw new OutilException("Vous ne disposez pas de cette outil dans votre inventaire");
   }
 
   public void rangerOutil(Integer idPersonnage, Outil outilEnMain) throws OutilException{
