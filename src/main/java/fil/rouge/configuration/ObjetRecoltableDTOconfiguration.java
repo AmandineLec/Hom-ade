@@ -11,7 +11,7 @@ public class ObjetRecoltableDTOconfiguration {
     
     @Bean
 	@SessionScope
-	public ObjetRecoltableDTO getoRDto() {
+	public ObjetRecoltableDTO getORDto() {
 		return new ObjetRecoltableDTO();
 	}
 }

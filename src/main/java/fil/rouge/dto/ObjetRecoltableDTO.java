@@ -48,4 +48,15 @@ public class ObjetRecoltableDTO {
         return "ObjetRecoltableDTO [cooldown=" + cooldown + ", disparitionTime=" + disparitionTime
                 + ", idObjetRecoltable=" + idObjetRecoltable + ", nom=" + nom + ", pv=" + pv + "]";
     }
+
+
+    public ObjetRecoltableDTO(int idObjetRecoltable, String nom, int pv, long cooldown, long disparitionTime) {
+        this.idObjetRecoltable = idObjetRecoltable;
+        this.nom = nom;
+        this.pv = pv;
+        this.cooldown = cooldown;
+        this.disparitionTime = disparitionTime;
+    }
+    
+    public ObjetRecoltableDTO() {}
 }

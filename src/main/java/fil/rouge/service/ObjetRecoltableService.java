@@ -81,4 +81,10 @@ public class ObjetRecoltableService {
 
         return dto;
     }
+
+    public ObjetRecoltableDTO getObjetRecoltablleDto(int objRecId) {
+        ObjetRecoltable objetRecoltable = getObjetRecoltable(objRecId);
+
+        return convertDataIntoDTO(objetRecoltable);
+    }
 }
