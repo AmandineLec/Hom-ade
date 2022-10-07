@@ -27,9 +27,9 @@ public class Maison {
         this.niveau = 1;
     }
 
-    public Maison(Integer id_maison, int niveau){
+    public Maison(Integer idMaison, int niveau){
         this.niveau = niveau;
-        this.idMaison = id_maison; 
+        this.idMaison = idMaison; 
     }
 
     //#endregion

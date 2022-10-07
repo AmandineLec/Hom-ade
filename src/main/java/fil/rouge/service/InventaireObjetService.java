@@ -24,7 +24,7 @@ public class InventaireObjetService {
     // Gérer toutes les exceptions
 
     //Permet d'ajouter un objet dans l'inventaire
-    public boolean ajouterObjet(Personnage personnage, int Idobj, int quantite){ // id perso concerné, id objet à ajouter, quantité à ajouter
+    public boolean ajouterObjet(Personnage personnage, Integer Idobj, int quantite){ // id perso concerné, id objet à ajouter, quantité à ajouter
         // Personnage personnage = pRepository.getReferenceById(idPerso); // Méthode de JpaRepository permettant de créer une "fausse" entité (éphémère) (ne récupère que ce qu'il y a besoin, cad l'id)
         Objet objet = oRepository.getReferenceById(Idobj);
 
