@@ -23,18 +23,16 @@ public class RecolteController {
     @Autowired
     PersonnageRepository pRepository;
 
-    @Autowired
-    ObjetRecoltableDTO oRDto;
-
+    // accède lorsqu'on clique sur un objet récoltable
     @PostMapping("/recolte")
     public String recolte(Principal principal, @SessionAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO,
             @RequestParam int index, Model model) {
         Personnage personnage = pRepository.findByMail(principal.getName()).get();
         ObjetRecoltableDTO objRecDTO = tabObjetRecoltableDTO.getObjetsRecoltables(index);
 
-        ObjetRecoltableDTO objetRecoltableDTO = recolteService.recolteRamassage(personnage,
+        ObjetRecoltableDTO objetRecoltableDTO = recolteService.recolteRamassage(personnage,  // récupère l'objet récoltable après une action
                 objRecDTO.getIdObjetRecoltable(), objRecDTO.getPv());
-        tabObjetRecoltableDTO.addObjetsRecoltables(objetRecoltableDTO, index);
+        tabObjetRecoltableDTO.addObjetsRecoltables(objetRecoltableDTO, index);  // remet l'objet récoltable à sa place dans le tableau des objets récoltables
 
         model.addAttribute("personnage", personnage);
 
