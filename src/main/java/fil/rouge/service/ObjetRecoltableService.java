@@ -23,9 +23,6 @@ public class ObjetRecoltableService {
     @Autowired
     private ObjetRecoltableRepository objetRecoltableRepository;
 
-    @Autowired
-    private TabObjetRecoltableDTO tabObjRecDTO;
-   
     public ObjetRecoltable getObjetRecoltable(int objetRecoltableId) throws EntityNotFoundException {
         return ServiceUtils.getEntity(objetRecoltableRepository, objetRecoltableId);
     }
@@ -91,10 +88,10 @@ public class ObjetRecoltableService {
 
     // Initialise les objets récoltables
     public TabObjetRecoltableDTO initObjReco() {
-        tabObjRecDTO = new TabObjetRecoltableDTO();
-        tabObjRecDTO.addObjetsRecoltables(getObjetRecoltablleDto(8), 0);
-        tabObjRecDTO.addObjetsRecoltables(getObjetRecoltablleDto(7), 1);
+        TabObjetRecoltableDTO tabObjetRecoltableDTO = new TabObjetRecoltableDTO();
+        tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(8), 0);
+        tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(7), 1);
         
-        return tabObjRecDTO;
+        return tabObjetRecoltableDTO;
     }
 }

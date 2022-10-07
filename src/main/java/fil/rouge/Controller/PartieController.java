@@ -3,6 +3,7 @@ package fil.rouge.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +13,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fil.rouge.dao.ObjetRecoltableRepository;
 import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.dto.PersonnageDto;
 import fil.rouge.dto.TabObjetRecoltableDTO;
 import fil.rouge.model.Personnage;
 import fil.rouge.service.ObjetRecoltableService;
 import fil.rouge.service.PersonnageService;
 
+
 @Controller
-@SessionAttributes("personnage") // seulement dans la 1ere page qui initialise perso
+@SessionAttributes("tabObjetRecoltableDTO") // seulement dans la 1ere page qui initialise perso
 public class PartieController {
 
   @Autowired
@@ -30,6 +33,9 @@ public class PartieController {
 
   @Autowired
   private ObjetRecoltableService objetRecoltableService;
+
+  @Autowired
+  private ObjetRecoltableDTO objetRecoltableDTO;
 
   @Autowired
   private TabObjetRecoltableDTO tabObjetRecoltableDTO;
@@ -58,14 +64,16 @@ public class PartieController {
     }
 
     @PostMapping("/play_game") // Accede via l'url /partie et via les infos entrées dans le formulaire...
-    public String jouer(Principal principal, Model model) throws Exception {
+    public String jouer(Principal principal, @ModelAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO , Model model) throws Exception {
       Personnage personnage = pRepository.findByMail(principal.getName()).get();     
       model.addAttribute("personnage", personnage);
-      TabObjetRecoltableDTO tab =  objetRecoltableService.initObjReco();
+      //tabObjetRecoltableDTO = objetRecoltableService.initObjReco();
       
-      model.addAttribute("tab", tab.getObjetsRecoltables());
       return "/jeu"; // ...A la page partie.html
       }
     
-
+      @ModelAttribute("tabObjetRecoltableDTO")
+      public TabObjetRecoltableDTO tabObjetRecoltableDTOb() {
+         return objetRecoltableService.initObjReco();
+     }
 }

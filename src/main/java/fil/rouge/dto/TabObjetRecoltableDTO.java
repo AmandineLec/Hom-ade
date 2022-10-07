@@ -1,5 +1,9 @@
 package fil.rouge.dto;
 
+import java.util.Arrays;
+
+import org.springframework.stereotype.Component;
+@Component
 public class TabObjetRecoltableDTO {
     private final int tailleTab = 10;
 
@@ -22,6 +26,11 @@ public class TabObjetRecoltableDTO {
 
     public TabObjetRecoltableDTO() {
         
+    }
+
+    @Override
+    public String toString() {
+        return "TabObjetRecoltableDTO [objetsRecoltables=" + Arrays.toString(objetsRecoltables) + "]";
     }
 
     
