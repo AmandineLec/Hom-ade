@@ -18,6 +18,7 @@ import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
 import fil.rouge.service.ObjetRecoltableService;
+import fil.rouge.service.ServiceUtils;
 
 @SpringBootTest
 public class ObjetRecoltableServiceTest {
@@ -46,8 +47,9 @@ public class ObjetRecoltableServiceTest {
         objetRecoltable.addOutil(outil2);
         objetRecoltable.addOutil(outil3);
         Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
+        Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
                       
-        assertThrows(WrongToolException.class, ()-> objetRecoltableService.utiliserOutil(personnage, objetRecoltable, 10));
+        assertThrows(WrongToolException.class, ()-> objetRecoltableService.utiliserOutil(personnage, 1, 10));
     }
 
     @Test
@@ -61,8 +63,9 @@ public class ObjetRecoltableServiceTest {
         personnage.setOutil(outil1);
         objetRecoltable.addOutil(outil1);
         Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
+        Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
         try {
-            assertThat(objetRecoltableService.utiliserOutil(personnage, objetRecoltable, 10)).isEqualTo(7);
+            assertThat(objetRecoltableService.utiliserOutil(personnage, 1, 10)).isEqualTo(7);
         } catch (WrongToolException e) {
             
             e.printStackTrace();
