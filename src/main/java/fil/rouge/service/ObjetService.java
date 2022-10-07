@@ -62,10 +62,6 @@ public class ObjetService {
           throw new OutilException("Vous ne disposez pas de cet outil dans votre inventaire");
         }
 
-        if (outilAEquiper.getCategorie() != 1){
-          throw new OutilException("L'objet à équiper doit être un outil");
-        }
-    
         if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == outilAEquiper.getId()){
           throw new OutilException("Vous êtes déjà equipé de cet outil");
         }

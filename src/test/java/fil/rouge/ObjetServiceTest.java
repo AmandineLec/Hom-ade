@@ -128,8 +128,8 @@ public class ObjetServiceTest {
     @Test
     public void givenValidMail_WhenOutilPresent_ThenEquiper() throws OutilException{
         Optional<Personnage> perso = Optional.of(new Personnage("Bob", 1, "bob@bob.bob", "123456", 31));
-        Outil outil = new Outil(1, 1);
-        Outil outil2 = new Outil(2, 1);
+        Outil outil = new Outil(1);
+        Outil outil2 = new Outil(2);
         List<InventaireObjet> objets = new ArrayList<>();
         Mockito.when(pRepository.findById(31)).thenReturn(perso);
         Mockito.when(iORepository.findByPersonnage(perso.get())).thenReturn(objets); 
@@ -178,7 +178,7 @@ public class ObjetServiceTest {
     @Test
     public void givenValidMail_WhenOutilEquiped_ThenDesequiper() throws OutilException{
         Optional<Personnage> perso = Optional.of(new Personnage("Bob", 1, "bob@bob.bob", "123456", 31));
-        Outil outil = new Outil(1, 1);
+        Outil outil = new Outil(1);
         List<InventaireObjet> objets = new ArrayList<>();
         Mockito.when(pRepository.findById(31)).thenReturn(perso);
         Mockito.when(iORepository.findByPersonnage(perso.get())).thenReturn(objets); 
