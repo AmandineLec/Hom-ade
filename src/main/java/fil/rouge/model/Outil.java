@@ -34,6 +34,11 @@ public class Outil extends Objet implements IEquipable {
         super(id);
     }
 
+    public Outil(Integer id, int categorie) {
+        super(id);
+        this.categorie = categorie;
+    }
+
     public Outil() {
     }
     // #endregion

@@ -47,14 +47,13 @@ public class ObjetService {
         return true;
     }
 
-    public boolean equiperOutil(Integer idOutil, Integer idPerso) throws OutilException{
-        Optional<Personnage> personnage = pRepository.findById(idPerso);
+    public boolean equiperOutil(Integer idPersonnage, Outil outilAEquiper) throws OutilException{
+        Optional<Personnage> personnage = pRepository.findById(idPersonnage);
         Set<InventaireObjet> inventaireObjet = personnage.get().getInventaireObjet();
-        Optional<Objet> outil = oRepository.findByIdAndCategorie(idOutil, 1);
 
         boolean outilPresent = false; 
         for(InventaireObjet invObjet : inventaireObjet){
-          if(invObjet.getObjet().getId() == outil.get().getId()){
+          if(invObjet.getObjet().getId() == outilAEquiper.getId()){
             outilPresent = true;
           }
         }
@@ -62,14 +61,18 @@ public class ObjetService {
         if (!outilPresent){
           throw new OutilException("Vous ne disposez pas de cet outil dans votre inventaire");
         }
-    
-        if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == outil.get().getId()){
-          throw new OutilException("Vous êtes déjà equipé de cet outil");
+
+        if (outilAEquiper.getCategorie() != 1){
+          throw new OutilException("L'objet à équiper doit être un outil");
         }
     
+        if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == outilAEquiper.getId()){
+          throw new OutilException("Vous êtes déjà equipé de cet outil");
+        }
+
         inventaireObjetService.ajouterObjet(personnage.get(), personnage.get().getOutil().getId(), 1);
-        inventaireObjetService.retirerObjet(outil.get().getId(), 1, personnage.get());
-        personnage.get().setOutil((Outil)outil.get());
+        inventaireObjetService.retirerObjet(outilAEquiper.getId(), 1, personnage.get());
+        personnage.get().setOutil((Outil)outilAEquiper);
     
         return true;
       }
@@ -77,18 +80,17 @@ public class ObjetService {
     
       public boolean desequiperOutil(Integer idPersonnage, Integer idOutil) throws OutilException{
         Optional<Personnage> personnage = pRepository.findById(idPersonnage);
-        Optional<Objet> outil = oRepository.findByIdAndCategorie(idOutil, 1);
     
         if (personnage.get().getOutil()== null){
           throw new OutilException("Vous n'êtes pas équipé d'un outil");
         }
     
-        if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() != outil.get().getId()){
+        if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() != idOutil){
           throw new OutilException("Vous n'êtes pas équipé d'un outil");
         }
     
-        if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == outil.get().getId()){
-            inventaireObjetService.ajouterObjet(personnage.get(), outil.get().getId(), 1);
+        if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == idOutil){
+            inventaireObjetService.ajouterObjet(personnage.get(), idOutil, 1);
         }
     
         personnage.get().setOutil(null);
