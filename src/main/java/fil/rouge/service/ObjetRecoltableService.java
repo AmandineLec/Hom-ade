@@ -26,6 +26,7 @@ public class ObjetRecoltableService {
     public ObjetRecoltable getObjetRecoltable(int objetRecoltableId) throws EntityNotFoundException {
         return ServiceUtils.getEntity(objetRecoltableRepository, objetRecoltableId);
     }
+    
 
     // Simule l'utilisation d'un outil sur un objet récoltable
     public int utiliserOutil(Personnage personnage, int objetRecoltableId, int pv)

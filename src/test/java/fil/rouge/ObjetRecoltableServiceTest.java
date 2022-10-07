@@ -18,7 +18,6 @@ import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
 import fil.rouge.service.ObjetRecoltableService;
-import fil.rouge.service.ServiceUtils;
 
 @SpringBootTest
 public class ObjetRecoltableServiceTest {

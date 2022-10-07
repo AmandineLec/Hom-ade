@@ -3,7 +3,6 @@ package fil.rouge.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import fil.rouge.dao.ObjetRecoltableRepository;
 import fil.rouge.dao.PersonnageRepository;
-import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.dto.PersonnageDto;
 import fil.rouge.dto.TabObjetRecoltableDTO;
 import fil.rouge.model.Personnage;
 import fil.rouge.service.ObjetRecoltableService;
-import fil.rouge.service.PersonnageService;
+
 
 
 @Controller
@@ -26,20 +23,12 @@ import fil.rouge.service.PersonnageService;
 public class PartieController {
 
   @Autowired
-	private PersonnageService pService;
-
-  @Autowired
 	private PersonnageRepository pRepository;
 
   @Autowired
   private ObjetRecoltableService objetRecoltableService;
 
-  @Autowired
-  private ObjetRecoltableDTO objetRecoltableDTO;
-
-  @Autowired
-  private TabObjetRecoltableDTO tabObjetRecoltableDTO;
-
+ 
   
     @PostMapping("/gestion_compte") // Accede via l'url /partie et via les infos entrées dans le formulaire...
 	public String gererCompte(@ModelAttribute PersonnageDto personnage, Model model) throws Exception {
@@ -67,11 +56,11 @@ public class PartieController {
     public String jouer(Principal principal, @ModelAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO , Model model) throws Exception {
       Personnage personnage = pRepository.findByMail(principal.getName()).get();     
       model.addAttribute("personnage", personnage);
-      //tabObjetRecoltableDTO = objetRecoltableService.initObjReco();
-      
+            
       return "/jeu"; // ...A la page partie.html
       }
     
+      // Initialise l'attribut de session tabObjetRecoltableDTO
       @ModelAttribute("tabObjetRecoltableDTO")
       public TabObjetRecoltableDTO tabObjetRecoltableDTOb() {
          return objetRecoltableService.initObjReco();
