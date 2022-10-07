@@ -3,21 +3,27 @@ package fil.rouge.dto;
 public class TabObjetRecoltableDTO {
     private final int tailleTab = 10;
 
-    private ObjetRecoltableDTO[] ObjetsRecoltables;
+    private ObjetRecoltableDTO[] objetsRecoltables = new ObjetRecoltableDTO[tailleTab];
 
     //#region getset
-    public ObjetRecoltableDTO[] getObjetsRecoltables() {
-        return ObjetsRecoltables;
+    public ObjetRecoltableDTO getObjetsRecoltables(int index) {
+        return objetsRecoltables[index];
     }
 
-    public void setObjetsRecoltables(ObjetRecoltableDTO[] ObjetsRecoltables) {
-        this.ObjetsRecoltables = ObjetsRecoltables;
+    public void addObjetsRecoltables(ObjetRecoltableDTO objetRecoltableDto, int index) {
+        this.objetsRecoltables[index] = objetRecoltableDto;
+    }
+
+    public ObjetRecoltableDTO[] getObjetsRecoltables() {
+        return objetsRecoltables;
     }
 
     //#endregion
 
     public TabObjetRecoltableDTO() {
-        this.ObjetsRecoltables = new ObjetRecoltableDTO[tailleTab];
+        
     }
+
+    
     
 }

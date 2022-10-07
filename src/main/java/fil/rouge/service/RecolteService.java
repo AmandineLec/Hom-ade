@@ -28,7 +28,7 @@ public class RecolteService {
         
         try {
             // Lors du clic, on utilise l'outil du personnage sur l'objet récoltable, et on récupère sa nouvelle résistance
-            pv = Math.max(objetRecoltableService.utiliserOutil(personnage, objetRecoltable, pv), 0);
+            pv = Math.max(objetRecoltableService.utiliserOutil(personnage, objetRecoltableId, pv), 0);
             objetRecoltable.setPv(pv);
         } catch (WrongToolException e) {
             e.printStackTrace();

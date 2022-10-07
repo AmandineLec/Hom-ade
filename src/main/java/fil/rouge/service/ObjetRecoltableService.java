@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.ObjetRecoltableRepository;
 import fil.rouge.dto.ObjetRecoltableDTO;
-
+import fil.rouge.dto.TabObjetRecoltableDTO;
 import fil.rouge.exception.WrongToolException;
 import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;
@@ -24,16 +24,16 @@ public class ObjetRecoltableService {
     private ObjetRecoltableRepository objetRecoltableRepository;
 
     @Autowired
-    ObjetRecoltableDTO oRDto;
-
+    private TabObjetRecoltableDTO tabObjRecDTO;
+   
     public ObjetRecoltable getObjetRecoltable(int objetRecoltableId) throws EntityNotFoundException {
         return ServiceUtils.getEntity(objetRecoltableRepository, objetRecoltableId);
     }
 
     // Simule l'utilisation d'un outil sur un objet récoltable
-    public int utiliserOutil(Personnage personnage, ObjetRecoltable objetRecoltable, int pv)
+    public int utiliserOutil(Personnage personnage, int objetRecoltableId, int pv)
             throws WrongToolException {
-        
+        ObjetRecoltable objetRecoltable = getObjetRecoltable(objetRecoltableId);
         Outil outil = personnage.getOutil();
         Set<Outil> outils = objetRecoltable.getOutils();
 
@@ -82,9 +82,19 @@ public class ObjetRecoltableService {
         return dto;
     }
 
-    public ObjetRecoltableDTO getObjetRecoltablleDto(int objRecId) {
+    // Récupère un dto de l'objet récoltable d'id objRecId
+    private ObjetRecoltableDTO getObjetRecoltablleDto(int objRecId) {
         ObjetRecoltable objetRecoltable = getObjetRecoltable(objRecId);
 
         return convertDataIntoDTO(objetRecoltable);
+    }
+
+    // Initialise les objets récoltables
+    public TabObjetRecoltableDTO initObjReco() {
+        tabObjRecDTO = new TabObjetRecoltableDTO();
+        tabObjRecDTO.addObjetsRecoltables(getObjetRecoltablleDto(8), 0);
+        tabObjRecDTO.addObjetsRecoltables(getObjetRecoltablleDto(7), 1);
+        
+        return tabObjRecDTO;
     }
 }
