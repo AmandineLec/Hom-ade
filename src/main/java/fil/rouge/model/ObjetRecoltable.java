@@ -134,9 +134,16 @@ public class ObjetRecoltable {
         this.disparitionTime = disparitionTime;
     }
 
-    
 
     //#endregion
 
+    @Override
+    public String toString() {
+        return "ObjetRecoltable [categorie=" + categorie + ", cooldown=" + cooldown + ", disparitionTime="
+                + disparitionTime + ", idElementRecoltable=" + idElementRecoltable + ", niveauRequis=" + niveauRequis
+                + ", nom=" + nom + ", outils=" + outils + ", pv=" + pv + ", ressourcesRecoltees=" + ressourcesRecoltees
+                + "]";
+    }
 
+    
 }

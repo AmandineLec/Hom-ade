@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fil.rouge.dto.PersonnageDto;
-import fil.rouge.model.Personnage;
 import fil.rouge.service.PersonnageService;
 
 
@@ -49,8 +48,8 @@ public class InscriptionController {
 	}
 
     @ModelAttribute
-    public Personnage personnage() {
-        return new Personnage();
+    public PersonnageDto personnage() {
+        return new PersonnageDto();
     }
 
 }

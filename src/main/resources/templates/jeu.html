@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<<<<<<< HEAD
 <head>
 <meta charset="UTF-8">
 <title>Bob le Bricoleur</title>
@@ -144,5 +145,44 @@
         </div>
     </main>
     <script src="jeu.js"></script>
+=======
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bob le Bricoleur</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/gif" href="img/house.png" />
+</head>
+
+<body>
+    <div class="container" >
+        <h2>Bienvenue <span th:text="${personnage.name}">inconnu</span></h2>
+   
+
+    <div th:if="${tabObjetRecoltableDTO.getObjetsRecoltables(0).pv == 0}">
+        <p id="infosP">L'arbre est tombé</p>
+    </div>
+    <div th:unless="${tabObjetRecoltableDTO.getObjetsRecoltables(0).pv == 0}">
+        <form th:action="@{/recolte}" action="#" method="post" th:object="${tabObjetRecoltableDTO}">
+            <p th:text="*{getObjetsRecoltables(0).pv}"></p>
+            <input type="hidden" name="index" value="0" />
+            <input type="submit" value="Arbre" />
+
+        </form>
+    </div>
+
+    <div th:if="${tabObjetRecoltableDTO.getObjetsRecoltables(1).pv == 0}">
+        <p id="infosP">L'arbre est tombé</p>
+    </div>
+    <div th:unless="${tabObjetRecoltableDTO.getObjetsRecoltables(1).pv == 0}">
+        <form th:action="@{/recolte}" action="#" method="post" th:object="${tabObjetRecoltableDTO}">
+            <p th:text="*{getObjetsRecoltables(1).pv}"></p>
+            <input type="hidden" name="index" value="1" />
+            <input type="submit" value="Arbre" />
+
+        </form>
+    </div>
+>>>>>>> Yannick
 </body>
+
 </html>

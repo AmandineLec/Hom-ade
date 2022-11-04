@@ -142,4 +142,7 @@ public class PersonnageService {
     }
   }
 
+  public Personnage getPersonnage(int PersonnageId) throws EntityNotFoundException {
+    return ServiceUtils.getEntity(pRepository, PersonnageId);
+}
 }
