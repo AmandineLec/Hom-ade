@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+}
+
+img {
+    width : 100%; 
+}
+
+button {
+    background: none;
+    border: none;
+}
+
+body {
+    background-color: $brown;
+    display : grid;
+    grid-template-columns: repeat(12,1fr);
+    height : 695px; 
+}
+
+.container {
+    border : solid 3px $gold; 
+    grid-column: 1/ span 12;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    height : 695px; 
+}
+

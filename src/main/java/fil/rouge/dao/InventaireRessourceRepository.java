@@ -15,4 +15,5 @@ public interface InventaireRessourceRepository extends CrudRepository<Inventaire
     
     @Bean
     List<InventaireRessource> findByPersonnage(Personnage personnage);
+
 }

@@ -50,6 +50,28 @@ public class InventaireObjetServiceTest {
         //On vérifie que l'inventaire du personnage a bien été créé, et qu'il a une taille de 1 (et donc qu'il contient qqch)
         assertTrue(personnage.getInventaireObjet().size()==2);
     }
+
+    @Test
+    public void InventaireObjetServiceTestAjouterDeuxObjet(){
+        //On instancie un personnage test
+        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
+        //On instancie un objet test
+        Objet objet = new Objet("Hache", 1);
+        Objet objetTest = new Objet("Objet", 2);
+        //On instancie un inventaire objet que l'on ajoute au personnage
+        //ON instancie une liste "Inventaire objet" qui va nous servir pour le mockito
+        List<InventaireObjet> objets = new ArrayList<>();
+        //On mocke le inventaireObjetRepository pour le test, et on lui renvoie la liste d'inventaireobjet instanciée plus haut.
+        Mockito.when(inventaireObjetRepository.findByPersonnage(personnage)).thenReturn(objets); 
+        //On moque également le objetRepository qui est utilisé dans la méthode "ajouterObjet" afin de la mocké et ne pas avoir de nullpointerexception
+        Mockito.when(objetRepository.getReferenceById(1)).thenReturn(objet);
+        Mockito.when(objetRepository.getReferenceById(2)).thenReturn(objetTest);
+        //On utilise la méthode à tester
+        inventaireObjetService.ajouterObjet(personnage, 1, 1);
+        inventaireObjetService.ajouterObjet(personnage, 2, 1);
+        //On vérifie que l'inventaire du personnage a bien été créé, et qu'il a une taille de 1 (et donc qu'il contient qqch)
+        assertTrue(personnage.getInventaireObjet().size()==2);
+    }
     
     @Test
     public void InventaireObejtServiceTestRetirerObjet(){
