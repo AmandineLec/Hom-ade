@@ -37,9 +37,14 @@ public class InscriptionController {
 	}
 
 	@PostMapping("/new_inscription") // Via l'url /connexion
-	public String continuePartie(Model model) throws Exception {
+	public String newInscription(Model model) throws Exception {
 		PersonnageDto personnage = new PersonnageDto();
 		model.addAttribute("personnage", personnage);
+		return "inscription"; // Accede à la page connexion.html
+	}
+
+	@PostMapping("/first_inscription") // Via l'url /connexion
+	public String firstInscription(Model model) throws Exception {
 		return "inscription"; // Accede à la page connexion.html
 	}
 

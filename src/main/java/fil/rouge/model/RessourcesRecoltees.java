@@ -1,5 +1,9 @@
 package fil.rouge.model;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Marie
 import javax.persistence.*;
 
 

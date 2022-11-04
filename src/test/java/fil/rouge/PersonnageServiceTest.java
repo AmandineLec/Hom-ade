@@ -1,6 +1,8 @@
 package fil.rouge;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -9,7 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+<<<<<<< HEAD
 
+=======
+>>>>>>> Marie
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -26,7 +31,10 @@ import fil.rouge.model.InventaireObjet;
 import fil.rouge.model.Objet;
 import fil.rouge.model.Personnage;
 import fil.rouge.service.InventaireObjetService;
+<<<<<<< HEAD
 import fil.rouge.service.ObjetService;
+=======
+>>>>>>> Marie
 import fil.rouge.service.PersonnageService;
 
 @SpringBootTest
@@ -48,8 +56,18 @@ public class PersonnageServiceTest {
     PersonnageRepository pRepository;
 
     @MockBean
+<<<<<<< HEAD
     private InventaireObjetRepository iORepository;
 
+=======
+    InventaireObjetRepository iORepository;
+
+    @MockBean
+    ObjetRepository oRepository;
+
+    @Autowired
+    InventaireObjetService iOService;
+>>>>>>> Marie
 
     @Test
     public void WhenInvalidInscription_ThenThrowsException() {
@@ -153,18 +171,57 @@ public class PersonnageServiceTest {
         assertThrows(NoSuchElementException.class, () -> pService.suppressionPartie("paul@mail.fr", "1234"));
     }
 
-    // @Test
-    // public void whenValidMailAndPassword_ThenDeletePersonnage(){
-    //     try{
-    //         pService.suppressionPartie("marie@mail.fr", "1234");
-    //     }
-    //     catch(Exception e){
+    @Test
+    public void whenValidMailAndPassword_ThenDeletePersonnage(){
+        Optional<Personnage> personnage = Optional.of(new Personnage("bob", 1, "marie@mail.fr", "1234"));
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+        pService.suppressionPartie("marie@mail.fr", "1234");
+       
+        Mockito.verify(pRepository).delete(personnage.get());
+    }
 
-    //     }
+    @Test
+    public void whenWrongMailAndGoodPassword_ThenNoConnexion(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+       
+        assertThrows(NoSuchElementException.class, () -> pService.connexionPartie("mari@mail.fr", "1234"));
+    }
 
-    //     Mockito.verify(pRepository).delete(ArgumentMatchers.argThat(this::checkPersonnageMailIsOk));
-    // }
+    @Test
+    public void whenGoodMailAndWrongPassword_ThenNoConnexion(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+       
+        assertThrows(NoSuchElementException.class, () -> pService.connexionPartie("marie@mail.fr", "234"));
+    }
 
+    @Test
+    public void whenValidMailAndPassword_ThenConnexion(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+        pService.connexionPartie("marie@mail.fr", "1234");
+       
+        assertFalse(personnage.isEmpty());
+    }
+
+    @Test
+    public void whenWrongMailAndGoodPassowrd_ThenThrowsException(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("mari@mail.fr", "1234")).thenReturn(personnage);
+        assertThrows(NoSuchElementException.class, () -> pService.modificationMail(personnage.get(), personnage.get().getMail(), personnage.get().getPassword(), "m@g.f"));
+    }
+
+    @Test
+    public void whenValidMailAndPassword_ThenModifyMail(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+        pService.modificationMail(personnage.get(), "marie@mail.fr", "1234","m@g.f");
+       
+        assertEquals(personnage.get().getMail(), "m@g.f");
+    }
+
+    
     //#region Verification Arguments
     private boolean checkPersonnageHasMaison(Personnage personnage)
     {
@@ -191,12 +248,6 @@ public class PersonnageServiceTest {
         return personnage.getSexe() == 1;
     }
 
-    // private boolean checkPersonnageMailIsOk(Personnage personnage){
-    //     if(personnage.getMail().equals("marie@mail.fr") && personnage.getPassword() == "1234"){
-    //         return true;
-    //     }
-    //     return false;
-    // }
     //#endregion
 
     @Test

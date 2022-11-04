@@ -41,11 +41,11 @@ public class Objet {
     public Objet(String nom){
         this.nom = nom;
     }
-    public Objet(int id){
+    public Objet(Integer id){
         this.id = id;
     }
 
-    public Objet(String nom, int id) {
+    public Objet(String nom, Integer id) {
         this.nom = nom;
         this.id = id;
     }
