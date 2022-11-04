@@ -1,6 +1,8 @@
 package fil.rouge;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
@@ -15,9 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import fil.rouge.dao.InventaireObjetRepository;
+import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.exception.MailAlreadyUsedException;
 import fil.rouge.model.Personnage;
+import fil.rouge.service.InventaireObjetService;
 import fil.rouge.service.PersonnageService;
 
 @SpringBootTest
@@ -28,6 +33,15 @@ public class PersonnageServiceTest {
 
     @MockBean
     PersonnageRepository pRepository;
+
+    @MockBean
+    InventaireObjetRepository iORepository;
+
+    @MockBean
+    ObjetRepository oRepository;
+
+    @Autowired
+    InventaireObjetService iOService;
 
     @Test
     public void WhenInvalidInscription_ThenThrowsException() {
@@ -141,16 +155,47 @@ public class PersonnageServiceTest {
     }
 
     @Test
-    public void whenWrongMailAndGoodPassword_ThenConnexion(){
+    public void whenWrongMailAndGoodPassword_ThenNoConnexion(){
         Optional<Personnage> personnage = Optional.of(new Personnage());
         Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
        
         assertThrows(NoSuchElementException.class, () -> pService.connexionPartie("mari@mail.fr", "1234"));
     }
 
+    @Test
+    public void whenGoodMailAndWrongPassword_ThenNoConnexion(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+       
+        assertThrows(NoSuchElementException.class, () -> pService.connexionPartie("marie@mail.fr", "234"));
+    }
+
+    @Test
+    public void whenValidMailAndPassword_ThenConnexion(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+        pService.connexionPartie("marie@mail.fr", "1234");
+       
+        assertFalse(personnage.isEmpty());
+    }
+
+    @Test
+    public void whenWrongMailAndGoodPassowrd_ThenThrowsException(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("mari@mail.fr", "1234")).thenReturn(personnage);
+        assertThrows(NoSuchElementException.class, () -> pService.modificationMail(personnage.get(), personnage.get().getMail(), personnage.get().getPassword(), "m@g.f"));
+    }
+
+    @Test
+    public void whenValidMailAndPassword_ThenModifyMail(){
+        Optional<Personnage> personnage = Optional.of(new Personnage());
+        Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
+        pService.modificationMail(personnage.get(), "marie@mail.fr", "1234","m@g.f");
+       
+        assertEquals(personnage.get().getMail(), "m@g.f");
+    }
+
     
-
-
     //#region Verification Arguments
     private boolean checkPersonnageHasMaison(Personnage personnage)
     {
