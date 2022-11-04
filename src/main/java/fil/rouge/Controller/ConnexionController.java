@@ -33,4 +33,9 @@ public class ConnexionController {
 		pService.connexionPartie(personnage.getMail(), personnage.getPassword());
 		return "/partie"; // Affiche la page partie.html
 	}
+
+	@PostMapping("/first_connexion") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
+	public String firstConnexion(Model model){
+		return "/login"; // Affiche la page partie.html
+	}
 }

@@ -1,6 +1,5 @@
 package fil.rouge.model;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -61,15 +60,5 @@ public class InventaireObjet {
         this.id = new InventaireObjetKey(personnage.getIdPersonnage(), objet.getId());
     }
 
-    public void ajouterObjet(int quantity) {
-        this.quantite += quantity;
-    }
-
-    public boolean retirerObjet(int quantite) {
-        if (quantite > this.quantite)
-            return false;
-        this.quantite -= quantite;
-        return true;
-    }
 }
 

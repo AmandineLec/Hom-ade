@@ -16,8 +16,8 @@ public class InventaireRessourceKey implements Serializable {
     @Column(name = "id_ressource")
     protected Integer idRessource;
 
-    public InventaireRessourceKey(Integer id_personnage, Integer ressourceId) {
-        this.idPersonnage = id_personnage;
+    public InventaireRessourceKey(Integer idPersonnage, Integer ressourceId) {
+        this.idPersonnage = idPersonnage;
         this.idRessource = ressourceId;
     }
 

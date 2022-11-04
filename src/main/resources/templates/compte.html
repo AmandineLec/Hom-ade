@@ -9,7 +9,12 @@
    </head>
    
    <body>
-   <h1>Partie</h1>
+    <h1>
+        <form action="#" th:action="@{/go_home3}" method="post" id="flogo">
+           <button id="btnlogo" type="submit"><img src="img/house.png" alt="house" class="imgHome" id="logo"></button>
+        </form>
+        <span>Connexion</span>
+    </h1>
    <br>
    <form action="#" th:action="@{/accueil_connexion}" method="post">
 	   <button id="deconnexion" type="submit">Déconnexion</button>
@@ -22,7 +27,6 @@
         <div id="infosP">
             <!-- Supprimer compte, modifier Mdp, modifier mail, modifier sexe, modifier nom-->
             <p id="infos">Entrez les informations à valider</p>
-            <p th:text="${personnage.mail}">Mail inconnu</p>
             <div id="modif_infos">
                 <form action="#" th:action="@{/modif_sexe}">
                     <label>Sexe</label>

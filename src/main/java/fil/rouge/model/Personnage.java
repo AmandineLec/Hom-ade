@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -38,13 +36,9 @@ public class Personnage {
   @JoinColumn(name = "outil")
   protected Outil outil;
 
-  @NotNull
-  @NotEmpty
   @Column(name = "mail", unique=true, nullable=false) // Pas forcément utile si déja setté en BDD, mais double vérification pour sécurité
   protected String mail;
 
-  @NotNull
-  @NotEmpty
   @Column(name = "password")
   protected String password;
 
@@ -196,6 +190,7 @@ public class Personnage {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
+      
     if (obj == null)
       return false;
     if (getClass() != obj.getClass())
