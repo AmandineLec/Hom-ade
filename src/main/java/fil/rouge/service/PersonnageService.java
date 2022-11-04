@@ -8,7 +8,7 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.MaisonRepository;
@@ -20,6 +20,7 @@ import fil.rouge.exception.NeedAPasswordToRegisterException;
 import fil.rouge.model.Maison;
 import fil.rouge.model.Personnage;
 import fil.rouge.model.Roles;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 
