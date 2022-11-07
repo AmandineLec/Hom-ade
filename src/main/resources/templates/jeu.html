@@ -43,11 +43,17 @@
             <!-- <form class="map__form map__form--porte" action="">
                 <button class="map__button"><img class="map__image" src="porte.png" alt=""></button>
             </form> -->
-            <form class="map__form map__form--arbre" action="/recolte" method="post">
-                <input type="hidden" name="id" value="8" />
-                <input type="hidden" name="resistanceInit" value="10" />
-                <button class="map__button"><img class="map__image map__image--arbre" src="img/arbre.png" alt=""></button>
-            </form>
+
+            <div class="map__form map__form--arbre" th:unless="${tabObjetRecoltableDTO.getObjetsRecoltables(0).pv == 0}">
+                <form class="map__form map__form--arbre"  th:action="@{/recolte}" action="#" method="post" th:object="${tabObjetRecoltableDTO}">
+                    <input type="hidden" name="index" value="0"/>
+                    <button type="submit" class="map__button"><img class="map__image map__image--arbre" src="img/arbre.png" alt=""></button>
+                    <p th:text="*{getObjetsRecoltables(0).pv}"></p>
+                </form>
+            </div>
+            <div class="map__form map__form--arbre" th:if="${tabObjetRecoltableDTO.getObjetsRecoltables(0).pv == 0}">
+                <img class="map__image map__image--arbre" src="/img/CheneOuSequoiaCoupe.png" alt="arbre coupé">
+            </div>
             <form class="map__form map__form--poisson" action="">
                 <button class="map__button"><img class="map__image map__image--poisson" src="img/poisson.png" alt=""></button>
             </form>
@@ -139,39 +145,14 @@
                 <article th:each="Iobjet : ${Iobjets}">
                     <p th:text="${Iobjet.objet.nom}"></p>
                     <p th:text="${Iobjet.quantite}"></p>
+                    <form action="">
+                        <button></button>
+                    </form>
                 </article>
             </div>    
         </div>
     </main>
     <script src="jeu.js"></script>
-
-    <!-- <div class="container" >
-        <h2>Bienvenue <span th:text="${personnage.name}">inconnu</span></h2>
-   
-
-    <div th:if="${tabObjetRecoltableDTO.getObjetsRecoltables(0).pv == 0}">
-        <p id="infosP">L'arbre est tombé</p>
-    </div>
-    <div th:unless="${tabObjetRecoltableDTO.getObjetsRecoltables(0).pv == 0}">
-        <form th:action="@{/recolte}" action="#" method="post" th:object="${tabObjetRecoltableDTO}">
-            <p th:text="*{getObjetsRecoltables(0).pv}"></p>
-            <input type="hidden" name="index" value="0" />
-            <input type="submit" value="Arbre" />
-
-        </form>
-    </div>
-
-    <div th:if="${tabObjetRecoltableDTO.getObjetsRecoltables(1).pv == 0}">
-        <p id="infosP">L'arbre est tombé</p>
-    </div>
-    <div th:unless="${tabObjetRecoltableDTO.getObjetsRecoltables(1).pv == 0}">
-        <form th:action="@{/recolte}" action="#" method="post" th:object="${tabObjetRecoltableDTO}">
-            <p th:text="*{getObjetsRecoltables(1).pv}"></p>
-            <input type="hidden" name="index" value="1" />
-            <input type="submit" value="Arbre" />
-
-        </form>
-    </div> -->
 </body>
 
 </html>
