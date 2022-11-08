@@ -90,8 +90,9 @@ public class ObjetRecoltableService {
     // Initialise les objets récoltables
     public TabObjetRecoltableDTO initObjReco() {
         TabObjetRecoltableDTO tabObjetRecoltableDTO = new TabObjetRecoltableDTO();
-        tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(8), 0);
-        tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(7), 1);
+        tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(10), 0);
+        tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(26), 1);
+        
         
         return tabObjetRecoltableDTO;
     }
