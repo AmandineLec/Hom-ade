@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-<<<<<<< HEAD
-
-=======
->>>>>>> Marie
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -31,10 +27,6 @@ import fil.rouge.model.InventaireObjet;
 import fil.rouge.model.Objet;
 import fil.rouge.model.Personnage;
 import fil.rouge.service.InventaireObjetService;
-<<<<<<< HEAD
-import fil.rouge.service.ObjetService;
-=======
->>>>>>> Marie
 import fil.rouge.service.PersonnageService;
 
 @SpringBootTest
@@ -46,8 +38,7 @@ public class PersonnageServiceTest {
     @MockBean
     InventaireObjetService inventaireObjetService;
 
-    @MockBean
-    ObjetService objService;
+
 
     @MockBean
     ObjetRepository objRepo;
@@ -56,10 +47,6 @@ public class PersonnageServiceTest {
     PersonnageRepository pRepository;
 
     @MockBean
-<<<<<<< HEAD
-    private InventaireObjetRepository iORepository;
-
-=======
     InventaireObjetRepository iORepository;
 
     @MockBean
@@ -67,7 +54,6 @@ public class PersonnageServiceTest {
 
     @Autowired
     InventaireObjetService iOService;
->>>>>>> Marie
 
     @Test
     public void WhenInvalidInscription_ThenThrowsException() {
@@ -201,7 +187,7 @@ public class PersonnageServiceTest {
         Optional<Personnage> personnage = Optional.of(new Personnage());
         Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
         pService.connexionPartie("marie@mail.fr", "1234");
-       
+    
         assertFalse(personnage.isEmpty());
     }
 
@@ -217,7 +203,7 @@ public class PersonnageServiceTest {
         Optional<Personnage> personnage = Optional.of(new Personnage());
         Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
         pService.modificationMail(personnage.get(), "marie@mail.fr", "1234","m@g.f");
-       
+    
         assertEquals(personnage.get().getMail(), "m@g.f");
     }
 

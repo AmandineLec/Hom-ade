@@ -17,11 +17,8 @@ public class PersonnageRepositoryTest {
     @Autowired
 	private PersonnageRepository pRepository;
 
-<<<<<<< HEAD
-=======
 
     // Si mail présent en BDD -> fait par Selom
->>>>>>> Marie
     @Test
     @Sql("GivenPersonnageWithEmailWhenFindingByEmailShouldReturnPersonnage.sql")
     public void GivenPersonnageWithEmailWhenFindingByEmailShouldReturnPersonnage(){
@@ -45,9 +42,6 @@ public class PersonnageRepositoryTest {
     @Sql("givenPersonnageWithMail_WhenNotFindingByMail_ThenReturnNoPersonnage.sql")
     public void givenPersonnageWithMail_WhenNotFindingByMail_ThenReturnNoPersonnage(){
         Optional<Personnage> perso = pRepository.findByMail("pierre@aa.fr");
-<<<<<<< HEAD
-        assertTrue(perso.isEmpty());
-=======
 		assertTrue(perso.isEmpty());
     }
 
@@ -57,7 +51,6 @@ public class PersonnageRepositoryTest {
     public void givenPersonnageWithMailAndPassword_WhenFindingByMailAndPassword_ThenReturnPersonnage(){
         Optional<Personnage> perso = pRepository.findByMailAndPassword("joe@aa.fr", "1323");
 		assertEquals(perso.get().getName(), "Joe");
->>>>>>> Marie
     }
 
     // Si mail non présent mais password présent en BDD

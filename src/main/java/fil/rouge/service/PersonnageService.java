@@ -149,55 +149,5 @@ public class PersonnageService {
       throw new Exception("Personnage inexistant");
     }
   }
-<<<<<<< HEAD
-  public void equiperOutil(Integer idPersonnage, Outil outilAEquiper) throws OutilException{
-    Optional<Personnage> personnage = pRepository.findById(idPersonnage);
-    Set<InventaireObjet> inventaireObjet = personnage.get().getInventaireObjet();
-
-    boolean outilPresent = false; 
-    for(InventaireObjet invObjet : inventaireObjet){
-      if(invObjet.getObjet().getId() == outilAEquiper.getId()){
-        outilPresent = true;
-      }
-    }
-    if(outilPresent == true) {
-      // si il est équipé d'un outil différent de celui à équiper
-      if(personnage.get().getOutil() != null && personnage.get().getOutil().getId() != outilAEquiper.getId()){
-        // ajouter l'outil qu'il avait en main dans son inventaire Objet
-        serviceInventaireObjet.ajouterObjet(personnage.get(), personnage.get().getOutil().getId(), 1);
-        // retirer l'outil dont il souhaite s'équiper de l'inventaire Objet
-        serviceInventaireObjet.retirerObjet(outilAEquiper.getId(), 1, personnage.get());
-        // l'équiper de l'outil à équiper
-        personnage.get().setOutil(outilAEquiper);
-      }
-      // si il est déjà équipé de l'outil à équiper
-      if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == outilAEquiper.getId())
-        throw new OutilException("Vous êtes déjà equipé de cet outil");
-    }
-
-    if (!outilPresent)
-      throw new OutilException("Vous ne disposez pas de cette outil dans votre inventaire");
-  }
-
-  public void rangerOutil(Integer idPersonnage, Outil outilEnMain) throws OutilException{
-    Optional<Personnage> personnage = pRepository.findById(idPersonnage);
-    boolean aUnOutilEnMain = false;
-      if(personnage.get().getOutil()!= null){
-        aUnOutilEnMain = true;
-      }
-      if (!aUnOutilEnMain)
-      // si il n'a aucun outil en main
-      throw new OutilException("Vous n'avez pas d'outil en main");
-      if (aUnOutilEnMain == true){
-        // nous ajoutons l'outil dont il est équipé dans son inventaire Objet puis nous le retirons de sa main
-        serviceInventaireObjet.ajouterObjet(personnage.get(), outilEnMain.getId(), 1);
-        personnage.get().setOutil(null);
-      }
-  }
 
 }
-
-=======
-
-}
->>>>>>> Marie

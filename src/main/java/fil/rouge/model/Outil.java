@@ -30,13 +30,10 @@ public class Outil extends Objet implements IEquipable {
         super(nom);
     }
 
-<<<<<<< HEAD
-=======
     public Outil(Integer id) {
         super(id);
     }
 
->>>>>>> Marie
     public Outil() {
     }
     // #endregion
