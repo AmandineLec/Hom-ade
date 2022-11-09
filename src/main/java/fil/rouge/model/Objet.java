@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "objet")
+// https://www.baeldung.com/hibernate-inheritance
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 public class Objet {
@@ -30,6 +31,9 @@ public class Objet {
 
     @OneToMany(mappedBy = "objet")
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
+
+    @OneToMany(mappedBy = "objet") // grâce à la table equipement_maison : accés à tous les objets equipes
+    protected Set<EquipementMaison> objetsEquipes = new HashSet<EquipementMaison>();
 
     // #endregion
 
@@ -110,7 +114,13 @@ public class Objet {
         return Objects.hash(id);
     }
 
-    
+    public Set<EquipementMaison> getInventairesObjet() {
+        return objetsEquipes;
+    }
+
+    public void setInventairesObjet(Set<EquipementMaison> objetsEquipes) {
+        this.objetsEquipes = objetsEquipes;
+    }
 
     // #endregion
 

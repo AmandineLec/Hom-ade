@@ -1,6 +1,5 @@
 package fil.rouge.model;
 
-
 import javax.persistence.*;
 
 
