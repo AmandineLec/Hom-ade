@@ -62,7 +62,6 @@ public class RecetteService {
                                 //On instancie une variable quantité, calculant la quantité de ressource utilisée pour crée l'objet. 
                                 int quantite = inventaireRessource.getQuantite() - recette.getQuantite_necessaire();
                                 if (quantite == 0){ 
-                                    System.out.println("coucou");
                                     inventaireRessourceService.retirerRessource(inventaireRessource.getRessource().getId(), recette.getQuantite_necessaire(), personnage);
                                 }
                                 else{
@@ -71,7 +70,6 @@ public class RecetteService {
                                 }
                                 //Finalement, on crée l'objet, et on l'ajoute à l'inventaire du personnage. 
                                 objetService.creerObjet(personnage, idObj); 
-                                System.out.println("coucou 2");
                                 //On passe le boléen en true. 
                                 craftable = true; 
                             }

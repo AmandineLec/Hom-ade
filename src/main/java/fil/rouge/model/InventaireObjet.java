@@ -2,6 +2,7 @@ package fil.rouge.model;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "inventaire_objet")
 public class InventaireObjet {

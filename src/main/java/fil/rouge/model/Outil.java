@@ -62,6 +62,10 @@ public class Outil extends Objet implements IEquipable {
     public void addObjetRecoltables(ObjetRecoltable objetRecoltable) {
         ObjetRecoltables.add(objetRecoltable);
     }
+
+    public void addPersonnages(Personnage personnage) {
+        personnages.add(personnage);
+    }
     // #endregion
 
     // #region METHOD

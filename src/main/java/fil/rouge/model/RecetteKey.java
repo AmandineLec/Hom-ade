@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+
 @Embeddable
 class RecettesKey implements Serializable {
 

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "objet")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -70,6 +71,7 @@ public class Objet {
     public int getCategorie() {
         return categorie;
     }
+
     public Set<Recette> getRecette() {
         return recette;
     }

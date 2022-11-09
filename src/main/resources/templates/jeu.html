@@ -145,8 +145,8 @@
                 <article th:each="Iobjet : ${Iobjets}">
                     <p th:text="${Iobjet.objet.nom}"></p>
                     <p th:text="${Iobjet.quantite}"></p>
-                    <form action="">
-                        <button></button>
+                    <form action="#" th:object="${Iobjet}" th:action="@{/Equiper} + '?id=' + ${Iobjet.objet.id}" method="POST">
+                        <button>Equiper l'objet</button>
                     </form>
                 </article>
             </div>    
