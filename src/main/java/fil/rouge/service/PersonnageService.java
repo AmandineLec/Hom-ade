@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Set;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -150,4 +151,7 @@ public class PersonnageService {
     }
   }
 
+  public Personnage getPersonnage(int PersonnageId) throws EntityNotFoundException {
+    return ServiceUtils.getEntity(pRepository, PersonnageId);
+}
 }
