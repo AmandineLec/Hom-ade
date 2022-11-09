@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dao.RessourceRepository;
 import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.Personnage;
@@ -18,19 +19,24 @@ import fil.rouge.model.Ressource;
 import fil.rouge.service.RessourceService;
 
 @SpringBootTest
-public class RamassageServiceTest {
+public class RessourceServiceTest {
 
     @Autowired
-    RessourceService ressourceService;
+    private RessourceService ressourceService;
 
     @MockBean
-    RessourceRepository ressourceRepository;
+    private RessourceRepository ressourceRepository;
+
+    @MockBean
+    private PersonnageRepository personnageRepository;
     
     @Test
     public void given4Ressource_WhenPersoHasNoRessource_ThenReturn4() {
         Ressource ressource = new Ressource();
         ressource.setId(1);
-        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
+        Personnage personnage = new Personnage();
+
+        Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
 
         Mockito.when(ressourceRepository.findById(1)).thenReturn(Optional.of(ressource));
         ressourceService.ajoutRessourceInventaire(personnage,1, 4);
@@ -43,9 +49,11 @@ public class RamassageServiceTest {
     public void given4Ressource_WhenPersoHas2Ressource_ThenReturn6() {
         Ressource ressource = new Ressource();
         ressource.setId(1);
-        Personnage personnage = new Personnage("Jpp", 1, "mail", "password", 1);
+        Personnage personnage = new Personnage();
         InventaireRessource inventaireRessource = new InventaireRessource(personnage, ressource, 2);
         personnage.addInventaireRessource(inventaireRessource);
+
+        Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
 
         Mockito.when(ressourceRepository.findById(1)).thenReturn(Optional.of(ressource));
         ressourceService.ajoutRessourceInventaire(personnage,1, 4);
