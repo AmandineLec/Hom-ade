@@ -16,4 +16,5 @@ public interface RecetteRepository extends CrudRepository<Recette, Integer> {
 
     @Bean
     List<Recette> findByObjet(Objet objet);
+
 }

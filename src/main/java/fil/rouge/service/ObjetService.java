@@ -1,13 +1,11 @@
 package fil.rouge.service;
 
 
-import java.util.Optional;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.ObjetRepository;
+import fil.rouge.dao.OutilRepository;
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.exception.OutilException;
 import fil.rouge.model.InventaireObjet;
@@ -26,6 +24,10 @@ public class ObjetService {
 
     @Autowired 
     private InventaireObjetService inventaireObjetService;
+
+    @Autowired
+    protected OutilRepository outilRepository; 
+
 
     public ObjetService(){
 
@@ -47,29 +49,28 @@ public class ObjetService {
         return true;
     }
 
-    public boolean equiperOutil(Personnage personnage, Outil outilAEquiper) throws OutilException{
-        Set<InventaireObjet> inventaireObjet = personnage.getInventaireObjet();
+    public boolean equiperOutil(Personnage personnage, Integer idOutil) throws OutilException{
+        Outil outilAEquiper = outilRepository.getReferenceById(idOutil);
 
         boolean outilPresent = false; 
-        for(InventaireObjet invObjet : inventaireObjet){
-          if(invObjet.getObjet().getId() == outilAEquiper.getId()){
-            outilPresent = true;
+        if(personnage.getOutil() == null || personnage.getOutil().getId() != outilAEquiper.getId()){ 
+          for(InventaireObjet invObjet : personnage.getInventaireObjet()){
+            if(invObjet.getObjet().getId() == outilAEquiper.getId()){
+              personnage.setOutil(outilAEquiper);
+              inventaireObjetService.retirerObjet(outilAEquiper.getId(), 1, personnage);
+              pRepository.save(personnage);
+              return outilPresent = true; 
+            }          
+            else {
+              throw new OutilException("Vous ne disposez pas de cet outil dans votre inventaire");
+            }
           }
         }
+        else{
+            throw new OutilException("Vous êtes déjà equipé de cet outil");
+        }  
 
-        if (!outilPresent){
-          throw new OutilException("Vous ne disposez pas de cet outil dans votre inventaire");
-        }
-
-        if(personnage.getOutil()!= null && personnage.getOutil().getId() == outilAEquiper.getId()){
-          throw new OutilException("Vous êtes déjà equipé de cet outil");
-        }
-
-        inventaireObjetService.ajouterObjet(personnage, personnage.getOutil().getId(), 1);
-        inventaireObjetService.retirerObjet(outilAEquiper.getId(), 1, personnage);
-        personnage.setOutil((Outil)outilAEquiper);
-
-        return true;
+        return outilPresent;
       }
 
 

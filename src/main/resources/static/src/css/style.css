@@ -1,0 +1,180 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;400;700&family=Roboto+Condensed&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+body {
+  background-color: #643F1D;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  height: 695px;
+}
+
+.container {
+  border: solid 3px #EEAB00;
+  grid-column: 1/span 12;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  height: 695px;
+}
+
+.modalRecette {
+  visibility: hidden;
+  grid-column: 3/span 8;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  background-color: #4A2B0F;
+  grid-row: 1/span 1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  z-index: 5;
+}
+
+.modalInventaire {
+  visibility: hidden;
+  background-color: #4A2B0F;
+  z-index: 5;
+  grid-column: 3/span 8;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-row: 1/span 1;
+}
+
+.map {
+  grid-column: 1/span 12;
+  grid-row: 1/span 1;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  background-image: url("../../img/backgroungmap.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #99B800;
+  width: 100%;
+  height: 500px;
+}
+
+.interface {
+  grid-column: 1/span 12;
+  grid-row: 2/span 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  column-gap: 20px;
+  background-image: url("../../img/backgroundinterface.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  padding: 10px;
+}
+.interface__button {
+  text-align: center;
+  border: solid 2px #EEAB00;
+  grid-column: span 1;
+  margin-top: 20px;
+  height: 150px;
+  padding-top: 5px;
+}
+.interface__img {
+  height: 80px;
+}
+.interface__text {
+  font-family: "League Spartan";
+  font-size: 22px;
+  color: #EEAB00;
+}
+
+.interface__form--objects {
+  grid-column: 4/span 5;
+}
+
+.map__form--maison {
+  grid-column: 2/span 4;
+  grid-row: 2/span 7;
+}
+.map__form--arbre {
+  grid-column: 6/span 2;
+  grid-row: 2/span 5;
+}
+.map__form--poisson {
+  grid-column: 9/span 2;
+  grid-row: 2/span 1;
+}
+.map__form--rocher {
+  grid-column: 10/span 2;
+  grid-row: 6/span 2;
+}
+.map__form--caillou {
+  grid-column: 11/span 1;
+  grid-row: 7/span 1;
+}
+
+.map__image--maison {
+  height: 430px;
+}
+.map__image--arbre {
+  height: 250px;
+}
+
+.paramForm {
+  grid-column: 12/span 1;
+  grid-row: 1/span 1;
+  background-color: #643F1D;
+  border-bottom: solid 3px #EEAB00;
+  border-left: solid 3px #EEAB00;
+  height: 36px;
+  width: 36px;
+  z-index: 5;
+  margin-left: 100px;
+}
+.paramForm__icon {
+  height: 30px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.modalParametre {
+  grid-column: 11/span 2;
+  background-color: #643F1D;
+  border-left: solid 3px #EEAB00;
+  border-bottom: solid 3px #EEAB00;
+  border-top: solid 3px #EEAB00;
+  grid-row: 1/span 1;
+  z-index: 5;
+  height: 150px;
+  margin-top: 35px;
+  visibility: hidden;
+}
+.modalParametre__imgSexe {
+  height: 50px;
+}
+.modalParametre__imgHome {
+  height: 50px;
+}
+.modalParametre__button {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 10px;
+}
+.modalParametre__text {
+  grid-column: 2/span 3;
+  color: #EEAB00;
+  font-family: "League Spartan";
+  font-size: 16px;
+  margin-top: 20px;
+  margin-left: 10px;
+  text-align: left;
+}
+
+.open {
+  visibility: visible;
+}/*# sourceMappingURL=style.css.map */

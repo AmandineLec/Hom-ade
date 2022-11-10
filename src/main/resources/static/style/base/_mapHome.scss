@@ -1,0 +1,80 @@
+.map {
+    grid-column: 1/ span 12;
+    grid-row: 1/ span 1;
+    display : grid; 
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    background-image: url("../../img/backgroungmap.png");
+    background-size: cover; 
+    background-repeat : no-repeat;
+    background-color: $green;
+    width : 100%;
+    height: 500px;
+}
+
+.interface {
+    grid-column: 1/span 12;
+    grid-row: 2/span 1;
+    display : grid; 
+    grid-template-columns: repeat(8, 1fr);
+    column-gap : 20px;
+    background-image: url("../../img/backgroundinterface.png");
+    background-repeat : no-repeat;
+    background-size: cover; 
+    width : 100%; 
+    padding : 10px;
+    &__button {
+        text-align: center;
+        border : solid 2px $gold;
+        grid-column: span 1;
+        margin-top : 20px; 
+        height : 150px; 
+        padding-top: 5px;
+    }
+    &__img {
+        height : 80px; 
+    }
+    &__text {
+        font : {
+            family : $font-text;
+            size : 22px; 
+        }
+        color : $gold; 
+    }
+}
+
+.interface__form--objects{
+    grid-column: 4/span 5;
+}
+
+.map__form {
+    &--maison{
+        grid-column: 2/span 4;
+        grid-row: 2/ span 7;
+    }
+    &--arbre {
+        grid-column: 6/span 2;
+        grid-row: 2/ span 5;
+    }
+    &--poisson{
+        grid-column: 9/span 2;
+        grid-row: 2/ span 1;
+    }
+    &--rocher {
+        grid-column: 10/span 2;
+        grid-row: 6/ span 2;
+    }
+    &--caillou{
+        grid-column: 11/span 1;
+        grid-row: 7/ span 1;
+    }
+}
+
+.map__image {
+    &--maison {
+        height : 430px; 
+    }
+    &--arbre {
+        height : 250px; 
+    }
+}

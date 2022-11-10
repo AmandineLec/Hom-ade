@@ -116,15 +116,15 @@ public class ObjetServiceTest {
         Outil outil = new Outil(1);
         Outil outil2 = new Outil(2);
         List<InventaireObjet> objets = new ArrayList<>();
-        Mockito.when(pRepository.findById(31)).thenReturn(Optional.of(perso));
+        // Mockito.when(pRepository.findById(31)).thenReturn(Optional.of(perso));
         Mockito.when(iORepository.findByPersonnage(perso)).thenReturn(objets); 
         Mockito.when(oRepository.getReferenceById(1)).thenReturn(outil);
         Mockito.when(oRepository.getReferenceById(2)).thenReturn(outil2);
         iOService.ajouterObjet(perso, outil.getId(), 1);
         iOService.ajouterObjet(perso, outil2.getId(), 1);
-        perso.setOutil(outil2);
+        objetService.equiperOutil(perso, outil.getId());
 
-        assertTrue(objetService.equiperOutil(perso, outil));
+        assertTrue(perso.getOutil() == outil);
     }
 
     @Test
@@ -140,7 +140,7 @@ public class ObjetServiceTest {
         iOService.ajouterObjet(perso, outil2.getId(), 1);
         perso.setOutil(outil2);
 
-        assertThrows(OutilException.class, () -> objetService.equiperOutil(perso, outil));
+        assertThrows(OutilException.class, () -> objetService.equiperOutil(perso, outil.getId()));
     }
 
     @Test
@@ -155,7 +155,7 @@ public class ObjetServiceTest {
         iOService.ajouterObjet(perso, outil2.getId(), 1);
         perso.setOutil(outil2);
 
-        assertThrows(OutilException.class, () -> objetService.equiperOutil(perso, outil));
+        assertThrows(OutilException.class, () -> objetService.equiperOutil(perso, outil.getId()));
     }
 
     // Tests Déséquiper 

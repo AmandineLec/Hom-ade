@@ -61,8 +61,13 @@ public class RecetteService {
                             if(inventaireRessource.getQuantite()>= recette.getQuantite_necessaire()) {
                                 //On instancie une variable quantité, calculant la quantité de ressource utilisée pour crée l'objet. 
                                 int quantite = inventaireRessource.getQuantite() - recette.getQuantite_necessaire();
-                                //On appelle la méthode "retirerRessource", permettant d'instancier la nouvelle quantité de ressource du personnage de la ressource utlisée
-                                inventaireRessourceService.retirerRessource(inventaireRessource.getRessource().getId(),quantite, personnage);
+                                if (quantite == 0){ 
+                                    inventaireRessourceService.retirerRessource(inventaireRessource.getRessource().getId(), recette.getQuantite_necessaire(), personnage);
+                                }
+                                else{
+                                    //On appelle la méthode "retirerRessource", permettant d'instancier la nouvelle quantité de ressource du personnage de la ressource utlisée
+                                    inventaireRessourceService.retirerRessource(inventaireRessource.getRessource().getId(),quantite, personnage);
+                                }
                                 //Finalement, on crée l'objet, et on l'ajoute à l'inventaire du personnage. 
                                 objetService.creerObjet(personnage, idObj); 
                                 //On passe le boléen en true. 
