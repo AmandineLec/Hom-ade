@@ -4,8 +4,10 @@ package fil.rouge;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -21,6 +23,8 @@ import fil.rouge.dao.InventaireObjetRepository;
 import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.exception.MailAlreadyUsedException;
+import fil.rouge.model.InventaireObjet;
+import fil.rouge.model.Objet;
 import fil.rouge.model.Personnage;
 import fil.rouge.service.InventaireObjetService;
 import fil.rouge.service.PersonnageService;
@@ -30,6 +34,14 @@ public class PersonnageServiceTest {
     
     @Autowired
     PersonnageService pService;
+
+    @MockBean
+    InventaireObjetService inventaireObjetService;
+
+
+
+    @MockBean
+    ObjetRepository objRepo;
 
     @MockBean
     PersonnageRepository pRepository;
@@ -175,7 +187,7 @@ public class PersonnageServiceTest {
         Optional<Personnage> personnage = Optional.of(new Personnage());
         Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
         pService.connexionPartie("marie@mail.fr", "1234");
-       
+    
         assertFalse(personnage.isEmpty());
     }
 
@@ -191,7 +203,7 @@ public class PersonnageServiceTest {
         Optional<Personnage> personnage = Optional.of(new Personnage());
         Mockito.when(pRepository.findByMailAndPassword("marie@mail.fr", "1234")).thenReturn(personnage);
         pService.modificationMail(personnage.get(), "marie@mail.fr", "1234","m@g.f");
-       
+    
         assertEquals(personnage.get().getMail(), "m@g.f");
     }
 
@@ -223,5 +235,26 @@ public class PersonnageServiceTest {
     }
 
     //#endregion
+
+    @Test
+    public void checkIfHasTool(){
+        // je créer un perso
+        Personnage Bob = new Personnage("Bob", 1);
+        // Je créer un objet
+        Objet hacheRudimentaire = new Objet("hacheRudimentaire", 3);
+        // je simule une requête pour que mon outil fasse référence à la hache Rudimentaire dans la bdd
+        Mockito.when(objRepo.getReferenceById(3)).thenReturn(hacheRudimentaire);
+
+        List<InventaireObjet> inventaireBob = new ArrayList<InventaireObjet>();
+        
+        Mockito.when(iORepository.findByPersonnage(Bob)).thenReturn(inventaireBob);
+        // j'ajoute l'outil à l'inventaireObjet du personnage
+        inventaireObjetService.ajouterObjet(Bob, hacheRudimentaire.getId(), 1);
+        // si la taille de l'inventaire de Bob est égale à 1 => true, le test passe
+        assertTrue(Bob.getInventaireObjet().size() == 1);
+        // pService.equiperOutil(31, (Outil)hacheRudimentaire.get());
+        // assertEquals(Bob.get().getOutil(),hacheRudimentaire);
+    }
 }
+
 

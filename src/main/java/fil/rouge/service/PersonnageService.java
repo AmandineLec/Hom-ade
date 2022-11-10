@@ -5,17 +5,22 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import fil.rouge.Exceptions.OutilException;
 import fil.rouge.dao.MaisonRepository;
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dao.RoleRepository;
 import fil.rouge.exception.MailAlreadyUsedException;
 import fil.rouge.exception.NeedAMailToRegisterException;
 import fil.rouge.exception.NeedAPasswordToRegisterException;
+import fil.rouge.model.InventaireObjet;
 import fil.rouge.model.Maison;
+import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
 import fil.rouge.model.Roles;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,6 +41,9 @@ public class PersonnageService {
 
   @Autowired
   private PasswordEncoder passwordEncoder;
+
+  @Autowired
+  private InventaireObjetService serviceInventaireObjet;
 
   // Inscription au jeu
   public boolean inscription(String mail, String password, String name, int sexe) throws Exception {
@@ -143,4 +151,7 @@ public class PersonnageService {
     }
   }
 
+  public Personnage getPersonnage(int PersonnageId) throws EntityNotFoundException {
+    return ServiceUtils.getEntity(pRepository, PersonnageId);
+}
 }

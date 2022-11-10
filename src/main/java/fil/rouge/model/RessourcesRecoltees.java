@@ -1,8 +1,6 @@
 package fil.rouge.model;
 
-
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "ressources_recoltees")

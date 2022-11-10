@@ -11,4 +11,3 @@ JoueurException(String message) {
   }
 
 }
- 
