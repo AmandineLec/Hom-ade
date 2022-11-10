@@ -7,4 +7,3 @@ public class UtilisateurController {
     
 }
 
-// POST => entity personnage

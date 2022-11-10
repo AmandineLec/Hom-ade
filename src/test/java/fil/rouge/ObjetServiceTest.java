@@ -111,111 +111,96 @@ public class ObjetServiceTest {
 
     // Tests Equiper outil
     @Test
-    public void whenValidMail_ThenThrowExceptionIfOutilAlreadySet(){
-        Optional<Personnage> perso = Optional.of(new Personnage("Bob", 1, "bob@bob.bob", "123456"));
-        Outil outil = new Outil(1);
-        List<InventaireObjet> objets = new ArrayList<>();
-        Mockito.when(pRepository.findById(31)).thenReturn(perso);
-        Mockito.when(iORepository.findByPersonnage(perso.get())).thenReturn(objets); 
-        Mockito.when(oRepository.getReferenceById(1)).thenReturn(outil);
-        iOService.ajouterObjet(perso.get(), 1, 1);
-        Outil outil2 = new Outil(1);
-        perso.get().setOutil(outil2);
-
-        assertThrows(OutilException.class, () -> objetService.equiperOutil(31, outil));
-    }
-
-    @Test
-    public void givenValidMail_WhenOutilPresent_ThenEquiper() throws OutilException{
-        Optional<Personnage> perso = Optional.of(new Personnage("Bob", 1, "bob@bob.bob", "123456", 31));
+    public void givenValidMail_WhenOutilPresent_ThenEquiper() throws OutilException{ // Si ok alors on équipe l'outil
+        Personnage perso = new Personnage("Bob", 1, "bob@bob.bob", "123456", 31);
         Outil outil = new Outil(1);
         Outil outil2 = new Outil(2);
         List<InventaireObjet> objets = new ArrayList<>();
-        Mockito.when(pRepository.findById(31)).thenReturn(perso);
-        Mockito.when(iORepository.findByPersonnage(perso.get())).thenReturn(objets); 
+        Mockito.when(pRepository.findById(31)).thenReturn(Optional.of(perso));
+        Mockito.when(iORepository.findByPersonnage(perso)).thenReturn(objets); 
         Mockito.when(oRepository.getReferenceById(1)).thenReturn(outil);
         Mockito.when(oRepository.getReferenceById(2)).thenReturn(outil2);
-        iOService.ajouterObjet(perso.get(), outil.getId(), 1);
-        iOService.ajouterObjet(perso.get(), outil2.getId(), 1);
-        perso.get().setOutil(outil2);
+        iOService.ajouterObjet(perso, outil.getId(), 1);
+        iOService.ajouterObjet(perso, outil2.getId(), 1);
+        perso.setOutil(outil2);
 
-        assertTrue(objetService.equiperOutil(31, outil));
+        assertTrue(objetService.equiperOutil(perso, outil));
     }
 
     @Test
-    public void givenValidMail_WhenOutilAlreadyEquiped_ThenThrowException() throws OutilException{
-        Optional<Personnage> perso = Optional.of(new Personnage("Bob", 1, "bob@bob.bob", "123456"));
+    public void givenValidMail_WhenOutilAlreadyEquiped_ThenThrowException() throws OutilException{ // si outil déjà équipé
+        Personnage perso = new Personnage("Bob", 1, "bob@bob.bob", "123456");
         Outil outil = new Outil(1);
         Outil outil2 = new Outil(1);
         List<InventaireObjet> objets = new ArrayList<>();
-        Mockito.when(pRepository.findById(31)).thenReturn(perso);
-        Mockito.when(iORepository.findByPersonnage(perso.get())).thenReturn(objets); 
+        Mockito.when(pRepository.findById(31)).thenReturn(Optional.of(perso));
+        Mockito.when(iORepository.findByPersonnage(perso)).thenReturn(objets); 
         Mockito.when(oRepository.getReferenceById(1)).thenReturn(outil);
-        iOService.ajouterObjet(perso.get(), outil.getId(), 1);
-        iOService.ajouterObjet(perso.get(), outil2.getId(), 1);
-        perso.get().setOutil(outil2);
+        iOService.ajouterObjet(perso, outil.getId(), 1);
+        iOService.ajouterObjet(perso, outil2.getId(), 1);
+        perso.setOutil(outil2);
 
-        assertThrows(OutilException.class, () -> objetService.equiperOutil(31, outil));
+        assertThrows(OutilException.class, () -> objetService.equiperOutil(perso, outil));
     }
 
     @Test
-    public void givenValidMail_WhenOutilNotPresent_ThenThrowException() throws OutilException{
-        Optional<Personnage> perso = Optional.of(new Personnage("Bob", 1, "bob@bob.bob", "123456"));
+    public void givenValidMail_WhenOutilNotPresent_ThenThrowException() throws OutilException{ // Si l'outil n'est pas dans l'inventaire
+        Personnage perso = new Personnage("Bob", 1, "bob@bob.bob", "123456");
         Outil outil = new Outil(1);
         Outil outil2 = new Outil(1);
         List<InventaireObjet> objets = new ArrayList<>();
-        Mockito.when(pRepository.findById(31)).thenReturn(perso);
-        Mockito.when(iORepository.findByPersonnage(perso.get())).thenReturn(objets); 
+        Mockito.when(pRepository.findById(31)).thenReturn(Optional.of(perso));
+        Mockito.when(iORepository.findByPersonnage(perso)).thenReturn(objets); 
         Mockito.when(oRepository.getReferenceById(1)).thenReturn(outil);
-        iOService.ajouterObjet(perso.get(), outil2.getId(), 1);
-        perso.get().setOutil(outil2);
+        iOService.ajouterObjet(perso, outil2.getId(), 1);
+        perso.setOutil(outil2);
 
-        assertThrows(OutilException.class, () -> objetService.equiperOutil(31, outil));
+        assertThrows(OutilException.class, () -> objetService.equiperOutil(perso, outil));
     }
 
     // Tests Déséquiper 
 
     @Test
-    public void givenValidMail_WhenOutilEquiped_ThenDesequiper() throws OutilException{
-        Optional<Personnage> perso = Optional.of(new Personnage("Bob", 1, "bob@bob.bob", "123456", 31));
+    public void givenValidMail_WhenOutilEquiped_ThenDesequiper() throws OutilException{  // Si l'outil est équipé alors on déséquipe
+        Personnage perso = new Personnage("Bob", 1, "bob@bob.bob", "123456", 31);
         Outil outil = new Outil(1);
         List<InventaireObjet> objets = new ArrayList<>();
-        Mockito.when(pRepository.findById(31)).thenReturn(perso);
-        Mockito.when(iORepository.findByPersonnage(perso.get())).thenReturn(objets); 
+        Mockito.when(pRepository.findById(31)).thenReturn(Optional.of(perso));
+        Mockito.when(iORepository.findByPersonnage(perso)).thenReturn(objets); 
         Mockito.when(oRepository.getReferenceById(1)).thenReturn(outil);
-        iOService.ajouterObjet(perso.get(), outil.getId(), 1);
-        perso.get().setOutil(outil);
+        iOService.ajouterObjet(perso, outil.getId(), 1);
+        perso.setOutil(outil);
 
-        assertTrue(objetService.desequiperOutil(31, outil.getId()));
+        assertTrue(objetService.desequiperOutil(perso, outil.getId()));
     }
 
     @Test
-    public void givenValidMail_WhenOutilNotEquiped_ThenThrowException() throws OutilException{
-        Optional<Personnage> perso = Optional.of(new Personnage("Bob", 1, "bob@bob.bob", "123456"));
+    public void givenValidMail_WhenOutilNotEquiped_ThenThrowException() throws OutilException{ // Si l'outil n'est pas équipé
+        Personnage perso = new Personnage("Bob", 1, "bob@bob.bob", "123456");
         Outil outil = new Outil(1);
         List<InventaireObjet> objets = new ArrayList<>();
-        Mockito.when(pRepository.findById(31)).thenReturn(perso);
-        Mockito.when(iORepository.findByPersonnage(perso.get())).thenReturn(objets); 
+        Mockito.when(pRepository.findById(31)).thenReturn(Optional.of(perso));
+        Mockito.when(iORepository.findByPersonnage(perso)).thenReturn(objets); 
         Mockito.when(oRepository.getReferenceById(1)).thenReturn(outil);
 
-        assertThrows(OutilException.class, () -> objetService.desequiperOutil(31, outil.getId()));
+        assertThrows(OutilException.class, () -> objetService.desequiperOutil(perso, outil.getId()));
     }
 
     @Test
-    public void givenValidMail_WhenWrongOutilEquiped_ThenThrowException() throws OutilException{
-        Optional<Personnage> perso = Optional.of(new Personnage("Bob", 1, "bob@bob.bob", "123456"));
+    public void givenValidMail_WhenWrongOutilEquiped_ThenThrowException() throws OutilException{ // Si on essaie de retirer le mauvais outil
+        Personnage perso = new Personnage("Bob", 1, "bob@bob.bob", "123456");
         Outil outil = new Outil(1);
         Outil outil2 = new Outil(2);
         List<InventaireObjet> objets = new ArrayList<>();
-        Mockito.when(pRepository.findById(31)).thenReturn(perso);
-        Mockito.when(iORepository.findByPersonnage(perso.get())).thenReturn(objets); 
+        Mockito.when(pRepository.findById(31)).thenReturn(Optional.of(perso));
+        Mockito.when(iORepository.findByPersonnage(perso)).thenReturn(objets); 
         Mockito.when(oRepository.getReferenceById(1)).thenReturn(outil);
         Mockito.when(oRepository.getReferenceById(2)).thenReturn(outil2);
 
-        iOService.ajouterObjet(perso.get(), outil2.getId(), 1);
-        perso.get().setOutil(outil2);
+        iOService.ajouterObjet(perso, outil2.getId(), 1);
+        perso.setOutil(outil2);
 
-        assertThrows(OutilException.class, () -> objetService.desequiperOutil(31, outil.getId()));
+        assertThrows(OutilException.class, () -> objetService.desequiperOutil(perso, outil.getId()));
     }
     
 }
