@@ -6,7 +6,13 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import fil.rouge.serializer.RecetteSerializer;
+
+@JsonSerialize(using = RecetteSerializer.class)
 @Entity
 @Table(name = "objet")
 // https://www.baeldung.com/hibernate-inheritance
@@ -26,13 +32,18 @@ public class Objet {
     @Column(name = "categorie")
     protected int categorie;
 
-    @OneToMany(mappedBy = "objet")
+
+    @OneToMany(mappedBy = "objet", fetch = FetchType.LAZY)
+    @JsonManagedReference
     protected Set<Recette> recette = new HashSet<Recette>();
 
+
     @OneToMany(mappedBy = "objet")
+    @JsonBackReference
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
-    @OneToMany(mappedBy = "objet") // grâce à la table equipement_maison : accés à tous les objets equipes
+    @OneToMany(mappedBy = "objet")
+    @JsonBackReference // grâce à la table equipement_maison : accés à tous les objets equipes
     protected Set<EquipementMaison> objetsEquipes = new HashSet<EquipementMaison>();
 
     // #endregion

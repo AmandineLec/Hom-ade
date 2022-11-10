@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import fil.rouge.inter.IEquipable;
 
 @Entity
@@ -19,9 +21,11 @@ public class Outil extends Objet implements IEquipable {
     protected int capacite;
 
     @ManyToMany(mappedBy = "outils")
+    @JsonBackReference
     protected Set<ObjetRecoltable> ObjetRecoltables = new HashSet<ObjetRecoltable>();
-
+    
     @OneToMany(mappedBy = "outil")
+    @JsonBackReference
     protected Set<Personnage> personnages = new HashSet<Personnage>();
     // #endregion
 
