@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fil.rouge.dao.PersonnageRepository;
@@ -36,8 +38,10 @@ public class PartieController {
 		return "/compte"; // ...A la page partie.html
     }
 
-    @PostMapping("/retour_compte")
-    public String retourCompte(Principal principal, Model model){
+    @PostMapping(
+      value = "/retour_compte", consumes = "application/json",  produces = "application/json")
+    @ResponseBody
+    public String retourCompte(@RequestBody Principal principal, Model model){
       Personnage personnage = pRepository.findByMail(principal.getName()).get();
       model.addAttribute("personnage", personnage);
 		return "/partie"; // ...A la page partie.html

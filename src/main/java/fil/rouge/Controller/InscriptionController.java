@@ -32,7 +32,7 @@ public class InscriptionController {
 	@ResponseBody
 	public String startGame(@RequestBody PersonnageDto personnage, Model model) throws Exception {
 		model.addAttribute("personnage", personnage);
-		System.out.println(personnage.getName());
+		System.out.println(personnage.getSexe());
 		pService.inscription(personnage.getMail(), personnage.getPassword(), personnage.getName(), personnage.getSexe()); // Sauvegarde le perso en BDD
 		return  "/login"; // ...renvoie vers la connexion
 	}
