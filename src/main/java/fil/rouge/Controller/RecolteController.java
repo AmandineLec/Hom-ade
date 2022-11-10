@@ -13,12 +13,16 @@ import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.dto.TabObjetRecoltableDTO;
 import fil.rouge.model.Personnage;
+import fil.rouge.service.ObjetRecoltableService;
 import fil.rouge.service.RecolteService;
 
 @RestController
 public class RecolteController {
     @Autowired
     RecolteService recolteService;
+
+    @Autowired
+    ObjetRecoltableService objetRecoltableService;
 
     @Autowired
     PersonnageRepository pRepository;
@@ -41,9 +45,15 @@ public class RecolteController {
         return objetRecoltableDTO;
     }
 
+    // renvoie la liste des objets récoltables en jeu
     @GetMapping("api/recoltables")
     public ObjetRecoltableDTO[] getRecoltables(Principal principal, @SessionAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO, Model model) {
-        return tabObjetRecoltableDTO.getObjetsRecoltables();
+        ObjetRecoltableDTO[] objetsRecoltables = tabObjetRecoltableDTO.getObjetsRecoltables();
+        for (ObjetRecoltableDTO objetRecoltable : objetsRecoltables) {
+            if(objetRecoltable.getPv() == 0 && objetRecoltableService.reapparait(objetRecoltable))   // respawn de l'objet récoltable
+                objetRecoltable.setPv(objetRecoltable.getPvMax());
+        }
+        return objetsRecoltables;
     }
 
 }

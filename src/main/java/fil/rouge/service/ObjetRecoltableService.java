@@ -52,7 +52,7 @@ public class ObjetRecoltableService {
     }
 
     // Indique si un objet récoltable peut réapparaitre
-    public boolean reapparait(ObjetRecoltable objetRecoltable) {
+    public boolean reapparait(ObjetRecoltableDTO objetRecoltable) {
         long time = System.currentTimeMillis();
 
         return time >= objetRecoltable.getDisparitionTime() + objetRecoltable.getCooldown();
