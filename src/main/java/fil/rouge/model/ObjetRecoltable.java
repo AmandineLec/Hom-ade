@@ -42,6 +42,9 @@ public class ObjetRecoltable {
     
     @Transient
     protected long disparitionTime;
+
+    @Transient
+    protected int pvMax;
     
     //#region Constructeurs
 
@@ -56,6 +59,7 @@ public class ObjetRecoltable {
         this.categorie = categorie;
         this.niveauRequis = niveauRequis;
         this.pv = pv;
+        this.pvMax = pv;
     }
     //#endregion
 
@@ -116,6 +120,14 @@ public class ObjetRecoltable {
 
     public void setPv(int pv) {
         this.pv = pv;
+    }
+
+    public int getPvMax() {
+        return pvMax;
+    }
+
+    public void setPvMax(int pvMax) {
+        this.pvMax = pvMax;
     }
     
     public long getCooldown() {

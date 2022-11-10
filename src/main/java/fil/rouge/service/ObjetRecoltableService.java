@@ -54,7 +54,8 @@ public class ObjetRecoltableService {
     // Indique si un objet récoltable peut réapparaitre
     public boolean reapparait(ObjetRecoltableDTO objetRecoltable) {
         long time = System.currentTimeMillis();
-
+        System.out.println(objetRecoltable);
+        System.out.println(time);
         return time >= objetRecoltable.getDisparitionTime() + objetRecoltable.getCooldown();
     }
 
@@ -74,6 +75,7 @@ public class ObjetRecoltableService {
         dto.setIdObjetRecoltable(objetRecoltable.getIdElementRecoltable());
         dto.setNom(objetRecoltable.getNom());
         dto.setPv(objetRecoltable.getPv());
+        dto.setPvMax(objetRecoltable.getPv());
         dto.setCooldown(objetRecoltable.getCooldown());
         dto.setDisparitionTime(objetRecoltable.getDisparitionTime());
 

@@ -25,7 +25,7 @@ public class RecolteService {
     
     public ObjetRecoltableDTO recolteRamassage(Personnage personnage, int objetRecoltableId, int pv) {
         ObjetRecoltable objetRecoltable = objetRecoltableService.getObjetRecoltable(objetRecoltableId);
-        
+        objetRecoltable.setPvMax(objetRecoltable.getPv());
         try {
             // Lors du clic, on utilise l'outil du personnage sur l'objet récoltable, et on récupère sa nouvelle résistance
             pv = Math.max(objetRecoltableService.utiliserOutil(personnage, objetRecoltableId, pv), 0);
@@ -42,7 +42,7 @@ public class RecolteService {
             objetRecoltable = objetRecoltableService.disparait(objetRecoltable);
         }
         ObjetRecoltableDTO dto = convertDataIntoDTO(objetRecoltable);
-        System.out.println("test : " + dto);
+        
         return dto;
     }
 
@@ -53,6 +53,7 @@ public class RecolteService {
         dto.setIdObjetRecoltable(objetRecoltable.getIdElementRecoltable());
         dto.setNom(objetRecoltable.getNom());
         dto.setPv(objetRecoltable.getPv());
+        dto.setPvMax(objetRecoltable.getPvMax());
         dto.setCooldown(objetRecoltable.getCooldown());
         dto.setDisparitionTime(objetRecoltable.getDisparitionTime());
 

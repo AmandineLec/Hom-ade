@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import fil.rouge.dao.ObjetRecoltableRepository;
 import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.exception.WrongToolException;
 import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;
@@ -73,8 +74,9 @@ public class ObjetRecoltableServiceTest {
 
     @Test
     public void givenObjetRecoltableDisparait_WhenReapparaitBeforeCooldown_ThenReturnFalse() {
-        ObjetRecoltable objetRecoltable = new ObjetRecoltable();
+        ObjetRecoltableDTO objetRecoltable = new ObjetRecoltableDTO();
         objetRecoltable.setCooldown(100);
+        
         objetRecoltableService.disparait(objetRecoltable);
         assertThat(objetRecoltableService.reapparait(objetRecoltable)).isFalse();
     }
