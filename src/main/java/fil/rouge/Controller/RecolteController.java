@@ -41,4 +41,9 @@ public class RecolteController {
         return objetRecoltableDTO;
     }
 
+    @GetMapping("api/recoltables")
+    public ObjetRecoltableDTO[] getRecoltables(Principal principal, @SessionAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO, Model model) {
+        return tabObjetRecoltableDTO.getObjetsRecoltables();
+    }
+
 }

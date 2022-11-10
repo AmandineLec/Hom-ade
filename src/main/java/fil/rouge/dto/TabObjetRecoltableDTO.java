@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 
 public class TabObjetRecoltableDTO {
-    private final int tailleTab = 10;
+    private final int tailleTab = 35;
 
     private ObjetRecoltableDTO[] objetsRecoltables = new ObjetRecoltableDTO[tailleTab];
 
