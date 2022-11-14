@@ -29,9 +29,9 @@ public class ObjetRecoltableService {
     
 
     // Simule l'utilisation d'un outil sur un objet récoltable
-    public int utiliserOutil(Personnage personnage, int objetRecoltableId, int pv)
+    public int utiliserOutil(Personnage personnage, ObjetRecoltableDTO oDto)
             throws WrongToolException {
-        ObjetRecoltable objetRecoltable = getObjetRecoltable(objetRecoltableId);
+        ObjetRecoltable objetRecoltable = getObjetRecoltable(oDto.getIdObjetRecoltable());
         Outil outil = personnage.getOutil();
         Set<Outil> outils = objetRecoltable.getOutils();
 
@@ -40,16 +40,15 @@ public class ObjetRecoltableService {
                                                                               // ne peut pas être utilisé sur l'objet
                                                                               // récoltable
 
-        if (pv == -1)
-                pv = objetRecoltable.getPv();
-
-        return pv - outil.getCapacite(); // Retourne les pv de l'objet récoltable après utilisation de l'outil
+        return oDto.getPv() - outil.getCapacite(); // Retourne les pv de l'objet récoltable après utilisation de l'outil
     }
-
-    public ObjetRecoltable disparait(ObjetRecoltable objetRecoltable) {
+    
+    // Indique qu'un objet récoltable disparaît 
+    public ObjetRecoltableDTO disparait(ObjetRecoltableDTO objetRecoltable) {
         objetRecoltable.setDisparitionTime(System.currentTimeMillis());
         return objetRecoltable;
     }
+    
 
     // Indique si un objet récoltable peut réapparaitre
     public boolean reapparait(ObjetRecoltableDTO objetRecoltable) {
@@ -89,7 +88,7 @@ public class ObjetRecoltableService {
         return convertDataIntoDTO(objetRecoltable);
     }
 
-    // Initialise les objets récoltables
+    // Initialise les objets récoltables en jeu
     public TabObjetRecoltableDTO initObjReco() {
         TabObjetRecoltableDTO tabObjetRecoltableDTO = new TabObjetRecoltableDTO();
         tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(10), 0);  //Séquoia centre
@@ -127,7 +126,6 @@ public class ObjetRecoltableService {
         tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(52), 32);  //Coquille Saint Jacques sud-est
         tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(45), 33);  //Jute sud-est
         tabObjetRecoltableDTO.addObjetsRecoltables(getObjetRecoltablleDto(29), 34);  //Brochet sud-est
-       
         
         return tabObjetRecoltableDTO;
     }
