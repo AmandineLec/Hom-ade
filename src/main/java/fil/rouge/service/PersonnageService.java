@@ -42,8 +42,6 @@ public class PersonnageService {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  @Autowired
-  private InventaireObjetService serviceInventaireObjet;
 
   // Inscription au jeu
   public boolean inscription(String mail, String password, String name, int sexe) throws Exception {
@@ -90,6 +88,7 @@ public class PersonnageService {
   public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
     Optional<Personnage> personnage = pRepository.findByMailAndPassword(mail, password);
     if(!personnage.isEmpty()){
+      System.out.println(personnage.get().getName());
       return personnage.get();
     }
     throw new NoSuchElementException("Identifiants incorrects");
@@ -151,7 +150,7 @@ public class PersonnageService {
     }
   }
 
-  public Personnage getPersonnage(int PersonnageId) throws EntityNotFoundException {
-    return ServiceUtils.getEntity(pRepository, PersonnageId);
-}
+    public Personnage getPersonnage(int PersonnageId) throws EntityNotFoundException {
+      return ServiceUtils.getEntity(pRepository, PersonnageId);
+  }
 }

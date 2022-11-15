@@ -13,8 +13,7 @@ import fil.rouge.service.PersonnageService;
 
 
 
-@Controller
-@SessionAttributes("personnage") // seulement dans la 1ere page qui initialise perso
+@RestController  
 public class InscriptionController {
 
 	@Autowired
@@ -29,12 +28,13 @@ public class InscriptionController {
 
 	@PostMapping(
 		value ="/inscription", consumes = "application/json",  produces = "application/json") // Accede via l'url /partie et via les infos entrées dans le formulaire...
-	@ResponseBody
-	public String startGame(@RequestBody PersonnageDto personnage, Model model) throws Exception {
+	@ResponseBody // The @ResponseBody annotation tells a controller that the object returned is automatically 
+	//serialized into JSON and passed back into the HttpResponse object.
+	public PersonnageDto startGame(@RequestBody PersonnageDto personnage, Model model) throws Exception {
 		model.addAttribute("personnage", personnage);
 		System.out.println(personnage.getSexe());
 		pService.inscription(personnage.getMail(), personnage.getPassword(), personnage.getName(), personnage.getSexe()); // Sauvegarde le perso en BDD
-		return  "/login"; // ...renvoie vers la connexion
+		return personnage; // ...renvoie vers la connexion
 	}
 
 	@PostMapping("/new_inscription") // Via l'url /connexion

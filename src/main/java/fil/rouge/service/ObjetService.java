@@ -42,7 +42,7 @@ public class ObjetService {
     //Méthode de création d'un objet
     public boolean creerObjet(Personnage personnage, int id){
         Objet objet = oRepository.getReferenceById(id);
-        //On fait appel à la méthide ajouter objet pour ajouter l'objet dans l'inventaire du personnage. 
+        //On fait appel à la méthode ajouter objet pour ajouter l'objet dans l'inventaire du personnage. 
         inventaireObjetService.ajouterObjet(personnage, objet.getId(), 1);
         return true;
     }
