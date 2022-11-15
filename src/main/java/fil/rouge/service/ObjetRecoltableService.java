@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.ObjetRecoltableRepository;
+import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.dto.TabObjetRecoltableDTO;
 import fil.rouge.exception.WrongToolException;
@@ -23,13 +24,17 @@ public class ObjetRecoltableService {
     @Autowired
     private ObjetRecoltableRepository objetRecoltableRepository;
 
+    @Autowired
+    PersonnageRepository pRepository; 
+
     public ObjetRecoltable getObjetRecoltable(int objetRecoltableId) throws EntityNotFoundException {
         return ServiceUtils.getEntity(objetRecoltableRepository, objetRecoltableId);
     }
 
     // Simule l'utilisation d'un outil sur un objet récoltable
-    public int utiliserOutil(Personnage personnage, ObjetRecoltableDTO oDto)
+    public int utiliserOutil(String nom, ObjetRecoltableDTO oDto)
             throws WrongToolException {
+        Personnage personnage = pRepository.findByMail(nom).get();
         ObjetRecoltable objetRecoltable = getObjetRecoltable(oDto.getIdObjetRecoltable());
         int capacite = 0;
         Outil outil = personnage.getOutil();
