@@ -91,4 +91,10 @@ public class Ressource implements IRamassable {
         // j.ajouterRessource(this, quantite);
     }
 
+    @Override
+    public String toString() {
+        return "Ressource [id=" + id + ", nom=" + nom + ", type=" + type + "]";
+    }
+
+    
 }

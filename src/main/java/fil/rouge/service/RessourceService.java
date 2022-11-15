@@ -48,10 +48,12 @@ public class RessourceService {
       InventaireRessource invRes = it.next();
       if (invRes.getRessource().getId() == ressourceId) {
         invRes.setQuantite(invRes.getQuantite() + quantite);        // Si la ressource est dans l'inventaire, modifie la quantité
+        inventaireRessourceRepository.save(invRes);
         return true;
       }
     }
     InventaireRessource invRes = new InventaireRessource(personnage, ressource, quantite);
+    inventaireRessourceRepository.save(invRes);
     return personnage.addInventaireRessource(invRes);               // Si la ressource n'est pas dans l'inventaire, l'ajoute dans l'inventaire
     
   }
