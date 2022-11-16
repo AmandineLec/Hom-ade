@@ -1,18 +1,13 @@
 package fil.rouge;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Iterator;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 
 import fil.rouge.dao.InventaireRessourceRepository;
 import fil.rouge.dao.PersonnageRepository;
