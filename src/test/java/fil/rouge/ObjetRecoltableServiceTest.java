@@ -52,7 +52,7 @@ public class ObjetRecoltableServiceTest {
         Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
         Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
                       
-        assertThrows(WrongToolException.class, ()-> objetRecoltableService.utiliserOutil(personnage, oDto));
+        assertThrows(WrongToolException.class, ()-> objetRecoltableService.utiliserOutil("toto", oDto));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ObjetRecoltableServiceTest {
         Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
         Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
         try {
-            assertThat(objetRecoltableService.utiliserOutil(personnage, oDto)).isEqualTo(7);
+            assertThat(objetRecoltableService.utiliserOutil("toto", oDto)).isEqualTo(7);
         } catch (WrongToolException e) {
             
             e.printStackTrace();

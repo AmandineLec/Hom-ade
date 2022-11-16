@@ -6,11 +6,15 @@ import java.util.Iterator;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 
+import fil.rouge.dao.InventaireRessourceRepository;
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dao.RessourceRepository;
 import fil.rouge.model.InventaireRessource;
@@ -29,20 +33,21 @@ public class RessourceServiceTest {
 
     @MockBean
     private PersonnageRepository personnageRepository;
+
+    @MockBean
+    InventaireRessourceRepository inventaireRessourceRepository;
     
     @Test
     public void given4Ressource_WhenPersoHasNoRessource_ThenReturn4() {
         Ressource ressource = new Ressource();
-        ressource.setId(1);
         Personnage personnage = new Personnage();
 
         Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
 
         Mockito.when(ressourceRepository.findById(1)).thenReturn(Optional.of(ressource));
-        ressourceService.ajoutRessourceInventaire(personnage,1, 4);
+        ressourceService.ajoutRessourceInventaire("toto",1, 4);
 
-        Iterator<InventaireRessource> it = personnage.getInventaireRessource().iterator();
-        assertThat(it.next().getQuantite()).isEqualTo(4);
+        Mockito.verify(inventaireRessourceRepository).save(ArgumentMatchers.argThat(invRes -> invRes.getQuantite() == 4));
     }
 
     @Test
@@ -50,15 +55,15 @@ public class RessourceServiceTest {
         Ressource ressource = new Ressource();
         ressource.setId(1);
         Personnage personnage = new Personnage();
+  
         InventaireRessource inventaireRessource = new InventaireRessource(personnage, ressource, 2);
         personnage.addInventaireRessource(inventaireRessource);
 
         Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
 
         Mockito.when(ressourceRepository.findById(1)).thenReturn(Optional.of(ressource));
-        ressourceService.ajoutRessourceInventaire(personnage,1, 4);
+        ressourceService.ajoutRessourceInventaire("toto",1, 4);
 
-        Iterator<InventaireRessource> it = personnage.getInventaireRessource().iterator();
-        assertThat(it.next().getQuantite()).isEqualTo(6);
+        Mockito.verify(inventaireRessourceRepository).save(ArgumentMatchers.argThat(invRes -> invRes.getQuantite() == 6));
     }
 }

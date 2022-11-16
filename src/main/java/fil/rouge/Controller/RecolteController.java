@@ -34,9 +34,8 @@ public class RecolteController {
         ObjetRecoltableDTO objetRecoltableDTO = recolteService.recolteRamassage(principal.getName(),  // récupère l'objet récoltable après une action
         objRecDTO);
         tabObjetRecoltableDTO.addObjetsRecoltables(objetRecoltableDTO, index);  // remet l'objet récoltable à sa place dans le tableau des objets récoltables
-        
-        
-        model.addAttribute("tabObjetRecoltableDTO", tabObjetRecoltableDTO);
+                
+        //model.addAttribute("tabObjetRecoltableDTO", tabObjetRecoltableDTO);
 
         return objetRecoltableDTO;
     }
