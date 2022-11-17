@@ -1,0 +1,57 @@
+.paramForm {
+    grid-column: 12/ span 1;
+    grid-row:  1/ span 1;
+    background-color: $brown;
+    border-bottom: solid 3px $gold;
+    border-left : solid 3px $gold;
+    height : 36px; 
+    width : 36px; 
+    z-index : 5; 
+    margin-left : 100px;
+    &__icon {
+        height : 30px; 
+        width : 100%; 
+        object-fit: contain;
+    }
+}
+
+.modalParametre {
+    grid-column: 11/span 2;
+    background-color: $brown;
+    border-left : solid 3px $gold; 
+    border-bottom : solid 3px $gold; 
+    border-top : solid 3px $gold; 
+    grid-row: 1/ span 1;
+    z-index : 5; 
+    height : 150px; 
+    margin-top : 35px; 
+    visibility : hidden; 
+    &__imgSexe {
+        height : 50px; 
+    }
+    &__imgHome{
+        height : 50px; 
+    }
+    &__button {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top : 10px; 
+    }
+    &__text{
+        grid-column: 2/ span 3;
+        color: $gold;
+        font : {
+            family: $font-text;
+            size : 16px; 
+        }
+        margin : {
+            top : 20px; 
+            left : 10px; 
+        }
+        text-align: left;
+    }
+}
+
+.open {
+    visibility: visible;
+}

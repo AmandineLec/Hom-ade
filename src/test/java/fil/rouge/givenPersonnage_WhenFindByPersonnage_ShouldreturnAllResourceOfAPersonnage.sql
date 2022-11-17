@@ -1,6 +1,6 @@
-INSERT INTO personnage (id, nom, sexe, enabled, mail, password)
+INSERT INTO personnage (id, nom, sexe, mail, enabled)
 VALUES (
-    1, 'Jpp', 1, 1, 'a@a.fr', '1234'
+    1, 'Jpp', 1, 'abc@abc', 1
 );
 
 INSERT INTO ressource (id_ressource, nom, categorie)
