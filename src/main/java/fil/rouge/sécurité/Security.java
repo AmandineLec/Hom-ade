@@ -34,8 +34,7 @@ public class Security implements WebMvcConfigurer {
         .authorizeHttpRequests((authz) -> 
             authz
                 .antMatchers("/api/**")
-                .permitAll())
-                // .authenticated())
+                .authenticated())
         .authorizeHttpRequests((authz) ->
             authz
                 .antMatchers("/inscription")
@@ -50,10 +49,6 @@ public class Security implements WebMvcConfigurer {
                     .permitAll())
         .httpBasic(); 
 
-        http.formLogin()
-            .loginPage("/login").permitAll()
-            .and()
-            .logout().permitAll();
         // On oublie pas d'ajouter la configuration CORS à notre requête Http (sinon ca marche pas ;) )
         // On désactive la protection CSRF pour autoriser l'envoi de données depuis un autre site
         return http.cors().and().csrf().disable().build();
