@@ -23,6 +23,10 @@ import fil.rouge.model.Maison;
 import fil.rouge.model.Outil;
 import fil.rouge.model.Personnage;
 import fil.rouge.model.Roles;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
@@ -41,6 +45,9 @@ public class PersonnageService {
 
   @Autowired
   private PasswordEncoder passwordEncoder;
+  
+  @Autowired
+	public DaoAuthenticationProvider manager;
 
 
   // Inscription au jeu
@@ -63,7 +70,9 @@ public class PersonnageService {
     Roles role = rRepository.findByName("user").get();
     List<Roles> roles = new ArrayList<Roles>();
     roles.add(role);
+    System.out.println(password);
     password = passwordEncoder.encode(password);
+    System.out.println(password);
     Personnage personnage = new Personnage(name, sexe, mail, password, true);
     personnage.setRoles(roles);
     Maison maison = new Maison();
@@ -86,7 +95,11 @@ public class PersonnageService {
 
   // Connexion à la partie
   public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
-    Optional<Personnage> personnage = pRepository.findByMailAndPassword(mail, password);
+    //String passwordhash = passwordEncoder.encode(password);
+    //System.out.println(passwordhash);
+    System.out.println(password);
+    manager.authenticate(new UsernamePasswordAuthenticationToken(mail, password));
+    Optional<Personnage> personnage = pRepository.findByMail(mail);
     if(!personnage.isEmpty()){
       System.out.println(personnage.get().getName());
       return personnage.get();
@@ -154,3 +167,4 @@ public class PersonnageService {
       return ServiceUtils.getEntity(pRepository, PersonnageId);
   }
 }
+
