@@ -14,27 +14,26 @@ import fil.rouge.service.PersonnageService;
 public class ConnexionController {
 	@Autowired
 	public PersonnageService pService;
-
+	
+	@PostMapping("/first_connexion") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
+	public String firstConnexion(Model model){
+		return "/login"; // Affiche la page partie.html
+	}
 	@PostMapping("/new_connexion") // Via l'url /connexion -> bouton connexion page inscription.html
 	public String continuePartie(Model model, @ModelAttribute PersonnageDto personnage) throws Exception {
 		model.addAttribute("personnage", personnage);
 		return "/login"; // Accede à la page connexion.html
 	}
 
-	@GetMapping("/login") // Affiche la page de connexion via cet url
+	@GetMapping("/se_connecter") // Affiche la page de connexion via cet url
 	public String connexion(Model model) throws Exception {
 		return "/login"; // page connexion.html
 	}
 
-	@PostMapping("/se_connecter") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
+	@PostMapping("/login") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
 	public String getPartie(@ModelAttribute PersonnageDto personnage, Model model) throws Exception {
 		model.addAttribute("personnage", personnage);
 		pService.connexionPartie(personnage.getMail(), personnage.getPassword());
 		return "/partie"; // Affiche la page partie.html
-	}
-
-	@PostMapping("/first_connexion") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
-	public String firstConnexion(Model model){
-		return "/login"; // Affiche la page partie.html
 	}
 }

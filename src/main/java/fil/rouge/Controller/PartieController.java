@@ -62,7 +62,7 @@ public class PartieController {
     public String jouer(Principal principal, Model model, @ModelAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO) throws Exception {
       Personnage personnage = pRepository.findByMail(principal.getName()).get();
       model.addAttribute("personnage", personnage);
-      return "/jeu"; // ...A la page partie.html
+      return "/jeu"; // ...A la page jeu.html
       }
 
       @ModelAttribute("tabObjetRecoltableDTO")
