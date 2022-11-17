@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import fil.rouge.inter.IRamassable;
 
 @Entity
@@ -21,11 +23,15 @@ public class Ressource implements IRamassable {
     @Column(name = "categorie")
     private String type = "";
 
-    
-    @OneToMany(mappedBy = "ressource")
+    @Column(name = "img")
+    private String img;
+
+    @OneToMany(mappedBy = "ressource", fetch = FetchType.LAZY)
+    @JsonBackReference
     protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
 
-    @OneToMany(mappedBy = "ressource")
+    @OneToMany(mappedBy = "ressource", fetch = FetchType.LAZY)
+    @JsonBackReference
     protected Set<InventaireRessource> inventaireRessources = new HashSet<InventaireRessource>();
 
     //#region constructeurs
@@ -66,6 +72,14 @@ public class Ressource implements IRamassable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Set<RessourcesRecoltees> getRessourcesRecoltees() {

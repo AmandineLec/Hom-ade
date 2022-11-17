@@ -1,0 +1,9 @@
+.modalInventaire {
+    visibility: hidden;
+    background-color: $darkBrown;
+    z-index : 5;
+    grid-column: 3/ span 8;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-row: 1/span 1;
+}

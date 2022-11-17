@@ -23,7 +23,7 @@ import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dto.PersonnageDto;
 import fil.rouge.service.PersonnageService;
 
-@RestController // que ce soit en rest ou non id non reconnu pour la connection. Lundi tester via le controlleur /new_connexion" ?
+@Controller // que ce soit en rest ou non id non reconnu pour la connection. Lundi tester via le controlleur /new_connexion" ?
 @SessionAttributes("personnage") // seulement dans la 1ere page qui initialise perso
 
 public class ConnexionController {
@@ -49,7 +49,7 @@ public class ConnexionController {
 		return "/login"; // page connexion.html
 	}*/
 
-	@PostMapping(value= "/connection", consumes = "application/json",  produces = "application/json") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
+	@PostMapping(value= "/login", consumes = "application/json",  produces = "application/json") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
 	@ResponseBody
 	public PersonnageDto getPartie(@RequestBody  PersonnageDto personnage, Model model) throws Exception {
 		

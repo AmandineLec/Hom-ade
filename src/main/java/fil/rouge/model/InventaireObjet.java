@@ -1,7 +1,14 @@
 package fil.rouge.model;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import fil.rouge.serializer.InventaireObjetSerializer;
+
+
 @Entity
+@JsonSerialize(using = InventaireObjetSerializer.class)
 @Table(name = "inventaire_objet")
 public class InventaireObjet {
     @EmbeddedId
@@ -10,6 +17,7 @@ public class InventaireObjet {
     @ManyToOne
     @MapsId("idPersonnage")
     @JoinColumn(name = "id_personnage")
+    @JsonBackReference
     protected Personnage personnage;
 
     @ManyToOne
