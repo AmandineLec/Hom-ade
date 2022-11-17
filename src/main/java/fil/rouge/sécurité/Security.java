@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class Security implements WebMvcConfigurer{
+public class Security implements WebMvcConfigurer {
     // On ajoute l'interface WebMvcConfigurer pour avoir la méthode addCorsMappings
 
     @Bean // Dit quel encodeur spring doit utiliser
@@ -42,15 +42,11 @@ public class Security implements WebMvcConfigurer{
                     .permitAll())
         .formLogin() // Pour ne pas avoir la page d'authentification -> acces à toutes les pages de localhost
             .loginPage("/login")
-        // .and()
-        //     .authorizeRequests()
-        //         .antMatchers("/login").permitAll()
-        //         .anyRequest().authenticated()
-        .and()
-            .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        ;
+            .loginProcessingUrl("/login")
+            .permitAll()
+            ;
         return http.cors().and().csrf().disable().build();
+
 
         // On oublie pas d'ajouter la configuration CORS à notre requête Http (sinon ca marche pas ;) )
         // On désactive la protection CSRF pour autoriser l'envoi de données depuis un autre site
