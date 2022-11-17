@@ -34,16 +34,13 @@ public class RessourceService {
   @Autowired
   InventaireRessourceRepository inventaireRessourceRepository;
 
-  @Autowired
-    PersonnageRepository pRepository;  
-
   public Ressource getRessource(int ressourceId) throws EntityNotFoundException {
     return ServiceUtils.getEntity(ressourceRepository, ressourceId);
   }
 
   // Ajoute les ressources ramassées dans l'inventaire
-  public boolean ajoutRessourceInventaire(String mail, int ressourceId, int quantite) {
-    Personnage personnage = pRepository.findByMail(mail).get();
+  public boolean ajoutRessourceInventaire(Personnage personnage, int ressourceId, int quantite) {
+    
     Ressource ressource = ressourceRepository.findById(ressourceId).get();
 
     Iterator<InventaireRessource> it = personnage.getInventaireRessource().iterator();
@@ -51,12 +48,10 @@ public class RessourceService {
       InventaireRessource invRes = it.next();
       if (invRes.getRessource().getId() == ressourceId) {
         invRes.setQuantite(invRes.getQuantite() + quantite);        // Si la ressource est dans l'inventaire, modifie la quantité
-        inventaireRessourceRepository.save(invRes);
         return true;
       }
     }
     InventaireRessource invRes = new InventaireRessource(personnage, ressource, quantite);
-    inventaireRessourceRepository.save(invRes);
     return personnage.addInventaireRessource(invRes);               // Si la ressource n'est pas dans l'inventaire, l'ajoute dans l'inventaire
     
   }

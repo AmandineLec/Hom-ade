@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.exception.WrongToolException;
+import fil.rouge.model.ObjetRecoltable;
+import fil.rouge.model.Personnage;
 import fil.rouge.model.RessourcesRecoltees;
 
 
@@ -20,28 +21,41 @@ public class RecolteService {
     @Autowired
     ObjetRecoltableService objetRecoltableService;
 
-    @Autowired
-    PersonnageRepository pRepository;    
     
-    public ObjetRecoltableDTO recolteRamassage(String mail, ObjetRecoltableDTO oDto) {
-        int pv = 0;
-
+    
+    public ObjetRecoltableDTO recolteRamassage(Personnage personnage, int objetRecoltableId, int pv) {
+        ObjetRecoltable objetRecoltable = objetRecoltableService.getObjetRecoltable(objetRecoltableId);
+        
         try {
             // Lors du clic, on utilise l'outil du personnage sur l'objet récoltable, et on récupère sa nouvelle résistance
-            pv = Math.max(objetRecoltableService.utiliserOutil(mail, oDto), 0);
-            oDto.setPv(pv);
+            pv = Math.max(objetRecoltableService.utiliserOutil(personnage, objetRecoltableId, pv), 0);
+            objetRecoltable.setPv(pv);
         } catch (WrongToolException e) {
             e.printStackTrace();
         }
         // Si la résistance est à 0, on récupère la liste des ressources à récupérer sur l'objet récoltable et on les ajoute à l'inventaire
         if (pv == 0) {
-            List<RessourcesRecoltees> listeRessources = ressourceService.listeRessourcesRamassees(oDto.getIdObjetRecoltable());
+            List<RessourcesRecoltees> listeRessources = ressourceService.listeRessourcesRamassees(objetRecoltable.getIdElementRecoltable());
             for (RessourcesRecoltees ressources : listeRessources) {
-                ressourceService.ajoutRessourceInventaire(mail, ressources.getRessource().getId(), ressources.getQuantite());
+                ressourceService.ajoutRessourceInventaire(personnage, ressources.getRessource().getId(), ressources.getQuantite());
             }
-            oDto = objetRecoltableService.disparait(oDto);
+            objetRecoltable = objetRecoltableService.disparait(objetRecoltable);
         }
-        
-        return oDto;
+        ObjetRecoltableDTO dto = convertDataIntoDTO(objetRecoltable);
+        System.out.println("test : " + dto);
+        return dto;
+    }
+
+    // convertit un objet récoltable en DTO
+    private ObjetRecoltableDTO convertDataIntoDTO(ObjetRecoltable objetRecoltable) {
+        ObjetRecoltableDTO dto = new ObjetRecoltableDTO();
+
+        dto.setIdObjetRecoltable(objetRecoltable.getIdElementRecoltable());
+        dto.setNom(objetRecoltable.getNom());
+        dto.setPv(objetRecoltable.getPv());
+        dto.setCooldown(objetRecoltable.getCooldown());
+        dto.setDisparitionTime(objetRecoltable.getDisparitionTime());
+
+        return dto;
     }
 }

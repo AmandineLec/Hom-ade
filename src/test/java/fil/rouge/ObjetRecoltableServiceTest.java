@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import fil.rouge.dao.ObjetRecoltableRepository;
 import fil.rouge.dao.PersonnageRepository;
-import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.exception.WrongToolException;
 import fil.rouge.model.ObjetRecoltable;
 import fil.rouge.model.Outil;
@@ -36,9 +35,6 @@ public class ObjetRecoltableServiceTest {
     public void givenObjetRecoltable_WhenOutilNotInOutils_ThenThrowsException() {
         ObjetRecoltable objetRecoltable = new ObjetRecoltable();
         Personnage personnage = new Personnage();
-        ObjetRecoltableDTO oDto = new ObjetRecoltableDTO();
-        oDto.setIdObjetRecoltable(1);
-        oDto.setPv(10);
         Outil outil1 = new Outil("outil1");
         outil1.setId(1);
         Outil outil2 = new Outil("outil2");
@@ -52,26 +48,23 @@ public class ObjetRecoltableServiceTest {
         Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
         Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
                       
-        assertThrows(WrongToolException.class, ()-> objetRecoltableService.utiliserOutil("toto", oDto));
+        assertThrows(WrongToolException.class, ()-> objetRecoltableService.utiliserOutil(personnage, 1, 10));
     }
 
     @Test
     public void givenObjetRecoltableWithPv10_WhenOutilCapacite3_ThenReturn7() {
         ObjetRecoltable objetRecoltable = new ObjetRecoltable();
         Personnage personnage = new Personnage();
-        ObjetRecoltableDTO oDto = new ObjetRecoltableDTO();
         Outil outil1 = new Outil("outil1");
         outil1.setId(1);
         outil1.setCapacite(3);
-        oDto.setIdObjetRecoltable(1);
-        oDto.setPv(10);
 
         personnage.setOutil(outil1);
         objetRecoltable.addOutil(outil1);
         Mockito.when(personnageRepository.findByMail("toto")).thenReturn(Optional.of(personnage));
         Mockito.when(objetRecoltableRepository.findById(1)).thenReturn(Optional.of(objetRecoltable));
         try {
-            assertThat(objetRecoltableService.utiliserOutil("toto", oDto)).isEqualTo(7);
+            assertThat(objetRecoltableService.utiliserOutil(personnage, 1, 10)).isEqualTo(7);
         } catch (WrongToolException e) {
             
             e.printStackTrace();
@@ -80,16 +73,15 @@ public class ObjetRecoltableServiceTest {
 
     @Test
     public void givenObjetRecoltableDisparait_WhenReapparaitBeforeCooldown_ThenReturnFalse() {
-        ObjetRecoltableDTO objetRecoltable = new ObjetRecoltableDTO();
+        ObjetRecoltable objetRecoltable = new ObjetRecoltable();
         objetRecoltable.setCooldown(100);
-        
         objetRecoltableService.disparait(objetRecoltable);
         assertThat(objetRecoltableService.reapparait(objetRecoltable)).isFalse();
     }
 
     @Test
     public void givenObjetRecoltableDisparait_WhenReapparaitAfterCooldown_ThenReturnTrue() {
-        ObjetRecoltableDTO objetRecoltable = new ObjetRecoltableDTO();
+        ObjetRecoltable objetRecoltable = new ObjetRecoltable();
         objetRecoltable.setCooldown(100);
         objetRecoltableService.disparait(objetRecoltable);
         try {
