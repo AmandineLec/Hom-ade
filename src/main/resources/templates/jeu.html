@@ -97,8 +97,10 @@
             <div th:fragment="recetteOutils" id="modalOutils" class="modalRecette__onglet">
                 <article th:each="outil : ${outils}">
                     <h2 th:text="${outil.nom}">Nom de l'outil</h2>
+                    <p th:text="${outil.img}"></p>
                     <div th:each="recette : ${outil.recette}">
                         <p th:text="${recette.ressource.nom}">Recette 1</p>
+                        <p th:text="${recette.ressource.img}"></p>
                     </div>
                     <a th:href="@{singleRecette(id=${outil.id})}">Voir recette</a>
                 </article>

@@ -23,6 +23,8 @@ public class Ressource implements IRamassable {
     @Column(name = "categorie")
     private String type = "";
 
+    @Column(name = "img")
+    private String img;
 
     @OneToMany(mappedBy = "ressource", fetch = FetchType.LAZY)
     @JsonBackReference
@@ -70,6 +72,14 @@ public class Ressource implements IRamassable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Set<RessourcesRecoltees> getRessourcesRecoltees() {

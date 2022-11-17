@@ -32,6 +32,9 @@ public class Objet {
     @Column(name = "categorie")
     protected int categorie;
 
+    @Column(name = "img")
+    protected String img;
+
 
     @OneToMany(mappedBy = "objet", fetch = FetchType.LAZY)
     @JsonManagedReference
@@ -85,6 +88,13 @@ public class Objet {
 
     public int getCategorie() {
         return categorie;
+    }
+
+    public String getImg() {
+        return img;
+    }
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Set<Recette> getRecette() {
