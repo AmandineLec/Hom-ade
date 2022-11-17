@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,10 +18,15 @@ import fil.rouge.dao.DecorationRepository;
 import fil.rouge.dao.MeubleRepository;
 import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.OutilRepository;
+import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.exception.ReceiptsException;
 import fil.rouge.model.Decoration;
 import fil.rouge.model.Meuble;
 import fil.rouge.model.Objet;
 import fil.rouge.model.Outil;
+import fil.rouge.model.Personnage;
+import fil.rouge.service.RecetteService;
+import java.security.Principal;
 
 @RestController
 public class RecetteRestController {
@@ -34,6 +42,12 @@ public class RecetteRestController {
 
     @Autowired
     DecorationRepository decorationRepository; 
+
+    @Autowired 
+    RecetteService recetteService;
+
+    @Autowired
+    PersonnageRepository pRepository;
 
     @GetMapping("/api/recettes") 
     public Optional<Objet> Recettes(@RequestParam Integer id) throws JsonProcessingException {
@@ -55,5 +69,12 @@ public class RecetteRestController {
     List<Decoration> decos = decorationRepository.findAll(); 
     String serialized = new ObjectMapper().writeValueAsString(decos);
     return serialized; 
+    }
+
+    @GetMapping("/api/creation")
+    public Boolean AddInventaire(Principal principal, @RequestParam Integer id) throws ReceiptsException{
+        Personnage personnage = pRepository.findByMail(principal.getName()).get();
+        recetteService.fusionnerRessource(id, personnage);
+        return true;
     }
 }
