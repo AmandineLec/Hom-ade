@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -43,8 +42,6 @@ public class PersonnageService {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  @Autowired
-  private InventaireObjetService serviceInventaireObjet;
 
   // Inscription au jeu
   public boolean inscription(String mail, String password, String name, int sexe) throws Exception {
@@ -76,6 +73,16 @@ public class PersonnageService {
     return true;
   }
 
+  // Connexion à la partie
+  public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
+    Optional<Personnage> personnage = pRepository.findByMail(mail);
+    if(!personnage.isEmpty()){
+      System.out.println(personnage.get().getName());
+      return personnage.get();
+    }
+    throw new NoSuchElementException("Identifiants incorrects");
+  }
+
   // Suppression du compte
   public boolean suppressionPartie(String mail, String password) throws NoSuchElementException{
     Optional<Personnage> personnage = pRepository.findByMailAndPassword(mail, password);
@@ -86,16 +93,6 @@ public class PersonnageService {
 
     throw new NoSuchElementException("Compte non trouvé");
   }
-
-  // Connexion à la partie
-  public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
-    Optional<Personnage> personnage = pRepository.findByMailAndPassword(mail, password);
-    if(!personnage.isEmpty()){
-      return personnage.get();
-    }
-    throw new NoSuchElementException("Identifiants incorrects");
-  }
-
   // Modifier les infos du compte
 
   //Mail
@@ -152,7 +149,10 @@ public class PersonnageService {
     }
   }
 
-  public Personnage getPersonnage(int PersonnageId) throws EntityNotFoundException {
-    return ServiceUtils.getEntity(pRepository, PersonnageId);
-}
+    public Personnage getPersonnage(int PersonnageId) throws EntityNotFoundException {
+      return ServiceUtils.getEntity(pRepository, PersonnageId);
+  }
+
+
+  
 }
