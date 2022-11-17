@@ -15,7 +15,7 @@ import fil.rouge.model.InventaireRessource;
 import fil.rouge.model.InventaireObjet;
 
 @RestController
-@SessionAttributes("personnage")
+//@SessionAttributes("personnage")
 public class InventaireRestController {
     @Autowired
     InventaireRessourceRepository inventaireRessourceRepository;

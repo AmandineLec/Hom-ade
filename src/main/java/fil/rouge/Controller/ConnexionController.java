@@ -15,7 +15,7 @@ import fil.rouge.dto.PersonnageDto;
 import fil.rouge.service.PersonnageService;
 
 @Controller // que ce soit en rest ou non id non reconnu pour la connection. Lundi tester via le controlleur /new_connexion" ?
-@SessionAttributes("personnage") // seulement dans la 1ere page qui initialise perso
+//@SessionAttributes("personnage") // seulement dans la 1ere page qui initialise perso
 
 public class ConnexionController {
 	@Autowired
@@ -45,8 +45,8 @@ public class ConnexionController {
 	public PersonnageDto getPartie(@RequestBody  PersonnageDto personnage, Model model) throws Exception {
 		
 		model.addAttribute("personnage", personnage);
-		System.out.println(personnage.getMail());
-		System.out.println(personnage.getPassword());
+		//System.out.println(personnage.getMail());
+		//System.out.println(personnage.getPassword());
 		pService.connexionPartie(personnage.getMail(), personnage.getPassword());
 		return personnage; // Affiche la page partie.html
 		// https://www.tutorialspoint.com/how-to-write-create-a-json-file-using-java#:~:text=write(jsonObject.,into%20a%20file%20named%20output.

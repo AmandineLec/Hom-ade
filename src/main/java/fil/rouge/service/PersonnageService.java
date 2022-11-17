@@ -67,9 +67,9 @@ public class PersonnageService {
     Roles role = rRepository.findByName("user").get();
     List<Roles> roles = new ArrayList<Roles>();
     roles.add(role);
-    System.out.println(password);
+    //System.out.println(password);
     password = passwordEncoder.encode(password);
-    System.out.println(password);
+    //System.out.println(password);
     Personnage personnage = new Personnage(name, sexe, mail, password, true);
     personnage.setRoles(roles);
     Maison maison = new Maison();
@@ -94,11 +94,11 @@ public class PersonnageService {
   public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
     //String passwordhash = passwordEncoder.encode(password);
     //System.out.println(passwordhash);
-    System.out.println(password);
+    //System.out.println(password);
     manager.authenticate(new UsernamePasswordAuthenticationToken(mail, password));
     Optional<Personnage> personnage = pRepository.findByMail(mail);
     if(!personnage.isEmpty()){
-      System.out.println(personnage.get().getName());
+      //System.out.println(personnage.get().getName());
       return personnage.get();
     }
     throw new NoSuchElementException("Identifiants incorrects");

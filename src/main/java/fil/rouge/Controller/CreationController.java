@@ -24,7 +24,7 @@ import fil.rouge.model.Personnage;
 import fil.rouge.service.RecetteService;
 
 @Controller
-@SessionAttributes("personnage")
+//@SessionAttributes("personnage")
 public class CreationController {
        //Faire un controller qui nous retourne les différentes recettes triées par type
        //Le return est une modal (?)

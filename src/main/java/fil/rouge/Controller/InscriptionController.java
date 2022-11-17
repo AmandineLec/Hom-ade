@@ -31,7 +31,7 @@ public class InscriptionController {
 	//serialized into JSON and passed back into the HttpResponse object.
 	public PersonnageDto startGame(@RequestBody PersonnageDto personnage, Model model) throws Exception {
 		model.addAttribute("personnage", personnage);
-		System.out.println(personnage.getSexe());
+		//System.out.println(personnage.getSexe());
 		pService.inscription(personnage.getMail(), personnage.getPassword(), personnage.getName(), personnage.getSexe()); // Sauvegarde le perso en BDD
 		return personnage; // ...renvoie vers la connexion
 	}

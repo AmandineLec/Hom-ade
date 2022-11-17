@@ -42,7 +42,7 @@ public class RecolteService {
             objetRecoltable = objetRecoltableService.disparait(objetRecoltable);
         }
         ObjetRecoltableDTO dto = convertDataIntoDTO(objetRecoltable);
-        System.out.println("test : " + dto);
+        //.println("test : " + dto);
         return dto;
     }
 

@@ -18,7 +18,7 @@ import fil.rouge.service.ObjetRecoltableService;
 import fil.rouge.service.PersonnageService;
 
 @Controller
-@SessionAttributes({"personnage" , "tabObjetRecoltableDTO"}) // seulement dans la 1ere page qui initialise perso
+//@SessionAttributes({"personnage" , "tabObjetRecoltableDTO"}) // seulement dans la 1ere page qui initialise perso
 public class PartieController {
 
     @Autowired
@@ -38,7 +38,7 @@ public class PartieController {
 
     @PostMapping("/retour_compte")
     public String retourCompte(@ModelAttribute Principal principal, Model model){
-      System.out.println(principal.getName());
+      //System.out.println(principal.getName());
       Personnage personnage = pRepository.findByMail(principal.getName()).get();
       model.addAttribute("personnage", personnage);
 		return "/partie"; // ...A la page partie.html
@@ -53,7 +53,7 @@ public class PartieController {
 
     @GetMapping("/")
     public String debutPartie(Principal principal, Model model){
-      System.out.println(principal.getName());
+      //System.out.println(principal.getName());
       Personnage personnage = pRepository.findByMail(principal.getName()).get();
       model.addAttribute("personnage", personnage);
 

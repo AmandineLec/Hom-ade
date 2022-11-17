@@ -12,7 +12,7 @@ import fil.rouge.model.Personnage;
 import fil.rouge.service.ObjetService;
 
 @Controller
-@SessionAttributes("personnage")
+//@SessionAttributes("personnage")
 public class ObjetController {
 
     @Autowired
