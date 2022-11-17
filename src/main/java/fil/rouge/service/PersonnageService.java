@@ -20,8 +20,6 @@ import fil.rouge.exception.NeedAPasswordToRegisterException;
 import fil.rouge.model.Maison;
 import fil.rouge.model.Personnage;
 import fil.rouge.model.Roles;
-
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
