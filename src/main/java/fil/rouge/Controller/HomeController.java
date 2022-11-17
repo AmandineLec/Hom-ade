@@ -1,4 +1,4 @@
-package fil.rouge.controller;
+package fil.rouge.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

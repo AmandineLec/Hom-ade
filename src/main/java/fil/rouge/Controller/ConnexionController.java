@@ -1,4 +1,4 @@
-package fil.rouge.controller;
+package fil.rouge.Controller;
 
 
 import java.security.Principal;
@@ -38,11 +38,6 @@ public class ConnexionController {
 
 
 
-	@PostMapping("/first_connexion") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
-	public String firstConnexion(Model model){
-		return "/login"; // Affiche la page partie.html
-	}
-
 	@PostMapping("/new_connexion") // Via l'url /connexion -> bouton connexion page inscription.html
 	public String continuePartie(Model model, @ModelAttribute PersonnageDto personnage) throws Exception {
 		model.addAttribute("personnage", personnage);
@@ -54,7 +49,7 @@ public class ConnexionController {
 		return "/login"; // page connexion.html
 	}*/
 
-	@PostMapping(value= "/login", consumes = "application/json",  produces = "application/json") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
+	@PostMapping(value= "/connection", consumes = "application/json",  produces = "application/json") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
 	@ResponseBody
 	public PersonnageDto getPartie(@RequestBody  PersonnageDto personnage, Model model) throws Exception {
 		
