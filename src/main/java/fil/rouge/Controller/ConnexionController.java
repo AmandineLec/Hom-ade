@@ -41,7 +41,7 @@ public class ConnexionController {
 	// 	return "/login"; // page connexion.html
 	// }
 
-	@PostMapping(value= "/login", consumes = "application/json",  produces = "application/json") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
+	@PostMapping(value= "/connection", consumes = "application/json",  produces = "application/json") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
 	@ResponseBody
 	public PersonnageDto getPartie(@RequestBody PersonnageDto personnage, Model model) throws Exception {
 		model.addAttribute("personnage", personnage);
