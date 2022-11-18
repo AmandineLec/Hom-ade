@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Bob le Bricoleur</title>
-<!-- <link rel="stylesheet" href="style.css"/> -->
-<link rel="stylesheet" href="src/css/style.css"/>
+<link rel="stylesheet" href="style.css"/> -->
+<!-- <link rel="stylesheet" href="src/css/style.css"/>
 <link rel="icon" type="image/gif" href="img/house.png"/>
 </head>
-<body>
+<body> -->
     <!-- <div class="container" >
         <p th:text="${ressource.nom}"></p>
     </div> -->
@@ -17,7 +17,7 @@
         <p>Résistance : <span th:text="${resistance}">10</span></p>
         <input type="submit" value="Arbre" />
     </form> -->
-    <main class="container">   
+    <!-- <main class="container">   
         <div id="modalParametre" class="modalParametre">
             <form class="modalParametre__formHome" action="#" th:action="@{/go_home6}" method="post" id="flogo">
                 <button class="modalParametre__button" id="btnlogo" type="submit">
@@ -40,11 +40,11 @@
             <form class="map__form map__form--maison" action="">
                 <button class="map__button"><img class="map__image map__image--maison" src="img/Maison.png" alt=""></button>
             </form>
-            <!-- <form class="map__form map__form--porte" action="">
+            <form class="map__form map__form--porte" action="">
                 <button class="map__button"><img class="map__image" src="porte.png" alt=""></button>
             </form> -->
 
-            <div class="map__form map__form--arbre" th:unless="${tabObjetRecoltableDTO.getObjetsRecoltables(0).pv == 0}">
+            <!-- <div class="map__form map__form--arbre" th:unless="${tabObjetRecoltableDTO.getObjetsRecoltables(0).pv == 0}">
                 <form class="map__form map__form--arbre"  th:action="@{/recolte}" action="#" method="post" th:object="${tabObjetRecoltableDTO}">
                     <input type="hidden" name="index" value="0"/>
                     <button type="submit" class="map__button"><img class="map__image map__image--arbre" src="img/arbre.png" alt=""></button>
@@ -77,13 +77,13 @@
                     <img class="interface__img" src="img/carte.png" alt="Carte">
                     <p class="interface__text">Carte</p>
                 </button>
-                <!-- <button class="interface__button">
+                <button class="interface__button">
                     <img src="" alt="">
                     <p></p>
                 </button> -->
         </div>
 
-        <div id="modalRecette" class="modalRecette">
+        <!-- <div id="modalRecette" class="modalRecette">
             <form th:action="@{/recetteOutils}">
                 <button class="modalRecette__buttons" id="modalRecette__buttons">Outils</button>
             </form>
@@ -154,7 +154,7 @@
             </div>    
         </div>
     </main>
-    <script src="jeu.js"></script>
-</body>
+    <script src="jeu.js"></script> -->
+<!-- </body> --> 
 
-</html>
+<!-- </html> -->
