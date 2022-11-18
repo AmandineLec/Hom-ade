@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.exception.WrongToolException;
+import fil.rouge.model.ObjetRecoltable;
+import fil.rouge.model.Personnage;
 import fil.rouge.model.RessourcesRecoltees;
 
 
@@ -20,8 +21,7 @@ public class RecolteService {
     @Autowired
     ObjetRecoltableService objetRecoltableService;
 
-    @Autowired
-    PersonnageRepository pRepository;    
+       
     
     public ObjetRecoltableDTO recolteRamassage(String mail, ObjetRecoltableDTO oDto) {
         int pv = 0;
@@ -45,3 +45,4 @@ public class RecolteService {
         return oDto;
     }
 }
+

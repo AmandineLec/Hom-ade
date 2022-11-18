@@ -68,13 +68,5 @@ public class InventaireRessource {
         this.quantite = quantite;
         this.id = new InventaireRessourceKey(personnage.getIdPersonnage(), ressource.getId());
     }
-
-    @Override
-    public String toString() {
-        return "InventaireRessource [id=" + id + ", personnage=" + personnage + ", ressource=" + ressource
-                + ", quantite=" + quantite + "]";
-    }
-
-    
 }
 
