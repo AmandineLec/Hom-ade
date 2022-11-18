@@ -1,20 +1,20 @@
 package fil.rouge.controller;
 
 import java.util.List;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fil.rouge.dao.DecorationRepository;
 import fil.rouge.dao.MeubleRepository;
 import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.OutilRepository;
+import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.exception.ReceiptsException;
 import fil.rouge.model.Decoration;
 import fil.rouge.model.Meuble;
@@ -24,15 +24,17 @@ import fil.rouge.model.Personnage;
 import fil.rouge.service.RecetteService;
 
 @Controller
-@SessionAttributes("personnage")
 public class CreationController {
        //Faire un controller qui nous retourne les différentes recettes triées par type
        //Le return est une modal (?)
     @Autowired
     OutilRepository outilRepository; 
 
+    @Autowired
+    PersonnageRepository pRepository; 
+
     @GetMapping("/recetteOutils")
-    public String RecetteOutils(Personnage personnage, Model model){
+    public String RecetteOutils(Principal personnage, Model model){
         List<Outil> outils = outilRepository.findAll();
         model.addAttribute("outils", outils);
         return "/jeu ::recetteOutils";
@@ -41,7 +43,7 @@ public class CreationController {
     MeubleRepository meubleRepository;
 
     @GetMapping("/recetteMeubles")
-    public String RecetteMeuble(Personnage personnage, Model model){
+    public String RecetteMeuble(Principal personnage, Model model){
         List<Meuble> meubles = meubleRepository.findAll();
         model.addAttribute("meubles", meubles);
         return "/jeu ::recetteMeubles";
@@ -51,7 +53,7 @@ public class CreationController {
     DecorationRepository decorationRepository; 
 
     @GetMapping("/recetteDecos")
-    public String RecetteDeco(Personnage personnage, Model model){
+    public String RecetteDeco(Principal personnage, Model model){
         List<Decoration> decorations = decorationRepository.findAll(); 
         model.addAttribute("decorations", decorations);
         return "/jeu ::recetteDecos";
@@ -71,7 +73,8 @@ public class CreationController {
     RecetteService recetteService;
 
     @PostMapping("/AddInventaire")
-    public String AddInventaire(@RequestParam Integer id, @ModelAttribute Personnage personnage) throws ReceiptsException{
+    public String AddInventaire(@RequestParam Integer id,Principal principal) throws ReceiptsException{
+        Personnage personnage = pRepository.findByMail(principal.getName()).get();
         recetteService.fusionnerRessource(id, personnage);
         return ("/AddInventaire");
     }

@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 @Table(name = "element_recoltable")
@@ -29,9 +31,11 @@ public class ObjetRecoltable {
         joinColumns = @JoinColumn(name = "id_element_recoltable"),
         inverseJoinColumns = @JoinColumn(name = "id_objet")
     )
+    @JsonBackReference
     protected Set<Outil> outils = new HashSet<Outil>(); // id de l'outil à utiliser pour récolter
 
     @OneToMany(mappedBy = "objetRecoltable")
+    @JsonBackReference
     protected Set<RessourcesRecoltees> ressourcesRecoltees = new HashSet<RessourcesRecoltees>();
     
     @Column(name = "niveau_requis")
@@ -42,6 +46,9 @@ public class ObjetRecoltable {
     
     @Transient
     protected long disparitionTime;
+
+    @Transient
+    protected int pvMax;
     
     //#region Constructeurs
 
@@ -56,6 +63,7 @@ public class ObjetRecoltable {
         this.categorie = categorie;
         this.niveauRequis = niveauRequis;
         this.pv = pv;
+        this.pvMax = pv;
     }
     //#endregion
 
@@ -116,6 +124,14 @@ public class ObjetRecoltable {
 
     public void setPv(int pv) {
         this.pv = pv;
+    }
+
+    public int getPvMax() {
+        return pvMax;
+    }
+
+    public void setPvMax(int pvMax) {
+        this.pvMax = pvMax;
     }
     
     public long getCooldown() {

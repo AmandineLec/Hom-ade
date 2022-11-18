@@ -1,16 +1,24 @@
 package fil.rouge.model;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import fil.rouge.serializer.InventaireRessourceSerializer;
+
 
 @Entity
+@JsonSerialize(using = InventaireRessourceSerializer.class)
 @Table(name = "inventaire_ressources")
 public class InventaireRessource {
+    
     @EmbeddedId
     protected InventaireRessourceKey id;
 
     @ManyToOne
     @MapsId("idPersonnage")
     @JoinColumn(name = "id_personnage")
+    @JsonBackReference
     protected Personnage personnage;
 
     @ManyToOne
@@ -60,5 +68,13 @@ public class InventaireRessource {
         this.quantite = quantite;
         this.id = new InventaireRessourceKey(personnage.getIdPersonnage(), ressource.getId());
     }
+
+    @Override
+    public String toString() {
+        return "InventaireRessource [id=" + id + ", personnage=" + personnage + ", ressource=" + ressource
+                + ", quantite=" + quantite + "]";
+    }
+
+    
 }
 

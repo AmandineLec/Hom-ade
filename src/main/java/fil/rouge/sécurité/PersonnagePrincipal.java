@@ -5,7 +5,6 @@ package fil.rouge.sécurité;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +24,6 @@ public class PersonnagePrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
         return null;
         //return stream(this.personnage.getRoles()).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         //return this.transformRoleAsStrings(this.personnage.getRoles());

@@ -2,22 +2,26 @@ package fil.rouge.model;
 
 import javax.persistence.*;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "recette")
 public class Recette {
     //#region Variables
     @EmbeddedId
+    @JsonBackReference
     protected RecettesKey id;
 
     @ManyToOne
     @MapsId("idObjet")
     @JoinColumn(name = "id_objet")
+    @JsonBackReference
     protected Objet objet;
 
     @ManyToOne
     @MapsId("idRessource")
     @JoinColumn(name = "id_ressource")
+    @JsonManagedReference
     protected Ressource ressource;
 
     @Column(name = "quantite")

@@ -5,8 +5,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
+
 @Embeddable
-class RecettesKey implements Serializable {
+public class RecettesKey implements Serializable {
 
 	private static final long serialVersionUID = -1959045878377964511L;
 
