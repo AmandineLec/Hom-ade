@@ -5,9 +5,10 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.dto.TabObjetRecoltableDTO;
@@ -15,6 +16,7 @@ import fil.rouge.service.ObjetRecoltableService;
 import fil.rouge.service.RecolteService;
 
 @RestController
+@SessionAttributes("tabObjetRecoltableDTO")
 public class RecolteController {
     @Autowired
     RecolteService recolteService;
@@ -25,11 +27,12 @@ public class RecolteController {
     // accède lorsqu'on clique sur un objet récoltable
     @GetMapping("/api/recolte")
     public ObjetRecoltableDTO recolte(Principal principal,
-            @SessionAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO,
+            @ModelAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO,
             @RequestParam int index, Model model) {
 
         ObjetRecoltableDTO objRecDTO = tabObjetRecoltableDTO.getObjetsRecoltables(index);
-
+        
+        System.out.println(principal.getName());
         ObjetRecoltableDTO objetRecoltableDTO = recolteService.recolteRamassage(principal.getName(), // récupère l'objet
                                                                                                      // récoltable après
                                                                                                      // une action
@@ -45,7 +48,7 @@ public class RecolteController {
     // renvoie la liste des objets récoltables en jeu
     @GetMapping("api/recoltables")
     public ObjetRecoltableDTO[] getRecoltables(Principal principal,
-            @SessionAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO, Model model) {
+    @ModelAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO, Model model) {
         ObjetRecoltableDTO[] objetsRecoltables = tabObjetRecoltableDTO.getObjetsRecoltables();
         for (ObjetRecoltableDTO objetRecoltable : objetsRecoltables) {
             if (objetRecoltable.getPv() == 0 && objetRecoltableService.reapparait(objetRecoltable)) // respawn de
@@ -56,4 +59,8 @@ public class RecolteController {
         return objetsRecoltables;
     }
 
+    @ModelAttribute("tabObjetRecoltableDTO")
+      public TabObjetRecoltableDTO tabObjetRecoltableDTOb() {
+         return objetRecoltableService.initObjReco();
+     }
 }
