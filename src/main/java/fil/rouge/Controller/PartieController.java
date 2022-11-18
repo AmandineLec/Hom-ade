@@ -8,11 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.dto.PersonnageDto;
-import fil.rouge.dto.TabObjetRecoltableDTO;
 import fil.rouge.model.Personnage;
 import fil.rouge.service.ObjetRecoltableService;
 import fil.rouge.service.PersonnageService;
