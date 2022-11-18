@@ -25,11 +25,6 @@ public class ConnexionController {
 	@Autowired
 	public PersonnageRepository pRepo;
 
-	@PostMapping("/new_connexion") // Via l'url /connexion -> bouton connexion page inscription.html
-	public String continuePartie(Model model, @ModelAttribute PersonnageDto personnage) throws Exception {
-		model.addAttribute("personnage", personnage);
-		return "/login"; // Accede à la page connexion.html
-	}
 
 	@PostMapping(value= "/connection", consumes = "application/json",  produces = "application/json") // via cet url, récupere les infos du joueur -> bouton "c'est parti" page connexion.html
 	@ResponseBody
