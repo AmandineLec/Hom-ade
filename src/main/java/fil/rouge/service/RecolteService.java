@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.exception.WrongToolException;
-import fil.rouge.model.ObjetRecoltable;
-import fil.rouge.model.Personnage;
 import fil.rouge.model.RessourcesRecoltees;
 
 
@@ -20,25 +20,28 @@ public class RecolteService {
     @Autowired
     ObjetRecoltableService objetRecoltableService;
 
+    @Autowired
+    PersonnageRepository pRepository;    
     
-    
-    public int recoltageRamassage(Personnage personnage, int objetRecoltableId, int pv) {
-        ObjetRecoltable objetRecoltable = objetRecoltableService.getObjetRecoltable(objetRecoltableId);
+    public ObjetRecoltableDTO recolteRamassage(String mail, ObjetRecoltableDTO oDto) {
+        int pv = 0;
 
         try {
             // Lors du clic, on utilise l'outil du personnage sur l'objet récoltable, et on récupère sa nouvelle résistance
-            pv = Math.max(objetRecoltableService.utiliserOutil(personnage, objetRecoltable, pv), 0);
+            pv = Math.max(objetRecoltableService.utiliserOutil(mail, oDto), 0);
+            oDto.setPv(pv);
         } catch (WrongToolException e) {
             e.printStackTrace();
         }
         // Si la résistance est à 0, on récupère la liste des ressources à récupérer sur l'objet récoltable et on les ajoute à l'inventaire
         if (pv == 0) {
-            List<RessourcesRecoltees> listeRessources = ressourceService.listeRessourcesRamassees(objetRecoltable.getIdElementRecoltable());
+            List<RessourcesRecoltees> listeRessources = ressourceService.listeRessourcesRamassees(oDto.getIdObjetRecoltable());
             for (RessourcesRecoltees ressources : listeRessources) {
-                ressourceService.ajoutRessourceInventaire(personnage, ressources.getRessource().getId(), ressources.getQuantite());
+                ressourceService.ajoutRessourceInventaire(mail, ressources.getRessource().getId(), ressources.getQuantite());
             }
+            oDto = objetRecoltableService.disparait(oDto);
         }
-
-        return pv;
+        
+        return oDto;
     }
 }

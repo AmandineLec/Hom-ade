@@ -1,9 +1,12 @@
 package fil.rouge.model;
 
+
 import java.util.HashSet;
+
 import java.util.Set;
 
 import javax.persistence.*;
+
 
 @Entity
 @Table(name = "maison")
@@ -34,6 +37,7 @@ public class Maison {
 
     //#endregion
 
+
     //#region GETSET
     public int getNiveau() {
         return niveau;
@@ -52,3 +56,6 @@ public class Maison {
     }
 
 }
+    
+    //#endregion
+

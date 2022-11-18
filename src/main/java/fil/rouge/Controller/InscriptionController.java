@@ -1,22 +1,18 @@
 package fil.rouge.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+
+
 
 import fil.rouge.dto.PersonnageDto;
-import fil.rouge.model.Personnage;
 import fil.rouge.service.PersonnageService;
 
 
 
 
-@Controller
-@SessionAttributes("personnage") // seulement dans la 1ere page qui initialise perso
+@RestController  
 public class InscriptionController {
 
 	@Autowired
@@ -29,11 +25,15 @@ public class InscriptionController {
 		return "inscription"; // ...A la page inscription.html
 	}
 
-	@PostMapping("/inscription") // Accede via l'url /partie et via les infos entrées dans le formulaire...
-	public String startGame(@ModelAttribute PersonnageDto personnage, Model model) throws Exception {
+	@PostMapping(
+		value ="/inscription", consumes = "application/json",  produces = "application/json") // Accede via l'url /partie et via les infos entrées dans le formulaire...
+	@ResponseBody // The @ResponseBody annotation tells a controller that the object returned is automatically 
+	//serialized into JSON and passed back into the HttpResponse object.
+	public PersonnageDto startGame(@RequestBody PersonnageDto personnage, Model model) throws Exception {
 		model.addAttribute("personnage", personnage);
+		System.out.println(personnage.getSexe());
 		pService.inscription(personnage.getMail(), personnage.getPassword(), personnage.getName(), personnage.getSexe()); // Sauvegarde le perso en BDD
-		return "/login"; // ...renvoie vers la connexion
+		return personnage; // ...renvoie vers la connexion
 	}
 
 	@PostMapping("/new_inscription") // Via l'url /connexion
@@ -49,8 +49,8 @@ public class InscriptionController {
 	}
 
     @ModelAttribute
-    public Personnage personnage() {
-        return new Personnage();
+    public PersonnageDto personnage() {
+        return new PersonnageDto();
     }
 
 }

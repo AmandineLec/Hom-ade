@@ -1,13 +1,11 @@
 package fil.rouge.service;
 
 
-import java.util.Optional;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fil.rouge.dao.ObjetRepository;
+import fil.rouge.dao.OutilRepository;
 import fil.rouge.dao.PersonnageRepository;
 import fil.rouge.exception.OutilException;
 import fil.rouge.model.InventaireObjet;
@@ -27,6 +25,10 @@ public class ObjetService {
     @Autowired 
     private InventaireObjetService inventaireObjetService;
 
+    @Autowired
+    protected OutilRepository outilRepository; 
+
+
     public ObjetService(){
 
     }
@@ -38,61 +40,58 @@ public class ObjetService {
     public void setObjetRepository(ObjetRepository oRepository) {
         this.oRepository = oRepository;
     }
-    
+
     //Méthode de création d'un objet
     public boolean creerObjet(Personnage personnage, int id){
         Objet objet = oRepository.getReferenceById(id);
-        //On fait appel à la méthide ajouter objet pour ajouter l'objet dans l'inventaire du personnage. 
+        //On fait appel à la méthode ajouter objet pour ajouter l'objet dans l'inventaire du personnage. 
         inventaireObjetService.ajouterObjet(personnage, objet.getId(), 1);
         return true;
     }
 
-    public boolean equiperOutil(Integer idPersonnage, Outil outilAEquiper) throws OutilException{
-        Optional<Personnage> personnage = pRepository.findById(idPersonnage);
-        Set<InventaireObjet> inventaireObjet = personnage.get().getInventaireObjet();
+    public boolean equiperOutil(Personnage personnage, Integer idOutil) throws OutilException{
+        Outil outilAEquiper = outilRepository.getReferenceById(idOutil);
 
         boolean outilPresent = false; 
-        for(InventaireObjet invObjet : inventaireObjet){
-          if(invObjet.getObjet().getId() == outilAEquiper.getId()){
-            outilPresent = true;
+        if(personnage.getOutil() == null || personnage.getOutil().getId() != outilAEquiper.getId()){ 
+          for(InventaireObjet invObjet : personnage.getInventaireObjet()){
+            if(invObjet.getObjet().getId() == outilAEquiper.getId()){
+              personnage.setOutil(outilAEquiper);
+              inventaireObjetService.retirerObjet(outilAEquiper.getId(), 1, personnage);
+              pRepository.save(personnage);
+              return outilPresent = true; 
+            }          
+            else {
+              throw new OutilException("Vous ne disposez pas de cet outil dans votre inventaire");
+            }
           }
         }
-    
-        if (!outilPresent){
-          throw new OutilException("Vous ne disposez pas de cet outil dans votre inventaire");
-        }
+        else{
+            throw new OutilException("Vous êtes déjà equipé de cet outil");
+        }  
 
-        if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == outilAEquiper.getId()){
-          throw new OutilException("Vous êtes déjà equipé de cet outil");
-        }
+        return outilPresent;
+      }
 
-        inventaireObjetService.ajouterObjet(personnage.get(), personnage.get().getOutil().getId(), 1);
-        inventaireObjetService.retirerObjet(outilAEquiper.getId(), 1, personnage.get());
-        personnage.get().setOutil((Outil)outilAEquiper);
-    
-        return true;
+
+    public boolean desequiperOutil(Personnage personnage, Integer idOutil) throws OutilException{
+
+      if (personnage.getOutil()== null){
+        throw new OutilException("Vous n'êtes pas équipé d'un outil");
       }
-    
-    
-      public boolean desequiperOutil(Integer idPersonnage, Integer idOutil) throws OutilException{
-        Optional<Personnage> personnage = pRepository.findById(idPersonnage);
-    
-        if (personnage.get().getOutil()== null){
-          throw new OutilException("Vous n'êtes pas équipé d'un outil");
-        }
-    
-        if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() != idOutil){
-          throw new OutilException("Vous n'êtes pas équipé d'un outil");
-        }
-    
-        if(personnage.get().getOutil()!= null && personnage.get().getOutil().getId() == idOutil){
-            inventaireObjetService.ajouterObjet(personnage.get(), idOutil, 1);
-        }
-    
-        personnage.get().setOutil(null);
-    
-    
-        return true;
+
+      if(personnage.getOutil()!= null && personnage.getOutil().getId() != idOutil){
+        throw new OutilException("Vous n'êtes pas équipé de cet outil");
       }
-    
+
+      if(personnage.getOutil()!= null && personnage.getOutil().getId() == idOutil){
+          inventaireObjetService.ajouterObjet(personnage, idOutil, 1);
+      }
+
+      personnage.setOutil(null);
+
+
+      return true;
+    }
+
 }

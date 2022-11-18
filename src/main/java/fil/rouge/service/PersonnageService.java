@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import fil.rouge.exception.NeedAPasswordToRegisterException;
 import fil.rouge.model.Maison;
 import fil.rouge.model.Personnage;
 import fil.rouge.model.Roles;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
@@ -36,6 +40,10 @@ public class PersonnageService {
 
   @Autowired
   private PasswordEncoder passwordEncoder;
+  
+  @Autowired
+	public DaoAuthenticationProvider manager;
+
 
   // Inscription au jeu
   public boolean inscription(String mail, String password, String name, int sexe) throws Exception {
@@ -57,7 +65,9 @@ public class PersonnageService {
     Roles role = rRepository.findByName("user").get();
     List<Roles> roles = new ArrayList<Roles>();
     roles.add(role);
+    System.out.println(password);
     password = passwordEncoder.encode(password);
+    System.out.println(password);
     Personnage personnage = new Personnage(name, sexe, mail, password, true);
     personnage.setRoles(roles);
     Maison maison = new Maison();
@@ -67,6 +77,20 @@ public class PersonnageService {
     return true;
   }
 
+  // Connexion à la partie
+  public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
+    //String passwordhash = passwordEncoder.encode(password);
+    //System.out.println(passwordhash);
+    System.out.println(password);
+    manager.authenticate(new UsernamePasswordAuthenticationToken(mail, password));
+    Optional<Personnage> personnage = pRepository.findByMail(mail);
+    if(!personnage.isEmpty()){
+      System.out.println(personnage.get().getName());
+      return personnage.get();
+    }
+    throw new NoSuchElementException("Identifiants incorrects");
+  }
+  
   // Suppression du compte
   public boolean suppressionPartie(String mail, String password) throws NoSuchElementException{
     Optional<Personnage> personnage = pRepository.findByMailAndPassword(mail, password);
@@ -78,14 +102,6 @@ public class PersonnageService {
     throw new NoSuchElementException("Compte non trouvé");
   }
 
-  // Connexion à la partie
-  public Personnage connexionPartie(String mail, String password) throws NoSuchElementException{
-    Optional<Personnage> personnage = pRepository.findByMailAndPassword(mail, password);
-    if(!personnage.isEmpty()){
-      return personnage.get();
-    }
-    throw new NoSuchElementException("Identifiants incorrects");
-  }
 
   // Modifier les infos du compte
 
@@ -143,4 +159,8 @@ public class PersonnageService {
     }
   }
 
+    public Personnage getPersonnage(int PersonnageId) throws EntityNotFoundException {
+      return ServiceUtils.getEntity(pRepository, PersonnageId);
+  }
 }
+

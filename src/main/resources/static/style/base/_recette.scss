@@ -1,0 +1,13 @@
+.modalRecette {
+    visibility : hidden; 
+    grid-column: 3/ span 8;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    background-color: $darkBrown;
+    grid-row: 1/span 1;
+    margin : {
+        top : 10px; 
+        bottom : 10px; 
+    }
+    z-index : 5;
+}

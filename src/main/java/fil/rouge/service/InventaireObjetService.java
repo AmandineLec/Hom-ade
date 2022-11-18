@@ -20,7 +20,7 @@ public class InventaireObjetService {
     @Autowired
     private InventaireObjetRepository ioRepository;
 
-    // TODO:
+    
     // Gérer toutes les exceptions
 
     //Permet d'ajouter un objet dans l'inventaire
@@ -46,7 +46,7 @@ public class InventaireObjetService {
     }
 
     //Permet de retirer un objet de l'inventaire
-    public boolean retirerObjet(int idObj, int quantite, Personnage personnage) { // Objet à retirer, quantité à retirer, id du perso concerné
+    public boolean retirerObjet(Integer idObj, int quantite, Personnage personnage) { // Objet à retirer, quantité à retirer, id du perso concerné
         Objet objet = oRepository.getReferenceById(idObj);// Méthode de JpaRepository permettant de créer une "fausse" entité (éphémère) (ne récupère que ce qu'il y a besoin, cad l'id)
 
         Collection<InventaireObjet> it = ioRepository.findByPersonnage(personnage); //On récupère les inventaires via la query d'InventaireObjetRepository

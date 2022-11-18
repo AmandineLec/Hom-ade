@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "personnage")
 public class Personnage {
@@ -26,10 +25,10 @@ public class Personnage {
   @JoinColumn(name = "id_maison")
   protected Maison maison;
   
-  @OneToMany(mappedBy = "personnage") 
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "personnage") 
   protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
 
-  @OneToMany(mappedBy = "personnage")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "personnage")
   protected Set<InventaireRessource> inventaireRessources = new HashSet<InventaireRessource>();
 
   @ManyToOne
@@ -207,3 +206,5 @@ public class Personnage {
   }
 
 }
+
+

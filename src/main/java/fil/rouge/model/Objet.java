@@ -6,8 +6,16 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import fil.rouge.serializer.RecetteSerializer;
+
+@JsonSerialize(using = RecetteSerializer.class)
 @Entity
 @Table(name = "objet")
+// https://www.baeldung.com/hibernate-inheritance
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 public class Objet {
@@ -24,11 +32,22 @@ public class Objet {
     @Column(name = "categorie")
     protected int categorie;
 
-    @OneToMany(mappedBy = "objet")
+    @Column(name = "img")
+    protected String img;
+
+
+    @OneToMany(mappedBy = "objet", fetch = FetchType.LAZY)
+    @JsonManagedReference
     protected Set<Recette> recette = new HashSet<Recette>();
 
+
     @OneToMany(mappedBy = "objet")
+    @JsonBackReference
     protected Set<InventaireObjet> inventaireObjets = new HashSet<InventaireObjet>();
+
+    @OneToMany(mappedBy = "objet")
+    @JsonBackReference // grâce à la table equipement_maison : accés à tous les objets equipes
+    protected Set<EquipementMaison> objetsEquipes = new HashSet<EquipementMaison>();
 
     // #endregion
 
@@ -70,6 +89,14 @@ public class Objet {
     public int getCategorie() {
         return categorie;
     }
+
+    public String getImg() {
+        return img;
+    }
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public Set<Recette> getRecette() {
         return recette;
     }
@@ -108,7 +135,13 @@ public class Objet {
         return Objects.hash(id);
     }
 
-    
+    public Set<EquipementMaison> getInventairesObjet() {
+        return objetsEquipes;
+    }
+
+    public void setInventairesObjet(Set<EquipementMaison> objetsEquipes) {
+        this.objetsEquipes = objetsEquipes;
+    }
 
     // #endregion
 
