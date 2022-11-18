@@ -4,6 +4,7 @@ public class ObjetRecoltableDTO {
     private int idObjetRecoltable;
     private String nom;
     private int pv;
+    private int pvMax;
     private long cooldown;
     private long disparitionTime;
 
@@ -39,7 +40,12 @@ public class ObjetRecoltableDTO {
     public void setDisparitionTime(long disparitionTime) {
         this.disparitionTime = disparitionTime;
     }
-    
+    public int getPvMax() {
+        return pvMax;
+    }
+    public void setPvMax(int pvMax) {
+        this.pvMax = pvMax;
+    }
 
     //#endregion
     
@@ -59,4 +65,5 @@ public class ObjetRecoltableDTO {
     }
     
     public ObjetRecoltableDTO() {}
+    
 }
