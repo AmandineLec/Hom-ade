@@ -18,7 +18,7 @@ import fil.rouge.service.ObjetRecoltableService;
 import fil.rouge.service.PersonnageService;
 
 @Controller
-@SessionAttributes({"personnage" , "tabObjetRecoltableDTO"}) // seulement dans la 1ere page qui initialise perso
+@SessionAttributes("tabObjetRecoltableDTO") // seulement dans la 1ere page qui initialise perso
 public class PartieController {
 
     @Autowired
