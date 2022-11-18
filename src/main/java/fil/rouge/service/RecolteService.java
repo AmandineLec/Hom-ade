@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import fil.rouge.dto.ObjetRecoltableDTO;
 import fil.rouge.exception.WrongToolException;
-import fil.rouge.model.ObjetRecoltable;
-import fil.rouge.model.Personnage;
 import fil.rouge.model.RessourcesRecoltees;
 
 

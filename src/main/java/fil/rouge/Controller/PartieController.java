@@ -18,7 +18,6 @@ import fil.rouge.service.ObjetRecoltableService;
 import fil.rouge.service.PersonnageService;
 
 @Controller
-@SessionAttributes("tabObjetRecoltableDTO") // seulement dans la 1ere page qui initialise perso
 public class PartieController {
 
     @Autowired
@@ -61,16 +60,13 @@ public class PartieController {
     }
 
     @PostMapping("/play_game") // Accede via l'url /partie et via les infos entrées dans le formulaire...
-    public String jouer(Principal principal, Model model, @ModelAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO) throws Exception {
+    public String jouer(Principal principal, Model model) throws Exception {
       Personnage personnage = pRepository.findByMail(principal.getName()).get();
       model.addAttribute("personnage", personnage);
       return "/jeu"; // ...A la page partie.html
       }
 
-      @ModelAttribute("tabObjetRecoltableDTO")
-      public TabObjetRecoltableDTO tabObjetRecoltableDTOb() {
-         return objetRecoltableService.initObjReco();
-     }
+    
     
 
 }
