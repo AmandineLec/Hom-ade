@@ -62,3 +62,4 @@ public class RessourceServiceTest {
         Mockito.verify(inventaireRessourceRepository).save(ArgumentMatchers.argThat(invRes -> invRes.getQuantite() == 6));
     }
 }
+

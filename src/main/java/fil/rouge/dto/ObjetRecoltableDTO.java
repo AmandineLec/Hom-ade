@@ -28,12 +28,6 @@ public class ObjetRecoltableDTO {
     public void setPv(int pv) {
         this.pv = pv;
     }
-    public int getPvMax() {
-        return pvMax;
-    }
-    public void setPvMax(int pvMax) {
-        this.pvMax = pvMax;
-    }
     public long getCooldown() {
         return cooldown;
     }
@@ -46,7 +40,12 @@ public class ObjetRecoltableDTO {
     public void setDisparitionTime(long disparitionTime) {
         this.disparitionTime = disparitionTime;
     }
-    
+    public int getPvMax() {
+        return pvMax;
+    }
+    public void setPvMax(int pvMax) {
+        this.pvMax = pvMax;
+    }
 
     //#endregion
     
@@ -61,10 +60,10 @@ public class ObjetRecoltableDTO {
         this.idObjetRecoltable = idObjetRecoltable;
         this.nom = nom;
         this.pv = pv;
-        this.pvMax = pv;
         this.cooldown = cooldown;
         this.disparitionTime = disparitionTime;
     }
     
     public ObjetRecoltableDTO() {}
+    
 }
