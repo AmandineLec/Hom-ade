@@ -58,16 +58,10 @@ public class RecetteService {
                         //On vérifie que la ressource est présente dans l'inventaire du personnage, si oui, on continue. 
                         if(inventaireRessource.getRessource().getId() == recette.getRessource().getId()){
                             //On vérifie que la quantité de ressource dans l'inventaire du personnage est suffisante, si oui, on continue. 
-                            if(inventaireRessource.getQuantite()>= recette.getQuantite_necessaire()) {
-                                //On instancie une variable quantité, calculant la quantité de ressource utilisée pour crée l'objet. 
-                                int quantite = inventaireRessource.getQuantite() - recette.getQuantite_necessaire();
-                                if (quantite == 0){ 
-                                    inventaireRessourceService.retirerRessource(inventaireRessource.getRessource().getId(), recette.getQuantite_necessaire(), personnage);
-                                }
-                                else{
-                                    //On appelle la méthode "retirerRessource", permettant d'instancier la nouvelle quantité de ressource du personnage de la ressource utlisée
-                                    inventaireRessourceService.retirerRessource(inventaireRessource.getRessource().getId(),quantite, personnage);
-                                }
+                            //On instancie une variable quantité, calculant la quantité de ressource utilisée pour crée l'objet. 
+                            int quantite = inventaireRessource.getQuantite() - recette.getQuantite_necessaire();
+                            if(quantite >= 0) {
+                                inventaireRessourceService.retirerRessource(inventaireRessource.getRessource().getId(), recette.getQuantite_necessaire(), personnage);
                                 //Finalement, on crée l'objet, et on l'ajoute à l'inventaire du personnage. 
                                 objetService.creerObjet(personnage, idObj); 
                                 //On passe le boléen en true. 
