@@ -37,7 +37,8 @@ public class RecolteController {
                                                                                                      // récoltable après
                                                                                                      // une action
                 objRecDTO);
-        tabObjetRecoltableDTO.addObjetsRecoltables(objetRecoltableDTO, index); // remet l'objet récoltable à sa place
+        if (objetRecoltableDTO.getIdObjetRecoltable() != 0)
+            tabObjetRecoltableDTO.addObjetsRecoltables(objetRecoltableDTO, index); // remet l'objet récoltable à sa place
                                                                                // dans le tableau des objets récoltables
 
         // model.addAttribute("tabObjetRecoltableDTO", tabObjetRecoltableDTO);
