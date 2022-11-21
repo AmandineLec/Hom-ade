@@ -30,6 +30,7 @@ public class RecolteService {
             oDto.setPv(pv);
         } catch (WrongToolException e) {
             e.printStackTrace();
+            return new ObjetRecoltableDTO(0, "", 0, 0, 0);
         }
         // Si la résistance est à 0, on récupère la liste des ressources à récupérer sur l'objet récoltable et on les ajoute à l'inventaire
         if (pv == 0) {

@@ -33,15 +33,12 @@ public class RecolteController {
         ObjetRecoltableDTO objRecDTO = tabObjetRecoltableDTO.getObjetsRecoltables(index);
         
         System.out.println(principal.getName());
-        ObjetRecoltableDTO objetRecoltableDTO = recolteService.recolteRamassage(principal.getName(), // récupère l'objet
-                                                                                                     // récoltable après
-                                                                                                     // une action
-                objRecDTO);
-        tabObjetRecoltableDTO.addObjetsRecoltables(objetRecoltableDTO, index); // remet l'objet récoltable à sa place
-                                                                               // dans le tableau des objets récoltables
-
-        // model.addAttribute("tabObjetRecoltableDTO", tabObjetRecoltableDTO);
-
+        //récupère l'objet récoltable après une action
+        ObjetRecoltableDTO objetRecoltableDTO = recolteService.recolteRamassage(principal.getName(), objRecDTO);
+        // remet l'objet récoltable à sa place dans le tableau des objets récoltables
+        if(objetRecoltableDTO.getIdObjetRecoltable() != 0 ){
+            tabObjetRecoltableDTO.addObjetsRecoltables(objetRecoltableDTO, index)
+        ; }
         return objetRecoltableDTO;
     }
 

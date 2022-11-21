@@ -21,7 +21,7 @@ public class InventaireRessourceService {
     RessourceRepository ressourceRepository;
 
     //Méhtode d'ajout de ressource dans l'inventaire du personnage en fonction de l'id de la ressource que l'on veut ajouter, du personnage a qui on veut l'ajouter et de la quantité ramasser/récolter
-    public boolean ajouterRessource(int idRessource, Personnage personnage, int quantite){
+    public boolean ajouterRessource(Integer idRessource, Personnage personnage, int quantite){
         //On instancie une ressource que l'on va retirer en getReferenceById car on ne sait pas quelle ressource on va retirer par avance. 
         Ressource resource = ressourceRepository.getReferenceById(idRessource);
         //On va chercher toutes les ressources présentes dans l'inventaire du personnage. 

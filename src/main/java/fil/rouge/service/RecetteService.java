@@ -42,8 +42,8 @@ public class RecetteService {
         Objet objet = oRepository.getReferenceById(idObj);
         //On va chercher en BDD toutes les lignes composant une recette en fonction de l'id de l'objet que l'on veut créer
         List<Recette> recettes = recetteRepository.findByObjet(objet);
-        //On instancie un booléen à false afin de vérifier nos conditions et le passer à true si tout va bien. 
-        boolean craftable = false; 
+        //On instancie un int à zéro pour compter le nombre de fois où l'on passe dans la boucle et savoir cb d'ingrédients sont en bonne quantité
+        int craftable = 0; 
         //Si l'inventaire est vide
         if(personnage.getInventaireRessource().isEmpty()){
             throw new ReceiptsException("Votre inventaire est vide !");
@@ -62,20 +62,18 @@ public class RecetteService {
                             int quantite = inventaireRessource.getQuantite() - recette.getQuantite_necessaire();
                             if(quantite >= 0) {
                                 inventaireRessourceService.retirerRessource(inventaireRessource.getRessource().getId(), recette.getQuantite_necessaire(), personnage);
-                                //Finalement, on crée l'objet, et on l'ajoute à l'inventaire du personnage. 
-                                objetService.creerObjet(personnage, idObj); 
-                                //On passe le boléen en true. 
-                                craftable = true; 
+                                //On incrément le int de 1 si l'igrédient est en bonne quantité. 
+                                craftable +=1; 
+
+                                System.out.println(craftable + "craftable dans la boucle");
                             }
                             //Si on a pas le nombre de ressource en quantité suffisante, on envoie une exception
                             else {
                                 throw new ReceiptsException("Vous n'avez pas" + recette.getRessource().getNom()+ "en quantité nécessaire");
-                            }           
+                            } 
+                            System.out.println(craftable + "craftable en dehors de la boucle");
+                            System.out.println(recettes.size() + "taille de la");          
                         }
-                    }
-                    //Si le boléen est à false en sortant de la boucle (ce qui signifie qu'il n'a pas été au bout des conditions), on envoie une exceptions. 
-                    if(craftable == false){
-                        throw new ReceiptsException("Vous n'avez pas les ressources nécessaires pour créer cet objet");
                     }
                 }
                 //Si le joueur n'a pas le niveau requis, on envoie une exception. 
@@ -83,8 +81,18 @@ public class RecetteService {
                     throw new ReceiptsException("Vous n'avez pas le niveau requis pour créer cet objet");
                 }
             }
+              //Si l'int est égal au nombre d'ingrédient requis, on crée l'objet. 
+              if(craftable == recettes.size()){
+                System.out.println(craftable + "craftable dans le if");
+                //Finalement, on crée l'objet, et on l'ajoute à l'inventaire du personnage. 
+               objetService.creerObjet(personnage, idObj);                         
+           }
+           else {
+               //Sinon, on envoie une exception. 
+               throw new ReceiptsException("Vous n'avez pas les ressources nécessaires pour créer cet objet");
+           }
         }
-        //On retourne le booléen qui nous permettra de savoir si la recette a pu être réalisée. 
-        return craftable;
+        //On retourne un booléen qui nous permettra de savoir si la recette a pu être réalisée. 
+        return true;
     }
 }
