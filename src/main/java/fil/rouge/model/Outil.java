@@ -14,8 +14,6 @@ import fil.rouge.inter.IEquipable;
 public class Outil extends Objet implements IEquipable {
 
     // #region Variables
-    @Column(name = "resistance")
-    protected int resistance;
 
     @Column(name = "capacite")
     protected int capacite;
@@ -41,15 +39,6 @@ public class Outil extends Objet implements IEquipable {
     public Outil() {
     }
     // #endregion
-
-    // #region GETTER & SETTER
-    public int getResistance() {
-        return resistance;
-    }
-
-    public void setResistance(int resistance) {
-        this.resistance = resistance;
-    }
 
     public int getCapacite() {
         return capacite;
