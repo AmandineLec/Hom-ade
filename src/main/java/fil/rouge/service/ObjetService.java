@@ -50,41 +50,53 @@ public class ObjetService {
     }
 
     public boolean equiperOutil(Personnage personnage, Integer idOutil) throws OutilException{
-      //On va chercher l'outil a équiper par son id dans la base de donnée  
+      // on défini outil présent à 0
+      int outilPresent = 0;
+
+      //On va chercher l'outil à équiper par son id dans la base de données 
       Outil outilAEquiper = outilRepository.getReferenceById(idOutil);
-      //On instancie un booléen pour savoir si l'objet est présent ou non dans l'inventaire
-      boolean outilPresent = false; 
-        //Si le personnage n'a pas d'outil équiper ou si l'id de l'outil équipé est différent de l'id de l'outil à équipé
-        if(personnage.getOutil() == null || personnage.getOutil().getId() != outilAEquiper.getId()){ 
-          //Pour chaque objet présent dans l'inventaire : 
-          for(InventaireObjet invObjet : personnage.getInventaireObjet()){
-            //Si l'id de l'objet dans l'inventaire correspond à l'id de l'objet à équiper
-            if(invObjet.getObjet().getId() == outilAEquiper.getId()){
-              //Si le personnage avait un outil d'équiper, on l'ajoute à son inventaire d'objet
-              if(personnage.getOutil() != null){
-                inventaireObjetService.ajouterObjet(personnage, personnage.getOutil().getId(), 1);
-              }
-              //On lui équipe l'outil que lon voulait équiper
-              personnage.setOutil(outilAEquiper);
-              inventaireObjetService.retirerObjet(outilAEquiper.getId(), 1, personnage);
-              //on sauvegarde son outil en BDD
-              pRepository.save(personnage);
-              //On met le booléen pour qu'il nous renvoie true afin de savoir que l'outil a bien été équipé
-              outilPresent = true; 
-            }    
+
+      //Si le personnage n'a pas d'outil équipé, ou si l'id de l'outil équipé est différent de l'id de l'outil à équiper
+      if(personnage.getOutil() == null || personnage.getOutil().getId() != outilAEquiper.getId()){ 
+        // Pour chaque inventaire objet dans l'inventaire du personnage
+        for(InventaireObjet invObjet : personnage.getInventaireObjet()){
+
+          //Si l'id de l'objet équipé est présent dans l'inventaire
+          if(invObjet.getObjet().getId() == outilAEquiper.getId()){
+            // on ajoute 1 à outilPresent (s'il n'est pas présent restera à 0, et ne peut être présent qu'une seule fois)
+            outilPresent += 1;
           }
-          //Si le booléen est à false, on envoie l'exception indiquant que l'outil n'est pas dans l'inventaire
-          if(outilPresent == false){
-            throw new OutilException("Vous ne disposez pas de cet outil dans votre inventaire");
+        } 
+
+        // Onn sort du foreach pour modifier l'inventaire sur lequel on itère pour éviter les Conccurent Modification Exception
+        // Si l'outil est bien présent dans l'inventaire
+        if(outilPresent == 1){
+          // Si le personnage est déjà équipé
+          if(personnage.getOutil() != null){
+            // On range l'outil dans l'inventaire
+            inventaireObjetService.ajouterObjet(personnage, personnage.getOutil().getId(), 1);
           }
+          // On retire l'outil à équiper de l'inventaire
+          inventaireObjetService.retirerObjet(outilAEquiper.getId(), 1, personnage);
+          // On équipe l'outil sur le personnage 
+          personnage.setOutil(outilAEquiper);
+          // Et on sauvegarde en BDD
+          pRepository.save(personnage);
         }
-        //Si le personnage a déjà cet objet d'équiper, on envoie une exception
+        // Sinon (si l'outil n'est pas présent)
         else{
-            throw new OutilException("Vous êtes déjà equipé de cet outil");
-        }  
-        //On renvoie ensuite le booléen pour le récupérer dans un controller
-        return outilPresent;
+          // On envoie une exception
+          throw new OutilException("Vous ne disposez pas de cet outil dans votre inventaire");
+        }
       }
+      //Sinon (si le personnage est déjà équipé de cet outil), on envoie une exception
+      else {
+          throw new OutilException("Vous êtes déjà equipé de cet outil");
+      }
+
+      //On renvoie true pour le récupérer dans un controller
+      return true;
+    }
 
 
     public boolean desequiperOutil(Personnage personnage, Integer idOutil) throws OutilException{
