@@ -32,6 +32,7 @@ public class Security implements WebMvcConfigurer {
             authz
                 .antMatchers("/api/**")
                 .authenticated())
+                // .permitAll())
         .authorizeHttpRequests((authz) ->
             authz
                 .antMatchers("/inscription")

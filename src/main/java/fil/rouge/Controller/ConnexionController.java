@@ -27,8 +27,11 @@ public class ConnexionController {
 	public PersonnageDto getPartie(@RequestBody  PersonnageDto personnage, Model model) throws Exception {
 		
 		model.addAttribute("personnage", personnage);
+		//System.out.println(personnage.getMail());
+		//System.out.println(personnage.getPassword());
 		pService.connexionPartie(personnage.getMail(), personnage.getPassword());
 		return personnage; // Affiche la page partie.html
-	}
+		// https://www.tutorialspoint.com/how-to-write-create-a-json-file-using-java#:~:text=write(jsonObject.,into%20a%20file%20named%20output.
+	}	// https://www.baeldung.com/spring-mvc-set-json-content-type
 
 }

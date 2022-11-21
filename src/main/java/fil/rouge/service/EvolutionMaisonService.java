@@ -6,10 +6,10 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fil.rouge.Exceptions.ObjetMaisonException;
 import fil.rouge.dao.InventaireMaisonRepository;
 import fil.rouge.dao.ObjetRepository;
 import fil.rouge.dao.PersonnageRepository;
+import fil.rouge.exception.ObjetMaisonException;
 import fil.rouge.model.EquipementMaison;
 import fil.rouge.model.InventaireObjet;
 import fil.rouge.model.Maison;

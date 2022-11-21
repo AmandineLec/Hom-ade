@@ -26,6 +26,7 @@ public class RecetteSerializer extends StdSerializer<Objet>  {
         jgen.writeStringField("nom", value.getNom());
         jgen.writeStringField("img", value.getImg());
         jgen.writePOJOField("recettes", value.getRecette());
+        jgen.writePOJOField("classe", value.getClass());
         jgen.writeEndObject();
     }
     
