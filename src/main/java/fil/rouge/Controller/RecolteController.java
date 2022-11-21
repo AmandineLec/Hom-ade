@@ -31,17 +31,13 @@ public class RecolteController {
             @RequestParam int index, Model model) {
 
         ObjetRecoltableDTO objRecDTO = tabObjetRecoltableDTO.getObjetsRecoltables(index);
-        
-        System.out.println(principal.getName());
-        ObjetRecoltableDTO objetRecoltableDTO = recolteService.recolteRamassage(principal.getName(), // récupère l'objet
-                                                                                                     // récoltable après
-                                                                                                     // une action
-                objRecDTO);
-        if (objetRecoltableDTO.getIdObjetRecoltable() != 0)
-            tabObjetRecoltableDTO.addObjetsRecoltables(objetRecoltableDTO, index); // remet l'objet récoltable à sa place
-                                                                               // dans le tableau des objets récoltables
 
-        // model.addAttribute("tabObjetRecoltableDTO", tabObjetRecoltableDTO);
+        // récupère l'objet récoltable après une action
+        ObjetRecoltableDTO objetRecoltableDTO = recolteService.recolteRamassage(principal.getName(), objRecDTO);
+        
+        // remet l'objet récoltable à sa place dans le tableau des objets récoltables
+        if (objetRecoltableDTO.getIdObjetRecoltable() != 0)
+            tabObjetRecoltableDTO.addObjetsRecoltables(objetRecoltableDTO, index); 
 
         return objetRecoltableDTO;
     }
@@ -49,19 +45,19 @@ public class RecolteController {
     // renvoie la liste des objets récoltables en jeu
     @GetMapping("api/recoltables")
     public ObjetRecoltableDTO[] getRecoltables(Principal principal,
-    @ModelAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO, Model model) {
+            @ModelAttribute TabObjetRecoltableDTO tabObjetRecoltableDTO, Model model) {
         ObjetRecoltableDTO[] objetsRecoltables = tabObjetRecoltableDTO.getObjetsRecoltables();
         for (ObjetRecoltableDTO objetRecoltable : objetsRecoltables) {
-            if (objetRecoltable.getPv() == 0 && objetRecoltableService.reapparait(objetRecoltable)) // respawn de
-                                                                                                    // l'objet
-                                                                                                    // récoltable
+            // respawn de l'objet récoltable
+            if (objetRecoltable.getPv() == 0 && objetRecoltableService.reapparait(objetRecoltable))                                                                                                     
                 objetRecoltable.setPv(objetRecoltable.getPvMax());
         }
         return objetsRecoltables;
     }
 
+    // création de l'attribut de session 
     @ModelAttribute("tabObjetRecoltableDTO")
-      public TabObjetRecoltableDTO tabObjetRecoltableDTOb() {
-         return objetRecoltableService.initObjReco();
-     }
+    public TabObjetRecoltableDTO tabObjetRecoltableDTOb() {
+        return objetRecoltableService.initObjReco();
+    }
 }
